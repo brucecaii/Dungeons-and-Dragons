@@ -2,6 +2,7 @@
 //! @brief Implementation file for the DiceTest class  
 //!
 
+#include <ctime>
 #include <cppunit/TestCase.h>
 #include <cppunit/TestFixture.h>
 #include <cppunit/ui/text/TextTestRunner.h>
@@ -22,10 +23,12 @@ class DiceTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE(DiceTest);
 	CPPUNIT_TEST(testDiceRollInputValidity); //test the lower bound of the returned value 
 	CPPUNIT_TEST(testDiceRollingBounds); //test the upper bound of the returned value
+	CPPUNIT_TEST(testDiceRollOutputValidity); //test if the output is random
 	CPPUNIT_TEST_SUITE_END();
 protected:
 	void testDiceRollInputValidity();
 		void testDiceRollingBounds();
+		void testDiceRollOutputValidity();
 };
 
 //! cppunit test cases registration
@@ -43,7 +46,7 @@ void DiceTest::testDiceRollInputValidity()
 	result = Dice::roll("3d10+1");
 	CPPUNIT_ASSERT(result > 0);
 
-	//test that is the string is invalid, roll() returns -1
+	// test that is the string is invalid, roll() returns -1
 	result = Dice::roll("4d");
 	CPPUNIT_ASSERT(result == -1);
 	result = Dice::roll("d20");
@@ -52,6 +55,20 @@ void DiceTest::testDiceRollInputValidity()
 	CPPUNIT_ASSERT(result == -1);
 	result = Dice::roll("4d20+");
 	CPPUNIT_ASSERT(result == -1);
+}
+
+//! test method for role function of the Dice class 
+//! Test Case: the the validity of output number
+void DiceTest::testDiceRollOutputValidity()
+{
+	int result[5];
+	int sec = (int)time(NULL);
+	for (int i = 0; i < 5; i++) {
+		while ((int)time(NULL) == sec) {}
+		sec = (int)time(NULL);
+		result[i] = Dice::roll("4d20");
+	}
+	CPPUNIT_ASSERT(!(result[0] == result[1] == result[2] == result[3] == result[4]));
 }
 
 

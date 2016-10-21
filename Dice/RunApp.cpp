@@ -31,18 +31,19 @@
 //! 2. Create a test runner that will execute all the tests in the registry
 //! 3. (optionally) sets an outputter that will output the results
 //! 4. Run the test cases. 
+//! 5. After all test cases are passe, execute the driver program
 int main(int argc, char* argv[]) {
-  // Get the top level suite from the registry
+  //! Get the top level suite from the registry
   CppUnit::Test *suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
-  // Adds the test to the list of test to run
+  //! Adds the test to the list of test to run
   CppUnit::TextUi::TestRunner runner;
   runner.addTest(suite);
-  // Change the default outputter to a compiler error format outputter
+  //! Change the default outputter to a compiler error format outputter
   runner.setOutputter( new CppUnit::CompilerOutputter(&runner.result(), std::cerr));
-  // Run the tests.
+  //! Run the tests.
   bool wasSucessful = runner.run();
   getchar();
-  // driver, press enter after unit tests result show up to continue
+  //! driver, press enter after unit tests result show up to continue
   while (true) {
 	  string diceFormat;
 	  cout << "Enter your dice format" << endl;
