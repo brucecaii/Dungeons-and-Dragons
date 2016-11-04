@@ -15,7 +15,7 @@ using std::string;
 using std::vector;
 
 //! Implementation of the Map class default const a map grid based on default size values
-Map::Map() {
+Map::Map() {;
   // Default map size is 5x5ructor, creates
   mapWidth = 5;
   mapLength = 5;
