@@ -18,9 +18,19 @@ class Map : public Subject{
     int getMapWidth();
     int getMapLength();
     bool isBeside(int x, int y, char type);
+	void moveUp();
+	void moveDown();
+	void moveLeft();
+	void moveRight();
+	void setCharacter(int x, int y);
+	void setWall(int x, int y);
+	void setStart(int x, int y);
+	void setEnd(int x, int y);
+	void clearCell(int x, int y);
   private:
     int mapWidth;
     int mapLength;
+	int currentPosition[2];
     vector<vector<char>> map;
 };
 

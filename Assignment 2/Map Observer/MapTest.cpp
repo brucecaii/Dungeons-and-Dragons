@@ -1,4 +1,4 @@
-//! @file
+/*//! @file
 //! @brief Implementation file for the MapTest class
 
 #include <cppunit/TestCase.h>
@@ -121,3 +121,4 @@ void MapTest::testInvalidIsBeside() {
 	CPPUNIT_ASSERT(false == map->isBeside(0, 1, 'E'));
 }
 
+*/

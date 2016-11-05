@@ -38,12 +38,21 @@ Map::Map(int width, int length) {
   mapLength = length;
   vector<char> row;
 
+  currentPosition[0] = 0; //represents x
+  currentPosition[1] = 0; //represents y
+
   for (int i = 0; i < mapWidth; i++) {
     row.push_back(' ');
   }
   for (int i = 0; i < mapLength; i++) {
     map.push_back(row);
   }
+
+  setCharacter(currentPosition[0], currentPosition[1]);
+  setWall(4, 4);
+  setWall(4, 5);
+  setWall(5, 4);
+  setWall(5, 5);
 }
 
 
@@ -75,6 +84,87 @@ bool Map::isBeside(int x, int y, char type) {
   }
 
   return bIsBeside;
+}
+
+void Map::moveLeft()
+{
+	if (currentPosition[1] == 0)
+	{
+		cout << "Cannot move left, please select a different direction." << endl;
+	}
+	else 
+	{
+		clearCell(currentPosition[0], currentPosition[1]);
+		currentPosition[1]--;
+		setCharacter(currentPosition[0], currentPosition[1]);
+	}
+}
+
+void Map::moveRight()
+{
+	if (currentPosition[1] == (mapWidth-1))
+	{
+		cout << "Cannot move right, please select a different direction." << endl;
+	}
+	else
+	{
+		clearCell(currentPosition[0], currentPosition[1]);
+		currentPosition[1]++;
+		setCharacter(currentPosition[0], currentPosition[1]);
+	}
+}
+
+void Map::moveUp()
+{
+	if (currentPosition[0] == 0)
+	{
+		cout << "Cannot move up, please select a different direction." << endl;
+	}
+	else
+	{
+		clearCell(currentPosition[0], currentPosition[1]);
+		currentPosition[0]--;
+		setCharacter(currentPosition[0], currentPosition[1]);
+	}
+}
+
+void Map::moveDown()
+{
+	if (currentPosition[0] == (mapLength-1))
+	{
+		cout << "Cannot move down, please select a different direction." << endl;
+	}
+	else
+	{
+		clearCell(currentPosition[0], currentPosition[1]);
+		currentPosition[0]++;
+		setCharacter(currentPosition[0], currentPosition[1]);
+	}
+}
+
+void Map::setCharacter(int x, int y)
+{
+	fillCell(x, y, 'C');
+}
+
+void Map::setWall(int x, int y)
+{
+	fillCell(x, y, 'W');
+}
+
+void Map::setStart(int x, int y)
+{
+	fillCell(x, y, 'S');
+}
+
+void Map::setEnd(int x, int y)
+{
+	fillCell(x, y, 'E');
+}
+
+void Map::clearCell(int x, int y)
+{
+	map[x][y] = ' ';
 }
 
 //! Implementation of the map verification
