@@ -3,7 +3,6 @@
 //!
 #pragma once
 #include <vector>
-#include "content.cpp"
 using std::vector;
 
 //! Class implementing a game map
@@ -14,9 +13,8 @@ class Map {
     Map(int width, int length);
     bool validatePath();
     void fillCell(int x, int y, char obj);
-	void setMonster(int x, int y, Monster* m);
-	void setChest(int x, int y, Chest* c);
-    bool isOccupied(int x, int y);
+	void setMapLevel(int level);
+	bool isOccupied(int x, int y);
     void displayMap();
     int getMapWidth();
     int getMapLength();
@@ -26,7 +24,6 @@ class Map {
     int mapWidth;
     int mapLength;
     vector<vector<char>> map;
-	vector<vector<Monster>> monster;
-	vector<vector<Chest>> chest;
+	int level;
 };
 

@@ -206,6 +206,9 @@ void Map::displayMap() {
   }
   // Print bottom border
   cout << topBottomBorder << endl;
+  if (level > 0) {
+	  cout << "This map has level " << level << " chests and monsters." << endl;
+  }
 }
 
 //! Implementation of getMapWidth, provides information on map horizontal size.
@@ -220,10 +223,6 @@ int Map::getMapLength() {
   return mapLength;
 }
 
-void Map::setMonster(int x, int y, Monster* m) {
-	monster[x][y] = *m;
-}
-
-void Map::setChest(int x, int y, Chest* c) {
-	chest[x][y] = *c;
+void Map::setMapLevel(int lv) {
+	level = lv;
 }
