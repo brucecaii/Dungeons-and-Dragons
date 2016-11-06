@@ -207,7 +207,7 @@ void Map::displayMap() {
   // Print bottom border
   cout << topBottomBorder << endl;
   if (level > 0) {
-	  cout << "This map has level " << level << " chests and monsters." << endl;
+	  cout << "This map has level " << level << " chests and monsters." << endl << endl;
   }
 }
 
@@ -226,4 +226,10 @@ int Map::getMapLength() {
 //! Implementation of setMapLevel, set the map level
 void Map::setMapLevel(int lv) {
 	level = lv;
+}
+
+//! Implementation of getMapLevel
+//@return a int of map level
+int Map::getMapLevel() {
+	return level;
 }

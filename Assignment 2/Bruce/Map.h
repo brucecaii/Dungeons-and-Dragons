@@ -18,6 +18,7 @@ class Map {
     void displayMap();
     int getMapWidth();
     int getMapLength();
+	int getMapLevel();
 	bool isBeside(int x, int y, char type);
 
   private:
