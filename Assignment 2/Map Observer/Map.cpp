@@ -53,6 +53,7 @@ Map::Map(int width, int length) {
   setWall(4, 5);
   setWall(5, 4);
   setWall(5, 5);
+  setChest(7, 7);
 }
 
 
@@ -91,12 +92,20 @@ void Map::moveLeft()
 	if (currentPosition[1] == 0)
 	{
 		cout << "Cannot move left, please select a different direction." << endl;
+		
 	}
 	else 
 	{
-		clearCell(currentPosition[0], currentPosition[1]);
-		currentPosition[1]--;
-		setCharacter(currentPosition[0], currentPosition[1]);
+		if ( getMapObj(currentPosition[0], currentPosition[1]-1 ) == 'W' )
+		{
+			cout << "You cannot move into a wall, please pick a different direction." << endl;
+		}
+		else
+		{
+			clearCell(currentPosition[0], currentPosition[1]);
+			currentPosition[1]--;
+			setCharacter(currentPosition[0], currentPosition[1]);
+		}
 	}
 }
 
@@ -108,9 +117,16 @@ void Map::moveRight()
 	}
 	else
 	{
-		clearCell(currentPosition[0], currentPosition[1]);
-		currentPosition[1]++;
-		setCharacter(currentPosition[0], currentPosition[1]);
+		if (getMapObj(currentPosition[0], currentPosition[1] + 1) == 'W')
+		{
+			cout << "Cannot move into a wall, please select a different direction." << endl;
+		}
+		else
+		{
+			clearCell(currentPosition[0], currentPosition[1]);
+			currentPosition[1]++;
+			setCharacter(currentPosition[0], currentPosition[1]);
+		}
 	}
 }
 
@@ -122,9 +138,16 @@ void Map::moveUp()
 	}
 	else
 	{
-		clearCell(currentPosition[0], currentPosition[1]);
-		currentPosition[0]--;
-		setCharacter(currentPosition[0], currentPosition[1]);
+		if (getMapObj(currentPosition[0] - 1, currentPosition[1]) == 'W')
+		{
+			cout << "Cannot move into a wall, please select a different direction." << endl;
+		}
+		else
+		{
+			clearCell(currentPosition[0], currentPosition[1]);
+			currentPosition[0]--;
+			setCharacter(currentPosition[0], currentPosition[1]);
+		}
 	}
 }
 
@@ -136,15 +159,22 @@ void Map::moveDown()
 	}
 	else
 	{
-		clearCell(currentPosition[0], currentPosition[1]);
-		currentPosition[0]++;
-		setCharacter(currentPosition[0], currentPosition[1]);
+		if (getMapObj(currentPosition[0] + 1, currentPosition[1]) == 'W')
+		{
+			cout << "Cannot move into a wall, please select a different direction." << endl;
+		}
+		else
+		{
+			clearCell(currentPosition[0], currentPosition[1]);
+			currentPosition[0]++;
+			setCharacter(currentPosition[0], currentPosition[1]);
+		}
 	}
 }
 
 void Map::setCharacter(int x, int y)
 {
-	fillCell(x, y, 'C');
+	fillCell(x, y, 'O');
 }
 
 void Map::setWall(int x, int y)
@@ -311,3 +341,20 @@ int Map::getMapLength() {
   return mapLength;
 }
 
+char Map::getMapObj(int x, int y)
+{
+	return map[x][y];
+}
+
+void Map::openChest()
+{
+	//If the character is beside a chest
+	if (isBeside(currentPosition[0], currentPosition[1], 'C') == 1)
+	{
+		cout << "Opening chest...";
+	}
+	else
+	{
+		cout << "There is no chest around you. Nothing to open." << endl;
+	}
+}

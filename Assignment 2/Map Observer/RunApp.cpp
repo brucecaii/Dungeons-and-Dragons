@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 		//Get the user's input
 		char userInput;
 		cout << "Pick one of the followings:" << endl;
-		cout << "w) Up \t s) Down \t a) Left \t d) Right" << endl;
+		cout << "w) Up \t s) Down \t a) Left \t d) Right o) Open Chest" << endl;
 
 		cin >> userInput;
 	
@@ -42,8 +42,11 @@ int main(int argc, char* argv[])
 			case('d'):
 				map->moveRight();
 				break;
+			case('o'):
+				map->openChest();
+				break;
 			default:
-				cout << "Invalid input, please give an input between 1-4";
+				cout << "Invalid input, please try something else";
 		}
 
 

@@ -27,6 +27,8 @@ class Map : public Subject{
 	void setStart(int x, int y);
 	void setEnd(int x, int y);
 	void clearCell(int x, int y);
+	char getMapObj(int x, int y);
+	void openChest();
   private:
     int mapWidth;
     int mapLength;
