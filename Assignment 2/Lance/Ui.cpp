@@ -172,7 +172,6 @@ void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   GuiData::realTimeTypeFeedback.setFont(GuiData::currentFont);
   GuiData::realTimeTypeFeedback.setCharacterSize(20);
   GuiData::realTimeTypeFeedback.setOrigin(GuiData::realTimeTypeFeedback.getGlobalBounds().width/2.0f, GuiData::realTimeTypeFeedback.getGlobalBounds().height/2.0f);
-  GuiData::realTimeTypeFeedback.setOutlineThickness(GuiData::TEXT_OUTLINE_THICKNESS);
   sf::Color realTimeTypeFeedbackColor(248, 248, 242);
   GuiData::realTimeTypeFeedback.setFillColor(realTimeTypeFeedbackColor);
   if (GuiData::isChoosingMapToCreate) {
@@ -185,6 +184,60 @@ void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   window.draw(GuiData::realTimeTypeFeedback);
 }
 
+void Ui::drawNameConflictError(sf::RenderWindow& window) {
+  GuiData::NameConflictError.setFont(GuiData::currentFont);
+  GuiData::NameConflictError.setCharacterSize(24);
+  GuiData::NameConflictError.setOrigin(GuiData::NameConflictError.getGlobalBounds().width/2.0f, GuiData::NameConflictError.getGlobalBounds().height/2.0f);
+  sf::Color NameConflictErrorColor(255, 85, 85);
+  GuiData::NameConflictError.setFillColor(NameConflictErrorColor);
+  GuiData::NameConflictError.setString("File already exists. Use a different name.");
+  GuiData::NameConflictError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 650.0f);
+  window.draw(GuiData::NameConflictError);
+}
 
+void Ui::drawHomeButton(sf::RenderWindow& window) {
+  GuiData::HomeButton.setFont(GuiData::currentFont);
+  GuiData::HomeButton.setCharacterSize(19);
+  GuiData::HomeButton.setOrigin(GuiData::HomeButton.getGlobalBounds().width/2.0f, GuiData::HomeButton.getGlobalBounds().height/2.0f);
+  sf::Color HomeButtonColor(255, 121, 198);
+  GuiData::HomeButton.setFillColor(HomeButtonColor);
+  GuiData::HomeButton.setStyle(sf::Text::Bold);
+  GuiData::HomeButton.setString("<< HOME");
+  GuiData::HomeButton.setPosition(60.0f, 30.0f);
+  window.draw(GuiData::HomeButton);
+}
 
+void Ui::drawMapUi(sf::RenderWindow& window) {
+  // Somehow check if we are creating a new map, or if we are editing one
+}
+
+void Ui::drawWidthIndicator(sf::RenderWindow& window) {
+
+}
+void Ui::drawWidthPlus(sf::RenderWindow& window) {
+
+}
+void Ui::drawWidthMinus(sf::RenderWindow& window) {
+
+}
+void Ui::drawLengthIndicator(sf::RenderWindow& window) {
+
+}
+void Ui::drawLengthPlus(sf::RenderWindow& window) {
+
+}
+void Ui::drawLengthMinus(sf::RenderWindow& window){
+
+}
+void Ui::drawSaveButton(sf::RenderWindow& window) {
+  GuiData::saveButton.setFont(GuiData::currentFont);
+  GuiData::saveButton.setCharacterSize(19);
+  GuiData::saveButton.setOrigin(GuiData::saveButton.getGlobalBounds().width/2.0f, GuiData::saveButton.getGlobalBounds().height/2.0f);
+  sf::Color saveButtonColor(255, 121, 198);
+  GuiData::saveButton.setFillColor(saveButtonColor);
+  GuiData::saveButton.setStyle(sf::Text::Bold);
+  GuiData::saveButton.setString("SAVE");
+  GuiData::saveButton.setPosition(GuiData::WINDOW_WIDTH-60.0f, 30.0f);
+  window.draw(GuiData::saveButton);
+}
 

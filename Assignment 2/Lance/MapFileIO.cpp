@@ -47,35 +47,9 @@ vector<string> MapFileIO::readDirectoryContents(string directory, string fileTyp
   return mapFileNames;
 }
 
+bool saveFileToDirectory(string filePath) {
+  //
 
+}
 
-//! Implementation of is beside, checks if a specific cell is adjacent (top/left/bottom/right) to a specific cell type.
-//! @param x: an integer value of horizontal index of the map's grid
-//! @param y: an integer value of vertical index of the map's grid
-//! @return bool value, true if there is a the cell type adjacent to the specific cell chosen
-//bool Map::isBeside(int x, int y, char type) {
-  //bool bIsBeside= false;
-  //if (x > 0) {
-    //if (map[x-1][y] == type) {
-      //bIsBeside= true;
-    //}
-  //}
-  //if (x < mapWidth-1) {
-    //if (map[x+1][y] == type) {
-      //bIsBeside= true;
-    //}
-  //}
-  //if (y > 0) {
-    //if (map[x][y-1] == type) {
-      //bIsBeside= true;
-    //}
-  //}
-  //if (y< mapLength-1) {
-    //if (map[x][y+1] == type) {
-      //bIsBeside= true;
-    //}
-  //}
-
-  //return bIsBeside;
-//}
 

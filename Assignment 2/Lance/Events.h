@@ -11,6 +11,7 @@ class Events {
     void respondToSelectionBoxClick(sf::RenderWindow& window);
     void respondToFileSelectionClick(sf::RenderWindow& window);
     void respondToRealTimeTypeFeedback(sf::Event& evt);
+    void respondToHomeButtonClick(sf::RenderWindow& window);
 };
 
 

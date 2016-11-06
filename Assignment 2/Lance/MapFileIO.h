@@ -12,6 +12,7 @@ using std::vector;
 class MapFileIO {
   public:
     vector<string> readDirectoryContents(string directory, string fileType);
+    bool saveFileToDirectory(string filePath);
 };
 
 

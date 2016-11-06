@@ -44,6 +44,9 @@ namespace GuiData {
   sf::Text typeMapName;
   sf::Text selectFileNames;
   sf::Text realTimeTypeFeedback;
+  sf::Text NameConflictError;
+  sf::Text HomeButton;
+  sf::Text saveButton;
 
 
   vector<string> current_maps;
@@ -68,6 +71,7 @@ namespace GuiData {
   bool isChoosingCampaignToEdit = false;
   bool isEditingCampaign = false;
   bool isEditingMap = false;
+  bool shouldShowNameConflictError = false;
   unsigned long msSinceStart;
 };
 

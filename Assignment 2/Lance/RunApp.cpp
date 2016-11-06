@@ -130,6 +130,7 @@ int main(int argc, char* argv[]) {
         GuiData::eventManager.respondToRealTimeTypeFeedback(evt);
       }
       GuiData::eventManager.respondToSelectionBoxClick(window);
+      GuiData::eventManager.respondToHomeButtonClick(window);
       GuiData::eventManager.respondToFileSelectionClick(window);
 
       // SCENE SELECTION
@@ -143,21 +144,39 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawSelectionBoxes(window, selectionBox);
       }
 
-      if (GuiData::isChoosingMapToCreate){
+      if (GuiData::isChoosingMapToCreate || GuiData::isChoosingCampaignToCreate){
+        GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawTypeMapCampaignName(window);
         GuiData::uiManager.drawRealTimeTypeFeedback(window);
+        if (GuiData::shouldShowNameConflictError) {
+          GuiData::uiManager.drawNameConflictError(window);
+        }
       }
       if (GuiData::isChoosingMapToEdit){
+        GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawSelectMapCampaign(window);
         GuiData::uiManager.drawSelectFileNames(window, GuiData::current_maps);
       }
-      if (GuiData::isChoosingCampaignToCreate){
-        GuiData::uiManager.drawTypeMapCampaignName(window);
-        GuiData::uiManager.drawRealTimeTypeFeedback(window);
-      }
       if (GuiData::isChoosingCampaignToEdit){
+        GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawSelectMapCampaign(window);
         GuiData::uiManager.drawSelectFileNames(window, GuiData::current_campaigns);
+      }
+      if (GuiData::isEditingMap) {
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawMapUi(window);
+        GuiData::uiManager.drawWidthIndicator(window);
+        GuiData::uiManager.drawWidthPlus(window);
+        GuiData::uiManager.drawWidthMinus(window);
+        GuiData::uiManager.drawLengthIndicator(window);
+        GuiData::uiManager.drawLengthPlus(window);
+        GuiData::uiManager.drawLengthMinus(window);
+        GuiData::uiManager.drawSaveButton(window);
+
+      }
+      if (GuiData::isEditingCampaign) {
+        GuiData::uiManager.drawHomeButton(window);
+        // GuiData::uiManager.drawCampaignUi(window);
       }
 
       window.display();

@@ -39,6 +39,9 @@ namespace GuiData{
   extern sf::Text typeMapName;
   extern sf::Text selectFileNames;
   extern sf::Text realTimeTypeFeedback;
+  extern sf::Text NameConflictError;
+  extern sf::Text HomeButton;
+  extern sf::Text saveButton;
   extern sf::RectangleShape selectionBox;
 
   extern string chosenMap;
@@ -63,6 +66,7 @@ namespace GuiData{
   extern bool isChoosingCampaignToEdit;
   extern bool isEditingCampaign;
   extern bool isEditingMap;
+  extern bool shouldShowNameConflictError;
   extern unsigned long msSinceStart;
 };
 

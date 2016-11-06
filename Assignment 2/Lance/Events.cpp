@@ -29,7 +29,6 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
       }
       if (GuiData::createCampaignPosition.contains(mousePosition)) {
         GuiData::current_campaigns = mapSerializer.readDirectoryContents("./campaigns", "campaign");
-        // Prompt for new filename and map size, make sure it doesn't conflict.
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToCreate = true;
       }
@@ -75,15 +74,74 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
     if (evt.type == sf::Event::TextEntered) {
       cout << evt.text.unicode << endl;
-      if (evt.text.unicode < 128) {
         if (GuiData::isChoosingMapToCreate) {
-          GuiData::createdMap += evt.text.unicode;
+          if (evt.text.unicode == 13) { // ENTER
+            bool hasNameConflict = false;
+            for (int i = 0; i < (int)GuiData::current_maps.size(); i++) {
+              if (GuiData::current_maps[i] == GuiData::createdMap) {
+                hasNameConflict = true;
+                break;
+              }
+            }
+            if (hasNameConflict) {
+              GuiData::shouldShowNameConflictError = true;
+            } else {
+              GuiData::isChoosingMapToCreate = false;
+              GuiData::isEditingMap = true;
+              // save map to file here /json once created.
+            }
+          } else if (evt.text.unicode == 8) { // BACKSPACE
+              GuiData::createdMap.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              GuiData::createdMap += evt.text.unicode;
+          }
         }
-        if (GuiData::isChoosingCampaignToCreate){
-          GuiData::createdCampaign += evt.text.unicode;
+        if (GuiData::isChoosingCampaignToCreate) {
+          if (evt.text.unicode == 13) { // ENTER
+            bool hasNameConflict = false;
+            for (int i = 0; i < (int)GuiData::current_campaigns.size(); i++) {
+              if (GuiData::current_campaigns[i] == GuiData::createdCampaign) {
+                hasNameConflict = true;
+                break;
+              }
+            }
+            if (hasNameConflict) {
+              GuiData::shouldShowNameConflictError = true;
+            } else {
+              GuiData::isChoosingCampaignToCreate = false;
+              GuiData::isEditingCampaign = true;
+              // save map to file here /json once created.
+            }
+          } else if (evt.text.unicode == 8) { // BACKSPACE
+              GuiData::createdMap.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              GuiData::createdMap += evt.text.unicode;
+          }
         }
+    }
+}
+
+void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
+  if (!GuiData::isSelectingChoice) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+      if (GuiData::HomeButton.getGlobalBounds().contains(mousePosition)) {
+        GuiData::hasCreateMapPosition = false;
+        GuiData::hasEditMapPosition = false;
+        GuiData::hasCreateCampaignPosition = false;
+        GuiData::hasEditCampaignPosition = false;
+        GuiData::isSelectingChoice = true;
+        GuiData::isChoosingMapToCreate = false;
+        GuiData::isChoosingMapToEdit = false;
+        GuiData::isChoosingCampaignToCreate = false;
+        GuiData::isChoosingCampaignToEdit = false;
+        GuiData::isEditingCampaign = false;
+        GuiData::isEditingMap = false;
+        GuiData::shouldShowNameConflictError = false;
       }
     }
+  }
+}
 
       //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         //shape.move(0.0f, -0.1f);
@@ -97,4 +155,3 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
       //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
          //shape.move(0.1f, 0.0f);
       //}
-}
