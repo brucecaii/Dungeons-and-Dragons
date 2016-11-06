@@ -223,6 +223,7 @@ int Map::getMapLength() {
   return mapLength;
 }
 
+//! Implementation of setMapLevel, set the map level
 void Map::setMapLevel(int lv) {
 	level = lv;
 }
