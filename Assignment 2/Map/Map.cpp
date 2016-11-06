@@ -220,3 +220,10 @@ int Map::getMapLength() {
   return mapLength;
 }
 
+void Map::setMonster(int x, int y, Monster* m) {
+	monster[x][y] = *m;
+}
+
+void Map::setChest(int x, int y, Chest* c) {
+	chest[x][y] = *c;
+}
