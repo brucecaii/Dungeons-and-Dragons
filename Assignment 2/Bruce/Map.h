@@ -1,5 +1,5 @@
 //! @file
-//! @brief Implementation file for the Item class
+//! @brief Implementation file for the Map class
 //!
 #pragma once
 #include <vector>

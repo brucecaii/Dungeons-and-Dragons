@@ -12,7 +12,7 @@
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/XmlOutputter.h>
-#include "Map.h"
+#include "MapGenerator.h"
 
 using namespace CppUnit;
 
