@@ -60,7 +60,6 @@ namespace GuiData {
   sf::Text lengthPlus;
   sf::Text lengthMinus;
 
-
   vector<string> current_maps;
   vector<sf::FloatRect> current_map_positions;
   vector<string> current_campaigns;

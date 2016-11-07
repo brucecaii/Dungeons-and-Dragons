@@ -87,5 +87,3 @@ void MapCampaignFileIO::readCampaignJSON(string filePath) {
   GuiData::currentCampaignMapOrder = campaign.get<vector<string>>();
   readJsonFile.close();
 }
-
-

@@ -40,56 +40,11 @@
 using namespace std::chrono;
 using namespace std::this_thread;
 
-
 using std::cerr;
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
-
-
-// Free functions
-// Main Driver helpers
-
-//! Implementation of getSizeInput, prompts the user to enter the size of a map dimension to be stored.
-//! @param size: an integer reference of the map's grid size
-//! @param type: an string allowing for the prompt to the user for the right map dimension
-//void getSizeInput(int& size, string type){
-  //cout << "Enter a map " << type << " (greater than 1): ";
-  //cin >> size;
-  //if (size < 2) {
-    //cout << "You did not enter an integer greater than 1. Defaulting to 5." << endl;
-    //size = 5;
-  //}
-//}
-
-
-//! Implementation of startMapMaking, initializes the map and provides instructions to the user.
-//! @return pointer to Map object on the heap for further manipulation
-//Map* startMapMaking() {
-  //int width = 0;
-  //int length = 0;
-  //cout << "Welcome to DnD Map Maker, adventurer!" << endl;
-
-  //getSizeInput(width, "width");
-  //getSizeInput(length, "length");
-  //Map* m = new Map(width, length);
-
-  //// Initially display map and instructions
-  //cout << endl;
-  //cout << "This is a vast wasteland (empty map)." << endl;
-  //m->displayMap();
-  //cout << "The 'origin' of the map is in the top left corner at (0,0)." << endl;
-  //cout << "This maps allows placement of walls (W), start doors (S), end doors (E). characters (C), treasure chests (T) and opponents (O)." << endl;
-  //cout << "Valid maps are ones with a closed wall, at least two doors attached, and a clear path between these doors." << endl;
-  //cout << "As an example, by entering the string 'W12', you place a wall at 1 position to the *RIGHT* and 2 positions *DOWN*." << endl;
-  //cout << "The program *will not respond* if your input is not properly formatted." << endl;
-  //cout << "You can also enter 'reset' to start over again, 'validate' to check the map for errors or 'quit' to exit the program. Have fun!" << endl;
-  //cout << endl;
-  //return m;
-//}
-
-
 
 //! main() function. Entry point of the program.
 //! It parses the passed arguments and either does the following:
@@ -101,8 +56,8 @@ int main(int argc, char* argv[]) {
   if (argc > 1) {
     string testString(argv[1]);
     if (testString.compare("test") == 0) {
-      //MapTest mt;
-      //return mt.runTestSuite();
+      MapTest mt;
+      return mt.runTestSuite();
     }
   } else {
 
@@ -221,46 +176,6 @@ int main(int argc, char* argv[]) {
       }
     }
 
-
-
-
-    // Initalize map and provide instructions
-    //Map* m = startMapMaking();
-
-    // Game Loop
-    //string input;
-    //while (true) {
-      // Get user input and analyze response for valid choices
-      //cout << "$ ";
-      //getline(cin, input);
-
-      //if (input.compare("quit") == 0) {
-        //// delete heap-allocated memory and fix dangling pointer, then quit.
-        //delete m;
-        //m = NULL;
-        //cout << "Farewell, mere mortal." << endl;
-        //exit(0);
-        //continue;
-      //}
-
-      //if (input.compare("reset") == 0) {
-        //cout << "Resetting map making session..." << endl;
-        //startMapMaking();
-      //}
-      //if (input.compare("validate") == 0) {
-        //cout << "Checking map validity..." << endl;
-        //m->validatePath();
-      //}
-
-      //if (input.length() == 3 && input.find_first_of("WSECTO ") == 0) {
-        //int xpos = input.at(1) - '0';
-        //int ypos = input.at(2) - '0';
-        //if (xpos >= 0 && ypos >= 0 && xpos < m->getMapWidth() && ypos < m->getMapLength()) {
-          //m->fillCell(ypos, xpos, input.at(0));
-          //m->displayMap();
-        //}
-      //}
-    //}
     return 0;
   }
 }

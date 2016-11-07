@@ -226,18 +226,3 @@ void Events::respondToLengthMinusClick(sf::RenderWindow& window) {
     }
   }
 }
-
-
-
-      //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        //shape.move(0.0f, -0.1f);
-      //}
-      //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        //shape.move(0.0f, 0.1f);
-      //}
-      //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        //shape.move(-0.1f, 0.0f);
-      //}
-      //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-         //shape.move(0.1f, 0.0f);
-      //}

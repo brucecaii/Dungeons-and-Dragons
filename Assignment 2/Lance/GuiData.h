@@ -1,12 +1,8 @@
-#include <chrono>
 #include "Texts.h"
 #include "Events.h"
 #include "Fonts.h"
 #include "Ui.h"
 
-using namespace std::chrono;
-
-//Many
 namespace GuiData{
 
   extern const sf::Color SELECTION_BACKGROUND_COLOR;

@@ -18,27 +18,27 @@
 using namespace CppUnit;
 
 //! Test Class for the Map class
-//class MapTest : public CppUnit::TestFixture {
-	//CPPUNIT_TEST_SUITE(MapTest);
-	//CPPUNIT_TEST(testMapCellFilled);
-	//CPPUNIT_TEST(testMapCellEmpty);
-	//CPPUNIT_TEST(testValidPath);
-	//CPPUNIT_TEST(testInvalidPath);
-	//CPPUNIT_TEST(testValidIsBeside);
-	//CPPUNIT_TEST(testInvalidIsBeside);
-	//CPPUNIT_TEST_SUITE_END();
-//public:
-        //int runTestSuite();
-	//void setUp();
-	//void tearDown();
-//protected:
-	//void testMapCellFilled();
-	//void testMapCellEmpty();
-	//void testValidPath();
-	//void testInvalidPath();
-        //void testValidIsBeside();
-        //void testInvalidIsBeside();
-//private:
-	//Map *map;
-//};
+class MapTest : public CppUnit::TestFixture {
+        CPPUNIT_TEST_SUITE(MapTest);
+        CPPUNIT_TEST(testMapCellFilled);
+        CPPUNIT_TEST(testMapCellEmpty);
+        CPPUNIT_TEST(testValidPath);
+        CPPUNIT_TEST(testInvalidPath);
+        CPPUNIT_TEST(testValidIsBeside);
+        CPPUNIT_TEST(testInvalidIsBeside);
+        CPPUNIT_TEST_SUITE_END();
+public:
+        int runTestSuite();
+        void setUp();
+        void tearDown();
+protected:
+        void testMapCellFilled();
+        void testMapCellEmpty();
+        void testValidPath();
+        void testInvalidPath();
+        void testValidIsBeside();
+        void testInvalidIsBeside();
+private:
+        Map *map;
+};
 

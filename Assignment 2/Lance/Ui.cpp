@@ -7,6 +7,8 @@
 #include "GuiData.h"
 #include "Ui.h"
 
+using namespace std::chrono;
+
 using std::cout;
 using std::endl;
 using std::to_string;
@@ -209,7 +211,7 @@ void Ui::drawHomeButton(sf::RenderWindow& window) {
 }
 
 void Ui::drawMapUi(sf::RenderWindow& window) {
-  // Somehow check if we are creating a new map, or if we are editing one
+  // TBD
 }
 
 void Ui::drawWidthIndicator(sf::RenderWindow& window) {
@@ -295,7 +297,6 @@ void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
 
   sf::Sprite wallSprite;
   wallSprite.setTexture(wallTexture);
-  //wallSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
   wallSprite.setOrigin(wallSprite.getGlobalBounds().width/2.0f, wallSprite.getGlobalBounds().height/2.0f);
   wallSprite.setColor(sf::Color(255, 255, 255, 200));
   wallSprite.setScale(0.5f, 0.5f);
@@ -309,7 +310,6 @@ void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
 
   sf::Sprite treasureSprite;
   treasureSprite.setTexture(treasureTexture);
-  //treasureSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
   treasureSprite.setOrigin(treasureSprite.getGlobalBounds().width/2.0f, treasureSprite.getGlobalBounds().height/2.0f);
   treasureSprite.setColor(sf::Color(255, 255, 255, 200));
   treasureSprite.setScale(0.5f, 0.5f);
@@ -323,7 +323,6 @@ void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
 
   sf::Sprite exitSprite;
   exitSprite.setTexture(exitTexture);
-  //exitSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
   exitSprite.setOrigin(exitSprite.getGlobalBounds().width/2.0f, exitSprite.getGlobalBounds().height/2.0f);
   exitSprite.setColor(sf::Color(255, 255, 255, 200));
   exitSprite.setScale(0.5f, 0.5f);
@@ -337,7 +336,6 @@ void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
 
   sf::Sprite startSprite;
   startSprite.setTexture(startTexture);
-  //startSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
   startSprite.setOrigin(startSprite.getGlobalBounds().width/2.0f, startSprite.getGlobalBounds().height/2.0f);
   startSprite.setColor(sf::Color(255, 255, 255, 200));
   startSprite.setScale(0.5f, 0.5f);
@@ -351,7 +349,6 @@ void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
 
   sf::Sprite characterSprite;
   characterSprite.setTexture(characterTexture);
-  //characterSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
   characterSprite.setOrigin(characterSprite.getGlobalBounds().width/2.0f, characterSprite.getGlobalBounds().height/2.0f);
   characterSprite.setColor(sf::Color(255, 255, 255, 200));
   characterSprite.setScale(0.5f, 0.5f);
@@ -365,7 +362,6 @@ void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
 
   sf::Sprite monsterSprite;
   monsterSprite.setTexture(monsterTexture);
-  //monsterSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
   monsterSprite.setOrigin(monsterSprite.getGlobalBounds().width/2.0f, monsterSprite.getGlobalBounds().height/2.0f);
   monsterSprite.setColor(sf::Color(255, 255, 255, 200));
   monsterSprite.setScale(0.5f, 0.5f);
