@@ -251,7 +251,7 @@ void Ui::drawLengthIndicator(sf::RenderWindow& window) {
   sf::Color lengthIndicatorColor(248, 248, 242);
   GuiData::lengthIndicator.setFillColor(lengthIndicatorColor);
   GuiData::lengthIndicator.setString("Length\n "+to_string(GuiData::currentMapLength));
-  GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 200.0f);
+  GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 260.0f);
   window.draw(GuiData::lengthIndicator);
 }
 
@@ -262,7 +262,7 @@ void Ui::drawLengthPlus(sf::RenderWindow& window) {
   sf::Color lengthPlusColor(255, 121, 198);
   GuiData::lengthPlus.setFillColor(lengthPlusColor);
   GuiData::lengthPlus.setString("+");
-  GuiData::lengthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 230.0f);
+  GuiData::lengthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 290.0f);
   window.draw(GuiData::lengthPlus);
 }
 
@@ -273,7 +273,7 @@ void Ui::drawLengthMinus(sf::RenderWindow& window){
   sf::Color lengthMinusColor(255, 121, 198);
   GuiData::lengthMinus.setFillColor(lengthMinusColor);
   GuiData::lengthMinus.setString("-");
-  GuiData::lengthMinus.setPosition(GuiData::WINDOW_WIDTH-40.0f, 220.0f);
+  GuiData::lengthMinus.setPosition(GuiData::WINDOW_WIDTH-40.0f, 280.0f);
   window.draw(GuiData::lengthMinus);
 }
 
@@ -372,4 +372,3 @@ void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
   monsterSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 240);
   window.draw(monsterSprite);
 }
-
