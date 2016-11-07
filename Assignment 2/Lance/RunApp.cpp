@@ -196,6 +196,11 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawLengthMinus(window);
         GuiData::uiManager.drawSaveButton(window);
         GuiData::uiManager.drawWallSpriteSelector(window);
+        GuiData::uiManager.drawTreasureSpriteSelector(window);
+        GuiData::uiManager.drawExitSpriteSelector(window);
+        GuiData::uiManager.drawStartSpriteSelector(window);
+        GuiData::uiManager.drawCharacterSpriteSelector(window);
+        GuiData::uiManager.drawMonsterSpriteSelector(window);
       }
       if (GuiData::isCreatingCampaign) {
         GuiData::uiManager.drawHomeButton(window);

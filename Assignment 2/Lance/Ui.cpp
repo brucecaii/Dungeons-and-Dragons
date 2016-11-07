@@ -290,7 +290,86 @@ void Ui::drawSaveButton(sf::RenderWindow& window) {
 }
 
 void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
+  sf::Texture wallTexture;
+  wallTexture.loadFromFile("textures/wall.png");
 
+  sf::Sprite wallSprite;
+  wallSprite.setTexture(wallTexture);
+  //wallSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
+  wallSprite.setOrigin(wallSprite.getGlobalBounds().width/2.0f, wallSprite.getGlobalBounds().height/2.0f);
+  wallSprite.setColor(sf::Color(255, 255, 255, 200));
+  wallSprite.setScale(0.5f, 0.5f);
+  wallSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 300);
+  window.draw(wallSprite);
 }
 
+void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
+  sf::Texture treasureTexture;
+  treasureTexture.loadFromFile("textures/treasure.png");
+
+  sf::Sprite treasureSprite;
+  treasureSprite.setTexture(treasureTexture);
+  //treasureSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
+  treasureSprite.setOrigin(treasureSprite.getGlobalBounds().width/2.0f, treasureSprite.getGlobalBounds().height/2.0f);
+  treasureSprite.setColor(sf::Color(255, 255, 255, 200));
+  treasureSprite.setScale(0.5f, 0.5f);
+  treasureSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 300);
+  window.draw(treasureSprite);
+}
+
+void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
+  sf::Texture exitTexture;
+  exitTexture.loadFromFile("textures/exit.png");
+
+  sf::Sprite exitSprite;
+  exitSprite.setTexture(exitTexture);
+  //exitSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
+  exitSprite.setOrigin(exitSprite.getGlobalBounds().width/2.0f, exitSprite.getGlobalBounds().height/2.0f);
+  exitSprite.setColor(sf::Color(255, 255, 255, 200));
+  exitSprite.setScale(0.5f, 0.5f);
+  exitSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 360);
+  window.draw(exitSprite);
+}
+
+void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
+  sf::Texture startTexture;
+  startTexture.loadFromFile("textures/start.png");
+
+  sf::Sprite startSprite;
+  startSprite.setTexture(startTexture);
+  //startSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
+  startSprite.setOrigin(startSprite.getGlobalBounds().width/2.0f, startSprite.getGlobalBounds().height/2.0f);
+  startSprite.setColor(sf::Color(255, 255, 255, 200));
+  startSprite.setScale(0.5f, 0.5f);
+  startSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 360);
+  window.draw(startSprite);
+}
+
+void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
+  sf::Texture characterTexture;
+  characterTexture.loadFromFile("textures/character.png");
+
+  sf::Sprite characterSprite;
+  characterSprite.setTexture(characterTexture);
+  //characterSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
+  characterSprite.setOrigin(characterSprite.getGlobalBounds().width/2.0f, characterSprite.getGlobalBounds().height/2.0f);
+  characterSprite.setColor(sf::Color(255, 255, 255, 200));
+  characterSprite.setScale(0.5f, 0.5f);
+  characterSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 240);
+  window.draw(characterSprite);
+}
+
+void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
+  sf::Texture monsterTexture;
+  monsterTexture.loadFromFile("textures/monster.png");
+
+  sf::Sprite monsterSprite;
+  monsterSprite.setTexture(monsterTexture);
+  //monsterSprite.setTextureRect(sf::IntRect(0, 0, 60, 60));
+  monsterSprite.setOrigin(monsterSprite.getGlobalBounds().width/2.0f, monsterSprite.getGlobalBounds().height/2.0f);
+  monsterSprite.setColor(sf::Color(255, 255, 255, 200));
+  monsterSprite.setScale(0.5f, 0.5f);
+  monsterSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 240);
+  window.draw(monsterSprite);
+}
 

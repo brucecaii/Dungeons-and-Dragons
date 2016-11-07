@@ -33,4 +33,9 @@ class Ui {
     void drawLengthMinus(sf::RenderWindow& window);
     void drawSaveButton(sf::RenderWindow& window);
     void drawWallSpriteSelector(sf::RenderWindow& window);
+    void drawTreasureSpriteSelector(sf::RenderWindow& window);
+    void drawExitSpriteSelector(sf::RenderWindow& window);
+    void drawStartSpriteSelector(sf::RenderWindow& window);
+    void drawCharacterSpriteSelector(sf::RenderWindow& window);
+    void drawMonsterSpriteSelector(sf::RenderWindow& window);
 };
