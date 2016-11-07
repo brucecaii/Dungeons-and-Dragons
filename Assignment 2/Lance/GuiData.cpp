@@ -24,12 +24,18 @@ namespace GuiData {
   const unsigned long GREETINGS_APPEAR_TIME = 500;
   const unsigned long CALL_TO_ACTION_APPEAR_TIME = 2000;
   const unsigned long SELECTION_BOXES_APPEAR_TIME = 4000;
+  const unsigned long BLOCK_THREAD_WAIT_TIME = 200;
   const float  TEXT_OUTLINE_THICKNESS = 0.3f;
 
   Fonts fontGenerator;
   Texts textGenerator;
   Events eventManager;
   Ui uiManager;
+
+  int currentMapWidth = 0;
+  int currentMapLength = 0;
+  string currentMapString = "";
+  vector<string> currentCampaignMapOrder = {""};
 
   sf::Font currentFont;
   sf::FloatRect createMapPosition;
@@ -47,6 +53,12 @@ namespace GuiData {
   sf::Text NameConflictError;
   sf::Text HomeButton;
   sf::Text saveButton;
+  sf::Text widthIndicator;
+  sf::Text widthPlus;
+  sf::Text widthMinus;
+  sf::Text lengthIndicator;
+  sf::Text lengthPlus;
+  sf::Text lengthMinus;
 
 
   vector<string> current_maps;
@@ -71,7 +83,10 @@ namespace GuiData {
   bool isChoosingCampaignToEdit = false;
   bool isEditingCampaign = false;
   bool isEditingMap = false;
+  bool isCreatingCampaign = false;
+  bool isCreatingMap = false;
   bool shouldShowNameConflictError = false;
+  bool shouldBlockThread = false;
   unsigned long msSinceStart;
 };
 

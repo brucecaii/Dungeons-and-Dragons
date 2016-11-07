@@ -28,16 +28,18 @@
 
 #include <string>
 #include <chrono>
+#include <thread>
 #include <SFML/Graphics.hpp>
 #include "GuiData.h"
 #include "Map.h"
-#include "MapFileIO.h"
 #include "MapTest.h"
 #include "Fonts.h"
 #include "Events.h"
 #include "Texts.h"
 
 using namespace std::chrono;
+using namespace std::this_thread;
+
 
 using std::cerr;
 using std::cout;
@@ -131,7 +133,12 @@ int main(int argc, char* argv[]) {
       }
       GuiData::eventManager.respondToSelectionBoxClick(window);
       GuiData::eventManager.respondToHomeButtonClick(window);
+      GuiData::eventManager.respondToSaveMapCampaign(window);
       GuiData::eventManager.respondToFileSelectionClick(window);
+      GuiData::eventManager.respondToWidthPlusClick(window);
+      GuiData::eventManager.respondToWidthMinusClick(window);
+      GuiData::eventManager.respondToLengthPlusClick(window);
+      GuiData::eventManager.respondToLengthMinusClick(window);
 
       // SCENE SELECTION
       window.clear(GuiData::SELECTION_BACKGROUND_COLOR);
@@ -178,8 +185,30 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawHomeButton(window);
         // GuiData::uiManager.drawCampaignUi(window);
       }
+      if (GuiData::isCreatingMap) {
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawMapUi(window);
+        GuiData::uiManager.drawWidthIndicator(window);
+        GuiData::uiManager.drawWidthPlus(window);
+        GuiData::uiManager.drawWidthMinus(window);
+        GuiData::uiManager.drawLengthIndicator(window);
+        GuiData::uiManager.drawLengthPlus(window);
+        GuiData::uiManager.drawLengthMinus(window);
+        GuiData::uiManager.drawSaveButton(window);
+        GuiData::uiManager.drawWallSpriteSelector(window);
+      }
+      if (GuiData::isCreatingCampaign) {
+        GuiData::uiManager.drawHomeButton(window);
+        // GuiData::uiManager.drawCampaignUi(window);
+      }
 
       window.display();
+
+      // Prevent multiple consecutive clicks
+      if (GuiData::shouldBlockThread) {
+        sleep_for(milliseconds(GuiData::BLOCK_THREAD_WAIT_TIME));
+        GuiData::shouldBlockThread = false;
+      }
     }
 
 

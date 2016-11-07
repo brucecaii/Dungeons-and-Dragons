@@ -2,38 +2,36 @@
 //! @brief Implementation file for the Events class
 //!
 #include <iostream>
-#include <vector>
+#include <chrono>
+#include <thread>
 #include <SFML/Graphics.hpp>
 #include "GuiData.h"
 #include "Events.h"
-#include "MapFileIO.h"
-
-using std::cout;
-using std::endl;
+#include "MapCampaignFileIO.h"
 
 void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
   if (GuiData::msSinceStart > GuiData::SELECTION_BOXES_APPEAR_TIME && GuiData::isSelectingChoice) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
-      MapFileIO mapSerializer;
+      MapCampaignFileIO mapSerializer;
       if (GuiData::createMapPosition.contains(mousePosition)) {
-        GuiData::current_maps = mapSerializer.readDirectoryContents("./maps", "map");
+        GuiData::current_maps = mapSerializer.readCurrentDirectoryContents("map");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingMapToCreate = true;
 
       }
       if (GuiData::editMapPosition.contains(mousePosition)) {
-        GuiData::current_maps = mapSerializer.readDirectoryContents("./maps", "map");
+        GuiData::current_maps = mapSerializer.readCurrentDirectoryContents("map");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingMapToEdit = true;
       }
       if (GuiData::createCampaignPosition.contains(mousePosition)) {
-        GuiData::current_campaigns = mapSerializer.readDirectoryContents("./campaigns", "campaign");
+        GuiData::current_campaigns = mapSerializer.readCurrentDirectoryContents("campaign");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToCreate = true;
       }
       if (GuiData::editCampaignPosition.contains(mousePosition)) {
-        GuiData::current_campaigns = mapSerializer.readDirectoryContents("./campaigns", "campaign");
+        GuiData::current_campaigns = mapSerializer.readCurrentDirectoryContents("campaign");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToEdit = true;
       }
@@ -48,9 +46,14 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 
       for (int i = 0; i < (int)GuiData::current_map_positions.size(); i++) {
         if (GuiData::current_map_positions[i].contains(mousePosition)) {
-          GuiData::isChoosingMapToEdit = false;
-          GuiData::isEditingMap = true;
-          GuiData::chosenMap = GuiData::current_maps[i];
+          if (GuiData::isChoosingMapToEdit) {
+            GuiData::isChoosingMapToEdit = false;
+            GuiData::isEditingMap = true;
+          }
+          string ext = ".map";
+          GuiData::chosenMap = string(GuiData::current_maps[i]) + string(ext);
+          MapCampaignFileIO mfio;
+          mfio.readMapJSON(GuiData::chosenMap);
         }
       }
     }
@@ -64,8 +67,11 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
         if (GuiData::current_campaign_positions[i].contains(mousePosition)) {
           GuiData::isChoosingCampaignToEdit = false;
           GuiData::isEditingCampaign = true;
-          GuiData::chosenCampaign = GuiData::current_campaigns[i];
         }
+          string ext = ".campaign";
+          GuiData::chosenCampaign = string(GuiData::current_campaigns[i]) + string(ext);
+          MapCampaignFileIO mfio;
+          mfio.readCampaignJSON(GuiData::chosenCampaign);
       }
     }
   }
@@ -73,7 +79,6 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 
 void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
     if (evt.type == sf::Event::TextEntered) {
-      cout << evt.text.unicode << endl;
         if (GuiData::isChoosingMapToCreate) {
           if (evt.text.unicode == 13) { // ENTER
             bool hasNameConflict = false;
@@ -86,9 +91,10 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
             if (hasNameConflict) {
               GuiData::shouldShowNameConflictError = true;
             } else {
+              GuiData::createdMap = GuiData::createdMap + ".map";
               GuiData::isChoosingMapToCreate = false;
-              GuiData::isEditingMap = true;
-              // save map to file here /json once created.
+              GuiData::isCreatingMap = true;
+
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
               GuiData::createdMap.pop_back();
@@ -108,14 +114,14 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
             if (hasNameConflict) {
               GuiData::shouldShowNameConflictError = true;
             } else {
+              GuiData::createdCampaign = GuiData::createdCampaign + ".campaign";
               GuiData::isChoosingCampaignToCreate = false;
-              GuiData::isEditingCampaign = true;
-              // save map to file here /json once created.
+              GuiData::isCreatingCampaign = true;
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
-              GuiData::createdMap.pop_back();
+              GuiData::createdCampaign.pop_back();
           } else if (evt.text.unicode < 128) { // ASCII char
-              GuiData::createdMap += evt.text.unicode;
+              GuiData::createdCampaign += evt.text.unicode;
           }
         }
     }
@@ -137,11 +143,91 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
         GuiData::isChoosingCampaignToEdit = false;
         GuiData::isEditingCampaign = false;
         GuiData::isEditingMap = false;
+        GuiData::isCreatingMap = false;
+        GuiData::isCreatingCampaign = false;
         GuiData::shouldShowNameConflictError = false;
+
+        GuiData::createdMap = "";
+        GuiData::chosenMap = "";
+        GuiData::createdCampaign = "";
+        GuiData::chosenCampaign = "";
       }
     }
   }
 }
+
+void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+    if (GuiData::saveButton.getGlobalBounds().contains(mousePosition)) {
+      MapCampaignFileIO mfio;
+      if (GuiData::isEditingMap) {
+        mfio.saveMapJSON(GuiData::chosenMap);
+      }
+      if (GuiData::isCreatingMap) {
+        mfio.saveMapJSON(GuiData::createdMap);
+      }
+      if (GuiData::isEditingCampaign) {
+        mfio.saveCampaignJSON(GuiData::chosenCampaign);
+      }
+      if (GuiData::isCreatingCampaign) {
+        mfio.saveCampaignJSON(GuiData::createdCampaign);
+      }
+    }
+  }
+}
+
+void Events::respondToWidthPlusClick(sf::RenderWindow& window) {
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+      if (GuiData::widthPlus.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapWidth += 1;
+        GuiData::shouldBlockThread = true;
+      }
+    }
+  }
+}
+void Events::respondToWidthMinusClick(sf::RenderWindow& window) {
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+      if (GuiData::widthMinus.getGlobalBounds().contains(mousePosition)) {
+        if (GuiData::currentMapWidth > 0) {
+          GuiData::currentMapWidth -= 1;
+          GuiData::shouldBlockThread = true;
+        }
+      }
+    }
+  }
+}
+void Events::respondToLengthPlusClick(sf::RenderWindow& window) {
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+      if (GuiData::lengthPlus.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapLength += 1;
+        GuiData::shouldBlockThread = true;
+      }
+    }
+  }
+}
+
+void Events::respondToLengthMinusClick(sf::RenderWindow& window) {
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+      if (GuiData::lengthMinus.getGlobalBounds().contains(mousePosition)) {
+        if (GuiData::currentMapLength > 0) {
+          GuiData::currentMapLength -= 1;
+          GuiData::shouldBlockThread = true;
+        }
+      }
+    }
+  }
+}
+
+
 
       //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         //shape.move(0.0f, -0.1f);

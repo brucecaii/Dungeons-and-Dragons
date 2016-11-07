@@ -32,4 +32,5 @@ class Ui {
     void drawLengthPlus(sf::RenderWindow& window);
     void drawLengthMinus(sf::RenderWindow& window);
     void drawSaveButton(sf::RenderWindow& window);
+    void drawWallSpriteSelector(sf::RenderWindow& window);
 };

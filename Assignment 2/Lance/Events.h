@@ -12,6 +12,11 @@ class Events {
     void respondToFileSelectionClick(sf::RenderWindow& window);
     void respondToRealTimeTypeFeedback(sf::Event& evt);
     void respondToHomeButtonClick(sf::RenderWindow& window);
+    void respondToSaveMapCampaign(sf::RenderWindow& window);
+    void respondToWidthPlusClick(sf::RenderWindow& window);
+    void respondToWidthMinusClick(sf::RenderWindow& window);
+    void respondToLengthPlusClick(sf::RenderWindow& window);
+    void respondToLengthMinusClick(sf::RenderWindow& window);
 };
 
 

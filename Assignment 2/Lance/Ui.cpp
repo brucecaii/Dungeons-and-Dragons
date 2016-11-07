@@ -9,6 +9,7 @@
 
 using std::cout;
 using std::endl;
+using std::to_string;
 
 void Ui::updateTime() {
   unsigned long msTimeNow = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
@@ -212,23 +213,70 @@ void Ui::drawMapUi(sf::RenderWindow& window) {
 }
 
 void Ui::drawWidthIndicator(sf::RenderWindow& window) {
-
+  GuiData::widthIndicator.setFont(GuiData::currentFont);
+  GuiData::widthIndicator.setCharacterSize(19);
+  GuiData::widthIndicator.setOrigin(GuiData::widthIndicator.getGlobalBounds().width/2.0f, GuiData::widthIndicator.getGlobalBounds().height/2.0f);
+  sf::Color widthIndicatorColor(248, 248, 242);
+  GuiData::widthIndicator.setFillColor(widthIndicatorColor);
+  GuiData::widthIndicator.setString("Width\n "+to_string(GuiData::currentMapWidth));
+  GuiData::widthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 100.0f);
+  window.draw(GuiData::widthIndicator);
 }
 void Ui::drawWidthPlus(sf::RenderWindow& window) {
-
+  GuiData::widthPlus.setFont(GuiData::currentFont);
+  GuiData::widthPlus.setCharacterSize(40);
+  GuiData::widthPlus.setOrigin(GuiData::widthPlus.getGlobalBounds().width/2.0f, GuiData::widthPlus.getGlobalBounds().height/2.0f);
+  sf::Color widthPlusColor(255, 121, 198);
+  GuiData::widthPlus.setFillColor(widthPlusColor);
+  GuiData::widthPlus.setString("+");
+  GuiData::widthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 130.0f);
+  window.draw(GuiData::widthPlus);
 }
 void Ui::drawWidthMinus(sf::RenderWindow& window) {
+  GuiData::widthMinus.setFont(GuiData::currentFont);
+  GuiData::widthMinus.setCharacterSize(40);
+  GuiData::widthMinus.setOrigin(GuiData::widthMinus.getGlobalBounds().width/2.0f, GuiData::widthMinus.getGlobalBounds().height/2.0f);
+  sf::Color widthMinusColor(255, 121, 198);
+  GuiData::widthMinus.setFillColor(widthMinusColor);
+  GuiData::widthMinus.setString("-");
+  GuiData::widthMinus.setPosition(GuiData::WINDOW_WIDTH-40.0f, 120.0f);
+  window.draw(GuiData::widthMinus);
 
 }
+
 void Ui::drawLengthIndicator(sf::RenderWindow& window) {
-
+  GuiData::lengthIndicator.setFont(GuiData::currentFont);
+  GuiData::lengthIndicator.setCharacterSize(19);
+  GuiData::lengthIndicator.setOrigin(GuiData::lengthIndicator.getGlobalBounds().width/2.0f, GuiData::lengthIndicator.getGlobalBounds().height/2.0f);
+  sf::Color lengthIndicatorColor(248, 248, 242);
+  GuiData::lengthIndicator.setFillColor(lengthIndicatorColor);
+  GuiData::lengthIndicator.setString("Length\n "+to_string(GuiData::currentMapLength));
+  GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 200.0f);
+  window.draw(GuiData::lengthIndicator);
 }
+
 void Ui::drawLengthPlus(sf::RenderWindow& window) {
-
+  GuiData::lengthPlus.setFont(GuiData::currentFont);
+  GuiData::lengthPlus.setCharacterSize(40);
+  GuiData::lengthPlus.setOrigin(GuiData::lengthPlus.getGlobalBounds().width/2.0f, GuiData::lengthPlus.getGlobalBounds().height/2.0f);
+  sf::Color lengthPlusColor(255, 121, 198);
+  GuiData::lengthPlus.setFillColor(lengthPlusColor);
+  GuiData::lengthPlus.setString("+");
+  GuiData::lengthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 230.0f);
+  window.draw(GuiData::lengthPlus);
 }
+
 void Ui::drawLengthMinus(sf::RenderWindow& window){
-
+  GuiData::lengthMinus.setFont(GuiData::currentFont);
+  GuiData::lengthMinus.setCharacterSize(40);
+  GuiData::lengthMinus.setOrigin(GuiData::lengthMinus.getGlobalBounds().width/2.0f, GuiData::lengthMinus.getGlobalBounds().height/2.0f);
+  sf::Color lengthMinusColor(255, 121, 198);
+  GuiData::lengthMinus.setFillColor(lengthMinusColor);
+  GuiData::lengthMinus.setString("-");
+  GuiData::lengthMinus.setPosition(GuiData::WINDOW_WIDTH-40.0f, 220.0f);
+  window.draw(GuiData::lengthMinus);
 }
+
 void Ui::drawSaveButton(sf::RenderWindow& window) {
   GuiData::saveButton.setFont(GuiData::currentFont);
   GuiData::saveButton.setCharacterSize(19);
@@ -237,7 +285,12 @@ void Ui::drawSaveButton(sf::RenderWindow& window) {
   GuiData::saveButton.setFillColor(saveButtonColor);
   GuiData::saveButton.setStyle(sf::Text::Bold);
   GuiData::saveButton.setString("SAVE");
-  GuiData::saveButton.setPosition(GuiData::WINDOW_WIDTH-60.0f, 30.0f);
+  GuiData::saveButton.setPosition(GuiData::WINDOW_WIDTH-75.0f, 30.0f);
   window.draw(GuiData::saveButton);
 }
+
+void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
+
+}
+
 

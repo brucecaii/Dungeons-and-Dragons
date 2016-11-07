@@ -2,17 +2,17 @@
 //! @brief Header file for the MapTest class
 //!
 #pragma once
-#include "thirdparty/cppunit/TestCase.h"
-#include "thirdparty/cppunit/TestFixture.h"
-#include "thirdparty/cppunit/ui/text/TextTestRunner.h"
-#include "thirdparty/cppunit/extensions/HelperMacros.h"
-#include "thirdparty/cppunit/extensions/TestFactoryRegistry.h"
-#include "thirdparty/cppunit/TestResult.h"
-#include "thirdparty/cppunit/TestResultCollector.h"
-#include "thirdparty/cppunit/TestRunner.h"
-#include "thirdparty/cppunit/BriefTestProgressListener.h"
-#include "thirdparty/cppunit/CompilerOutputter.h"
-#include "thirdparty/cppunit/XmlOutputter.h"
+#include <cppunit/TestCase.h>
+#include <cppunit/TestFixture.h>
+#include <cppunit/ui/text/TextTestRunner.h>
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/TestResult.h>
+#include <cppunit/TestResultCollector.h>
+#include <cppunit/TestRunner.h>
+#include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/CompilerOutputter.h>
+#include <cppunit/XmlOutputter.h>
 #include "Map.h"
 
 using namespace CppUnit;
