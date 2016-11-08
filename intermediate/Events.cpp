@@ -94,7 +94,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
             } else {
               GuiData::createdMap = GuiData::createdMap + ".map";
               GuiData::isChoosingMapToCreate = false;
-              GuiData::isCreatingMap = true;
+              GuiData::isSelectingMapSize = true;
 
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
@@ -144,6 +144,7 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
         GuiData::isChoosingCampaignToEdit = false;
         GuiData::isEditingCampaign = false;
         GuiData::isEditingMap = false;
+        GuiData::isSelectingMapSize = false;
         GuiData::isCreatingMap = false;
         GuiData::isCreatingCampaign = false;
         GuiData::shouldShowNameConflictError = false;
@@ -181,10 +182,9 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
 void Events::respondToWidthPlusClick(sf::RenderWindow& window) {
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
-    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+    if (GuiData::isSelectingMapSize) {
       if (GuiData::widthPlus.getGlobalBounds().contains(mousePosition)) {
-        int tempWidth = GameData::currentMapObject.getMapWidth();
-        GameData::currentMapObject.setMapWidth(tempWidth+1);
+        GuiData::tempMapWidth += 1;
         GuiData::shouldBlockThread = true;
       }
     }
@@ -193,11 +193,10 @@ void Events::respondToWidthPlusClick(sf::RenderWindow& window) {
 void Events::respondToWidthMinusClick(sf::RenderWindow& window) {
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
-    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+    if (GuiData::isSelectingMapSize) {
       if (GuiData::widthMinus.getGlobalBounds().contains(mousePosition)) {
-        if (GameData::currentMapObject.getMapWidth() > 4) {
-          int tempWidth = GameData::currentMapObject.getMapWidth();
-          GameData::currentMapObject.setMapWidth(tempWidth-1);
+        if (GuiData::tempMapWidth > 4) {
+            GuiData::tempMapWidth -= 1;
           GuiData::shouldBlockThread = true;
         }
       }
@@ -207,10 +206,9 @@ void Events::respondToWidthMinusClick(sf::RenderWindow& window) {
 void Events::respondToLengthPlusClick(sf::RenderWindow& window) {
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
-    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+    if (GuiData::isSelectingMapSize) {
       if (GuiData::lengthPlus.getGlobalBounds().contains(mousePosition)) {
-        int tempLength = GameData::currentMapObject.getMapLength();
-        GameData::currentMapObject.setMapLength(tempLength+1);
+        GuiData::tempMapLength += 1;
         GuiData::shouldBlockThread = true;
       }
     }
@@ -220,14 +218,37 @@ void Events::respondToLengthPlusClick(sf::RenderWindow& window) {
 void Events::respondToLengthMinusClick(sf::RenderWindow& window) {
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
-    if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+    if (GuiData::isSelectingMapSize) {
       if (GuiData::lengthMinus.getGlobalBounds().contains(mousePosition)) {
-        if (GameData::currentMapObject.getMapLength() > 4) {
-          int tempLength = GameData::currentMapObject.getMapLength();
-          GameData::currentMapObject.setMapLength(tempLength-1);
+        if (GuiData::tempMapLength > 4) {
+          GuiData::tempMapLength -= 1;
           GuiData::shouldBlockThread = true;
         }
       }
     }
   }
 }
+
+
+void Events::respondToMapCreateOkButton(sf::RenderWindow& window) {
+  if (GuiData::isSelectingMapSize) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+      if (GuiData::mapCreateOkButton.getGlobalBounds().contains(mousePosition)) {
+        delete GameData::currentMapObject;
+        int numBoxes = GuiData::tempMapWidth * GuiData::tempMapLength;
+        string placement(numBoxes, ' ');
+        std::cout << placement << std::endl;
+
+        GameData::currentMapObject = new Map(GuiData::tempMapWidth, GuiData::tempMapLength, placement);
+
+        MapCampaignFileIO mfio;
+        mfio.saveMapJSON(GuiData::createdMap);
+
+        GuiData::isSelectingMapSize = false;
+        GuiData::isCreatingMap = true;
+      }
+    }
+  }
+}
+

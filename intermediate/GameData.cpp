@@ -3,7 +3,7 @@
 
 namespace GameData {
 
-  Map currentMapObject;
-  Campaign currentCampaignObject;
+  Map* currentMapObject = new Map();
+  Campaign* currentCampaignObject = new Campaign();
 
 }

@@ -19,6 +19,7 @@ namespace GuiData {
 
   const int WINDOW_HEIGHT = 800;
   const int WINDOW_WIDTH = 800;
+  const int MAP_DISPLAY_WIDTH_LENGTH = 560;
   const float FADE_IN_STEP = 0.3f;
   const unsigned long UNIX_TIME_MS_START = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
   const unsigned long GREETINGS_APPEAR_TIME = 500;
@@ -26,7 +27,7 @@ namespace GuiData {
   const unsigned long SELECTION_BOXES_APPEAR_TIME = 4000;
   const unsigned long BLOCK_THREAD_WAIT_TIME = 200;
   const float  TEXT_OUTLINE_THICKNESS = 0.3f;
-
+  const sf::Vector2f mapAbsolutePositioning(60,120);
   Fonts fontGenerator;
   Texts textGenerator;
   Events eventManager;
@@ -47,6 +48,8 @@ namespace GuiData {
   sf::Text realTimeTypeFeedback;
   sf::Text NameConflictError;
   sf::Text HomeButton;
+  sf::Text mapCreateOkButton;
+  sf::Text selectMapSize;
   sf::Text saveButton;
   sf::Text widthIndicator;
   sf::Text widthPlus;
@@ -71,6 +74,7 @@ namespace GuiData {
   bool hasCreateCampaignPosition = false;
   bool hasEditCampaignPosition = false;
   bool isSelectingChoice = true;
+  bool isSelectingMapSize = false;
   bool isChoosingMapToCreate = false;
   bool isChoosingMapToEdit = false;
   bool isChoosingCampaignToCreate = false;
@@ -82,5 +86,8 @@ namespace GuiData {
   bool shouldShowNameConflictError = false;
   bool shouldBlockThread = false;
   unsigned long msSinceStart;
+
+  int tempMapWidth = 4;
+  int tempMapLength = 4;
 };
 

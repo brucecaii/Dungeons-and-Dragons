@@ -73,6 +73,7 @@ int main(int argc, char* argv[]) {
       GuiData::eventManager.respondToWidthMinusClick(window);
       GuiData::eventManager.respondToLengthPlusClick(window);
       GuiData::eventManager.respondToLengthMinusClick(window);
+      GuiData::eventManager.respondToMapCreateOkButton(window);
 
       // SCENE SELECTION
       window.clear(GuiData::SELECTION_BACKGROUND_COLOR);
@@ -83,6 +84,17 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawGreetings(window);
         GuiData::uiManager.drawCallToAction(window);
         GuiData::uiManager.drawSelectionBoxes(window, selectionBox);
+      }
+      if (GuiData::isSelectingMapSize) {
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawWidthIndicator(window);
+        GuiData::uiManager.drawWidthPlus(window);
+        GuiData::uiManager.drawWidthMinus(window);
+        GuiData::uiManager.drawLengthIndicator(window);
+        GuiData::uiManager.drawLengthPlus(window);
+        GuiData::uiManager.drawLengthMinus(window);
+        GuiData::uiManager.drawMapCreateOkButton(window);
+        GuiData::uiManager.drawSelectMapSize(window);
       }
 
       if (GuiData::isChoosingMapToCreate || GuiData::isChoosingCampaignToCreate){
@@ -106,12 +118,6 @@ int main(int argc, char* argv[]) {
       if (GuiData::isEditingMap) {
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawMapUi(window);
-        GuiData::uiManager.drawWidthIndicator(window);
-        GuiData::uiManager.drawWidthPlus(window);
-        GuiData::uiManager.drawWidthMinus(window);
-        GuiData::uiManager.drawLengthIndicator(window);
-        GuiData::uiManager.drawLengthPlus(window);
-        GuiData::uiManager.drawLengthMinus(window);
         GuiData::uiManager.drawSaveButton(window);
         GuiData::uiManager.drawWallSpriteSelector(window);
         GuiData::uiManager.drawTreasureSpriteSelector(window);
@@ -119,6 +125,8 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawStartSpriteSelector(window);
         GuiData::uiManager.drawCharacterSpriteSelector(window);
         GuiData::uiManager.drawMonsterSpriteSelector(window);
+        GuiData::uiManager.drawMapBorder(window);
+        GuiData::uiManager.drawMapClickableBox(window);
       }
       if (GuiData::isEditingCampaign) {
         GuiData::uiManager.drawHomeButton(window);
@@ -127,12 +135,6 @@ int main(int argc, char* argv[]) {
       if (GuiData::isCreatingMap) {
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawMapUi(window);
-        GuiData::uiManager.drawWidthIndicator(window);
-        GuiData::uiManager.drawWidthPlus(window);
-        GuiData::uiManager.drawWidthMinus(window);
-        GuiData::uiManager.drawLengthIndicator(window);
-        GuiData::uiManager.drawLengthPlus(window);
-        GuiData::uiManager.drawLengthMinus(window);
         GuiData::uiManager.drawSaveButton(window);
         GuiData::uiManager.drawWallSpriteSelector(window);
         GuiData::uiManager.drawTreasureSpriteSelector(window);
@@ -140,6 +142,8 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawStartSpriteSelector(window);
         GuiData::uiManager.drawCharacterSpriteSelector(window);
         GuiData::uiManager.drawMonsterSpriteSelector(window);
+        GuiData::uiManager.drawMapBorder(window);
+        GuiData::uiManager.drawMapClickableBox(window);
       }
       if (GuiData::isCreatingCampaign) {
         GuiData::uiManager.drawHomeButton(window);

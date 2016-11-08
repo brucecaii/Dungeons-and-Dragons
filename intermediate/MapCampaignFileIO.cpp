@@ -58,15 +58,21 @@ void MapCampaignFileIO::saveMapJSON(string filePath) {
   std::cout << "writing map" << std::endl;
   ofstream writeJsonFile(filePath, ofstream::out);
   json map;
-  int tempWidth = GameData::currentMapObject.getMapWidth();
-  int tempLength = GameData::currentMapObject.getMapLength();
+  int tempWidth = GameData::currentMapObject->getMapWidth();
+  int tempLength = GameData::currentMapObject->getMapLength();
   string placement = "";
-  vector<vector<char>> tempMap = GameData::currentMapObject.getMapData();
+  vector<vector<char>> tempMap = GameData::currentMapObject->getMapData();
   for(int i = 0; i < tempWidth; i++) {
     for(int j = 0; j < tempLength; j++) {
-      placement += tempMap[i][j];
+      // Having issues with parsing some whitespace
+      char tempChar = tempMap[i][j];
+      if (tempChar != 'W' || tempChar != 'S' || tempChar != 'E' || tempChar != 'T' || tempChar != 'C' || tempChar != ' ') {
+        tempChar = ' ';
+      }
+      placement += tempChar;
     }
   }
+  std::cout << "placement: " << placement << std::endl;
 
   map["mapWidth"] = tempWidth;
   map["mapLength"] = tempLength;
@@ -82,15 +88,15 @@ void MapCampaignFileIO::readMapJSON(string filePath) {
   int tempWidth = int(map["mapWidth"]);
   int tempLength = int(map["mapLength"]);
   string placement = map["placement"];
-  Map temp(tempWidth, tempLength, placement);
-  GameData::currentMapObject = temp;
+  delete GameData::currentMapObject;
+  GameData::currentMapObject = new Map(tempWidth, tempLength, placement);
   readJsonFile.close();
 }
 
 void MapCampaignFileIO::saveCampaignJSON(string filePath) {
   std::cout << "writing campaign" << std::endl;
   ofstream writeJsonFile(filePath, ofstream::out);
-  json campaign(GameData::currentCampaignObject.getCampaignMapOrder());
+  json campaign(GameData::currentCampaignObject->getCampaignMapOrder());
   writeJsonFile << campaign;
   writeJsonFile.close();
 }
@@ -98,6 +104,6 @@ void MapCampaignFileIO::saveCampaignJSON(string filePath) {
 void MapCampaignFileIO::readCampaignJSON(string filePath) {
   ifstream readJsonFile(filePath, ifstream::in);
   json campaign(readJsonFile);
-  GameData::currentCampaignObject.setCampaignMapOrder(campaign.get<vector<string>>());
+  GameData::currentCampaignObject->setCampaignMapOrder(campaign.get<vector<string>>());
   readJsonFile.close();
 }

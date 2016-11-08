@@ -60,7 +60,7 @@ void MapTest::tearDown() {
 //! Tested item: Map::isOccupied()
 void MapTest::testMapCellFilled() {
         // context: fill a cell
-        map->fillCell(1, 1, 'a');
+        map->setCell(1, 1, 'a');
         // test: isOccupied() should return true after the cell having been filled
         CPPUNIT_ASSERT(true == map->isOccupied(1, 1));
 }
@@ -70,7 +70,7 @@ void MapTest::testMapCellFilled() {
 //! Tested item: Map::isOccupied()
 void MapTest::testMapCellEmpty() {
 	// context: make a cell empty
-        map->fillCell(1, 1, ' ');
+        map->setCell(1, 1, ' ');
 	// test: isOoccupied() should return false if the cell was not inline
         CPPUNIT_ASSERT(false == map->isOccupied(1, 1));
 }
@@ -80,10 +80,10 @@ void MapTest::testMapCellEmpty() {
 //! Tested item: Map::validatePath()
 void MapTest::testValidPath() {
 	// context: create a map with a valid path
-        map->fillCell(0, 0, 'W');
-        map->fillCell(1, 0, 'W');
-        map->fillCell(0, 1, 'S');
-        map->fillCell(1, 1, 'E');
+        map->setCell(0, 0, 'W');
+        map->setCell(1, 0, 'W');
+        map->setCell(0, 1, 'S');
+        map->setCell(1, 1, 'E');
 
 	// test: validatePath() should return true
         CPPUNIT_ASSERT(true == map->validatePath());
@@ -94,8 +94,8 @@ void MapTest::testValidPath() {
 //! Tested item: Map::validatePath()
 void MapTest::testInvalidPath() {
 	// context: create a map without a valid path
-        map->fillCell(0, 0, 'S');
-        map->fillCell(2, 2, 'E');
+        map->setCell(0, 0, 'S');
+        map->setCell(2, 2, 'E');
 
 	// test: validatePath() should return false
         CPPUNIT_ASSERT(false == map->validatePath());
@@ -106,7 +106,7 @@ void MapTest::testInvalidPath() {
 //! Tested item: Map::isBeside(int x, int y, char type)
 void MapTest::testValidIsBeside() {
 	// context: create a map with a desired type adjacent to a cell
-        map->fillCell(0, 0, 'E');
+        map->setCell(0, 0, 'E');
 
 	// test: isBeside(int x, int y, char type) should return true
         CPPUNIT_ASSERT(true == map->isBeside(0, 1, 'E'));

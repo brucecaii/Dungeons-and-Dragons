@@ -15,7 +15,8 @@ class Map {
     Map();
     Map(int width, int length, string placement);
     bool validatePath();
-    void fillCell(int x, int y, char obj);
+    void setCell(int x, int y, char obj);
+    char getCell(int x, int y);
     bool isOccupied(int x, int y);
     int getMapWidth();
     int getMapLength();

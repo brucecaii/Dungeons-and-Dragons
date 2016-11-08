@@ -3,8 +3,8 @@
 
 namespace GameData {
 
-  extern Map currentMapObject;
-  extern Campaign currentCampaignObject;
+  extern Map* currentMapObject;
+  extern Campaign* currentCampaignObject;
 
 }
 

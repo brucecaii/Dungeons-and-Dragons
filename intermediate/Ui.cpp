@@ -234,8 +234,8 @@ void Ui::drawWidthIndicator(sf::RenderWindow& window) {
   GuiData::widthIndicator.setOrigin(GuiData::widthIndicator.getGlobalBounds().width/2.0f, GuiData::widthIndicator.getGlobalBounds().height/2.0f);
   sf::Color widthIndicatorColor(248, 248, 242);
   GuiData::widthIndicator.setFillColor(widthIndicatorColor);
-  GuiData::widthIndicator.setString("Width\n "+to_string(GameData::currentMapObject.getMapWidth()));
-  GuiData::widthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 100.0f);
+  GuiData::widthIndicator.setString("Width\n "+to_string(GuiData::tempMapWidth));
+  GuiData::widthIndicator.setPosition(125.0f, 260.0f);
   window.draw(GuiData::widthIndicator);
 }
 
@@ -247,7 +247,7 @@ void Ui::drawWidthPlus(sf::RenderWindow& window) {
   sf::Color widthPlusColor(255, 121, 198);
   GuiData::widthPlus.setFillColor(widthPlusColor);
   GuiData::widthPlus.setString("+");
-  GuiData::widthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 130.0f);
+  GuiData::widthPlus.setPosition(90.0f, 290.0f);
   window.draw(GuiData::widthPlus);
 }
 
@@ -259,7 +259,7 @@ void Ui::drawWidthMinus(sf::RenderWindow& window) {
   sf::Color widthMinusColor(255, 121, 198);
   GuiData::widthMinus.setFillColor(widthMinusColor);
   GuiData::widthMinus.setString("-");
-  GuiData::widthMinus.setPosition(GuiData::WINDOW_WIDTH-40.0f, 120.0f);
+  GuiData::widthMinus.setPosition(160.0f, 280.0f);
   window.draw(GuiData::widthMinus);
 
 }
@@ -271,8 +271,8 @@ void Ui::drawLengthIndicator(sf::RenderWindow& window) {
   GuiData::lengthIndicator.setOrigin(GuiData::lengthIndicator.getGlobalBounds().width/2.0f, GuiData::lengthIndicator.getGlobalBounds().height/2.0f);
   sf::Color lengthIndicatorColor(248, 248, 242);
   GuiData::lengthIndicator.setFillColor(lengthIndicatorColor);
-  GuiData::lengthIndicator.setString("Length\n "+to_string(GameData::currentMapObject.getMapLength()));
-  GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 260.0f);
+  GuiData::lengthIndicator.setString("Length\n "+to_string(GuiData::tempMapLength));
+  GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-125.0f, 260.0f);
   window.draw(GuiData::lengthIndicator);
 }
 
@@ -284,7 +284,7 @@ void Ui::drawLengthPlus(sf::RenderWindow& window) {
   sf::Color lengthPlusColor(255, 121, 198);
   GuiData::lengthPlus.setFillColor(lengthPlusColor);
   GuiData::lengthPlus.setString("+");
-  GuiData::lengthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 290.0f);
+  GuiData::lengthPlus.setPosition(GuiData::WINDOW_WIDTH-160.0f, 290.0f);
   window.draw(GuiData::lengthPlus);
 }
 
@@ -296,7 +296,7 @@ void Ui::drawLengthMinus(sf::RenderWindow& window){
   sf::Color lengthMinusColor(255, 121, 198);
   GuiData::lengthMinus.setFillColor(lengthMinusColor);
   GuiData::lengthMinus.setString("-");
-  GuiData::lengthMinus.setPosition(GuiData::WINDOW_WIDTH-40.0f, 280.0f);
+  GuiData::lengthMinus.setPosition(GuiData::WINDOW_WIDTH-90.0f, 280.0f);
   window.draw(GuiData::lengthMinus);
 }
 
@@ -396,3 +396,104 @@ void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
   monsterSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 240);
   window.draw(monsterSprite);
 }
+
+//! Implementation of drawMapBorder, shows a box around the area where the map is displayed.
+void Ui::drawMapBorder(sf::RenderWindow& window) {
+  sf::RectangleShape mapBorder(sf::Vector2f(GuiData::MAP_DISPLAY_WIDTH_LENGTH, GuiData::MAP_DISPLAY_WIDTH_LENGTH));
+  sf::Color mapBorderColor(68, 71, 90);
+  sf::Color mapBorderOutlineColor(189, 147, 249);
+  mapBorder.setFillColor(mapBorderColor);
+  mapBorder.setOutlineColor(mapBorderOutlineColor);
+  mapBorder.setOutlineThickness(5.0f);
+  mapBorder.setPosition(GuiData::mapAbsolutePositioning);
+  window.draw(mapBorder);
+}
+
+void Ui::drawMapClickableBox(sf::RenderWindow& window) {
+  int tempWidth = GameData::currentMapObject->getMapWidth();
+  int tempLength = GameData::currentMapObject->getMapLength();
+  float tempBoxWidth = GuiData::MAP_DISPLAY_WIDTH_LENGTH/tempWidth;
+  float tempBoxLength = GuiData::MAP_DISPLAY_WIDTH_LENGTH/tempLength;
+  sf::RectangleShape mapClickableBox(sf::Vector2f(tempBoxWidth, tempBoxLength));
+  sf::Color mapClickableBoxOutlineColor(248, 248, 242);
+  mapClickableBox.setFillColor(sf::Color::White);
+  mapClickableBox.setOutlineColor(mapClickableBoxOutlineColor);
+  mapClickableBox.setOutlineThickness(2.0f);
+
+
+  sf::Texture wallTexture;
+  wallTexture.loadFromFile("textures/wall.png");
+  sf::Texture startTexture;
+  startTexture.loadFromFile("textures/start.png");
+  sf::Texture exitTexture;
+  exitTexture.loadFromFile("textures/exit.png");
+  sf::Texture treasureTexture;
+  treasureTexture.loadFromFile("textures/treasure.png");
+  sf::Texture characterTexture;
+  characterTexture.loadFromFile("textures/character.png");
+  sf::Texture monsterTexture;
+  monsterTexture.loadFromFile("textures/monster.png");
+  sf::Texture emptyTexture;
+  emptyTexture.loadFromFile("textures/empty.png");
+
+  for (int i = 0; i < tempWidth; i++) {
+    for (int j =0; j < tempLength; j++) {
+      char tempMapCell = GameData::currentMapObject->getCell(i,j);
+
+      if (tempMapCell == 'W') {
+        mapClickableBox.setTexture(&wallTexture);
+      }
+      else if (tempMapCell == 'S') {
+        mapClickableBox.setTexture(&startTexture);
+      }
+      else if (tempMapCell == 'E') {
+        mapClickableBox.setTexture(&exitTexture);
+      }
+      else if (tempMapCell == 'T') {
+        mapClickableBox.setTexture(&treasureTexture);
+      }
+      else if (tempMapCell == 'C') {
+        mapClickableBox.setTexture(&characterTexture);
+      }
+      else if (tempMapCell == 'O') {
+        mapClickableBox.setTexture(&monsterTexture);
+      }
+      else {
+        mapClickableBox.setTexture(&emptyTexture);
+      }
+
+      mapClickableBox.setPosition(
+          GuiData::mapAbsolutePositioning.x + tempBoxWidth*i,
+          GuiData::mapAbsolutePositioning.y + tempBoxLength*j
+      );
+      window.draw(mapClickableBox);
+    }
+  }
+}
+void Ui::drawMapCreateOkButton(sf::RenderWindow& window) {
+  GuiData::mapCreateOkButton.setFont(GuiData::currentFont);
+  GuiData::mapCreateOkButton.setCharacterSize(19);
+  GuiData::mapCreateOkButton.setOrigin(GuiData::mapCreateOkButton.getGlobalBounds().width/2.0f, GuiData::mapCreateOkButton.getGlobalBounds().height/2.0f);
+  sf::Color mapCreateOkButtonColor(255, 121, 198);
+  GuiData::mapCreateOkButton.setFillColor(mapCreateOkButtonColor);
+  GuiData::mapCreateOkButton.setStyle(sf::Text::Bold);
+  GuiData::mapCreateOkButton.setString("OK");
+  GuiData::mapCreateOkButton.setPosition(GuiData::WINDOW_WIDTH-75.0f, 30.0f);
+  window.draw(GuiData::mapCreateOkButton);
+}
+
+void Ui::drawSelectMapSize(sf::RenderWindow& window) {
+  GuiData::selectMapSize.setString("Select a map size (min 4x4)");
+  GuiData::selectMapSize.setFont(GuiData::currentFont);
+  GuiData::selectMapSize.setCharacterSize(24);
+  GuiData::selectMapSize.setOrigin(GuiData::selectMapSize.getGlobalBounds().width/2.0f, GuiData::selectMapSize.getGlobalBounds().height/2.0f);
+  GuiData::selectMapSize.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
+  GuiData::selectMapSize.setOutlineThickness(GuiData::TEXT_OUTLINE_THICKNESS);
+  sf::Color selectMapSizeColor(248, 248, 242);
+  sf::Color selectMapSizeOutlineColor(189, 147, 249);
+  GuiData::selectMapSize.setFillColor(selectMapSizeColor);
+  GuiData::selectMapSize.setOutlineColor(selectMapSizeOutlineColor);
+  window.draw(GuiData::selectMapSize);
+}
+
+

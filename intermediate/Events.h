@@ -17,6 +17,7 @@ class Events {
     void respondToWidthMinusClick(sf::RenderWindow& window);
     void respondToLengthPlusClick(sf::RenderWindow& window);
     void respondToLengthMinusClick(sf::RenderWindow& window);
+    void respondToMapCreateOkButton(sf::RenderWindow& window);
 };
 
 

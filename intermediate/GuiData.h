@@ -10,6 +10,7 @@ namespace GuiData{
 
   extern const int WINDOW_HEIGHT;
   extern const int WINDOW_WIDTH;
+  extern const int MAP_DISPLAY_WIDTH_LENGTH;
   extern const float FADE_IN_STEP;
   extern const unsigned long UNIX_TIME_MS_START;
   extern const unsigned long GREETINGS_APPEAR_TIME;
@@ -17,6 +18,7 @@ namespace GuiData{
   extern const unsigned long SELECTION_BOXES_APPEAR_TIME;
   extern const unsigned long BLOCK_THREAD_WAIT_TIME;
   extern const float TEXT_OUTLINE_THICKNESS;
+  extern const sf::Vector2f mapAbsolutePositioning;
 
   extern Fonts fontGenerator;
   extern Texts textGenerator;
@@ -37,8 +39,10 @@ namespace GuiData{
   extern sf::Text selectFileNames;
   extern sf::Text realTimeTypeFeedback;
   extern sf::Text NameConflictError;
+  extern sf::Text selectMapSize;
   extern sf::Text HomeButton;
   extern sf::Text saveButton;
+  extern sf::Text mapCreateOkButton;
   extern sf::Text widthIndicator;
   extern sf::Text widthPlus;
   extern sf::Text widthMinus;
@@ -63,6 +67,7 @@ namespace GuiData{
   extern bool hasCreateCampaignPosition;
   extern bool hasEditCampaignPosition;
   extern bool isSelectingChoice;
+  extern bool isSelectingMapSize;
   extern bool isChoosingMapToCreate;
   extern bool isChoosingMapToEdit;
   extern bool isChoosingCampaignToCreate;
@@ -74,6 +79,9 @@ namespace GuiData{
   extern bool isCreatingMap;
   extern bool shouldBlockThread;
   extern unsigned long msSinceStart;
+
+  extern int tempMapWidth;
+  extern int tempMapLength;
 };
 
 

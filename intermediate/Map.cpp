@@ -178,8 +178,16 @@ bool Map::validatePath() {
 //! @param x: an integer value of horizontal index of the map's grid
 //! @param y: an integer value of vertical index of the map's grid
 //! @param obj: a character value of object that fills the cell
-void Map::fillCell(int x, int y, char obj) {
+void Map::setCell(int x, int y, char obj) {
 	map[x][y] = obj;
+}
+
+//! Implementation of fill cell, set any cell to anything it might eventually contain
+//! @param x: an integer value of horizontal index of the map's grid
+//! @param y: an integer value of vertical index of the map's grid
+//! @param obj: a character value of object that fills the cell
+char Map::getCell(int x, int y) {
+	return map[x][y];
 }
 
 //! Implementation occupation of a cell, check if a cell is occupied
