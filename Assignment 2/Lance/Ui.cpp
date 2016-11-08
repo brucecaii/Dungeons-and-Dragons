@@ -13,15 +13,18 @@ using std::cout;
 using std::endl;
 using std::to_string;
 
+//! Implementation of updateTime, determines the tunning total of milliseconds since the launch of the program.
 void Ui::updateTime() {
   unsigned long msTimeNow = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
   GuiData::msSinceStart = msTimeNow - GuiData::UNIX_TIME_MS_START;
 }
 
+//! Implementation of drawEllipsis, displays ellipses
 void Ui::drawEllipsis(sf::RenderWindow& window) {
   window.draw(GuiData::ellipsis);
 }
 
+//! Implementation of drawGreetings, displays the greeting text with a fade in
 void Ui::drawGreetings(sf::RenderWindow& window) {
   if (GuiData::msSinceStart > GuiData::GREETINGS_APPEAR_TIME) {
     if ((int)GuiData::greetingsTransparency < 255) {
@@ -35,6 +38,7 @@ void Ui::drawGreetings(sf::RenderWindow& window) {
   }
 }
 
+//! Implementation of drawCallToAction, displays the callToAction text with a fade in
 void Ui::drawCallToAction(sf::RenderWindow& window) {
   if (GuiData::msSinceStart > GuiData::CALL_TO_ACTION_APPEAR_TIME) {
     if ((int)GuiData::callToActionTransparency < 255) {
@@ -48,6 +52,7 @@ void Ui::drawCallToAction(sf::RenderWindow& window) {
   }
 }
 
+//! Implementation of drawSelectionBoxes, displays clickable boxes for the user to decide their initial action.
 void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& selectionBox) {
   if (GuiData::msSinceStart > GuiData::SELECTION_BOXES_APPEAR_TIME) {
     if ((int)GuiData::selectionBoxTransparency < 255) {
@@ -106,6 +111,7 @@ void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& select
   }
 }
 
+//! Implementation of drawSelectMapCampaign, displays header text for selecting a map or campaign from files on disk.
 void Ui::drawSelectMapCampaign(sf::RenderWindow& window) {
   GuiData::selectMap.setFont(GuiData::currentFont);
   if (GuiData::isChoosingMapToEdit) {
@@ -124,6 +130,8 @@ void Ui::drawSelectMapCampaign(sf::RenderWindow& window) {
   GuiData::selectMap.setOutlineColor(selectMapOutlineColor);
   window.draw(GuiData::selectMap);
 }
+
+//! Implementation of drawTypeMapCampaignName, displays header text a new map or campaign.
 void Ui::drawTypeMapCampaignName(sf::RenderWindow& window) {
   GuiData::typeMapName.setFont(GuiData::currentFont);
   if (GuiData::isChoosingMapToCreate) {
@@ -143,6 +151,7 @@ void Ui::drawTypeMapCampaignName(sf::RenderWindow& window) {
   window.draw(GuiData::typeMapName);
 }
 
+//! Implementation of drawSelectFileNames, displays text for selecting a map or campaign from files for each file of a specific type on disk.
 void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_files) {
   GuiData::selectFileNames.setFont(GuiData::currentFont);
   GuiData::selectFileNames.setCharacterSize(20);
@@ -171,6 +180,7 @@ void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_fi
   }
 }
 
+//! Implementation of drawRealTimeTypeFeedbac, displays text as the user type for a filename for a new map or campaign.
 void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   GuiData::realTimeTypeFeedback.setFont(GuiData::currentFont);
   GuiData::realTimeTypeFeedback.setCharacterSize(20);
@@ -187,6 +197,7 @@ void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   window.draw(GuiData::realTimeTypeFeedback);
 }
 
+//! Implementation of drawNameConflictError, displays error text is a file with that name already exists
 void Ui::drawNameConflictError(sf::RenderWindow& window) {
   GuiData::NameConflictError.setFont(GuiData::currentFont);
   GuiData::NameConflictError.setCharacterSize(24);
@@ -198,6 +209,7 @@ void Ui::drawNameConflictError(sf::RenderWindow& window) {
   window.draw(GuiData::NameConflictError);
 }
 
+//! Implementation of drawHomeButton, displays a link back the home page on most pages
 void Ui::drawHomeButton(sf::RenderWindow& window) {
   GuiData::HomeButton.setFont(GuiData::currentFont);
   GuiData::HomeButton.setCharacterSize(19);
@@ -214,6 +226,7 @@ void Ui::drawMapUi(sf::RenderWindow& window) {
   // TBD
 }
 
+//! Implementation of drawWidthIndicator, displays the current map width while editing or creating a new map
 void Ui::drawWidthIndicator(sf::RenderWindow& window) {
   GuiData::widthIndicator.setFont(GuiData::currentFont);
   GuiData::widthIndicator.setCharacterSize(19);
@@ -224,6 +237,8 @@ void Ui::drawWidthIndicator(sf::RenderWindow& window) {
   GuiData::widthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 100.0f);
   window.draw(GuiData::widthIndicator);
 }
+
+//! Implementation of drawWidthPlus, allows the user to increase map size
 void Ui::drawWidthPlus(sf::RenderWindow& window) {
   GuiData::widthPlus.setFont(GuiData::currentFont);
   GuiData::widthPlus.setCharacterSize(40);
@@ -234,6 +249,8 @@ void Ui::drawWidthPlus(sf::RenderWindow& window) {
   GuiData::widthPlus.setPosition(GuiData::WINDOW_WIDTH-110.0f, 130.0f);
   window.draw(GuiData::widthPlus);
 }
+
+//! Implementation of drawWidthMinus, allows the user to decrease map size
 void Ui::drawWidthMinus(sf::RenderWindow& window) {
   GuiData::widthMinus.setFont(GuiData::currentFont);
   GuiData::widthMinus.setCharacterSize(40);
@@ -246,6 +263,7 @@ void Ui::drawWidthMinus(sf::RenderWindow& window) {
 
 }
 
+//! Implementation of drawLengthIndicator, displays the current map length while editing or creating a new map
 void Ui::drawLengthIndicator(sf::RenderWindow& window) {
   GuiData::lengthIndicator.setFont(GuiData::currentFont);
   GuiData::lengthIndicator.setCharacterSize(19);
@@ -257,6 +275,7 @@ void Ui::drawLengthIndicator(sf::RenderWindow& window) {
   window.draw(GuiData::lengthIndicator);
 }
 
+//! Implementation of drawLengthPlus, allows the user to increase map size
 void Ui::drawLengthPlus(sf::RenderWindow& window) {
   GuiData::lengthPlus.setFont(GuiData::currentFont);
   GuiData::lengthPlus.setCharacterSize(40);
@@ -268,6 +287,7 @@ void Ui::drawLengthPlus(sf::RenderWindow& window) {
   window.draw(GuiData::lengthPlus);
 }
 
+//! Implementation of drawLengthMinus, allows the user to decrease map size
 void Ui::drawLengthMinus(sf::RenderWindow& window){
   GuiData::lengthMinus.setFont(GuiData::currentFont);
   GuiData::lengthMinus.setCharacterSize(40);
@@ -279,6 +299,7 @@ void Ui::drawLengthMinus(sf::RenderWindow& window){
   window.draw(GuiData::lengthMinus);
 }
 
+//! Implementation of drawSaveButton, allows the user to save a specific map or campaign to disk
 void Ui::drawSaveButton(sf::RenderWindow& window) {
   GuiData::saveButton.setFont(GuiData::currentFont);
   GuiData::saveButton.setCharacterSize(19);
@@ -291,6 +312,7 @@ void Ui::drawSaveButton(sf::RenderWindow& window) {
   window.draw(GuiData::saveButton);
 }
 
+//! Implementation of drawWallSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
   sf::Texture wallTexture;
   wallTexture.loadFromFile("textures/wall.png");
@@ -304,6 +326,7 @@ void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
   window.draw(wallSprite);
 }
 
+//! Implementation of drawTreasureSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
   sf::Texture treasureTexture;
   treasureTexture.loadFromFile("textures/treasure.png");
@@ -317,6 +340,7 @@ void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
   window.draw(treasureSprite);
 }
 
+//! Implementation of drawExitSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
   sf::Texture exitTexture;
   exitTexture.loadFromFile("textures/exit.png");
@@ -330,6 +354,7 @@ void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
   window.draw(exitSprite);
 }
 
+//! Implementation of drawStartSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
   sf::Texture startTexture;
   startTexture.loadFromFile("textures/start.png");
@@ -343,6 +368,7 @@ void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
   window.draw(startSprite);
 }
 
+//! Implementation of drawCharacterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
   sf::Texture characterTexture;
   characterTexture.loadFromFile("textures/character.png");
@@ -356,6 +382,7 @@ void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
   window.draw(characterSprite);
 }
 
+//! Implementation of drawMonsterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
   sf::Texture monsterTexture;
   monsterTexture.loadFromFile("textures/monster.png");

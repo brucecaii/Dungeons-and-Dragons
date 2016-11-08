@@ -4,27 +4,6 @@
 //! This program is able to either:
 //! - Drive the CppUnit test suite
 //! - Drive the main map creation program.
-//!
-//! If you want to *run the test suite*:
-//! - Compile the program using the following g++ command on Linux:
-//!   - `g++ -g -o comp345build RunApp.cpp MapTest.cpp Map.cpp /usr/lib/libcppunit.so`
-//! - Generate the documentation:
-//!    - `doxygen`
-//! - Run the executable with the test argument:
-//!   - ./comp345build test
-//!
-//! If you want to *run the map creation program*:
-//! - Compile the program using the following g++ command on Linux:
-//!   - `g++ -g -o comp345build RunApp.cpp MapTest.cpp Map.cpp /usr/lib/libcppunit.so`
-//! - Generate the documentation:
-//!    - `doxygen`
-//! - Run the executable directly:
-//!   - ./comp345build
-//!
-//! If you want to *view the Doxygen documentation*:
-//! - Run a static web server in the html/ directory. For example:
-//!   - cd html/ && python3 -m http.server
-//!   - visit http://localhost:8000 in the browser.
 
 #include <string>
 #include <chrono>

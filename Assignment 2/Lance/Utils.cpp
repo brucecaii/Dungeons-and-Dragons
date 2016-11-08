@@ -11,6 +11,7 @@ using std::string;
 using std::stringstream;
 using std::vector;
 
+//! Implementation of split, a utility function for splitting string with a delimiter and placing them in a vector
 void Utils::split(const string &s, char delim, vector<string> &elems) {
   stringstream ss;
   ss.str(s);

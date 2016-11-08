@@ -5,8 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-//! Class implementing ui-related static functions
-
+//! Class implementing functions for dynamic text
 class Texts {
   public:
     void generateEllipsis();

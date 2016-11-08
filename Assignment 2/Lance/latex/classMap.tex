@@ -1,0 +1,136 @@
+\hypertarget{classMap}{}\section{Map Class Reference}
+\label{classMap}\index{Map@{Map}}
+
+
+Class implementing a game map.  
+
+
+
+
+{\ttfamily \#include $<$Map.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classMap_a0f5ad0fd4563497b4214038cbca8b582}{}\label{classMap_a0f5ad0fd4563497b4214038cbca8b582} 
+\hyperlink{classMap_a0f5ad0fd4563497b4214038cbca8b582}{Map} ()
+\begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{classMap}{Map} class default constructor, creates a map grid based on default size values. \end{DoxyCompactList}\item 
+\hyperlink{classMap_a1d58d9a6724d335f6173cdd4065af24a}{Map} (int width, int length)
+\item 
+bool \hyperlink{classMap_a91d9e239a9871b99a5d6d2d5d46b0504}{validate\+Path} ()
+\item 
+void \hyperlink{classMap_a96c5c1d56e2b58c2ea81f49106e20b3c}{fill\+Cell} (int x, int y, char obj)
+\item 
+bool \hyperlink{classMap_a79e5ced99d160ca9b680661169f16d84}{is\+Occupied} (int x, int y)
+\item 
+\hypertarget{classMap_ac5af28a5fed55d9ca5d1dab5cb9f3f9c}{}\label{classMap_ac5af28a5fed55d9ca5d1dab5cb9f3f9c} 
+void \hyperlink{classMap_ac5af28a5fed55d9ca5d1dab5cb9f3f9c}{display\+Map} ()
+\begin{DoxyCompactList}\small\item\em Implementation of display\+Map, displays a representation of the currently stored map to the user. \end{DoxyCompactList}\item 
+int \hyperlink{classMap_a286853d8475bc1bbede582c89e9b1491}{get\+Map\+Width} ()
+\item 
+int \hyperlink{classMap_aad03e74940d81cf9307bb0dae7e8814b}{get\+Map\+Length} ()
+\item 
+bool \hyperlink{classMap_a7ba2837b589493924b726dc326d68e8e}{is\+Beside} (int x, int y, char type)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class implementing a game map. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMap_a1d58d9a6724d335f6173cdd4065af24a}{}\label{classMap_a1d58d9a6724d335f6173cdd4065af24a} 
+\index{Map@{Map}!Map@{Map}}
+\index{Map@{Map}!Map@{Map}}
+\subsubsection{\texorpdfstring{Map()}{Map()}}
+{\footnotesize\ttfamily Map\+::\+Map (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{length }\end{DoxyParamCaption})}
+
+Implementation of a \hyperlink{classMap}{Map} class non-\/default constructor, creates a map grid based on provided size values 
+\begin{DoxyParams}{Parameters}
+{\em width} & an integer value of horizontal size of the map\textquotesingle{}s grid \\
+\hline
+{\em length} & an integer value of vertical size of the map\textquotesingle{}s grid \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMap_a96c5c1d56e2b58c2ea81f49106e20b3c}{}\label{classMap_a96c5c1d56e2b58c2ea81f49106e20b3c} 
+\index{Map@{Map}!fill\+Cell@{fill\+Cell}}
+\index{fill\+Cell@{fill\+Cell}!Map@{Map}}
+\subsubsection{\texorpdfstring{fill\+Cell()}{fillCell()}}
+{\footnotesize\ttfamily void Map\+::fill\+Cell (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{char}]{obj }\end{DoxyParamCaption})}
+
+Implementation of fill cell, set any cell to anything it might eventually contain 
+\begin{DoxyParams}{Parameters}
+{\em x} & an integer value of horizontal index of the map\textquotesingle{}s grid \\
+\hline
+{\em y} & an integer value of vertical index of the map\textquotesingle{}s grid \\
+\hline
+{\em obj} & a character value of object that fills the cell \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMap_aad03e74940d81cf9307bb0dae7e8814b}{}\label{classMap_aad03e74940d81cf9307bb0dae7e8814b} 
+\index{Map@{Map}!get\+Map\+Length@{get\+Map\+Length}}
+\index{get\+Map\+Length@{get\+Map\+Length}!Map@{Map}}
+\subsubsection{\texorpdfstring{get\+Map\+Length()}{getMapLength()}}
+{\footnotesize\ttfamily int Map\+::get\+Map\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Implementation of get\+Map\+Length, provides information on map vertical size. \begin{DoxyReturn}{Returns}
+\+: an integer value representing the map grid\textquotesingle{}s length 
+\end{DoxyReturn}
+\hypertarget{classMap_a286853d8475bc1bbede582c89e9b1491}{}\label{classMap_a286853d8475bc1bbede582c89e9b1491} 
+\index{Map@{Map}!get\+Map\+Width@{get\+Map\+Width}}
+\index{get\+Map\+Width@{get\+Map\+Width}!Map@{Map}}
+\subsubsection{\texorpdfstring{get\+Map\+Width()}{getMapWidth()}}
+{\footnotesize\ttfamily int Map\+::get\+Map\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Implementation of get\+Map\+Width, provides information on map horizontal size. \begin{DoxyReturn}{Returns}
+\+: an integer value representing the map grid\textquotesingle{}s width 
+\end{DoxyReturn}
+\hypertarget{classMap_a7ba2837b589493924b726dc326d68e8e}{}\label{classMap_a7ba2837b589493924b726dc326d68e8e} 
+\index{Map@{Map}!is\+Beside@{is\+Beside}}
+\index{is\+Beside@{is\+Beside}!Map@{Map}}
+\subsubsection{\texorpdfstring{is\+Beside()}{isBeside()}}
+{\footnotesize\ttfamily bool Map\+::is\+Beside (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{char}]{type }\end{DoxyParamCaption})}
+
+Implementation of is beside, checks if a specific cell is adjacent (top/left/bottom/right) to a specific cell type. 
+\begin{DoxyParams}{Parameters}
+{\em x} & an integer value of horizontal index of the map\textquotesingle{}s grid \\
+\hline
+{\em y} & an integer value of vertical index of the map\textquotesingle{}s grid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool value, true if there is a the cell type adjacent to the specific cell chosen 
+\end{DoxyReturn}
+\hypertarget{classMap_a79e5ced99d160ca9b680661169f16d84}{}\label{classMap_a79e5ced99d160ca9b680661169f16d84} 
+\index{Map@{Map}!is\+Occupied@{is\+Occupied}}
+\index{is\+Occupied@{is\+Occupied}!Map@{Map}}
+\subsubsection{\texorpdfstring{is\+Occupied()}{isOccupied()}}
+{\footnotesize\ttfamily bool Map\+::is\+Occupied (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Implementation occupation of a cell, check if a cell is occupied 
+\begin{DoxyParams}{Parameters}
+{\em x} & an integer value of horizontal index of the map\textquotesingle{}s grid \\
+\hline
+{\em y} & an integer value of vertical index of the map\textquotesingle{}s grid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: a boolean true if the cell is occupeid false otherwise 
+\end{DoxyReturn}
+\hypertarget{classMap_a91d9e239a9871b99a5d6d2d5d46b0504}{}\label{classMap_a91d9e239a9871b99a5d6d2d5d46b0504} 
+\index{Map@{Map}!validate\+Path@{validate\+Path}}
+\index{validate\+Path@{validate\+Path}!Map@{Map}}
+\subsubsection{\texorpdfstring{validate\+Path()}{validatePath()}}
+{\footnotesize\ttfamily bool Map\+::validate\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Implementation of the map verification \begin{DoxyReturn}{Returns}
+bool value, true of the map is valid (there is at least one clear path between the mandatory begin and end cell). 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{Map_8h}{Map.\+h}\item 
+\hyperlink{Map_8cpp}{Map.\+cpp}\end{DoxyCompactItemize}
