@@ -353,16 +353,6 @@ void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
   window.draw(GuiData::startSelectionSprite);
 }
 
-//! Implementation of drawCharacterSpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
-  GuiData::characterSelectionSprite.setTexture(GuiData::characterTexture);
-  GuiData::characterSelectionSprite.setOrigin(GuiData::characterSelectionSprite.getGlobalBounds().width/2.0f, GuiData::characterSelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::characterSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::characterSelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::characterSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 240);
-  window.draw(GuiData::characterSelectionSprite);
-}
-
 //! Implementation of drawMonsterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
   GuiData::monsterSelectionSprite.setTexture(GuiData::monsterTexture);
@@ -379,7 +369,7 @@ void Ui::drawEmptySpriteSelector(sf::RenderWindow& window) {
   GuiData::emptySelectionSprite.setOrigin(GuiData::emptySelectionSprite.getGlobalBounds().width/2.0f, GuiData::emptySelectionSprite.getGlobalBounds().height/2.0f);
   GuiData::emptySelectionSprite.setColor(sf::Color(255, 255, 255, 200));
   GuiData::emptySelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::emptySelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 70, GuiData::WINDOW_HEIGHT - 180);
+  GuiData::emptySelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 240);
   window.draw(GuiData::emptySelectionSprite);
 }
 //! Implementation of drawMapBorder, shows a box around the area where the map is displayed.
@@ -420,9 +410,6 @@ void Ui::drawMapClickableBox(sf::RenderWindow& window) {
       }
       else if (tempMapCell == 'T') {
         mapClickableBox.setTexture(&GuiData::treasureTexture);
-      }
-      else if (tempMapCell == 'C') {
-        mapClickableBox.setTexture(&GuiData::characterTexture);
       }
       else if (tempMapCell == 'O') {
         mapClickableBox.setTexture(&GuiData::monsterTexture);
@@ -489,9 +476,6 @@ void Ui::drawCurrentMapTileSprite(sf::RenderWindow& window) {
   }
   if (GuiData::currentMapTileSelectedChar == 'W') {
     currentMapTileSprite.setTexture(GuiData::wallTexture);
-  }
-  if (GuiData::currentMapTileSelectedChar == 'C') {
-    currentMapTileSprite.setTexture(GuiData::characterTexture);
   }
   if (GuiData::currentMapTileSelectedChar == 'T') {
     currentMapTileSprite.setTexture(GuiData::treasureTexture);

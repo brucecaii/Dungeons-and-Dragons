@@ -66,7 +66,7 @@ void MapCampaignFileIO::saveMapJSON(string filePath) {
     for(int j = 0; j < tempLength; j++) {
       // Having issues with parsing whitespace.
       char tempChar = tempMap[i][j];
-      if (tempChar != 'W' || tempChar != 'S' || tempChar != 'E' || tempChar != 'T' || tempChar != 'C' || tempChar != ' ') {
+      if (tempChar != 'W' || tempChar != 'S' || tempChar != 'E' || tempChar != 'T' || tempChar != ' ') {
         tempChar = ' ';
       }
       placement += tempChar;

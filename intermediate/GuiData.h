@@ -58,8 +58,8 @@ namespace GuiData{
   extern sf::Texture exitTexture;
   extern sf::Texture monsterTexture;
   extern sf::Texture treasureTexture;
-  extern sf::Texture characterTexture;
   extern sf::Texture emptyTexture;
+  extern sf::Texture characterTexture;
   extern sf::Sprite emptySelectionSprite;
   extern sf::Sprite wallSelectionSprite;
   extern sf::Sprite monsterSelectionSprite;

@@ -82,7 +82,6 @@ int main(int argc, char* argv[]) {
       GuiData::eventManager.respondToLengthMinusClick(window);
       GuiData::eventManager.respondToMapCreateOkButton(window);
       GuiData::eventManager.respondToMapTileWallSelect(window);
-      GuiData::eventManager.respondToMapTileCharacterSelect(window);
       GuiData::eventManager.respondToMapTileMonsterSelect(window);
       GuiData::eventManager.respondToMapTileStartSelect(window);
       GuiData::eventManager.respondToMapTileExitSelect(window);
@@ -137,7 +136,6 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawTreasureSpriteSelector(window);
         GuiData::uiManager.drawExitSpriteSelector(window);
         GuiData::uiManager.drawStartSpriteSelector(window);
-        GuiData::uiManager.drawCharacterSpriteSelector(window);
         GuiData::uiManager.drawMonsterSpriteSelector(window);
         GuiData::uiManager.drawEmptySpriteSelector(window);
         GuiData::uiManager.drawMapBorder(window);
@@ -157,7 +155,6 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawTreasureSpriteSelector(window);
         GuiData::uiManager.drawExitSpriteSelector(window);
         GuiData::uiManager.drawStartSpriteSelector(window);
-        GuiData::uiManager.drawCharacterSpriteSelector(window);
         GuiData::uiManager.drawMonsterSpriteSelector(window);
         GuiData::uiManager.drawEmptySpriteSelector(window);
         GuiData::uiManager.drawMapBorder(window);

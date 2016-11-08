@@ -1,4 +1,4 @@
-//! @file
+
 //! @brief Header file for the Events class
 //!
 #pragma once
@@ -19,7 +19,6 @@ class Events {
     void respondToLengthMinusClick(sf::RenderWindow& window);
     void respondToMapCreateOkButton(sf::RenderWindow& window);
     void respondToMapTileWallSelect(sf::RenderWindow& window);
-    void respondToMapTileCharacterSelect(sf::RenderWindow& window);
     void respondToMapTileMonsterSelect(sf::RenderWindow& window);
     void respondToMapTileStartSelect(sf::RenderWindow& window);
     void respondToMapTileExitSelect(sf::RenderWindow& window);

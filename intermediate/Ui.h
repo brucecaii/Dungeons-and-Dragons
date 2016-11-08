@@ -36,7 +36,6 @@ class Ui {
     void drawTreasureSpriteSelector(sf::RenderWindow& window);
     void drawExitSpriteSelector(sf::RenderWindow& window);
     void drawStartSpriteSelector(sf::RenderWindow& window);
-    void drawCharacterSpriteSelector(sf::RenderWindow& window);
     void drawMonsterSpriteSelector(sf::RenderWindow& window);
     void drawEmptySpriteSelector(sf::RenderWindow& window);
     void drawMapBorder(sf::RenderWindow& window);

@@ -65,12 +65,11 @@ namespace GuiData {
   sf::Texture exitTexture;
   sf::Texture monsterTexture;
   sf::Texture treasureTexture;
-  sf::Texture characterTexture;
   sf::Texture emptyTexture;
+  sf::Texture characterTexture;
   sf::Sprite emptySelectionSprite;
   sf::Sprite wallSelectionSprite;
   sf::Sprite monsterSelectionSprite;
-  sf::Sprite characterSelectionSprite;
   sf::Sprite startSelectionSprite;
   sf::Sprite exitSelectionSprite;
   sf::Sprite treasureSelectionSprite;

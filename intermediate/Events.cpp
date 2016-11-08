@@ -269,17 +269,11 @@ void Events::respondToMapTileWallSelect(sf::RenderWindow& window) {
       if (GuiData::monsterSelectionSprite.getGlobalBounds().contains(mousePosition)) {
         GuiData::currentMapTileSelectedChar = 'O';
       }
-      if (GuiData::characterSelectionSprite.getGlobalBounds().contains(mousePosition)) {
-        GuiData::currentMapTileSelectedChar = 'C';
-      }
       if (GuiData::emptySelectionSprite.getGlobalBounds().contains(mousePosition)) {
         GuiData::currentMapTileSelectedChar = ' ';
       }
     }
   }
-
-}
-void Events::respondToMapTileCharacterSelect(sf::RenderWindow& window) {
 
 }
 void Events::respondToMapTileMonsterSelect(sf::RenderWindow& window) {
