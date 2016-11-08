@@ -315,79 +315,72 @@ void Ui::drawSaveButton(sf::RenderWindow& window) {
 
 //! Implementation of drawWallSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite wallSprite;
-  wallSprite.setTexture(GuiData::wallTexture);
-  wallSprite.setOrigin(wallSprite.getGlobalBounds().width/2.0f, wallSprite.getGlobalBounds().height/2.0f);
-  wallSprite.setColor(sf::Color(255, 255, 255, 200));
-  wallSprite.setScale(0.5f, 0.5f);
-  wallSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 300);
-  window.draw(wallSprite);
+  GuiData::wallSelectionSprite.setTexture(GuiData::wallTexture);
+  GuiData::wallSelectionSprite.setOrigin(GuiData::wallSelectionSprite.getGlobalBounds().width/2.0f, GuiData::wallSelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::wallSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::wallSelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::wallSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 300);
+  window.draw(GuiData::wallSelectionSprite);
 }
 
 //! Implementation of drawTreasureSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite treasureSprite;
-  treasureSprite.setTexture(GuiData::treasureTexture);
-  treasureSprite.setOrigin(treasureSprite.getGlobalBounds().width/2.0f, treasureSprite.getGlobalBounds().height/2.0f);
-  treasureSprite.setColor(sf::Color(255, 255, 255, 200));
-  treasureSprite.setScale(0.5f, 0.5f);
-  treasureSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 300);
-  window.draw(treasureSprite);
+  GuiData::treasureSelectionSprite.setTexture(GuiData::treasureTexture);
+  GuiData::treasureSelectionSprite.setOrigin(GuiData::treasureSelectionSprite.getGlobalBounds().width/2.0f, GuiData::treasureSelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::treasureSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::treasureSelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::treasureSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 300);
+  window.draw(GuiData::treasureSelectionSprite);
 }
 
 //! Implementation of drawExitSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite exitSprite;
-  exitSprite.setTexture(GuiData::exitTexture);
-  exitSprite.setOrigin(exitSprite.getGlobalBounds().width/2.0f, exitSprite.getGlobalBounds().height/2.0f);
-  exitSprite.setColor(sf::Color(255, 255, 255, 200));
-  exitSprite.setScale(0.5f, 0.5f);
-  exitSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 360);
-  window.draw(exitSprite);
+  GuiData::exitSelectionSprite.setTexture(GuiData::exitTexture);
+  GuiData::exitSelectionSprite.setOrigin(GuiData::exitSelectionSprite.getGlobalBounds().width/2.0f, GuiData::exitSelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::exitSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::exitSelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::exitSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 360);
+  window.draw(GuiData::exitSelectionSprite);
 }
 
 //! Implementation of drawStartSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite startSprite;
-  startSprite.setTexture(GuiData::startTexture);
-  startSprite.setOrigin(startSprite.getGlobalBounds().width/2.0f, startSprite.getGlobalBounds().height/2.0f);
-  startSprite.setColor(sf::Color(255, 255, 255, 200));
-  startSprite.setScale(0.5f, 0.5f);
-  startSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 360);
-  window.draw(startSprite);
+  GuiData::startSelectionSprite.setTexture(GuiData::startTexture);
+  GuiData::startSelectionSprite.setOrigin(GuiData::startSelectionSprite.getGlobalBounds().width/2.0f, GuiData::startSelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::startSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::startSelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::startSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 360);
+  window.draw(GuiData::startSelectionSprite);
 }
 
 //! Implementation of drawCharacterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite characterSprite;
-  characterSprite.setTexture(GuiData::characterTexture);
-  characterSprite.setOrigin(characterSprite.getGlobalBounds().width/2.0f, characterSprite.getGlobalBounds().height/2.0f);
-  characterSprite.setColor(sf::Color(255, 255, 255, 200));
-  characterSprite.setScale(0.5f, 0.5f);
-  characterSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 240);
-  window.draw(characterSprite);
+  GuiData::characterSelectionSprite.setTexture(GuiData::characterTexture);
+  GuiData::characterSelectionSprite.setOrigin(GuiData::characterSelectionSprite.getGlobalBounds().width/2.0f, GuiData::characterSelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::characterSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::characterSelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::characterSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 240);
+  window.draw(GuiData::characterSelectionSprite);
 }
 
 //! Implementation of drawMonsterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite monsterSprite;
-  monsterSprite.setTexture(GuiData::monsterTexture);
-  monsterSprite.setOrigin(monsterSprite.getGlobalBounds().width/2.0f, monsterSprite.getGlobalBounds().height/2.0f);
-  monsterSprite.setColor(sf::Color(255, 255, 255, 200));
-  monsterSprite.setScale(0.5f, 0.5f);
-  monsterSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 240);
-  window.draw(monsterSprite);
+  GuiData::monsterSelectionSprite.setTexture(GuiData::monsterTexture);
+  GuiData::monsterSelectionSprite.setOrigin(GuiData::monsterSelectionSprite.getGlobalBounds().width/2.0f, GuiData::monsterSelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::monsterSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::monsterSelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::monsterSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 240);
+  window.draw(GuiData::monsterSelectionSprite);
 }
 
 //! Implementation of drawEmptySpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawEmptySpriteSelector(sf::RenderWindow& window) {
-  sf::Sprite emptySprite;
-  emptySprite.setTexture(GuiData::emptyTexture);
-  emptySprite.setOrigin(emptySprite.getGlobalBounds().width/2.0f, emptySprite.getGlobalBounds().height/2.0f);
-  emptySprite.setColor(sf::Color(255, 255, 255, 200));
-  emptySprite.setScale(0.5f, 0.5f);
-  emptySprite.setPosition(GuiData::WINDOW_WIDTH - 70, GuiData::WINDOW_HEIGHT - 180);
-  window.draw(emptySprite);
+  GuiData::emptySelectionSprite.setTexture(GuiData::emptyTexture);
+  GuiData::emptySelectionSprite.setOrigin(GuiData::emptySelectionSprite.getGlobalBounds().width/2.0f, GuiData::emptySelectionSprite.getGlobalBounds().height/2.0f);
+  GuiData::emptySelectionSprite.setColor(sf::Color(255, 255, 255, 200));
+  GuiData::emptySelectionSprite.setScale(0.5f, 0.5f);
+  GuiData::emptySelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 70, GuiData::WINDOW_HEIGHT - 180);
+  window.draw(GuiData::emptySelectionSprite);
 }
 //! Implementation of drawMapBorder, shows a box around the area where the map is displayed.
 void Ui::drawMapBorder(sf::RenderWindow& window) {
@@ -412,46 +405,30 @@ void Ui::drawMapClickableBox(sf::RenderWindow& window) {
   mapClickableBox.setOutlineColor(mapClickableBoxOutlineColor);
   mapClickableBox.setOutlineThickness(2.0f);
 
-
-  sf::Texture wallTexture;
-  wallTexture.loadFromFile("textures/wall.png");
-  sf::Texture startTexture;
-  startTexture.loadFromFile("textures/start.png");
-  sf::Texture exitTexture;
-  exitTexture.loadFromFile("textures/exit.png");
-  sf::Texture treasureTexture;
-  treasureTexture.loadFromFile("textures/treasure.png");
-  sf::Texture characterTexture;
-  characterTexture.loadFromFile("textures/character.png");
-  sf::Texture monsterTexture;
-  monsterTexture.loadFromFile("textures/monster.png");
-  sf::Texture emptyTexture;
-  emptyTexture.loadFromFile("textures/empty.png");
-
   for (int i = 0; i < tempWidth; i++) {
     for (int j =0; j < tempLength; j++) {
       char tempMapCell = GameData::currentMapObject->getCell(i,j);
 
       if (tempMapCell == 'W') {
-        mapClickableBox.setTexture(&wallTexture);
+        mapClickableBox.setTexture(&GuiData::wallTexture);
       }
       else if (tempMapCell == 'S') {
-        mapClickableBox.setTexture(&startTexture);
+        mapClickableBox.setTexture(&GuiData::startTexture);
       }
       else if (tempMapCell == 'E') {
-        mapClickableBox.setTexture(&exitTexture);
+        mapClickableBox.setTexture(&GuiData::exitTexture);
       }
       else if (tempMapCell == 'T') {
-        mapClickableBox.setTexture(&treasureTexture);
+        mapClickableBox.setTexture(&GuiData::treasureTexture);
       }
       else if (tempMapCell == 'C') {
-        mapClickableBox.setTexture(&characterTexture);
+        mapClickableBox.setTexture(&GuiData::characterTexture);
       }
       else if (tempMapCell == 'O') {
-        mapClickableBox.setTexture(&monsterTexture);
+        mapClickableBox.setTexture(&GuiData::monsterTexture);
       }
       else {
-        mapClickableBox.setTexture(&emptyTexture);
+        mapClickableBox.setTexture(&GuiData::emptyTexture);
       }
 
       mapClickableBox.setPosition(

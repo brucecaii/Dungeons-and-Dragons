@@ -67,6 +67,13 @@ namespace GuiData {
   sf::Texture treasureTexture;
   sf::Texture characterTexture;
   sf::Texture emptyTexture;
+  sf::Sprite emptySelectionSprite;
+  sf::Sprite wallSelectionSprite;
+  sf::Sprite monsterSelectionSprite;
+  sf::Sprite characterSelectionSprite;
+  sf::Sprite startSelectionSprite;
+  sf::Sprite exitSelectionSprite;
+  sf::Sprite treasureSelectionSprite;
 
   vector<string> current_maps;
   vector<sf::FloatRect> current_map_positions;

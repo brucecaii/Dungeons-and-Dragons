@@ -81,6 +81,13 @@ int main(int argc, char* argv[]) {
       GuiData::eventManager.respondToLengthPlusClick(window);
       GuiData::eventManager.respondToLengthMinusClick(window);
       GuiData::eventManager.respondToMapCreateOkButton(window);
+      GuiData::eventManager.respondToMapTileWallSelect(window);
+      GuiData::eventManager.respondToMapTileCharacterSelect(window);
+      GuiData::eventManager.respondToMapTileMonsterSelect(window);
+      GuiData::eventManager.respondToMapTileStartSelect(window);
+      GuiData::eventManager.respondToMapTileExitSelect(window);
+      GuiData::eventManager.respondToMapTileTreasureSelect(window);
+      GuiData::eventManager.respondToMapTileEmptySelect(window);
 
       // SCENE SELECTION
       window.clear(GuiData::SELECTION_BACKGROUND_COLOR);

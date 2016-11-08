@@ -250,3 +250,52 @@ void Events::respondToMapCreateOkButton(sf::RenderWindow& window) {
   }
 }
 
+void Events::respondToMapTileWallSelect(sf::RenderWindow& window) {
+  if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+      if (GuiData::wallSelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = 'W';
+      }
+      if (GuiData::exitSelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = 'E';
+      }
+      if (GuiData::startSelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = 'S';
+      }
+      if (GuiData::treasureSelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = 'T';
+      }
+      if (GuiData::monsterSelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = 'O';
+      }
+      if (GuiData::characterSelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = 'C';
+      }
+      if (GuiData::emptySelectionSprite.getGlobalBounds().contains(mousePosition)) {
+        GuiData::currentMapTileSelectedChar = ' ';
+      }
+    }
+  }
+
+}
+void Events::respondToMapTileCharacterSelect(sf::RenderWindow& window) {
+
+}
+void Events::respondToMapTileMonsterSelect(sf::RenderWindow& window) {
+
+}
+void Events::respondToMapTileStartSelect(sf::RenderWindow& window) {
+
+}
+void Events::respondToMapTileExitSelect(sf::RenderWindow& window) {
+
+}
+void Events::respondToMapTileTreasureSelect(sf::RenderWindow& window) {
+
+}
+void Events::respondToMapTileEmptySelect(sf::RenderWindow& window) {
+
+}
+
+

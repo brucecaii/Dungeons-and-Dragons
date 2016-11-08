@@ -60,6 +60,13 @@ namespace GuiData{
   extern sf::Texture treasureTexture;
   extern sf::Texture characterTexture;
   extern sf::Texture emptyTexture;
+  extern sf::Sprite emptySelectionSprite;
+  extern sf::Sprite wallSelectionSprite;
+  extern sf::Sprite monsterSelectionSprite;
+  extern sf::Sprite characterSelectionSprite;
+  extern sf::Sprite startSelectionSprite;
+  extern sf::Sprite exitSelectionSprite;
+  extern sf::Sprite treasureSelectionSprite;
 
   extern string chosenMap;
   extern string chosenCampaign;
