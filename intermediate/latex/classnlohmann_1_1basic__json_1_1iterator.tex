@@ -1,0 +1,105 @@
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator}{}\section{nlohmann\+:\+:basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type $>$\+:\+:iterator Class Reference}
+\label{classnlohmann_1_1basic__json_1_1iterator}\index{nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type $>$\+::iterator@{nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type $>$\+::iterator}}
+
+
+a mutable random access iterator for the \hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json} class  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+Inheritance diagram for nlohmann\+:\+:basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type $>$\+:\+:iterator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.705584cm]{classnlohmann_1_1basic__json_1_1iterator}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_ac48754e4dc48d65d95294bd170dcd857}{}\label{classnlohmann_1_1basic__json_1_1iterator_ac48754e4dc48d65d95294bd170dcd857} 
+using {\bfseries base\+\_\+iterator} = \hyperlink{classnlohmann_1_1basic__json_1_1const__iterator}{const\+\_\+iterator}
+\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a3aae1df93a78b201d98e178c1c7d02a7}{}\label{classnlohmann_1_1basic__json_1_1iterator_a3aae1df93a78b201d98e178c1c7d02a7} 
+using {\bfseries pointer} = typename \hyperlink{classnlohmann_1_1basic__json_a9d1b58099dc64695fcf2847ab0b2a7c7}{basic\+\_\+json\+::pointer}
+\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a97aff5d71246774267a81066460dd1cf}{}\label{classnlohmann_1_1basic__json_1_1iterator_a97aff5d71246774267a81066460dd1cf} 
+using {\bfseries reference} = typename \hyperlink{classnlohmann_1_1basic__json_a3ec8e17be8732fe436e9d6733f52b7a3}{basic\+\_\+json\+::reference}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a47fb2dbbbfaf65c0ccfa99aeaed920a1}{}\label{classnlohmann_1_1basic__json_1_1iterator_a47fb2dbbbfaf65c0ccfa99aeaed920a1} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator_a47fb2dbbbfaf65c0ccfa99aeaed920a1}{iterator} ()=default
+\begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a085fe0d8cf459b5b1ae7b518b933ae7d}{}\label{classnlohmann_1_1basic__json_1_1iterator_a085fe0d8cf459b5b1ae7b518b933ae7d} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator_a085fe0d8cf459b5b1ae7b518b933ae7d}{iterator} (\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a1da96fc3054d547e7706d3a2f073f389}{pointer} \hyperlink{classnlohmann_1_1basic__json_ad25b2f8c21e241e2d63455537a9294ff}{object}) noexcept
+\begin{DoxyCompactList}\small\item\em constructor for a given J\+S\+ON instance \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a1de0975e812c83e74d118b3e1063f335}{}\label{classnlohmann_1_1basic__json_1_1iterator_a1de0975e812c83e74d118b3e1063f335} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator_a1de0975e812c83e74d118b3e1063f335}{iterator} (const \hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \&other) noexcept
+\begin{DoxyCompactList}\small\item\em copy constructor \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a51b0ed345317cfd1b2386f481d774477}{}\label{classnlohmann_1_1basic__json_1_1iterator_a51b0ed345317cfd1b2386f481d774477} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \& \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a51b0ed345317cfd1b2386f481d774477}{operator=} (\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} other) noexcept(std\+::is\+\_\+nothrow\+\_\+move\+\_\+constructible$<$ \hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a1da96fc3054d547e7706d3a2f073f389}{pointer} $>$\+::\hyperlink{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1}{value} and std\+::is\+\_\+nothrow\+\_\+move\+\_\+assignable$<$ \hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a1da96fc3054d547e7706d3a2f073f389}{pointer} $>$\+::\hyperlink{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1}{value} and std\+::is\+\_\+nothrow\+\_\+move\+\_\+constructible$<$ internal\+\_\+iterator $>$\+::\hyperlink{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1}{value} and std\+::is\+\_\+nothrow\+\_\+move\+\_\+assignable$<$ internal\+\_\+iterator $>$\+::\hyperlink{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1}{value})
+\begin{DoxyCompactList}\small\item\em copy assignment \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a1af28ba60302eb48edf4fdbc88e75903}{}\label{classnlohmann_1_1basic__json_1_1iterator_a1af28ba60302eb48edf4fdbc88e75903} 
+\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_aefd248cac6493eed1e6ff53ba6a63eb2}{reference} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a1af28ba60302eb48edf4fdbc88e75903}{operator$\ast$} () const
+\begin{DoxyCompactList}\small\item\em return a reference to the value pointed to by the iterator \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a12c7f8236ffa08a5dd27cbd9888b74be}{}\label{classnlohmann_1_1basic__json_1_1iterator_a12c7f8236ffa08a5dd27cbd9888b74be} 
+\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a1da96fc3054d547e7706d3a2f073f389}{pointer} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a12c7f8236ffa08a5dd27cbd9888b74be}{operator-\/$>$} () const
+\begin{DoxyCompactList}\small\item\em dereference the iterator \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a2943e49b3d88e6ee5793c5923ab2ede9}{}\label{classnlohmann_1_1basic__json_1_1iterator_a2943e49b3d88e6ee5793c5923ab2ede9} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a2943e49b3d88e6ee5793c5923ab2ede9}{operator++} (int)
+\begin{DoxyCompactList}\small\item\em post-\/increment (it++) \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a050b7fa21051ea57e5b0cc03668b5d4a}{}\label{classnlohmann_1_1basic__json_1_1iterator_a050b7fa21051ea57e5b0cc03668b5d4a} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \& \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a050b7fa21051ea57e5b0cc03668b5d4a}{operator++} ()
+\begin{DoxyCompactList}\small\item\em pre-\/increment (++it) \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_ab4f238aa5fcf452b1884b748b0395b1f}{}\label{classnlohmann_1_1basic__json_1_1iterator_ab4f238aa5fcf452b1884b748b0395b1f} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_ab4f238aa5fcf452b1884b748b0395b1f}{operator-\/-\/} (int)
+\begin{DoxyCompactList}\small\item\em post-\/decrement (it--) \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_ab3679dc63b3a59edb98b1c2b96d8683c}{}\label{classnlohmann_1_1basic__json_1_1iterator_ab3679dc63b3a59edb98b1c2b96d8683c} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \& \hyperlink{classnlohmann_1_1basic__json_1_1iterator_ab3679dc63b3a59edb98b1c2b96d8683c}{operator-\/-\/} ()
+\begin{DoxyCompactList}\small\item\em pre-\/decrement (--it) \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_ae0c848dbc0af1cde15771d45d775b27c}{}\label{classnlohmann_1_1basic__json_1_1iterator_ae0c848dbc0af1cde15771d45d775b27c} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \& \hyperlink{classnlohmann_1_1basic__json_1_1iterator_ae0c848dbc0af1cde15771d45d775b27c}{operator+=} (\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a49d7c3e9ef3280df03052cce988b792f}{difference\+\_\+type} i)
+\begin{DoxyCompactList}\small\item\em add to iterator \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_afe86d48d3e4e5ebdaaec162b3cf0e95c}{}\label{classnlohmann_1_1basic__json_1_1iterator_afe86d48d3e4e5ebdaaec162b3cf0e95c} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \& \hyperlink{classnlohmann_1_1basic__json_1_1iterator_afe86d48d3e4e5ebdaaec162b3cf0e95c}{operator-\/=} (\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a49d7c3e9ef3280df03052cce988b792f}{difference\+\_\+type} i)
+\begin{DoxyCompactList}\small\item\em subtract from iterator \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a56952f8d5702541f0d88e6a764d2ae36}{}\label{classnlohmann_1_1basic__json_1_1iterator_a56952f8d5702541f0d88e6a764d2ae36} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a56952f8d5702541f0d88e6a764d2ae36}{operator+} (\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a49d7c3e9ef3280df03052cce988b792f}{difference\+\_\+type} i)
+\begin{DoxyCompactList}\small\item\em add to iterator \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a790f550ff168095c83c2e459c575916c}{}\label{classnlohmann_1_1basic__json_1_1iterator_a790f550ff168095c83c2e459c575916c} 
+\hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a790f550ff168095c83c2e459c575916c}{operator-\/} (\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a49d7c3e9ef3280df03052cce988b792f}{difference\+\_\+type} i)
+\begin{DoxyCompactList}\small\item\em subtract from iterator \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a381124603cecc478e8746dcf4e11728c}{}\label{classnlohmann_1_1basic__json_1_1iterator_a381124603cecc478e8746dcf4e11728c} 
+\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a49d7c3e9ef3280df03052cce988b792f}{difference\+\_\+type} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a381124603cecc478e8746dcf4e11728c}{operator-\/} (const \hyperlink{classnlohmann_1_1basic__json_1_1iterator}{iterator} \&other) const
+\begin{DoxyCompactList}\small\item\em return difference \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_a72ce0abec8c72610925d83a9b309f3e4}{}\label{classnlohmann_1_1basic__json_1_1iterator_a72ce0abec8c72610925d83a9b309f3e4} 
+\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_aefd248cac6493eed1e6ff53ba6a63eb2}{reference} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_a72ce0abec8c72610925d83a9b309f3e4}{operator\mbox{[}$\,$\mbox{]}} (\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_a49d7c3e9ef3280df03052cce988b792f}{difference\+\_\+type} n) const
+\begin{DoxyCompactList}\small\item\em access to successor \end{DoxyCompactList}\item 
+\hypertarget{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1}{}\label{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1} 
+\hyperlink{classnlohmann_1_1basic__json_1_1const__iterator_aefd248cac6493eed1e6ff53ba6a63eb2}{reference} \hyperlink{classnlohmann_1_1basic__json_1_1iterator_ac688806417f3b4e17c4eb1b661b522f1}{value} () const
+\begin{DoxyCompactList}\small\item\em return the value of an iterator \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator$>$\newline
+class nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type $>$\+::iterator}
+
+a mutable random access iterator for the \hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json} class 
+
+The class satisfies the following concept requirements\+:
+\begin{DoxyItemize}
+\item \href{http://en.cppreference.com/w/cpp/concept/RandomAccessIterator}{\tt Random\+Access\+Iterator}\+: The iterator that can be moved to point (forward and backward) to any element in constant time.
+\item \href{http://en.cppreference.com/w/cpp/concept/OutputIterator}{\tt Output\+Iterator}\+: It is possible to write to the pointed-\/to element.
+\end{DoxyItemize}
+
+\begin{DoxySince}{Since}
+version 1.\+0.\+0 
+\end{DoxySince}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}
