@@ -22,10 +22,6 @@ namespace GuiData{
   extern Texts textGenerator;
   extern Events eventManager;
   extern Ui uiManager;
-  extern int currentMapWidth;
-  extern int currentMapLength;
-  extern string currentMapString;
-  extern vector<string> currentCampaignMapOrder;
 
   extern sf::Font currentFont;
   extern sf::FloatRect createMapPosition;

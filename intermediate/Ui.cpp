@@ -4,6 +4,7 @@
 #include <chrono>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "GameData.h"
 #include "GuiData.h"
 #include "Ui.h"
 
@@ -233,7 +234,7 @@ void Ui::drawWidthIndicator(sf::RenderWindow& window) {
   GuiData::widthIndicator.setOrigin(GuiData::widthIndicator.getGlobalBounds().width/2.0f, GuiData::widthIndicator.getGlobalBounds().height/2.0f);
   sf::Color widthIndicatorColor(248, 248, 242);
   GuiData::widthIndicator.setFillColor(widthIndicatorColor);
-  GuiData::widthIndicator.setString("Width\n "+to_string(GuiData::currentMapWidth));
+  GuiData::widthIndicator.setString("Width\n "+to_string(GameData::currentMapObject.getMapWidth()));
   GuiData::widthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 100.0f);
   window.draw(GuiData::widthIndicator);
 }
@@ -270,7 +271,7 @@ void Ui::drawLengthIndicator(sf::RenderWindow& window) {
   GuiData::lengthIndicator.setOrigin(GuiData::lengthIndicator.getGlobalBounds().width/2.0f, GuiData::lengthIndicator.getGlobalBounds().height/2.0f);
   sf::Color lengthIndicatorColor(248, 248, 242);
   GuiData::lengthIndicator.setFillColor(lengthIndicatorColor);
-  GuiData::lengthIndicator.setString("Length\n "+to_string(GuiData::currentMapLength));
+  GuiData::lengthIndicator.setString("Length\n "+to_string(GameData::currentMapObject.getMapLength()));
   GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-75.0f, 260.0f);
   window.draw(GuiData::lengthIndicator);
 }

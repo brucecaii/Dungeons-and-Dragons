@@ -5,6 +5,7 @@
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
+#include "GameData.h"
 #include "GuiData.h"
 #include "Events.h"
 #include "MapCampaignFileIO.h"
@@ -182,7 +183,8 @@ void Events::respondToWidthPlusClick(sf::RenderWindow& window) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     if (GuiData::isEditingMap || GuiData::isCreatingMap) {
       if (GuiData::widthPlus.getGlobalBounds().contains(mousePosition)) {
-        GuiData::currentMapWidth += 1;
+        int tempWidth = GameData::currentMapObject.getMapWidth();
+        GameData::currentMapObject.setMapWidth(tempWidth+1);
         GuiData::shouldBlockThread = true;
       }
     }
@@ -193,8 +195,9 @@ void Events::respondToWidthMinusClick(sf::RenderWindow& window) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     if (GuiData::isEditingMap || GuiData::isCreatingMap) {
       if (GuiData::widthMinus.getGlobalBounds().contains(mousePosition)) {
-        if (GuiData::currentMapWidth > 0) {
-          GuiData::currentMapWidth -= 1;
+        if (GameData::currentMapObject.getMapWidth() > 4) {
+          int tempWidth = GameData::currentMapObject.getMapWidth();
+          GameData::currentMapObject.setMapWidth(tempWidth-1);
           GuiData::shouldBlockThread = true;
         }
       }
@@ -206,7 +209,8 @@ void Events::respondToLengthPlusClick(sf::RenderWindow& window) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     if (GuiData::isEditingMap || GuiData::isCreatingMap) {
       if (GuiData::lengthPlus.getGlobalBounds().contains(mousePosition)) {
-        GuiData::currentMapLength += 1;
+        int tempLength = GameData::currentMapObject.getMapLength();
+        GameData::currentMapObject.setMapLength(tempLength+1);
         GuiData::shouldBlockThread = true;
       }
     }
@@ -218,8 +222,9 @@ void Events::respondToLengthMinusClick(sf::RenderWindow& window) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     if (GuiData::isEditingMap || GuiData::isCreatingMap) {
       if (GuiData::lengthMinus.getGlobalBounds().contains(mousePosition)) {
-        if (GuiData::currentMapLength > 0) {
-          GuiData::currentMapLength -= 1;
+        if (GameData::currentMapObject.getMapLength() > 4) {
+          int tempLength = GameData::currentMapObject.getMapLength();
+          GameData::currentMapObject.setMapLength(tempLength-1);
           GuiData::shouldBlockThread = true;
         }
       }

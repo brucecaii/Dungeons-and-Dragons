@@ -32,11 +32,6 @@ namespace GuiData {
   Events eventManager;
   Ui uiManager;
 
-  int currentMapWidth = 0;
-  int currentMapLength = 0;
-  string currentMapString = "";
-  vector<string> currentCampaignMapOrder = {""};
-
   sf::Font currentFont;
   sf::FloatRect createMapPosition;
   sf::FloatRect editMapPosition;
@@ -63,7 +58,7 @@ namespace GuiData {
   vector<string> current_maps;
   vector<sf::FloatRect> current_map_positions;
   vector<string> current_campaigns;
-  vector<sf::FloatRect> current_campaign_positions;;
+  vector<sf::FloatRect> current_campaign_positions;
   string chosenCampaign;
   string chosenMap;
   string createdCampaign = "";

@@ -17,32 +17,36 @@ using std::vector;
 //! Implementation of the Map class default constructor, creates a map grid based on default size values
 Map::Map() {
   // Default map size is 5x5
-  mapWidth = 5;
-  mapLength = 5;
-  vector<char> row;
+  mapWidth = 4;
+  mapLength = 4;
 
-  for (int i = 0; i < mapWidth; i++) {
-    row.push_back(' ');
-  }
-  for (int i = 0; i < mapLength; i++) {
-    map.push_back(row);
+  string placement = "                ";
+  vector<char> row = {};
+
+  for(string::size_type i = 0; i < placement.size(); ++i) {
+    if (i % 4 == 3) {
+      map.push_back(row);
+      row = {};
+    }
+    row.push_back(placement[i]);
   }
 }
 
 //! Implementation of a Map class non-default constructor, creates a map grid based on provided size values
 //! @param width: an integer value of horizontal size of the map's grid
 //! @param length: an integer value of vertical size of the map's grid
-Map::Map(int width, int length) {
+Map::Map(int width, int length, string placement) {
   // Default map size is 5x5
   mapWidth = width;
   mapLength = length;
-  vector<char> row;
+  vector<char> row = {};
 
-  for (int i = 0; i < mapWidth; i++) {
-    row.push_back(' ');
-  }
-  for (int i = 0; i < mapLength; i++) {
-    map.push_back(row);
+  for(string::size_type i = 0; i < placement.size(); ++i) {
+    if (i % width == width-1) {
+      map.push_back(row);
+      row = {};
+    }
+    row.push_back(placement[i]);
   }
 }
 
@@ -189,25 +193,6 @@ bool Map::isOccupied(int x, int y) {
 	return false;
 }
 
-//! Implementation of displayMap, displays a representation of the currently stored map to the user.
-void Map::displayMap() {
-  string topBottomBorder(mapWidth+2, '-');
-  // Print top border
-  cout << topBottomBorder << endl;
-  for (int i = 0; i < mapLength; i++) {
-    // Print left border
-    cout << "|";
-    // Print cells
-    for (int j = 0; j < mapWidth; j++) {
-      cout << map[i][j];
-    }
-    // Print right border
-    cout << "|" << endl;
-  }
-  // Print bottom border
-  cout << topBottomBorder << endl;
-}
-
 //! Implementation of getMapWidth, provides information on map horizontal size.
 //! @return : an integer value representing the map grid's width
 int Map::getMapWidth() {
@@ -218,5 +203,35 @@ int Map::getMapWidth() {
 //! @return : an integer value representing the map grid's length
 int Map::getMapLength() {
   return mapLength;
+}
+
+//! Implementation of getMapWidth, provides information on map horizontal size.
+//! @return : an integer value representing the map grid's width
+void Map::setMapWidth(int mw) {
+  mapWidth = mw;
+}
+
+//! Implementation of getMapLength, provides information on map vertical size.
+//! @return : an integer value representing the map grid's length
+void Map::setMapLength(int ml) {
+  mapLength = ml;
+}
+
+
+//! Implementation of setMapLevel, set the map level
+void Map::setMapLevel(int lv) {
+  level = lv;
+}
+
+//! Implementation of getMapLevel
+//@return a int of map level
+int Map::getMapLevel() {
+  return level;
+}
+
+//! Implementation of getMapdata
+//@return map data in the form of a vector of vector of chars.
+vector<vector<char>> Map::getMapData() {
+  return map;
 }
 
