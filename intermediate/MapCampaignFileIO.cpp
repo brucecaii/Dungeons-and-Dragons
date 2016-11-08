@@ -64,7 +64,7 @@ void MapCampaignFileIO::saveMapJSON(string filePath) {
   vector<vector<char>> tempMap = GameData::currentMapObject->getMapData();
   for(int i = 0; i < tempWidth; i++) {
     for(int j = 0; j < tempLength; j++) {
-      // Having issues with parsing some whitespace
+      // Having issues with parsing whitespace.
       char tempChar = tempMap[i][j];
       if (tempChar != 'W' || tempChar != 'S' || tempChar != 'E' || tempChar != 'T' || tempChar != 'C' || tempChar != ' ') {
         tempChar = ' ';
@@ -72,7 +72,6 @@ void MapCampaignFileIO::saveMapJSON(string filePath) {
       placement += tempChar;
     }
   }
-  std::cout << "placement: " << placement << std::endl;
 
   map["mapWidth"] = tempWidth;
   map["mapLength"] = tempLength;

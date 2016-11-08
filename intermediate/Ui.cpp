@@ -315,11 +315,8 @@ void Ui::drawSaveButton(sf::RenderWindow& window) {
 
 //! Implementation of drawWallSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
-  sf::Texture wallTexture;
-  wallTexture.loadFromFile("textures/wall.png");
-
   sf::Sprite wallSprite;
-  wallSprite.setTexture(wallTexture);
+  wallSprite.setTexture(GuiData::wallTexture);
   wallSprite.setOrigin(wallSprite.getGlobalBounds().width/2.0f, wallSprite.getGlobalBounds().height/2.0f);
   wallSprite.setColor(sf::Color(255, 255, 255, 200));
   wallSprite.setScale(0.5f, 0.5f);
@@ -329,11 +326,8 @@ void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
 
 //! Implementation of drawTreasureSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
-  sf::Texture treasureTexture;
-  treasureTexture.loadFromFile("textures/treasure.png");
-
   sf::Sprite treasureSprite;
-  treasureSprite.setTexture(treasureTexture);
+  treasureSprite.setTexture(GuiData::treasureTexture);
   treasureSprite.setOrigin(treasureSprite.getGlobalBounds().width/2.0f, treasureSprite.getGlobalBounds().height/2.0f);
   treasureSprite.setColor(sf::Color(255, 255, 255, 200));
   treasureSprite.setScale(0.5f, 0.5f);
@@ -343,11 +337,8 @@ void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
 
 //! Implementation of drawExitSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
-  sf::Texture exitTexture;
-  exitTexture.loadFromFile("textures/exit.png");
-
   sf::Sprite exitSprite;
-  exitSprite.setTexture(exitTexture);
+  exitSprite.setTexture(GuiData::exitTexture);
   exitSprite.setOrigin(exitSprite.getGlobalBounds().width/2.0f, exitSprite.getGlobalBounds().height/2.0f);
   exitSprite.setColor(sf::Color(255, 255, 255, 200));
   exitSprite.setScale(0.5f, 0.5f);
@@ -357,11 +348,8 @@ void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
 
 //! Implementation of drawStartSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
-  sf::Texture startTexture;
-  startTexture.loadFromFile("textures/start.png");
-
   sf::Sprite startSprite;
-  startSprite.setTexture(startTexture);
+  startSprite.setTexture(GuiData::startTexture);
   startSprite.setOrigin(startSprite.getGlobalBounds().width/2.0f, startSprite.getGlobalBounds().height/2.0f);
   startSprite.setColor(sf::Color(255, 255, 255, 200));
   startSprite.setScale(0.5f, 0.5f);
@@ -371,11 +359,8 @@ void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
 
 //! Implementation of drawCharacterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
-  sf::Texture characterTexture;
-  characterTexture.loadFromFile("textures/character.png");
-
   sf::Sprite characterSprite;
-  characterSprite.setTexture(characterTexture);
+  characterSprite.setTexture(GuiData::characterTexture);
   characterSprite.setOrigin(characterSprite.getGlobalBounds().width/2.0f, characterSprite.getGlobalBounds().height/2.0f);
   characterSprite.setColor(sf::Color(255, 255, 255, 200));
   characterSprite.setScale(0.5f, 0.5f);
@@ -385,11 +370,8 @@ void Ui::drawCharacterSpriteSelector(sf::RenderWindow& window) {
 
 //! Implementation of drawMonsterSpriteSelector, shows a sprite icon available to select for placement on the map.
 void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
-  sf::Texture monsterTexture;
-  monsterTexture.loadFromFile("textures/monster.png");
-
   sf::Sprite monsterSprite;
-  monsterSprite.setTexture(monsterTexture);
+  monsterSprite.setTexture(GuiData::monsterTexture);
   monsterSprite.setOrigin(monsterSprite.getGlobalBounds().width/2.0f, monsterSprite.getGlobalBounds().height/2.0f);
   monsterSprite.setColor(sf::Color(255, 255, 255, 200));
   monsterSprite.setScale(0.5f, 0.5f);
@@ -397,6 +379,16 @@ void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
   window.draw(monsterSprite);
 }
 
+//! Implementation of drawEmptySpriteSelector, shows a sprite icon available to select for placement on the map.
+void Ui::drawEmptySpriteSelector(sf::RenderWindow& window) {
+  sf::Sprite emptySprite;
+  emptySprite.setTexture(GuiData::emptyTexture);
+  emptySprite.setOrigin(emptySprite.getGlobalBounds().width/2.0f, emptySprite.getGlobalBounds().height/2.0f);
+  emptySprite.setColor(sf::Color(255, 255, 255, 200));
+  emptySprite.setScale(0.5f, 0.5f);
+  emptySprite.setPosition(GuiData::WINDOW_WIDTH - 70, GuiData::WINDOW_HEIGHT - 180);
+  window.draw(emptySprite);
+}
 //! Implementation of drawMapBorder, shows a box around the area where the map is displayed.
 void Ui::drawMapBorder(sf::RenderWindow& window) {
   sf::RectangleShape mapBorder(sf::Vector2f(GuiData::MAP_DISPLAY_WIDTH_LENGTH, GuiData::MAP_DISPLAY_WIDTH_LENGTH));
@@ -496,4 +488,48 @@ void Ui::drawSelectMapSize(sf::RenderWindow& window) {
   window.draw(GuiData::selectMapSize);
 }
 
+void Ui::drawCurrentMapTileSelected(sf::RenderWindow& window) {
+  GuiData::currentMapTileSelected.setString("Current\nMap Tile");
+  GuiData::currentMapTileSelected.setFont(GuiData::currentFont);
+  GuiData::currentMapTileSelected.setCharacterSize(20);
+  GuiData::currentMapTileSelected.setOrigin(GuiData::currentMapTileSelected.getGlobalBounds().width/2.0f, GuiData::currentMapTileSelected.getGlobalBounds().height/2.0f);
+  GuiData::currentMapTileSelected.setPosition(GuiData::WINDOW_WIDTH-70.0f, 130.0f);
+  sf::Color currentMapTileSelectedColor(248, 248, 242);
+  GuiData::currentMapTileSelected.setFillColor(currentMapTileSelectedColor);
+  window.draw(GuiData::currentMapTileSelected);
+}
+
+//! Implementation of drawCurrentMapTileSelectedBox, shows the currently selected sprite icon.
+void Ui::drawCurrentMapTileSprite(sf::RenderWindow& window) {
+  sf::Sprite currentMapTileSprite;
+  currentMapTileSprite.setOrigin(currentMapTileSprite.getGlobalBounds().width/2.0f, currentMapTileSprite.getGlobalBounds().height/2.0f);
+  currentMapTileSprite.setColor(sf::Color::White);
+  currentMapTileSprite.setScale(0.5f, 0.5f);
+  currentMapTileSprite.setPosition(GuiData::WINDOW_WIDTH - 100, 180);
+
+  if (GuiData::currentMapTileSelectedChar == ' ') {
+    currentMapTileSprite.setTexture(GuiData::emptyTexture);
+  }
+  if (GuiData::currentMapTileSelectedChar == 'W') {
+    currentMapTileSprite.setTexture(GuiData::wallTexture);
+  }
+  if (GuiData::currentMapTileSelectedChar == 'C') {
+    currentMapTileSprite.setTexture(GuiData::characterTexture);
+  }
+  if (GuiData::currentMapTileSelectedChar == 'T') {
+    currentMapTileSprite.setTexture(GuiData::treasureTexture);
+  }
+  if (GuiData::currentMapTileSelectedChar == 'O') {
+    currentMapTileSprite.setTexture(GuiData::monsterTexture);
+  }
+  if (GuiData::currentMapTileSelectedChar == 'S') {
+    currentMapTileSprite.setTexture(GuiData::startTexture);
+  }
+  if (GuiData::currentMapTileSelectedChar == 'E') {
+    currentMapTileSprite.setTexture(GuiData::exitTexture);
+  }
+
+  window.draw(currentMapTileSprite);
+
+}
 

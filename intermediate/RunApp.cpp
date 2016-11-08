@@ -53,6 +53,13 @@ int main(int argc, char* argv[]) {
     sf::RectangleShape selectionBox(sf::Vector2f(280.f, 180.0f));
     selectionBox.setOrigin(selectionBox.getGlobalBounds().width/2.0f, selectionBox.getGlobalBounds().height/2.0f);
 
+    GuiData::emptyTexture.loadFromFile("textures/empty.png");
+    GuiData::wallTexture.loadFromFile("textures/wall.png");
+    GuiData::startTexture.loadFromFile("textures/start.png");
+    GuiData::exitTexture.loadFromFile("textures/exit.png");
+    GuiData::monsterTexture.loadFromFile("textures/monster.png");
+    GuiData::treasureTexture.loadFromFile("textures/treasure.png");
+    GuiData::characterTexture.loadFromFile("textures/character.png");
 
     ///////////////
     // GAME LOOP //
@@ -125,8 +132,11 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawStartSpriteSelector(window);
         GuiData::uiManager.drawCharacterSpriteSelector(window);
         GuiData::uiManager.drawMonsterSpriteSelector(window);
+        GuiData::uiManager.drawEmptySpriteSelector(window);
         GuiData::uiManager.drawMapBorder(window);
         GuiData::uiManager.drawMapClickableBox(window);
+        GuiData::uiManager.drawCurrentMapTileSelected(window);
+        GuiData::uiManager.drawCurrentMapTileSprite(window);
       }
       if (GuiData::isEditingCampaign) {
         GuiData::uiManager.drawHomeButton(window);
@@ -142,8 +152,11 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawStartSpriteSelector(window);
         GuiData::uiManager.drawCharacterSpriteSelector(window);
         GuiData::uiManager.drawMonsterSpriteSelector(window);
+        GuiData::uiManager.drawEmptySpriteSelector(window);
         GuiData::uiManager.drawMapBorder(window);
         GuiData::uiManager.drawMapClickableBox(window);
+        GuiData::uiManager.drawCurrentMapTileSelected(window);
+        GuiData::uiManager.drawCurrentMapTileSprite(window);
       }
       if (GuiData::isCreatingCampaign) {
         GuiData::uiManager.drawHomeButton(window);

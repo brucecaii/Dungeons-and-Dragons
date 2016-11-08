@@ -57,6 +57,16 @@ namespace GuiData {
   sf::Text lengthIndicator;
   sf::Text lengthPlus;
   sf::Text lengthMinus;
+  sf::Text currentMapTileSelected;
+  char currentMapTileSelectedChar = ' ';
+
+  sf::Texture wallTexture;
+  sf::Texture startTexture;
+  sf::Texture exitTexture;
+  sf::Texture monsterTexture;
+  sf::Texture treasureTexture;
+  sf::Texture characterTexture;
+  sf::Texture emptyTexture;
 
   vector<string> current_maps;
   vector<sf::FloatRect> current_map_positions;
@@ -90,4 +100,5 @@ namespace GuiData {
   int tempMapWidth = 4;
   int tempMapLength = 4;
 };
+
 

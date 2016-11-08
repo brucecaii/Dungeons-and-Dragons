@@ -49,7 +49,17 @@ namespace GuiData{
   extern sf::Text lengthIndicator;
   extern sf::Text lengthPlus;
   extern sf::Text lengthMinus;
+  extern sf::Text currentMapTileSelected;
+  extern char currentMapTileSelectedChar;
   extern sf::RectangleShape selectionBox;
+
+  extern sf::Texture wallTexture;
+  extern sf::Texture startTexture;
+  extern sf::Texture exitTexture;
+  extern sf::Texture monsterTexture;
+  extern sf::Texture treasureTexture;
+  extern sf::Texture characterTexture;
+  extern sf::Texture emptyTexture;
 
   extern string chosenMap;
   extern string chosenCampaign;

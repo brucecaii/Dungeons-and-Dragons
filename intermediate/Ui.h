@@ -38,8 +38,11 @@ class Ui {
     void drawStartSpriteSelector(sf::RenderWindow& window);
     void drawCharacterSpriteSelector(sf::RenderWindow& window);
     void drawMonsterSpriteSelector(sf::RenderWindow& window);
+    void drawEmptySpriteSelector(sf::RenderWindow& window);
     void drawMapBorder(sf::RenderWindow& window);
     void drawMapClickableBox(sf::RenderWindow& window);
     void drawMapCreateOkButton(sf::RenderWindow& window);
     void drawSelectMapSize(sf::RenderWindow& window);
+    void drawCurrentMapTileSelected(sf::RenderWindow& window);
+    void drawCurrentMapTileSprite(sf::RenderWindow& window);
 };

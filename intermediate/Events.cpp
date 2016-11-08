@@ -238,15 +238,13 @@ void Events::respondToMapCreateOkButton(sf::RenderWindow& window) {
         delete GameData::currentMapObject;
         int numBoxes = GuiData::tempMapWidth * GuiData::tempMapLength;
         string placement(numBoxes, ' ');
-        std::cout << placement << std::endl;
 
+        // No saving here, because the map won't be valid to begin with.
         GameData::currentMapObject = new Map(GuiData::tempMapWidth, GuiData::tempMapLength, placement);
-
-        MapCampaignFileIO mfio;
-        mfio.saveMapJSON(GuiData::createdMap);
 
         GuiData::isSelectingMapSize = false;
         GuiData::isCreatingMap = true;
+        GuiData::shouldBlockThread = true;
       }
     }
   }
