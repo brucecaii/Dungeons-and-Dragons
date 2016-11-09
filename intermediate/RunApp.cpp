@@ -5,13 +5,14 @@
 //! - Drive the CppUnit test suite
 //! - Drive the main map creation program.
 
+#include <iostream>
 #include <string>
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
 #include "GuiData.h"
 #include "Map.h"
-#include "MapTest.h"
+//#include "MapTest.h"
 #include "Fonts.h"
 #include "Events.h"
 #include "Texts.h"
@@ -30,7 +31,7 @@ using std::string;
 //! - Runs the test suite:
 //! - Runs the main map creation program:
 int main(int argc, char* argv[]) {
-
+	/*
   // Checking if test command-line parameter was passed.
   if (argc > 1) {
     string testString(argv[1]);
@@ -39,7 +40,7 @@ int main(int argc, char* argv[]) {
       return mt.runTestSuite();
     }
   } else {
-
+  */
     GuiData::currentFont = GuiData::fontGenerator.generateFont("./fonts/EagleLake-Regular.ttf");
     GuiData::textGenerator.generateEllipsis();
     GuiData::textGenerator.generateGreetings();
@@ -177,5 +178,5 @@ int main(int argc, char* argv[]) {
     }
 
     return 0;
-  }
+  //}
 }

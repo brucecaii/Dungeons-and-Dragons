@@ -1,4 +1,4 @@
-//! @file
+/*//! @file
 //! @brief Header file for the MapTest class
 //!
 #pragma once
@@ -42,3 +42,4 @@ private:
         Map *map;
 };
 
+*/
