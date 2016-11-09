@@ -66,6 +66,8 @@ int main(int argc, char* argv[]) {
     // GAME LOOP //
     ///////////////
     while (window.isOpen()) {
+
+      // EVENT MANAGEMENT
       sf::Event evt;
       while (window.pollEvent(evt)) {
         if (evt.type == sf::Event::Closed) {
@@ -82,12 +84,8 @@ int main(int argc, char* argv[]) {
       GuiData::eventManager.respondToLengthPlusClick(window);
       GuiData::eventManager.respondToLengthMinusClick(window);
       GuiData::eventManager.respondToMapCreateOkButton(window);
-      GuiData::eventManager.respondToMapTileWallSelect(window);
-      GuiData::eventManager.respondToMapTileMonsterSelect(window);
-      GuiData::eventManager.respondToMapTileStartSelect(window);
-      GuiData::eventManager.respondToMapTileExitSelect(window);
-      GuiData::eventManager.respondToMapTileTreasureSelect(window);
-      GuiData::eventManager.respondToMapTileEmptySelect(window);
+      GuiData::eventManager.respondToMapTileSelect(window);
+
 
       // SCENE SELECTION
       window.clear(GuiData::SELECTION_BACKGROUND_COLOR);
@@ -143,6 +141,9 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawMapClickableBox(window);
         GuiData::uiManager.drawCurrentMapTileSelected(window);
         GuiData::uiManager.drawCurrentMapTileSprite(window);
+
+        // Must be registered after drawMapClickableBox due to initialization
+        GuiData::eventManager.respondToMapBoxClick(window);
       }
       if (GuiData::isEditingCampaign) {
         GuiData::uiManager.drawHomeButton(window);
@@ -162,6 +163,10 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawMapClickableBox(window);
         GuiData::uiManager.drawCurrentMapTileSelected(window);
         GuiData::uiManager.drawCurrentMapTileSprite(window);
+
+        // Must be registered after drawMapClickableBox due to initialization
+        GuiData::eventManager.respondToMapBoxClick(window);
+
       }
       if (GuiData::isCreatingCampaign) {
         GuiData::uiManager.drawHomeButton(window);

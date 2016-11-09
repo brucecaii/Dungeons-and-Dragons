@@ -17,19 +17,9 @@ using std::vector;
 //! Implementation of the Map class default constructor, creates a map grid based on default size values
 Map::Map() {
   // Default map size is 5x5
-  mapWidth = 4;
-  mapLength = 4;
-
-  string placement = "                ";
-  vector<char> row = {};
-
-  for(string::size_type i = 0; i < placement.size(); ++i) {
-    if (i % 4 == 3) {
-      map.push_back(row);
-      row = {};
-    }
-    row.push_back(placement[i]);
-  }
+  this->mapWidth = 4;
+  this->mapLength = 4;
+  setMapData("                ");
 }
 
 //! Implementation of a Map class non-default constructor, creates a map grid based on provided size values
@@ -37,17 +27,9 @@ Map::Map() {
 //! @param length: an integer value of vertical size of the map's grid
 Map::Map(int width, int length, string placement) {
   // Default map size is 5x5
-  mapWidth = width;
-  mapLength = length;
-  vector<char> row = {};
-
-  for(string::size_type i = 0; i < placement.size(); ++i) {
-    if (i % width == width-1) {
-      map.push_back(row);
-      row = {};
-    }
-    row.push_back(placement[i]);
-  }
+  this->mapWidth = width;
+  this->mapLength = length;
+  setMapData(placement);
 }
 
 
@@ -179,7 +161,7 @@ bool Map::validatePath() {
 //! @param y: an integer value of vertical index of the map's grid
 //! @param obj: a character value of object that fills the cell
 void Map::setCell(int x, int y, char obj) {
-	map[x][y] = obj;
+	this->map[x][y] = obj;
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
@@ -187,7 +169,7 @@ void Map::setCell(int x, int y, char obj) {
 //! @param y: an integer value of vertical index of the map's grid
 //! @param obj: a character value of object that fills the cell
 char Map::getCell(int x, int y) {
-	return map[x][y];
+	return this->map[x][y];
 }
 
 //! Implementation occupation of a cell, check if a cell is occupied
@@ -195,7 +177,7 @@ char Map::getCell(int x, int y) {
 //! @param y: an integer value of vertical index of the map's grid
 //! @return : a boolean true if the cell is occupeid false otherwise
 bool Map::isOccupied(int x, int y) {
-	if (map[x][y] != ' '){
+	if (this->map[x][y] != ' '){
 		return true;
 	}
 	return false;
@@ -204,42 +186,75 @@ bool Map::isOccupied(int x, int y) {
 //! Implementation of getMapWidth, provides information on map horizontal size.
 //! @return : an integer value representing the map grid's width
 int Map::getMapWidth() {
-  return mapWidth;
+  return this->mapWidth;
 }
 
 //! Implementation of getMapLength, provides information on map vertical size.
 //! @return : an integer value representing the map grid's length
 int Map::getMapLength() {
-  return mapLength;
+  return this->mapLength;
 }
 
 //! Implementation of getMapWidth, provides information on map horizontal size.
 //! @return : an integer value representing the map grid's width
 void Map::setMapWidth(int mw) {
-  mapWidth = mw;
+  this->mapWidth = mw;
 }
 
 //! Implementation of getMapLength, provides information on map vertical size.
 //! @return : an integer value representing the map grid's length
 void Map::setMapLength(int ml) {
-  mapLength = ml;
+  this->mapLength = ml;
 }
 
 
 //! Implementation of setMapLevel, set the map level
 void Map::setMapLevel(int lv) {
-  level = lv;
+  this->level = lv;
 }
 
 //! Implementation of getMapLevel
 //@return a int of map level
 int Map::getMapLevel() {
-  return level;
+  return this->level;
 }
 
 //! Implementation of getMapdata
 //@return map data in the form of a vector of vector of chars.
-vector<vector<char>> Map::getMapData() {
-  return map;
+string Map::getMapData() {
+  string placement;
+  for(int i = 0; i < this->mapWidth; i++) {
+    for(int j = 0; j < this->mapLength; j++) {
+      placement += this->map[i][j];
+    }
+  }
+  return placement;
+
+}
+
+//! Implementation of setMapdata
+void Map::setMapData(string placement) {
+  //It relies on this->mapWidth and this->mapLength being previously set!
+  int i = 0;
+  int j = 0;
+  // Preventing segfaults here
+  this->map = {{}};
+  this->map.reserve(this->mapWidth);
+  for (int z = 0; z < this->mapWidth; z++) {
+    this->map[z].reserve(this->mapLength);
+  }
+
+  for(string::size_type k = 0; k < placement.size(); k++) {
+    this->map[i][j] = placement[k];
+    j++;
+    if (j == this->mapLength) {
+      i++;
+      j = 0;
+    }
+    if (i == this->mapWidth) {
+      // map was badly configured, truncating here
+      break;
+    }
+  }
 }
 

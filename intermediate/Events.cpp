@@ -47,14 +47,13 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 
       for (int i = 0; i < (int)GuiData::current_map_positions.size(); i++) {
         if (GuiData::current_map_positions[i].contains(mousePosition)) {
-          if (GuiData::isChoosingMapToEdit) {
-            GuiData::isChoosingMapToEdit = false;
-            GuiData::isEditingMap = true;
-          }
+          GuiData::isChoosingMapToEdit = false;
+          GuiData::isEditingMap = true;
           string ext = ".map";
           GuiData::chosenMap = string(GuiData::current_maps[i]) + string(ext);
           MapCampaignFileIO mfio;
           mfio.readMapJSON(GuiData::chosenMap);
+          GuiData::shouldBlockThread = true;
         }
       }
     }
@@ -68,11 +67,12 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
         if (GuiData::current_campaign_positions[i].contains(mousePosition)) {
           GuiData::isChoosingCampaignToEdit = false;
           GuiData::isEditingCampaign = true;
-        }
           string ext = ".campaign";
           GuiData::chosenCampaign = string(GuiData::current_campaigns[i]) + string(ext);
           MapCampaignFileIO mfio;
           mfio.readCampaignJSON(GuiData::chosenCampaign);
+          GuiData::shouldBlockThread = true;
+        }
       }
     }
   }
@@ -250,7 +250,7 @@ void Events::respondToMapCreateOkButton(sf::RenderWindow& window) {
   }
 }
 
-void Events::respondToMapTileWallSelect(sf::RenderWindow& window) {
+void Events::respondToMapTileSelect(sf::RenderWindow& window) {
   if (GuiData::isEditingMap || GuiData::isCreatingMap) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
@@ -274,22 +274,25 @@ void Events::respondToMapTileWallSelect(sf::RenderWindow& window) {
       }
     }
   }
-
-}
-void Events::respondToMapTileMonsterSelect(sf::RenderWindow& window) {
-
-}
-void Events::respondToMapTileStartSelect(sf::RenderWindow& window) {
-
-}
-void Events::respondToMapTileExitSelect(sf::RenderWindow& window) {
-
-}
-void Events::respondToMapTileTreasureSelect(sf::RenderWindow& window) {
-
-}
-void Events::respondToMapTileEmptySelect(sf::RenderWindow& window) {
-
 }
 
+void Events::respondToMapBoxClick(sf::RenderWindow& window) {
+  if (GuiData::isEditingMap || GuiData::isCreatingMap) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+
+      int tempWidth = GameData::currentMapObject->getMapWidth();
+      int tempLength = GameData::currentMapObject->getMapLength();
+
+      for (int i = 0; i< tempWidth; i++) {
+        for (int j =0; j < tempLength; j++) {
+          if (GuiData::currentMapTilePositions[i][j].contains(mousePosition)) {
+            GameData::currentMapObject->setCell(i, j, GuiData::currentMapTileSelectedChar);
+            GuiData::shouldBlockThread = true;
+          }
+        }
+      }
+    }
+  }
+}
 

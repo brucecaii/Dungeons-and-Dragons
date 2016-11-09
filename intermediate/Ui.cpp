@@ -395,7 +395,9 @@ void Ui::drawMapClickableBox(sf::RenderWindow& window) {
   mapClickableBox.setOutlineColor(mapClickableBoxOutlineColor);
   mapClickableBox.setOutlineThickness(2.0f);
 
+  GuiData::currentMapTilePositions.resize(tempWidth);
   for (int i = 0; i < tempWidth; i++) {
+    GuiData::currentMapTilePositions[i].resize(tempLength);
     for (int j =0; j < tempLength; j++) {
       char tempMapCell = GameData::currentMapObject->getCell(i,j);
 
@@ -422,6 +424,9 @@ void Ui::drawMapClickableBox(sf::RenderWindow& window) {
           GuiData::mapAbsolutePositioning.x + tempBoxWidth*i,
           GuiData::mapAbsolutePositioning.y + tempBoxLength*j
       );
+
+      GuiData::currentMapTilePositions[i][j] = mapClickableBox.getGlobalBounds();
+
       window.draw(mapClickableBox);
     }
   }

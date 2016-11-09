@@ -24,7 +24,8 @@ class Map {
     void setMapLength(int length);
     void setMapLevel(int lv);
     int getMapLevel();
-    vector<vector<char>> getMapData();
+    string getMapData();
+    void setMapData(string);
     bool isBeside(int x, int y, char type);
   private:
     int mapWidth;
