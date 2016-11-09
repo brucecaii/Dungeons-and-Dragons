@@ -50,6 +50,10 @@ namespace GuiData{
   extern sf::Text lengthPlus;
   extern sf::Text lengthMinus;
   extern sf::Text currentMapTileSelected;
+  extern sf::Text campaignAvailableMapsText;
+  extern sf::Text campaignMapOrderText;
+  extern sf::Text campaignAvailableMaps;
+  extern sf::Text campaignMapOrder;
   extern char currentMapTileSelectedChar;
   extern sf::RectangleShape selectionBox;
 
@@ -74,9 +78,12 @@ namespace GuiData{
   extern string createdMap;
   extern vector<string> current_maps;
   extern vector<sf::FloatRect> current_map_positions;
+  extern vector<sf::FloatRect> current_available_map_positions;
   extern vector<vector<sf::FloatRect>> currentMapTilePositions;
   extern vector<string> current_campaigns;
   extern vector<sf::FloatRect> current_campaign_positions;
+  extern vector<string> current_campaign_map_order;
+  extern vector<sf::FloatRect> current_campaign_map_order_positions;
   extern float greetingsTransparency;
   extern float callToActionTransparency;
   extern float selectionBoxTransparency;

@@ -44,4 +44,8 @@ class Ui {
     void drawSelectMapSize(sf::RenderWindow& window);
     void drawCurrentMapTileSelected(sf::RenderWindow& window);
     void drawCurrentMapTileSprite(sf::RenderWindow& window);
+    void drawCampaignAvailableMapsText(sf::RenderWindow& window);
+    void drawCampaignMapOrderText(sf::RenderWindow& window);
+    void drawCampaignAvailableMaps(sf::RenderWindow& window);
+    void drawCampaignMapOrder(sf::RenderWindow& window);
 };

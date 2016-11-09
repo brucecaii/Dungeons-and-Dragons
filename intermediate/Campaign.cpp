@@ -5,17 +5,17 @@
 #include "Campaign.h"
 
 Campaign::Campaign() {
-  campaignMapOrder = {};
+  this->campaignMapOrder = {};
 }
 
 Campaign::Campaign(vector<string> cmo) {
-  campaignMapOrder = cmo;
+  this->campaignMapOrder = cmo;
 }
 
 vector<string> Campaign::getCampaignMapOrder() {
-  return campaignMapOrder;
+  return this->campaignMapOrder;
 }
 
 void Campaign::setCampaignMapOrder(vector<string> vs) {
-  campaignMapOrder = vs;
+  this->campaignMapOrder = vs;
 }

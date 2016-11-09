@@ -58,7 +58,10 @@ namespace GuiData {
   sf::Text lengthPlus;
   sf::Text lengthMinus;
   sf::Text currentMapTileSelected;
-  char currentMapTileSelectedChar = ' ';
+  sf::Text campaignAvailableMapsText;
+  sf::Text campaignMapOrderText;
+  sf::Text campaignAvailableMaps;
+  sf::Text campaignMapOrder;
 
   sf::Texture wallTexture;
   sf::Texture startTexture;
@@ -76,9 +79,12 @@ namespace GuiData {
 
   vector<string> current_maps;
   vector<sf::FloatRect> current_map_positions;
+  vector<sf::FloatRect> current_available_map_positions;
   vector<vector<sf::FloatRect>> currentMapTilePositions;
   vector<string> current_campaigns;
   vector<sf::FloatRect> current_campaign_positions;
+  vector<string> current_campaign_map_order;
+  vector<sf::FloatRect> current_campaign_map_order_positions;
   string chosenCampaign;
   string chosenMap;
   string createdCampaign = "";
@@ -102,6 +108,7 @@ namespace GuiData {
   bool isCreatingMap = false;
   bool shouldShowNameConflictError = false;
   bool shouldBlockThread = false;
+  char currentMapTileSelectedChar = ' ';
   unsigned long msSinceStart;
 
   int tempMapWidth = 4;

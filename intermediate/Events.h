@@ -20,6 +20,8 @@ class Events {
     void respondToMapCreateOkButton(sf::RenderWindow& window);
     void respondToMapTileSelect(sf::RenderWindow& window);
     void respondToMapBoxClick(sf::RenderWindow& window);
+    void respondToCampaignAvailableMapsClick(sf::RenderWindow& window);
+    void respondToCampaignMapOrderClick(sf::RenderWindow& window);
 
 };
 

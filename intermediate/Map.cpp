@@ -239,9 +239,9 @@ void Map::setMapData(string placement) {
   int j = 0;
   // Preventing segfaults here
   this->map = {{}};
-  this->map.reserve(this->mapWidth);
+  this->map.resize(this->mapWidth, {});
   for (int z = 0; z < this->mapWidth; z++) {
-    this->map[z].reserve(this->mapLength);
+    this->map[z].resize(this->mapLength,' ');
   }
 
   for(string::size_type k = 0; k < placement.size(); k++) {

@@ -30,11 +30,15 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
         GuiData::current_campaigns = mapSerializer.readCurrentDirectoryContents("campaign");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToCreate = true;
+        MapCampaignFileIO mfio;
+        GuiData::current_maps = mfio.readCurrentDirectoryContents("map");
       }
       if (GuiData::editCampaignPosition.contains(mousePosition)) {
         GuiData::current_campaigns = mapSerializer.readCurrentDirectoryContents("campaign");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToEdit = true;
+        MapCampaignFileIO mfio;
+        GuiData::current_maps = mfio.readCurrentDirectoryContents("map");
       }
     }
   }
@@ -95,7 +99,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               GuiData::createdMap = GuiData::createdMap + ".map";
               GuiData::isChoosingMapToCreate = false;
               GuiData::isSelectingMapSize = true;
-
+              GuiData::shouldBlockThread = true;
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
               GuiData::createdMap.pop_back();
@@ -118,6 +122,10 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               GuiData::createdCampaign = GuiData::createdCampaign + ".campaign";
               GuiData::isChoosingCampaignToCreate = false;
               GuiData::isCreatingCampaign = true;
+              delete GameData::currentCampaignObject;
+              GameData::currentCampaignObject = new Campaign();
+              GuiData::shouldBlockThread = true;
+
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
               GuiData::createdCampaign.pop_back();
@@ -290,6 +298,38 @@ void Events::respondToMapBoxClick(sf::RenderWindow& window) {
             GameData::currentMapObject->setCell(i, j, GuiData::currentMapTileSelectedChar);
             GuiData::shouldBlockThread = true;
           }
+        }
+      }
+    }
+  }
+}
+
+void Events::respondToCampaignAvailableMapsClick(sf::RenderWindow& window) {
+  if (GuiData::isEditingCampaign|| GuiData::isCreatingCampaign) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+      for (int i = 0; i < (int)GuiData::current_available_map_positions.size(); i++) {
+        if (GuiData::current_available_map_positions[i].contains(mousePosition)) {
+          vector<string> tempMapOrder = GameData::currentCampaignObject->getCampaignMapOrder();
+          tempMapOrder.push_back(GuiData::current_maps[i]);
+          GameData::currentCampaignObject->setCampaignMapOrder(tempMapOrder);
+          GuiData::shouldBlockThread = true;
+        }
+      }
+    }
+  }
+}
+
+void Events::respondToCampaignMapOrderClick(sf::RenderWindow& window) {
+  if (GuiData::isEditingCampaign|| GuiData::isCreatingCampaign) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+      for (int i = 0; i < (int)GuiData::current_campaign_map_order_positions.size(); i++) {
+        if (GuiData::current_campaign_map_order_positions[i].contains(mousePosition)) {
+          vector<string> tempMapOrder = GameData::currentCampaignObject->getCampaignMapOrder();
+          tempMapOrder.erase(tempMapOrder.begin()+i);
+          GameData::currentCampaignObject->setCampaignMapOrder(tempMapOrder);
+          GuiData::shouldBlockThread = true;
         }
       }
     }

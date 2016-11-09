@@ -85,6 +85,8 @@ int main(int argc, char* argv[]) {
       GuiData::eventManager.respondToLengthMinusClick(window);
       GuiData::eventManager.respondToMapCreateOkButton(window);
       GuiData::eventManager.respondToMapTileSelect(window);
+      GuiData::eventManager.respondToCampaignAvailableMapsClick(window);
+      GuiData::eventManager.respondToCampaignMapOrderClick(window);
 
 
       // SCENE SELECTION
@@ -145,10 +147,6 @@ int main(int argc, char* argv[]) {
         // Must be registered after drawMapClickableBox due to initialization
         GuiData::eventManager.respondToMapBoxClick(window);
       }
-      if (GuiData::isEditingCampaign) {
-        GuiData::uiManager.drawHomeButton(window);
-        // GuiData::uiManager.drawCampaignUi(window);
-      }
       if (GuiData::isCreatingMap) {
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawMapUi(window);
@@ -168,9 +166,13 @@ int main(int argc, char* argv[]) {
         GuiData::eventManager.respondToMapBoxClick(window);
 
       }
-      if (GuiData::isCreatingCampaign) {
+      if (GuiData::isCreatingCampaign || GuiData::isEditingCampaign) {
+        GuiData::uiManager.drawSaveButton(window);
         GuiData::uiManager.drawHomeButton(window);
-        // GuiData::uiManager.drawCampaignUi(window);
+        GuiData::uiManager.drawCampaignAvailableMapsText(window);
+        GuiData::uiManager.drawCampaignMapOrderText(window);
+        GuiData::uiManager.drawCampaignAvailableMaps(window);
+        GuiData::uiManager.drawCampaignMapOrder(window);
       }
 
       window.display();
@@ -183,5 +185,4 @@ int main(int argc, char* argv[]) {
     }
 
     return 0;
-  //}
 }

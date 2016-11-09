@@ -7,6 +7,7 @@
 #include "GameData.h"
 #include "GuiData.h"
 #include "Ui.h"
+#include "MapCampaignFileIO.h"
 
 using namespace std::chrono;
 
@@ -497,5 +498,61 @@ void Ui::drawCurrentMapTileSprite(sf::RenderWindow& window) {
 
   window.draw(currentMapTileSprite);
 
+}
+
+void Ui::drawCampaignAvailableMapsText(sf::RenderWindow& window) {
+  GuiData::campaignAvailableMapsText.setString("Availble Maps\nClick to add");
+  GuiData::campaignAvailableMapsText.setFont(GuiData::currentFont);
+  GuiData::campaignAvailableMapsText.setCharacterSize(24);
+  GuiData::campaignAvailableMapsText.setOrigin(GuiData::campaignAvailableMapsText.getGlobalBounds().width/2.0f, GuiData::campaignAvailableMapsText.getGlobalBounds().height/2.0f);
+  GuiData::campaignAvailableMapsText.setPosition(GuiData::WINDOW_WIDTH/4.0f, 100.0f);
+  sf::Color campaignAvailableMapsTextColor(189, 147, 249);
+  GuiData::campaignAvailableMapsText.setFillColor(campaignAvailableMapsTextColor);
+  window.draw(GuiData::campaignAvailableMapsText);
+}
+
+void Ui::drawCampaignMapOrderText(sf::RenderWindow& window) {
+  GuiData::campaignMapOrderText.setString("Map Order\nClick to remove");
+  GuiData::campaignMapOrderText.setFont(GuiData::currentFont);
+  GuiData::campaignMapOrderText.setCharacterSize(24);
+  GuiData::campaignMapOrderText.setOrigin(GuiData::campaignMapOrderText.getGlobalBounds().width/2.0f, GuiData::campaignMapOrderText.getGlobalBounds().height/2.0f);
+  GuiData::campaignMapOrderText.setPosition(GuiData::WINDOW_WIDTH*3/4.0f, 100.0f);
+  sf::Color campaignMapOrderTextColor(189, 147, 249);
+  GuiData::campaignMapOrderText.setFillColor(campaignMapOrderTextColor);
+  window.draw(GuiData::campaignMapOrderText);
+}
+
+void Ui::drawCampaignAvailableMaps(sf::RenderWindow& window) {
+  GuiData::campaignAvailableMaps.setFont(GuiData::currentFont);
+  GuiData::campaignAvailableMaps.setCharacterSize(20);
+  GuiData::campaignAvailableMaps.setOrigin(GuiData::campaignAvailableMaps.getGlobalBounds().width/2.0f, GuiData::campaignAvailableMaps.getGlobalBounds().height/2.0f);
+  sf::Color campaignAvailableMapsColor(248,248,242);
+  GuiData::campaignAvailableMaps.setFillColor(campaignAvailableMapsColor);
+
+  float mapPositionIncrement = 35.0f;
+  GuiData::current_available_map_positions.clear();
+  for (int i = 0; i < (int)GuiData::current_maps.size(); i++) {
+    GuiData::campaignAvailableMaps.setString(GuiData::current_maps[i]);
+    GuiData::campaignAvailableMaps.setPosition(GuiData::WINDOW_WIDTH/4.0f, 170.0f+(i*mapPositionIncrement));
+    GuiData::current_available_map_positions.push_back(GuiData::campaignAvailableMaps.getGlobalBounds());
+    window.draw(GuiData::campaignAvailableMaps);
+  }
+}
+
+void Ui::drawCampaignMapOrder(sf::RenderWindow& window) {
+  GuiData::campaignMapOrder.setFont(GuiData::currentFont);
+  GuiData::campaignMapOrder.setCharacterSize(20);
+  GuiData::campaignMapOrder.setOrigin(GuiData::campaignMapOrder.getGlobalBounds().width/2.0f, GuiData::campaignMapOrder.getGlobalBounds().height/2.0f);
+  sf::Color campaignMapOrderColor(248,248,242);
+  GuiData::campaignMapOrder.setFillColor(campaignMapOrderColor);
+
+  float mapPositionIncrement = 35.0f;
+  GuiData::current_campaign_map_order_positions.clear();
+  for (int i = 0; i < (int)GameData::currentCampaignObject->getCampaignMapOrder().size(); i++) {
+    GuiData::campaignMapOrder.setString(GameData::currentCampaignObject->getCampaignMapOrder()[i]);
+    GuiData::campaignMapOrder.setPosition(GuiData::WINDOW_WIDTH*3/4.0f, 170.0f+(i*mapPositionIncrement));
+    GuiData::current_campaign_map_order_positions.push_back(GuiData::campaignMapOrder.getGlobalBounds());
+    window.draw(GuiData::campaignMapOrder);
+  }
 }
 
