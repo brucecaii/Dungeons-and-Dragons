@@ -16,6 +16,7 @@ class Campaign {
     Campaign(vector<string> campaignMapOrder);
     vector<string> getCampaignMapOrder();
     void setCampaignMapOrder(vector<string> vs);
+    bool isCampaignValid(vector<string> current_maps);
   private:
     vector<string> campaignMapOrder;
 };

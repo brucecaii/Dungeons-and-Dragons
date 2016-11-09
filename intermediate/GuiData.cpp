@@ -62,6 +62,8 @@ namespace GuiData {
   sf::Text campaignMapOrderText;
   sf::Text campaignAvailableMaps;
   sf::Text campaignMapOrder;
+  sf::Text mapValidationError;
+  sf::Text campaignValidationError;
 
   sf::Texture wallTexture;
   sf::Texture startTexture;
@@ -107,7 +109,10 @@ namespace GuiData {
   bool isCreatingCampaign = false;
   bool isCreatingMap = false;
   bool shouldShowNameConflictError = false;
+  bool isMapValid = false;
   bool shouldBlockThread = false;
+  bool shouldShowCampaignValidationError = false;
+  bool shouldShowMapValidationError = false;
   char currentMapTileSelectedChar = ' ';
   unsigned long msSinceStart;
 

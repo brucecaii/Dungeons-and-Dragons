@@ -48,4 +48,6 @@ class Ui {
     void drawCampaignMapOrderText(sf::RenderWindow& window);
     void drawCampaignAvailableMaps(sf::RenderWindow& window);
     void drawCampaignMapOrder(sf::RenderWindow& window);
+    void drawMapValidationError(sf::RenderWindow& window);
+    void drawCampaignValidationError(sf::RenderWindow& window);
 };

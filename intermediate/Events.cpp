@@ -51,12 +51,19 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 
       for (int i = 0; i < (int)GuiData::current_map_positions.size(); i++) {
         if (GuiData::current_map_positions[i].contains(mousePosition)) {
-          GuiData::isChoosingMapToEdit = false;
-          GuiData::isEditingMap = true;
           string ext = ".map";
           GuiData::chosenMap = string(GuiData::current_maps[i]) + string(ext);
           MapCampaignFileIO mfio;
           mfio.readMapJSON(GuiData::chosenMap);
+          if (!GameData::currentMapObject->validatePath()) {
+            delete GameData::currentMapObject;
+            GameData::currentMapObject = NULL;
+            GuiData::shouldShowMapValidationError = true;
+          } else {
+            GuiData::shouldShowMapValidationError = false;
+            GuiData::isChoosingMapToEdit = false;
+            GuiData::isEditingMap = true;
+          }
           GuiData::shouldBlockThread = true;
         }
       }
@@ -69,12 +76,18 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 
       for (int i = 0; i < (int)GuiData::current_campaign_positions.size(); i++) {
         if (GuiData::current_campaign_positions[i].contains(mousePosition)) {
-          GuiData::isChoosingCampaignToEdit = false;
-          GuiData::isEditingCampaign = true;
           string ext = ".campaign";
           GuiData::chosenCampaign = string(GuiData::current_campaigns[i]) + string(ext);
           MapCampaignFileIO mfio;
           mfio.readCampaignJSON(GuiData::chosenCampaign);
+          GuiData::current_maps = mfio.readCurrentDirectoryContents("map");
+          if (!GameData::currentCampaignObject->isCampaignValid(GuiData::current_maps)) {
+            GuiData::shouldShowCampaignValidationError = true;
+          } else {
+            GuiData::shouldShowCampaignValidationError = false;
+            GuiData::isChoosingCampaignToEdit = false;
+            GuiData::isEditingCampaign = true;
+          }
           GuiData::shouldBlockThread = true;
         }
       }
@@ -172,16 +185,36 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
     if (GuiData::saveButton.getGlobalBounds().contains(mousePosition)) {
       MapCampaignFileIO mfio;
       if (GuiData::isEditingMap) {
-        mfio.saveMapJSON(GuiData::chosenMap);
+        if (GameData::currentMapObject->validatePath()) {
+          GuiData::shouldShowMapValidationError = false;
+          mfio.saveMapJSON(GuiData::chosenMap);
+        } else {
+          GuiData::shouldShowMapValidationError = true;
+        }
       }
       if (GuiData::isCreatingMap) {
-        mfio.saveMapJSON(GuiData::createdMap);
+        if (GameData::currentMapObject->validatePath()) {
+          GuiData::shouldShowMapValidationError = false;
+          mfio.saveMapJSON(GuiData::createdMap);
+        } else {
+          GuiData::shouldShowMapValidationError = true;
+        }
       }
       if (GuiData::isEditingCampaign) {
-        mfio.saveCampaignJSON(GuiData::chosenCampaign);
+        if (GameData::currentCampaignObject->isCampaignValid(GuiData::current_maps)) {
+          GuiData::shouldShowCampaignValidationError = false;
+          mfio.saveCampaignJSON(GuiData::chosenCampaign);
+        } else {
+          GuiData::shouldShowCampaignValidationError = true;
+        }
       }
       if (GuiData::isCreatingCampaign) {
-        mfio.saveCampaignJSON(GuiData::createdCampaign);
+        if (GameData::currentCampaignObject->isCampaignValid(GuiData::current_maps)) {
+          GuiData::shouldShowCampaignValidationError = false;
+          mfio.saveCampaignJSON(GuiData::createdCampaign);
+        } else {
+          GuiData::shouldShowCampaignValidationError = true;
+        }
       }
     }
   }

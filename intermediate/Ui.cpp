@@ -555,4 +555,25 @@ void Ui::drawCampaignMapOrder(sf::RenderWindow& window) {
     window.draw(GuiData::campaignMapOrder);
   }
 }
+void Ui::drawMapValidationError(sf::RenderWindow& window) {
+  GuiData::mapValidationError.setString("MAP IS NOT VALID");
+  GuiData::mapValidationError.setFont(GuiData::currentFont);
+  GuiData::mapValidationError.setCharacterSize(24);
+  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
+  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
+  sf::Color mapValidationErrorColor(255, 85, 85);
+  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
+  window.draw(GuiData::mapValidationError);
+}
+
+void Ui::drawCampaignValidationError(sf::RenderWindow& window) {
+  GuiData::mapValidationError.setString("CAMPAIGN CANNOT BE EMPTY");
+  GuiData::mapValidationError.setFont(GuiData::currentFont);
+  GuiData::mapValidationError.setCharacterSize(24);
+  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
+  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
+  sf::Color mapValidationErrorColor(255, 85, 85);
+  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
+  window.draw(GuiData::mapValidationError);
+}
 

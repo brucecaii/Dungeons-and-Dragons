@@ -66,6 +66,12 @@ bool Map::isBeside(int x, int y, char type) {
 //! Implementation of the map verification
 //! @return bool value, true of the map is valid (there is at least one clear path between the mandatory begin and end cell).
 bool Map::validatePath() {
+  // Map sure map is large enough. We are using mapWidth>3 and mapLength>3
+  if (mapLength < 4 || mapWidth < 4) {
+    cout << "INVALID: Map size too small" << endl;
+    return false;
+  }
+
   // Find start and end cells
   vector<pair<int,int>> startCells, endCells;
 

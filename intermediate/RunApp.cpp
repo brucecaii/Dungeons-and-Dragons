@@ -119,15 +119,23 @@ int main(int argc, char* argv[]) {
           GuiData::uiManager.drawNameConflictError(window);
         }
       }
+
       if (GuiData::isChoosingMapToEdit){
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawSelectMapCampaign(window);
         GuiData::uiManager.drawSelectFileNames(window, GuiData::current_maps);
+        if (GuiData::shouldShowMapValidationError) {
+          GuiData::uiManager.drawMapValidationError(window);
+        }
+
       }
       if (GuiData::isChoosingCampaignToEdit){
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawSelectMapCampaign(window);
         GuiData::uiManager.drawSelectFileNames(window, GuiData::current_campaigns);
+        if (GuiData::shouldShowCampaignValidationError) {
+          GuiData::uiManager.drawCampaignValidationError(window);
+        }
       }
       if (GuiData::isEditingMap) {
         GuiData::uiManager.drawHomeButton(window);
@@ -143,6 +151,9 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawMapClickableBox(window);
         GuiData::uiManager.drawCurrentMapTileSelected(window);
         GuiData::uiManager.drawCurrentMapTileSprite(window);
+        if (GuiData::shouldShowMapValidationError) {
+          GuiData::uiManager.drawMapValidationError(window);
+        }
 
         // Must be registered after drawMapClickableBox due to initialization
         GuiData::eventManager.respondToMapBoxClick(window);
@@ -161,6 +172,9 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawMapClickableBox(window);
         GuiData::uiManager.drawCurrentMapTileSelected(window);
         GuiData::uiManager.drawCurrentMapTileSprite(window);
+        if (GuiData::shouldShowMapValidationError) {
+          GuiData::uiManager.drawMapValidationError(window);
+        }
 
         // Must be registered after drawMapClickableBox due to initialization
         GuiData::eventManager.respondToMapBoxClick(window);
@@ -173,6 +187,9 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawCampaignMapOrderText(window);
         GuiData::uiManager.drawCampaignAvailableMaps(window);
         GuiData::uiManager.drawCampaignMapOrder(window);
+        if (GuiData::shouldShowCampaignValidationError) {
+          GuiData::uiManager.drawCampaignValidationError(window);
+        }
       }
 
       window.display();

@@ -54,6 +54,10 @@ namespace GuiData{
   extern sf::Text campaignMapOrderText;
   extern sf::Text campaignAvailableMaps;
   extern sf::Text campaignMapOrder;
+  extern sf::Text mapValidationError;
+  extern sf::Text campaignValidationError;
+
+
   extern char currentMapTileSelectedChar;
   extern sf::RectangleShape selectionBox;
 
@@ -103,6 +107,9 @@ namespace GuiData{
   extern bool isCreatingCampaign;
   extern bool isCreatingMap;
   extern bool shouldBlockThread;
+  extern bool isMapValid;
+  extern bool shouldShowCampaignValidationError;
+  extern bool shouldShowMapValidationError;
   extern unsigned long msSinceStart;
 
   extern int tempMapWidth;
