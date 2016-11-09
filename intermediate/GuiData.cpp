@@ -25,7 +25,7 @@ namespace GuiData {
   const unsigned long GREETINGS_APPEAR_TIME = 500;
   const unsigned long CALL_TO_ACTION_APPEAR_TIME = 2000;
   const unsigned long SELECTION_BOXES_APPEAR_TIME = 4000;
-  const unsigned long BLOCK_THREAD_WAIT_TIME = 200;
+  const unsigned long BLOCK_THREAD_WAIT_TIME = 500;
   const float  TEXT_OUTLINE_THICKNESS = 0.3f;
   const sf::Vector2f mapAbsolutePositioning(60,120);
   Fonts fontGenerator;
@@ -76,6 +76,7 @@ namespace GuiData {
 
   vector<string> current_maps;
   vector<sf::FloatRect> current_map_positions;
+  vector<vector<sf::FloatRect>> currentMapTilePositions;
   vector<string> current_campaigns;
   vector<sf::FloatRect> current_campaign_positions;
   string chosenCampaign;

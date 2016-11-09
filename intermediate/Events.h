@@ -18,12 +18,9 @@ class Events {
     void respondToLengthPlusClick(sf::RenderWindow& window);
     void respondToLengthMinusClick(sf::RenderWindow& window);
     void respondToMapCreateOkButton(sf::RenderWindow& window);
-    void respondToMapTileWallSelect(sf::RenderWindow& window);
-    void respondToMapTileMonsterSelect(sf::RenderWindow& window);
-    void respondToMapTileStartSelect(sf::RenderWindow& window);
-    void respondToMapTileExitSelect(sf::RenderWindow& window);
-    void respondToMapTileTreasureSelect(sf::RenderWindow& window);
-    void respondToMapTileEmptySelect(sf::RenderWindow& window);
+    void respondToMapTileSelect(sf::RenderWindow& window);
+    void respondToMapBoxClick(sf::RenderWindow& window);
+
 };
 
 

@@ -74,6 +74,7 @@ namespace GuiData{
   extern string createdMap;
   extern vector<string> current_maps;
   extern vector<sf::FloatRect> current_map_positions;
+  extern vector<vector<sf::FloatRect>> currentMapTilePositions;
   extern vector<string> current_campaigns;
   extern vector<sf::FloatRect> current_campaign_positions;
   extern float greetingsTransparency;

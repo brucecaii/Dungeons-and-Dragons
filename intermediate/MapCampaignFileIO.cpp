@@ -58,26 +58,10 @@ void MapCampaignFileIO::saveMapJSON(string filePath) {
   std::cout << "writing map" << std::endl;
   ofstream writeJsonFile(filePath, ofstream::out);
   json map;
-  int tempWidth = GameData::currentMapObject->getMapWidth();
-  int tempLength = GameData::currentMapObject->getMapLength();
-  string placement = "";
-  vector<vector<char>> tempMap = GameData::currentMapObject->getMapData();
-  for(int i = 0; i < tempWidth; i++) {
-    for(int j = 0; j < tempLength; j++) {
-      // Having issues with parsing whitespace.
-      char tempChar = tempMap[i][j];
-      if (tempChar != 'W' || tempChar != 'S' || tempChar != 'E' || tempChar != 'T' || tempChar != ' ') {
-        tempChar = ' ';
-      }
-      placement += tempChar;
-    }
-  }
-
-  map["mapWidth"] = tempWidth;
-  map["mapLength"] = tempLength;
-  map["placement"] = placement;
+  map["mapWidth"] = GameData::currentMapObject->getMapWidth();
+  map["mapLength"] = GameData::currentMapObject->getMapLength();
+  map["placement"] = GameData::currentMapObject->getMapData();
   writeJsonFile << map;
-
   writeJsonFile.close();
 }
 
