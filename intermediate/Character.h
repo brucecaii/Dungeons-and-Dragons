@@ -90,10 +90,6 @@ class Fighter : public Character {
 public:
 	Fighter();
 	Fighter(int, int, int, int, int, int);
-
-
 private:
-
-
 };
 

@@ -52,4 +52,5 @@ class Ui {
     void drawCampaignValidationError(sf::RenderWindow& window);
     void drawCharacterValidationError(sf::RenderWindow& window);
     void drawItemValidationError(sf::RenderWindow& window);
+    void drawCharacterValuePrompt(sf::RenderWindow& window);
 };

@@ -1,4 +1,3 @@
-
 #include "Character.h"
 #include <cmath>
 #include <iostream>
@@ -22,6 +21,39 @@ Fighter::Fighter() {  //! default construtor
 
 Character::Character() { //! default constutor
 	this->equipment = new ItemContainer(); //! this stores equipped items
+        this->backpack = new ItemContainer();  //! this is your backpack
+
+        // Defaults
+        int str = 15;
+        int dex = 14;
+        int con = 13;
+        int intel = 12;
+        int wis = 10;
+        int cha = 8;
+
+	modifers[0] = modifier(str);
+	modifers[1] = modifier(dex);
+	modifers[2] = modifier(con);
+	modifers[3] = modifier(intel);
+	modifers[4] = modifier(wis);
+	modifers[5] = modifier(cha);
+
+
+	abilityScores[0] = str; abilityScoresFromChar[0] = str;
+	abilityScores[1] = dex; abilityScoresFromChar[1] = dex;
+	abilityScores[2] = con; abilityScoresFromChar[2] = con;
+	abilityScores[3] = intel; abilityScoresFromChar[3] = intel;
+	abilityScores[4] = wis; abilityScoresFromChar[4] = wis;
+	abilityScores[5] = cha; abilityScoresFromChar[5] = cha;
+
+	//! and set hit points to 10 and multyping it by consitution level, as consitution level influnces hitpoints and by lvl
+
+	currentHitPoints = 10 + abilityScores[2];
+	armorclass, ArmorfromChar = 10 + modifers[1];
+	attackbonus, attackbonusFromChar = (modifers[0] + modifers[1])*lvl;
+	damagebonus = modifers[0];
+
+	this->equipment = new ItemContainer(); //! this stores equipped items
 	this->backpack = new ItemContainer();  //! this is your backpack 
 }
 
@@ -41,11 +73,11 @@ Character::Character(int str, int dex, int con, int intel, int wis, int cha)
 
 
 	abilityScores[0] = str; abilityScoresFromChar[0] = str;
-	abilityScores[1] = dex, abilityScoresFromChar[1] = dex;
-	abilityScores[2] = con, abilityScoresFromChar[2] = con;
-	abilityScores[3] = intel, abilityScoresFromChar[3] = intel;
-	abilityScores[4] = wis, abilityScoresFromChar[4] = wis;
-	abilityScores[5] = cha, abilityScoresFromChar[5] = cha;
+	abilityScores[1] = dex; abilityScoresFromChar[1] = dex;
+	abilityScores[2] = con; abilityScoresFromChar[2] = con;
+	abilityScores[3] = intel; abilityScoresFromChar[3] = intel;
+	abilityScores[4] = wis; abilityScoresFromChar[4] = wis;
+	abilityScores[5] = cha; abilityScoresFromChar[5] = cha;
 
 	//! and set hit points to 10 and multyping it by consitution level, as consitution level influnces hitpoints and by lvl
 
@@ -53,8 +85,6 @@ Character::Character(int str, int dex, int con, int intel, int wis, int cha)
 	armorclass, ArmorfromChar = 10 + modifers[1];
 	attackbonus, attackbonusFromChar = (modifers[0] + modifers[1])*lvl;
 	damagebonus = modifers[0];
-
-
 }
 
 
@@ -133,7 +163,6 @@ int Character::getConstitution() {
 
 int Character::getIntelegence() {
 	return abilityScores[3];
-
 }
 
 int Character::getWisdom() {
@@ -144,10 +173,7 @@ int Character::getCharisma() {
 	return abilityScores[5];
 }
 
-
-
 int Character::getLevel() {
-
 	return lvl;
 }
 
@@ -156,60 +182,41 @@ int Character::getLevel() {
 //! getters for base scores used for saving
 
 int Character::getStrengthFromBase() {
-
 	return abilityScoresFromChar[0];
 }
 
 int Character::getDexterityFromBase() {
-
 	return abilityScoresFromChar[1];
 }
 
 int Character::getConstitutionFromBase() {
-
 	return abilityScoresFromChar[2];
 }
 
 int Character::getIntelegenceFromBase() {
-
 	return abilityScoresFromChar[3];
 }
 
 int Character::getWisdomFromBase() {
-
 	return abilityScoresFromChar[4];
 }
 
 int Character::getCharismaFromBase() {
-
 	return abilityScoresFromChar[5];
 }
 
 
-
-
-
-
-
-
-
 //! setters
-
-
-
 void Character::setStrength(int i) { // setting his base strength
-
 	abilityScoresFromChar[0] = i;
 }
 
 void Character::setDexterity(int i) {  // setting his base Dexterity
-
 	abilityScoresFromChar[1] = i;
 
 }
 
 void Character::setConstitution(int i) { // setting his base Constituion
-
 	abilityScoresFromChar[2] = i;
 
 }
@@ -223,13 +230,8 @@ void Character::setWisdom(int i) {  // setting his base Wisdom
 }
 
 void Character::setCharisma(int i) {   // setting his base Charisma
-
 	abilityScoresFromChar[5] = i;
 }
-
-
-
-
 
 void Character::addItemBackpack(Item i) {
 	vector<Item> test = vector<Item>();
@@ -245,10 +247,7 @@ void Character::addItemBackpack(Item i) {
 }
 
 void Character::removeItemfromBackpack(string name) { //! you receive name of item and remove it
-
 	backpack->deleteItem(name);
-
-
 }
 
 void Character::equipItem(Item i) {   //! you are addding an item to your character
@@ -259,8 +258,6 @@ void Character::equipItem(Item i) {   //! you are addding an item to your charac
 
 
 	for (int z = 0; z < test.size(); z++) {
-
-
 		if (test[z].getType() == i.getType()) {
 			cout << "You arleady have an item of that type equipped, de-equip item type of interest first" << endl;
 			has = true;
@@ -276,13 +273,8 @@ void Character::equipItem(Item i) {   //! you are addding an item to your charac
 
 
 void Character::deEquipItem(string typeofItem) {  //! to dequip an item off a character you will pass its type; since you are holding only one of a "shield" for example.
-
-
 	equipment->deleteItemByType(typeofItem);
-
-
 	updatestats();
-
 }
 
 
@@ -305,38 +297,30 @@ void Character::updatestats() {
 		for (int z = 0; z < influence.size(); z++) {
 
 			if (influence[z].getType() == "Strength") {
-
 				abilityScoresFromItems[0] += influence[z].getBonus();
 			}
 
 			if (influence[z].getType() == "Dexterity") {
-
 				abilityScoresFromItems[1] += influence[z].getBonus();
 			}
 			if (influence[z].getType() == "Constitution") {
-
 				abilityScoresFromItems[2] += influence[z].getBonus();
 			}
 			if (influence[z].getType() == "Intelligence") {
-
 				abilityScoresFromItems[3] += influence[z].getBonus();
 			}
 			if (influence[z].getType() == "Wisdom") {
-
 				abilityScoresFromItems[4] += influence[z].getBonus();
 			}
 
 			if (influence[z].getType() == "Charisma") {
-
 				abilityScoresFromItems[5] += influence[z].getBonus();
 			}
 
 			if (influence[z].getType() == "Armor class") {
-
 				ArmorFromItems += influence[z].getBonus();
 			}
 			if (influence[z].getType() == "Attack bonus") {
-
 				attackbounusFromItems += influence[z].getBonus();
 			}
 		}
@@ -349,10 +333,6 @@ void Character::updatestats() {
 	armorclass = ArmorfromChar + ArmorFromItems + modifers[1];
 	attackbonus = attackbonusFromChar + attackbounusFromItems + (modifers[0] + modifers[1])*lvl;
 	currentHitPoints += abilityScoresFromItems[2];
-
-
-
-
 }
 
 

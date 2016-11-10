@@ -71,6 +71,7 @@ namespace GuiData {
   sf::Text campaignValidationError;
   sf::Text characterValidationError;
   sf::Text itemValidationError;
+  sf::Text characterValuePrompt;
 
   sf::Texture wallTexture;
   sf::Texture startTexture;
@@ -96,6 +97,8 @@ namespace GuiData {
   vector<sf::FloatRect> current_campaign_positions;
   vector<string> current_campaign_map_order;
   vector<sf::FloatRect> current_campaign_map_order_positions;
+  vector<sf::FloatRect> current_character_positions;
+  vector<sf::FloatRect> current_item_positions;
   string chosenCampaign;
   string chosenMap;
   string chosenItem;
@@ -103,6 +106,8 @@ namespace GuiData {
   string createdCampaign = "";
   string createdMap = "";
   string createdCharacter = "";
+  string createdCharacterArgs = "";
+  string chosenCharacterArgs = "";
   string createdItem = "";
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;
@@ -133,6 +138,10 @@ namespace GuiData {
   bool isChoosingItemToCreate = false;
   bool isChoosingItemToEdit = false;
   bool isChoosingMapToPlay = false;
+  bool isCreatingCharacter = false;
+  bool isCreatingItem = false;
+  bool isEditingCharacter = false;
+  bool isEditingItem = false;
   bool shouldBlockThread = false;
   bool shouldShowCampaignValidationError = false;
   bool shouldShowMapValidationError = false;
