@@ -12,11 +12,13 @@ class Character : public Subject
 public:
 	Character();
 	Character(int, int, int, int, int, int);
+	~Character();
 	void hit(int);
 	int getHitPoints();
 	void levelUp();
 	int modifier(int);
 	void showAbilityScores();
+	void displayCharacter();
 	
 	//! getters for total scores
 	int getStrength();

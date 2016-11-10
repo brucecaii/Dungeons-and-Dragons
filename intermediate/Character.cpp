@@ -57,6 +57,16 @@ Character::Character(int str, int dex, int con, int intel, int wis, int cha)
 	damagebonus = modifers[0];
 }
 
+Character::~Character() {
+
+	delete this->equipment;
+	delete this->backpack;
+	this->equipment = NULL;
+	this->backpack = NULL;
+
+}
+
+
 //! non default constructor for fighter class
 Fighter::Fighter(int str, int dex, int con, int intel, int wis, int cha) : Character(str, dex, con, intel, wis, cha){
 
@@ -94,6 +104,8 @@ int Character::getLevel() {
 
 	return lvl;
 }
+
+//! getamour
 
 
 //! getters for base scores used for saving
@@ -324,4 +336,34 @@ ItemContainer* Character::getEquipment()
 ItemContainer* Character::getBackpack()
 {
 	return this->backpack;
+}
+
+//! method to display the character
+
+void Character::displayCharacter() {
+	
+	
+	
+	
+	cout << "*******************************************" << endl;
+	cout << "Here are you stats for your character " << endl;
+	cout << "Your strength is : " << abilityScores[0] << endl;
+	cout << "Your dexterity is : " << abilityScores[1] << endl;
+	cout << "Your constitution is : " << abilityScores[2] << endl;
+	cout << "Your intelligence is : " << abilityScores[3] << endl;
+	cout << "Your wisdom is : " << abilityScores[4] << endl;
+	cout << "Your charisma is : " << abilityScores[5] << endl;
+	cout << "Your hp is : " << this->getHitPoints() << endl;
+	cout << "Your level is : " << this->getLevel() << endl;
+	cout << "Your armorclass is : " << armorclass << endl;
+	cout << "Your attackbonus is : " << attackbonus << endl;
+	cout << "---------------------------------------" << endl;
+	cout << "Your items equipped are " << endl;
+
+	vector<Item> test = equipment->getItems();
+	for (int i = 0; i < test.size(); i++) {
+		cout << "Your " << test[i].getType() << " is " << test[i].getName() << endl;
+	}
+
+	cout << "*******************************************";
 }
