@@ -38,7 +38,7 @@ void CharacterFileIO::saveCharacter(string filePath, Character ch)
 	character["backpack"] = backpackJson;
 	character["equipment"] = equipmentJson;
 
-	writeJsonFile << character; 
+	writeJsonFile << character;
 	writeJsonFile.close();
 }
 
@@ -111,8 +111,6 @@ void CharacterFileIO::loadBackpackItems(json jsonText, Character& ch)
 	//Retrieving enhancements
 	auto backpack = jsonText["backpack"];
 
-	auto lol = backpack.at(0);
-
 	for (int i = 0; i < backpack.size(); i++)
 	{
 		vector<Enhancement> enhancements;
@@ -137,8 +135,6 @@ void CharacterFileIO::loadEquipItems(json jsonText, Character& ch)
 {
 	//Retrieving enhancements
 	auto backpack = jsonText["equipment"];
-
-	auto lol = backpack.at(0);
 
 	for (int i = 0; i < backpack.size(); i++)
 	{

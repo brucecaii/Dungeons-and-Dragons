@@ -138,16 +138,11 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           string ext = ".character";
           GuiData::chosenCharacter = string(GuiData::current_characters[i]) + string(ext);
           CharacterFileIO cfio;
-          delete GameData::currentCharacterObject;
           GameData::currentCharacterObject = new Character();
           cfio.readCharacter(GuiData::chosenCharacter, *GameData::currentCharacterObject);
-          if (!GameData::currentCharacterObject->validateNewCharacter()) {
-            GuiData::shouldShowCharacterValidationError = true;
-          } else {
-            GuiData::shouldShowCharacterValidationError = false;
-            GuiData::isChoosingCharacterToEdit = false;
-            GuiData::isEditingCharacter = true;
-          }
+          GuiData::shouldShowCharacterValidationError = false;
+          GuiData::isChoosingCharacterToEdit = false;
+          GuiData::isEditingCharacter = true;
           GuiData::shouldBlockThread = true;
         }
       }
@@ -438,7 +433,6 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
         }
 
         // check if character is valid
-        delete GameData::currentCharacterObject;
         GameData::currentCharacterObject = new Character(
           intArgElements[0],
           intArgElements[1],
@@ -447,16 +441,12 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
           intArgElements[4],
           intArgElements[5]
         );
-        if (!GameData::currentCharacterObject->validateNewCharacter()) {
-          cout << "INVALID: Ability values must be between 3 and 18 for new characters." << endl;
-          GuiData::shouldShowCharacterValidationError = true;
-          return;
-        }
 
         // Character is valid
         GuiData::shouldShowCharacterValidationError = false;
         CharacterFileIO cfio;
         cfio.saveCharacter(fileNameOutput, *GameData::currentCharacterObject);
+        GuiData::shouldBlockThread = true;
       }
     }
   }
