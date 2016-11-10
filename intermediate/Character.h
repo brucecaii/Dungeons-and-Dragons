@@ -1,27 +1,23 @@
 #pragma once
 
+#include "Subject.h"
 #include <string>
 #include "ItemContainer.h"
 #include "json.hpp"
 using json = nlohmann::json;
 
-//!  Hello welcome to my assgiment 1 Jason Tsalikis Id: 25892120
-//! So to make a new character in dungeions and dragon you pass him in the 6 ability scores
-//! Important to d and d is the modifer rules, which are your ability score -10 /2 ; if below 0 just add 0. Some games you can have a negative ablity score but we decided to go with the version that does not use negative modifers
-//!
-//!
 
-class Character
+class Character : public Subject
 {
 public:
 	Character();
 	Character(int, int, int, int, int, int);
-	bool validateNewCharacter();
 	void hit(int);
 	int getHitPoints();
 	void levelUp();
 	int modifier(int);
 	void showAbilityScores();
+	
 	//! getters for total scores
 	int getStrength();
 	int getDexterity();
@@ -31,7 +27,7 @@ public:
 	int getCharisma();
 	int getLevel();
 
-	//! getters from char used for saving purposes
+	//! getters for scores from your base attributes, not item enhancments
 	int getStrengthFromBase();
 	int getDexterityFromBase();
 	int getConstitutionFromBase();
@@ -39,26 +35,21 @@ public:
 	int getWisdomFromBase();
 	int getCharismaFromBase();
 
-
-
-	//! setters
-
+	//! setters for your base character stats
 	void setStrength(int);
 	void setDexterity(int);
 	void setConstitution(int);
 	void setIntelegence(int);
 	void setWisdom(int);
 	void setCharisma(int);
-	void setLevel(int);
-
-
-
+	
+	//!  following methods relate to the characters backpack and equipped items
 	void addItemBackpack(Item);
 	void removeItemfromBackpack(string);
 	void equipItem(Item);
 	void deEquipItem(string);
 	void updatestats();
-	//void saveCharacter(string);
+
 
 	ItemContainer* getBackpack();
 	ItemContainer* getEquipment();
@@ -67,8 +58,8 @@ public:
 
 private:
 	int lvl = 1;
-	int abilityScores[6];
-	int abilityScoresFromChar[6];
+	int abilityScores[6]; //! total ablityscore with items and  base scores aggregated
+	int abilityScoresFromChar[6]; 
 	int abilityScoresFromItems[6];
 	int currentHitPoints;
 	int modifers[6];
