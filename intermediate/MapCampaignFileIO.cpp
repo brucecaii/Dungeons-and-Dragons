@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <dirent.h>
 #include <iostream>
 #include <sstream>
 #include "json.hpp"
@@ -21,38 +20,6 @@ using std::vector;
 using json = nlohmann::json;
 
 
-vector<string> MapCampaignFileIO::readCurrentDirectoryContents(string fileType) {
-  vector<string> mapFileNames;
-
-  DIR *dpdf;
-  struct dirent *epdf;
-  dpdf = opendir(".");
-
-  if (dpdf != NULL){
-    while (epdf = readdir(dpdf)){
-      string filename = epdf->d_name;
-
-      vector<string> filename_split;
-      Utils util;
-      util.split(filename, '.', filename_split);
-
-      if (fileType.compare(filename_split.back()) == 0) {
-        filename_split.pop_back();
-
-        stringstream filename_stream;
-        for (size_t i = 0; i < filename_split.size(); ++i) {
-          if (i != 0) {
-            filename_stream << ".";
-          }
-          filename_stream << filename_split[i];
-        }
-
-        mapFileNames.push_back(filename_stream.str());
-      }
-    }
-  }
-  return mapFileNames;
-}
 
 void MapCampaignFileIO::saveMapJSON(string filePath) {
   std::cout << "writing map" << std::endl;

@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     sf::RenderWindow window(sf::VideoMode(GuiData::WINDOW_HEIGHT, GuiData::WINDOW_WIDTH), "comp345build", sf::Style::Close | sf::Style::Titlebar);
 
     // Define selection box
-    sf::RectangleShape selectionBox(sf::Vector2f(280.f, 180.0f));
+    sf::RectangleShape selectionBox(sf::Vector2f(280.f, 85.0f));
     selectionBox.setOrigin(selectionBox.getGlobalBounds().width/2.0f, selectionBox.getGlobalBounds().height/2.0f);
 
     GuiData::emptyTexture.loadFromFile("textures/empty.png");
@@ -111,7 +111,10 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawSelectMapSize(window);
       }
 
-      if (GuiData::isChoosingMapToCreate || GuiData::isChoosingCampaignToCreate){
+      if (GuiData::isChoosingMapToCreate ||
+          GuiData::isChoosingCampaignToCreate ||
+          GuiData::isChoosingCharacterToCreate ||
+          GuiData::isChoosingItemToCreate) {
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawTypeMapCampaignName(window);
         GuiData::uiManager.drawRealTimeTypeFeedback(window);
@@ -135,6 +138,22 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawSelectFileNames(window, GuiData::current_campaigns);
         if (GuiData::shouldShowCampaignValidationError) {
           GuiData::uiManager.drawCampaignValidationError(window);
+        }
+      }
+      if (GuiData::isChoosingCharacterToEdit){
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawSelectMapCampaign(window);
+        GuiData::uiManager.drawSelectFileNames(window, GuiData::current_characters);
+        if (GuiData::shouldShowCharacterValidationError) {
+          GuiData::uiManager.drawCharacterValidationError(window);
+        }
+      }
+      if (GuiData::isChoosingItemToEdit){
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawSelectMapCampaign(window);
+        GuiData::uiManager.drawSelectFileNames(window, GuiData::current_items);
+        if (GuiData::shouldShowItemValidationError) {
+          GuiData::uiManager.drawItemValidationError(window);
         }
       }
       if (GuiData::isEditingMap) {

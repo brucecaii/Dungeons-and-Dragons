@@ -11,7 +11,6 @@ using std::vector;
 //! Class implementing static functions involving Map File IO and Serialization
 class MapCampaignFileIO {
   public:
-    vector<string> readCurrentDirectoryContents(string fileType);
     void saveMapJSON(string filePath);
     void readMapJSON(string filePath);
     void saveCampaignJSON(string filePath);

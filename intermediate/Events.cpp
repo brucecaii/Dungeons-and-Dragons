@@ -9,36 +9,64 @@
 #include "GuiData.h"
 #include "Events.h"
 #include "MapCampaignFileIO.h"
+#include "CharacterFileIO.h"
+#include "Utils.h"
 
 void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
   if (GuiData::msSinceStart > GuiData::SELECTION_BOXES_APPEAR_TIME && GuiData::isSelectingChoice) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
-      MapCampaignFileIO mapSerializer;
+      Utils util;
       if (GuiData::createMapPosition.contains(mousePosition)) {
-        GuiData::current_maps = mapSerializer.readCurrentDirectoryContents("map");
+        GuiData::current_maps = util.readCurrentDirectoryContents("map");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingMapToCreate = true;
 
       }
       if (GuiData::editMapPosition.contains(mousePosition)) {
-        GuiData::current_maps = mapSerializer.readCurrentDirectoryContents("map");
+        GuiData::current_maps = util.readCurrentDirectoryContents("map");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingMapToEdit = true;
       }
       if (GuiData::createCampaignPosition.contains(mousePosition)) {
-        GuiData::current_campaigns = mapSerializer.readCurrentDirectoryContents("campaign");
+        GuiData::current_campaigns = util.readCurrentDirectoryContents("campaign");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToCreate = true;
-        MapCampaignFileIO mfio;
-        GuiData::current_maps = mfio.readCurrentDirectoryContents("map");
+        GuiData::current_maps = util.readCurrentDirectoryContents("map");
       }
       if (GuiData::editCampaignPosition.contains(mousePosition)) {
-        GuiData::current_campaigns = mapSerializer.readCurrentDirectoryContents("campaign");
+        GuiData::current_campaigns = util.readCurrentDirectoryContents("campaign");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingCampaignToEdit = true;
-        MapCampaignFileIO mfio;
-        GuiData::current_maps = mfio.readCurrentDirectoryContents("map");
+        GuiData::current_maps = util.readCurrentDirectoryContents("map");
+      }
+      if (GuiData::createCharacterPosition.contains(mousePosition)) {
+        GuiData::current_characters = util.readCurrentDirectoryContents("character");
+        GuiData::isSelectingChoice = false;
+        GuiData::isChoosingCharacterToCreate = true;
+      }
+      if (GuiData::editCharacterPosition.contains(mousePosition)) {
+        GuiData::current_characters = util.readCurrentDirectoryContents("character");
+        GuiData::isSelectingChoice = false;
+        GuiData::isChoosingCharacterToEdit = true;
+
+      }
+      if (GuiData::createItemPosition.contains(mousePosition)) {
+        GuiData::current_items = util.readCurrentDirectoryContents("item");
+        GuiData::isSelectingChoice = false;
+        GuiData::isChoosingItemToCreate = true;
+
+      }
+      if (GuiData::editItemPosition.contains(mousePosition)) {
+        GuiData::current_items = util.readCurrentDirectoryContents("item");
+        GuiData::isSelectingChoice = false;
+        GuiData::isChoosingItemToEdit= true;
+      }
+      if (GuiData::playPosition.contains(mousePosition)) {
+        GuiData::current_maps = util.readCurrentDirectoryContents("map");
+        GuiData::isSelectingChoice = false;
+        GuiData::isChoosingMapToPlay = true;
+
       }
     }
   }
@@ -79,8 +107,9 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           string ext = ".campaign";
           GuiData::chosenCampaign = string(GuiData::current_campaigns[i]) + string(ext);
           MapCampaignFileIO mfio;
+          Utils util;
           mfio.readCampaignJSON(GuiData::chosenCampaign);
-          GuiData::current_maps = mfio.readCurrentDirectoryContents("map");
+          GuiData::current_maps = util.readCurrentDirectoryContents("map");
           if (!GameData::currentCampaignObject->isCampaignValid(GuiData::current_maps)) {
             GuiData::shouldShowCampaignValidationError = true;
           } else {
@@ -97,6 +126,8 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
 
 void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
     if (evt.type == sf::Event::TextEntered) {
+
+
         if (GuiData::isChoosingMapToCreate) {
           if (evt.text.unicode == 13) { // ENTER
             bool hasNameConflict = false;
@@ -120,6 +151,8 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               GuiData::createdMap += evt.text.unicode;
           }
         }
+
+
         if (GuiData::isChoosingCampaignToCreate) {
           if (evt.text.unicode == 13) { // ENTER
             bool hasNameConflict = false;
@@ -146,6 +179,58 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               GuiData::createdCampaign += evt.text.unicode;
           }
         }
+
+
+        if (GuiData::isChoosingCharacterToCreate) {
+          if (evt.text.unicode == 13) { // ENTER
+            bool hasNameConflict = false;
+            for (int i = 0; i < (int)GuiData::current_characters.size(); i++) {
+              if (GuiData::current_characters[i] == GuiData::createdCharacter) {
+                hasNameConflict = true;
+                break;
+              }
+            }
+            if (hasNameConflict) {
+              GuiData::shouldShowNameConflictError = true;
+            } else {
+              GuiData::createdCharacter = GuiData::createdCharacter + ".character";
+              GuiData::isChoosingCharacterToCreate = false;
+              //GuiData::isSelectingCharacterSize = true;
+              GuiData::shouldBlockThread = true;
+            }
+          } else if (evt.text.unicode == 8) { // BACKSPACE
+              GuiData::createdCharacter.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              GuiData::createdCharacter += evt.text.unicode;
+          }
+        }
+
+
+        if (GuiData::isChoosingItemToCreate) {
+          if (evt.text.unicode == 13) { // ENTER
+            bool hasNameConflict = false;
+            for (int i = 0; i < (int)GuiData::current_items.size(); i++) {
+              if (GuiData::current_items[i] == GuiData::createdItem) {
+                hasNameConflict = true;
+                break;
+              }
+            }
+            if (hasNameConflict) {
+              GuiData::shouldShowNameConflictError = true;
+            } else {
+              GuiData::createdItem = GuiData::createdItem + ".item";
+              GuiData::isChoosingItemToCreate = false;
+              //GuiData::isSelectingItemSize = true;
+              GuiData::shouldBlockThread = true;
+            }
+          } else if (evt.text.unicode == 8) { // BACKSPACE
+              GuiData::createdItem.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              GuiData::createdItem += evt.text.unicode;
+          }
+        }
+
+
     }
 }
 
@@ -154,26 +239,44 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
       if (GuiData::HomeButton.getGlobalBounds().contains(mousePosition)) {
+        GuiData::isSelectingChoice = true;
         GuiData::hasCreateMapPosition = false;
         GuiData::hasEditMapPosition = false;
         GuiData::hasCreateCampaignPosition = false;
         GuiData::hasEditCampaignPosition = false;
-        GuiData::isSelectingChoice = true;
+        GuiData::hasCreateCharacterPosition = false;
+        GuiData::hasEditCharacterPosition = false;
+        GuiData::hasCreateItemPosition = false;
+        GuiData::hasEditItemPosition = false;
+        GuiData::hasPlayPosition= false;
+        GuiData::isSelectingMapSize = false;
         GuiData::isChoosingMapToCreate = false;
         GuiData::isChoosingMapToEdit = false;
         GuiData::isChoosingCampaignToCreate = false;
         GuiData::isChoosingCampaignToEdit = false;
         GuiData::isEditingCampaign = false;
         GuiData::isEditingMap = false;
-        GuiData::isSelectingMapSize = false;
-        GuiData::isCreatingMap = false;
         GuiData::isCreatingCampaign = false;
+        GuiData::isCreatingMap = false;
         GuiData::shouldShowNameConflictError = false;
+        GuiData::isMapValid = false;
+        GuiData::isChoosingCharacterToCreate = false;
+        GuiData::isChoosingCharacterToEdit = false;
+        GuiData::isChoosingItemToCreate = false;
+        GuiData::isChoosingItemToEdit = false;
+        GuiData::isChoosingMapToPlay = false;
+        GuiData::shouldBlockThread = false;
+        GuiData::shouldShowCampaignValidationError = false;
+        GuiData::shouldShowMapValidationError = false;
 
         GuiData::createdMap = "";
         GuiData::chosenMap = "";
         GuiData::createdCampaign = "";
         GuiData::chosenCampaign = "";
+        GuiData::createdCharacter = "";
+        GuiData::chosenCharacter= "";
+        GuiData::createdItem= "";
+        GuiData::chosenItem= "";
       }
     }
   }

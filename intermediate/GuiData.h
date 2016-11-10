@@ -30,6 +30,11 @@ namespace GuiData{
   extern sf::FloatRect editMapPosition;
   extern sf::FloatRect createCampaignPosition;
   extern sf::FloatRect editCampaignPosition;
+  extern sf::FloatRect createCharacterPosition;
+  extern sf::FloatRect editCharacterPosition;
+  extern sf::FloatRect createItemPosition;
+  extern sf::FloatRect editItemPosition;
+  extern sf::FloatRect playPosition;
   extern sf::Text ellipsis;
   extern sf::Text greetings;
   extern sf::Text callToAction;
@@ -56,6 +61,8 @@ namespace GuiData{
   extern sf::Text campaignMapOrder;
   extern sf::Text mapValidationError;
   extern sf::Text campaignValidationError;
+  extern sf::Text characterValidationError;
+  extern sf::Text itemValidationError;
 
 
   extern char currentMapTileSelectedChar;
@@ -78,9 +85,15 @@ namespace GuiData{
 
   extern string chosenMap;
   extern string chosenCampaign;
+  extern string chosenItem;
+  extern string chosenCharacter;
   extern string createdCampaign;
+  extern string createdCharacter;
+  extern string createdItem;
   extern string createdMap;
   extern vector<string> current_maps;
+  extern vector<string> current_characters;
+  extern vector<string> current_items;
   extern vector<sf::FloatRect> current_map_positions;
   extern vector<sf::FloatRect> current_available_map_positions;
   extern vector<vector<sf::FloatRect>> currentMapTilePositions;
@@ -95,6 +108,11 @@ namespace GuiData{
   extern bool hasEditMapPosition;
   extern bool hasCreateCampaignPosition;
   extern bool hasEditCampaignPosition;
+  extern bool hasCreateCharacterPosition;
+  extern bool hasEditCharacterPosition;
+  extern bool hasCreateItemPosition;
+  extern bool hasEditItemPosition;
+  extern bool hasPlayPosition;
   extern bool isSelectingChoice;
   extern bool isSelectingMapSize;
   extern bool isChoosingMapToCreate;
@@ -103,13 +121,20 @@ namespace GuiData{
   extern bool isChoosingCampaignToEdit;
   extern bool isEditingCampaign;
   extern bool isEditingMap;
-  extern bool shouldShowNameConflictError;
   extern bool isCreatingCampaign;
   extern bool isCreatingMap;
+  extern bool isChoosingCharacterToCreate;
+  extern bool isChoosingCharacterToEdit;
+  extern bool isChoosingItemToCreate;
+  extern bool isChoosingItemToEdit;
+  extern bool isChoosingMapToPlay;
   extern bool shouldBlockThread;
   extern bool isMapValid;
+  extern bool shouldShowNameConflictError;
   extern bool shouldShowCampaignValidationError;
   extern bool shouldShowMapValidationError;
+  extern bool shouldShowCharacterValidationError;
+  extern bool shouldShowItemValidationError;
   extern unsigned long msSinceStart;
 
   extern int tempMapWidth;

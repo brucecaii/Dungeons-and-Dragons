@@ -50,4 +50,6 @@ class Ui {
     void drawCampaignMapOrder(sf::RenderWindow& window);
     void drawMapValidationError(sf::RenderWindow& window);
     void drawCampaignValidationError(sf::RenderWindow& window);
+    void drawCharacterValidationError(sf::RenderWindow& window);
+    void drawItemValidationError(sf::RenderWindow& window);
 };

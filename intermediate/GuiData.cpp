@@ -38,6 +38,11 @@ namespace GuiData {
   sf::FloatRect editMapPosition;
   sf::FloatRect createCampaignPosition;
   sf::FloatRect editCampaignPosition;
+  sf::FloatRect createCharacterPosition;
+  sf::FloatRect editCharacterPosition;
+  sf::FloatRect createItemPosition;
+  sf::FloatRect editItemPosition;
+  sf::FloatRect playPosition;
   sf::Text ellipsis;
   sf::Text greetings;
   sf::Text callToAction;
@@ -64,6 +69,8 @@ namespace GuiData {
   sf::Text campaignMapOrder;
   sf::Text mapValidationError;
   sf::Text campaignValidationError;
+  sf::Text characterValidationError;
+  sf::Text itemValidationError;
 
   sf::Texture wallTexture;
   sf::Texture startTexture;
@@ -80,6 +87,8 @@ namespace GuiData {
   sf::Sprite treasureSelectionSprite;
 
   vector<string> current_maps;
+  vector<string> current_characters;
+  vector<string> current_items;
   vector<sf::FloatRect> current_map_positions;
   vector<sf::FloatRect> current_available_map_positions;
   vector<vector<sf::FloatRect>> currentMapTilePositions;
@@ -89,16 +98,25 @@ namespace GuiData {
   vector<sf::FloatRect> current_campaign_map_order_positions;
   string chosenCampaign;
   string chosenMap;
+  string chosenItem;
+  string chosenCharacter;
   string createdCampaign = "";
   string createdMap = "";
+  string createdCharacter = "";
+  string createdItem = "";
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;
   float selectionBoxTransparency = 0.0f;
+  bool isSelectingChoice = true;
   bool hasCreateMapPosition = false;
   bool hasEditMapPosition = false;
   bool hasCreateCampaignPosition = false;
   bool hasEditCampaignPosition = false;
-  bool isSelectingChoice = true;
+  bool hasCreateCharacterPosition = false;
+  bool hasEditCharacterPosition = false;
+  bool hasCreateItemPosition = false;
+  bool hasEditItemPosition = false;
+  bool hasPlayPosition= false;
   bool isSelectingMapSize = false;
   bool isChoosingMapToCreate = false;
   bool isChoosingMapToEdit = false;
@@ -110,9 +128,16 @@ namespace GuiData {
   bool isCreatingMap = false;
   bool shouldShowNameConflictError = false;
   bool isMapValid = false;
+  bool isChoosingCharacterToCreate = false;
+  bool isChoosingCharacterToEdit = false;
+  bool isChoosingItemToCreate = false;
+  bool isChoosingItemToEdit = false;
+  bool isChoosingMapToPlay = false;
   bool shouldBlockThread = false;
   bool shouldShowCampaignValidationError = false;
   bool shouldShowMapValidationError = false;
+  bool shouldShowCharacterValidationError = false;
+  bool shouldShowItemValidationError = false;
   char currentMapTileSelectedChar = ' ';
   unsigned long msSinceStart;
 

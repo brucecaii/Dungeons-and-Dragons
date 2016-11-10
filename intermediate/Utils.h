@@ -12,6 +12,7 @@ using std::vector;
 class Utils {
   public:
     void split(const string &s, char delim, vector<string> &elems);
+    vector<string> readCurrentDirectoryContents(string fileType);
 };
 
 

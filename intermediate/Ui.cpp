@@ -68,9 +68,9 @@ void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& select
     }
 
     // Draw "Create Map" Box and record coordinates
-    selectionBox.setPosition(200.0f, 300.0f);
+    selectionBox.setPosition(200.0f, 200.0f);
     GuiData::selectionBoxText.setString("Create Map");
-    GuiData::selectionBoxText.setPosition(125.0f, 285.0f);
+    GuiData::selectionBoxText.setPosition(125.0f, 185.0f);
     window.draw(selectionBox);
     window.draw(GuiData::selectionBoxText);
     if (!GuiData::hasCreateMapPosition){
@@ -79,9 +79,9 @@ void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& select
     }
 
     // Draw "Edit Map" Box and record coordinates
-    selectionBox.setPosition(200.0f, 550.0f);
+    selectionBox.setPosition(600.0f, 200.0f);
     GuiData::selectionBoxText.setString("Edit Map");
-    GuiData::selectionBoxText.setPosition(140.0f, 535.0f);
+    GuiData::selectionBoxText.setPosition(540.0f, 185.0f);
     window.draw(selectionBox);
     window.draw(GuiData::selectionBoxText);
     if (!GuiData::hasEditMapPosition){
@@ -90,9 +90,9 @@ void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& select
     }
 
     // Draw "Create Campaign" Box and record coordinates
-    selectionBox.setPosition(600.0f, 300.0f);
+    selectionBox.setPosition(200.0f, 300.0f);
     GuiData::selectionBoxText.setString("Create Campaign");
-    GuiData::selectionBoxText.setPosition(485.0f, 285.0f);
+    GuiData::selectionBoxText.setPosition(90.0f, 285.0f);
     window.draw(selectionBox);
     window.draw(GuiData::selectionBoxText);
     if (!GuiData::hasCreateCampaignPosition){
@@ -100,16 +100,75 @@ void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& select
       GuiData::hasCreateCampaignPosition = true;
     }
 
-    // Draw "Edit Campaign" Box and record coordinates
-    selectionBox.setPosition(600.0f, 550.0f);
+    //// Draw "Edit Campaign" Box and record coordinates
+    selectionBox.setPosition(600.0f, 300.0f);
     GuiData::selectionBoxText.setString("Edit Campaign");
-    GuiData::selectionBoxText.setPosition(485.0f, 535.0f);
+    GuiData::selectionBoxText.setPosition(505.0f, 285.0f);
     window.draw(selectionBox);
     window.draw(GuiData::selectionBoxText);
     if (!GuiData::hasEditCampaignPosition){
       GuiData::editCampaignPosition = selectionBox.getGlobalBounds();
       GuiData::hasEditCampaignPosition = true;
     }
+
+    //// Draw "Create Character" Box and record coordinates
+    selectionBox.setPosition(200.0f, 400.0f);
+    GuiData::selectionBoxText.setString("Create Character");
+    GuiData::selectionBoxText.setPosition(90.0f, 385.0f);
+    window.draw(selectionBox);
+    window.draw(GuiData::selectionBoxText);
+    if (!GuiData::hasCreateCharacterPosition){
+      GuiData::createCharacterPosition = selectionBox.getGlobalBounds();
+      GuiData::hasCreateCharacterPosition = true;
+    }
+
+    //// Draw "Edit Character" Box and record coordinates
+    selectionBox.setPosition(600.0f, 400.0f);
+    GuiData::selectionBoxText.setString("Edit Character");
+    GuiData::selectionBoxText.setPosition(495.0f, 385.0f);
+    window.draw(selectionBox);
+    window.draw(GuiData::selectionBoxText);
+    if (!GuiData::hasEditCharacterPosition){
+      GuiData::editCharacterPosition = selectionBox.getGlobalBounds();
+      GuiData::hasEditCharacterPosition = true;
+    }
+
+    //// Draw "Create Item" Box and record coordinates
+    selectionBox.setPosition(200.0f, 500.0f);
+    GuiData::selectionBoxText.setString("Create Item");
+    GuiData::selectionBoxText.setPosition(120.0f, 485.0f);
+    window.draw(selectionBox);
+    window.draw(GuiData::selectionBoxText);
+    if (!GuiData::hasCreateItemPosition){
+      GuiData::createItemPosition = selectionBox.getGlobalBounds();
+      GuiData::hasCreateItemPosition = true;
+    }
+
+    //// Draw "Edit Item" Box and record coordinates
+    selectionBox.setPosition(600.0f, 500.0f);
+    GuiData::selectionBoxText.setString("Edit Item");
+    GuiData::selectionBoxText.setPosition(520.0f, 485.0f);
+    window.draw(selectionBox);
+    window.draw(GuiData::selectionBoxText);
+    if (!GuiData::hasEditItemPosition){
+      GuiData::editItemPosition = selectionBox.getGlobalBounds();
+      GuiData::hasEditItemPosition = true;
+    }
+
+    // Draw "Play" Box and record coordinates
+    selectionBox.setPosition(400.0f, 650.0f);
+    selectionBox.scale(1.2f, 1.2f);
+    GuiData::selectionBoxText.setString("Play");
+    GuiData::selectionBoxText.setPosition(350.0f, 620.0f);
+    GuiData::selectionBoxText.setCharacterSize(40);
+    window.draw(selectionBox);
+    window.draw(GuiData::selectionBoxText);
+    if (!GuiData::hasPlayPosition){
+      GuiData::playPosition= selectionBox.getGlobalBounds();
+      GuiData::hasPlayPosition = true;
+    }
+    selectionBox.scale(0.833333f, 0.833333f);
+    GuiData::selectionBoxText.setCharacterSize(24);
   }
 }
 
@@ -121,6 +180,12 @@ void Ui::drawSelectMapCampaign(sf::RenderWindow& window) {
   }
   if (GuiData::isChoosingCampaignToEdit) {
     GuiData::selectMap.setString("Select a campaign from the following list.");
+  }
+  if (GuiData::isChoosingCharacterToEdit) {
+    GuiData::selectMap.setString("Select a character from the following list.");
+  }
+  if (GuiData::isChoosingItemToEdit) {
+    GuiData::selectMap.setString("Select an item from the following list.");
   }
   GuiData::selectMap.setCharacterSize(24);
   GuiData::selectMap.setOrigin(GuiData::selectMap.getGlobalBounds().width/2.0f, GuiData::selectMap.getGlobalBounds().height/2.0f);
@@ -141,6 +206,12 @@ void Ui::drawTypeMapCampaignName(sf::RenderWindow& window) {
   }
   if (GuiData::isChoosingCampaignToCreate) {
     GuiData::typeMapName.setString("Type the name of a new campaign.\nPress Enter when done.");
+  }
+  if (GuiData::isChoosingCharacterToCreate) {
+    GuiData::typeMapName.setString("Type the name of a new character.\nPress Enter when done.");
+  }
+  if (GuiData::isChoosingItemToCreate) {
+    GuiData::typeMapName.setString("Type the name of a new item.\nPress Enter when done.");
   }
   GuiData::typeMapName.setCharacterSize(24);
   GuiData::typeMapName.setOrigin(GuiData::typeMapName.getGlobalBounds().width/2.0f, GuiData::typeMapName.getGlobalBounds().height/2.0f);
@@ -194,6 +265,12 @@ void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   }
   if (GuiData::isChoosingCampaignToCreate) {
     GuiData::realTimeTypeFeedback.setString(GuiData::createdCampaign);
+  }
+  if (GuiData::isChoosingCharacterToCreate) {
+    GuiData::realTimeTypeFeedback.setString(GuiData::createdCharacter);
+  }
+  if (GuiData::isChoosingItemToCreate) {
+    GuiData::realTimeTypeFeedback.setString(GuiData::createdItem);
   }
   GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 150.0f);
   window.draw(GuiData::realTimeTypeFeedback);
@@ -567,7 +644,29 @@ void Ui::drawMapValidationError(sf::RenderWindow& window) {
 }
 
 void Ui::drawCampaignValidationError(sf::RenderWindow& window) {
-  GuiData::mapValidationError.setString("CAMPAIGN CANNOT BE EMPTY");
+  GuiData::mapValidationError.setString("CAMPAIGN IS NOT VALID");
+  GuiData::mapValidationError.setFont(GuiData::currentFont);
+  GuiData::mapValidationError.setCharacterSize(24);
+  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
+  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
+  sf::Color mapValidationErrorColor(255, 85, 85);
+  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
+  window.draw(GuiData::mapValidationError);
+}
+
+void Ui::drawCharacterValidationError(sf::RenderWindow& window) {
+  GuiData::mapValidationError.setString("CHARACTER IS NOT VALID");
+  GuiData::mapValidationError.setFont(GuiData::currentFont);
+  GuiData::mapValidationError.setCharacterSize(24);
+  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
+  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
+  sf::Color mapValidationErrorColor(255, 85, 85);
+  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
+  window.draw(GuiData::mapValidationError);
+}
+
+void Ui::drawItemValidationError(sf::RenderWindow& window) {
+  GuiData::mapValidationError.setString("ITEM IS NOT VALID");
   GuiData::mapValidationError.setFont(GuiData::currentFont);
   GuiData::mapValidationError.setCharacterSize(24);
   GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
