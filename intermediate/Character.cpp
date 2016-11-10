@@ -18,11 +18,11 @@ Character::Character() { //! default constutor for character
 	
 	//! if your default construtor is called you have no default values added yet
 	abilityScores[0] = 0; abilityScoresFromChar[0] = 0; 
-	abilityScores[1] = 0, abilityScoresFromChar[1] = 0;
-	abilityScores[2] = 0, abilityScoresFromChar[2] = 0;
-	abilityScores[3] = 0, abilityScoresFromChar[3] = 0;
-	abilityScores[4] = 0, abilityScoresFromChar[4] = 0;
-	abilityScores[5] = 0, abilityScoresFromChar[5] = 0;
+	abilityScores[1] = 0; abilityScoresFromChar[1] = 0;
+	abilityScores[2] = 0; abilityScoresFromChar[2] = 0;
+	abilityScores[3] = 0; abilityScoresFromChar[3] = 0;
+	abilityScores[4] = 0; abilityScoresFromChar[4] = 0;
+	abilityScores[5] = 0; abilityScoresFromChar[5] = 0;
 }
 
 //! Constructor: passes values to each ability score and set hit points to 10
@@ -42,11 +42,11 @@ Character::Character(int str, int dex, int con, int intel, int wis, int cha)
 
 	//! intializing your total scores and base scores , will be same value on constuctor call
 	abilityScores[0] = str; abilityScoresFromChar[0] = str;
-	abilityScores[1] = dex, abilityScoresFromChar[1] = dex;
-	abilityScores[2] = con, abilityScoresFromChar[2] = con;
-	abilityScores[3] = intel, abilityScoresFromChar[3] = intel;
-	abilityScores[4] = wis, abilityScoresFromChar[4] = wis;
-	abilityScores[5] = cha, abilityScoresFromChar[5] = cha;
+	abilityScores[1] = dex; abilityScoresFromChar[1] = dex;
+	abilityScores[2] = con; abilityScoresFromChar[2] = con;
+	abilityScores[3] = intel; abilityScoresFromChar[3] = intel;
+	abilityScores[4] = wis; abilityScoresFromChar[4] = wis;
+	abilityScores[5] = cha; abilityScoresFromChar[5] = cha;
 
 	//! set hit points to 10 and multyping it by consitution level, as consitution level influnces hitpoints and by lvl
 	currentHitPoints = 10 + abilityScores[2];
@@ -374,4 +374,14 @@ void Character::displayItemsEquipped() {
 //! method to display items in character's backpack
 void Character::displayItemsInBackPack() {
 	this->backpack->display();
+}
+
+//! Implementation of the verification of a newly created Character
+//! @return bool value, true of the character is valid (stats should be in the 3-18 range for a new character), false if invalid. 
+bool Character::validateNewCharacter()
+{
+	for (int i = 0; i <= 5; i++)
+		if (abilityScores[i]<3 || abilityScores[i]>18)
+			return false;
+	return true;
 }

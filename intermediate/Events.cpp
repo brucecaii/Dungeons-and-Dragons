@@ -12,6 +12,10 @@
 #include "CharacterFileIO.h"
 #include "Utils.h"
 
+using std::stoi;
+using std::cout;
+using std::endl;
+
 void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
   if (GuiData::msSinceStart > GuiData::SELECTION_BOXES_APPEAR_TIME && GuiData::isSelectingChoice) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -21,7 +25,6 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
         GuiData::current_maps = util.readCurrentDirectoryContents("map");
         GuiData::isSelectingChoice = false;
         GuiData::isChoosingMapToCreate = true;
-
       }
       if (GuiData::editMapPosition.contains(mousePosition)) {
         GuiData::current_maps = util.readCurrentDirectoryContents("map");
@@ -122,6 +125,34 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
       }
     }
   }
+
+  if (GuiData::isChoosingCharacterToEdit) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+
+      for (int i = 0; i < (int)GuiData::current_character_positions.size(); i++) {
+        if (GuiData::current_character_positions[i].contains(mousePosition)) {
+
+          string ext = ".character";
+          GuiData::chosenCharacter = string(GuiData::current_characters[i]) + string(ext);
+          CharacterFileIO cfio;
+          delete GameData::currentCharacterObject;
+          GameData::currentCharacterObject = new Character();
+          cfio.readCharacter(GuiData::chosenCharacter, *GameData::currentCharacterObject);
+          if (!GameData::currentCharacterObject->validateNewCharacter()) {
+            GuiData::shouldShowCharacterValidationError = true;
+          } else {
+            GuiData::shouldShowCharacterValidationError = false;
+            GuiData::isChoosingCharacterToEdit = false;
+            GuiData::isEditingCharacter = true;
+          }
+          GuiData::shouldBlockThread = true;
+        }
+      }
+    }
+  }
+
+
 }
 
 void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
@@ -195,7 +226,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
             } else {
               GuiData::createdCharacter = GuiData::createdCharacter + ".character";
               GuiData::isChoosingCharacterToCreate = false;
-              //GuiData::isSelectingCharacterSize = true;
+              GuiData::isCreatingCharacter = true;
               GuiData::shouldBlockThread = true;
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
@@ -220,13 +251,29 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
             } else {
               GuiData::createdItem = GuiData::createdItem + ".item";
               GuiData::isChoosingItemToCreate = false;
-              //GuiData::isSelectingItemSize = true;
+              GuiData::isCreatingItem = true;
               GuiData::shouldBlockThread = true;
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
               GuiData::createdItem.pop_back();
           } else if (evt.text.unicode < 128) { // ASCII char
               GuiData::createdItem += evt.text.unicode;
+          }
+        }
+
+        if (GuiData::isCreatingCharacter) {
+          if (evt.text.unicode == 8) { // BACKSPACE
+              GuiData::createdCharacterArgs.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              GuiData::createdCharacterArgs += evt.text.unicode;
+          }
+        }
+
+        if (GuiData::isEditingCharacter) {
+          if (evt.text.unicode == 8) { // BACKSPACE
+              GuiData::chosenCharacterArgs.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              GuiData::chosenCharacterArgs += evt.text.unicode;
           }
         }
 
@@ -265,9 +312,15 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
         GuiData::isChoosingItemToCreate = false;
         GuiData::isChoosingItemToEdit = false;
         GuiData::isChoosingMapToPlay = false;
+        GuiData::isCreatingCharacter = false;
+        GuiData::isCreatingItem = false;
+        GuiData::isEditingCharacter = false;
+        GuiData::isEditingItem = false;
         GuiData::shouldBlockThread = false;
         GuiData::shouldShowCampaignValidationError = false;
         GuiData::shouldShowMapValidationError = false;
+        GuiData::shouldShowCharacterValidationError = false;
+        GuiData::shouldShowItemValidationError = false;
 
         GuiData::createdMap = "";
         GuiData::chosenMap = "";
@@ -318,6 +371,66 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
         } else {
           GuiData::shouldShowCampaignValidationError = true;
         }
+      }
+
+      if (GuiData::isCreatingCharacter || GuiData::isEditingCharacter) {
+        string args;
+        string tempCreatedArgs(GuiData::createdCharacterArgs);
+        string tempChosenArgs(GuiData::chosenCharacterArgs);
+        string fileNameOutput;
+        if (GuiData::isCreatingCharacter) {
+          args = string(tempCreatedArgs);
+          fileNameOutput = GuiData::createdCharacter;
+        }
+        if (GuiData::isEditingCharacter) {
+          args = string(tempChosenArgs);
+          fileNameOutput = GuiData::chosenCharacter;
+        }
+
+        // check if csv is valid
+        Utils util;
+        util.removeSpaceCharFromString(args);
+        vector<string> stringArgElements;
+        vector<int> intArgElements;
+        util.split(args, ',', stringArgElements);
+
+        if (stringArgElements.size() != 6) {
+          cout << "INVALID: Must provide 6 ability values." << endl;
+          GuiData::shouldShowCharacterValidationError = true;
+          return;
+        }
+
+        for (int i = 0; i < (int)stringArgElements.size(); i++) {
+          try {
+            intArgElements.push_back(stoi(stringArgElements[i]));
+          } catch (...) {
+            //string to int cast failed
+            cout << "INVALID: Ability values must be integers." << endl;
+            GuiData::shouldShowCharacterValidationError = true;
+            return;
+          }
+        }
+
+        // check if character is valid
+        delete GameData::currentCharacterObject;
+        GameData::currentCharacterObject = new Character(
+          intArgElements[0],
+          intArgElements[1],
+          intArgElements[2],
+          intArgElements[3],
+          intArgElements[4],
+          intArgElements[5]
+        );
+        if (!GameData::currentCharacterObject->validateNewCharacter()) {
+          cout << "INVALID: Ability values must be between 3 and 18 for new characters." << endl;
+          GuiData::shouldShowCharacterValidationError = true;
+          return;
+        }
+
+        // Character is valid
+        GuiData::shouldShowCharacterValidationError = false;
+        CharacterFileIO cfio;
+        cfio.saveCharacter(fileNameOutput, *GameData::currentCharacterObject);
       }
     }
   }

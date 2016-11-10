@@ -238,6 +238,8 @@ void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_fi
 
   GuiData::current_map_positions.clear();
   GuiData::current_campaign_positions.clear();
+  GuiData::current_character_positions.clear();
+  GuiData::current_item_positions.clear();
   for (int i = 0; i < (int)current_files.size(); i++) {
     GuiData::selectFileNames.setString(current_files[i]);
     GuiData::selectFileNames.setPosition(GuiData::WINDOW_WIDTH/2.0f, firstFileHeight);
@@ -248,6 +250,12 @@ void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_fi
     }
     if (GuiData::isChoosingCampaignToEdit) {
       GuiData::current_campaign_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
+    }
+    if (GuiData::isChoosingCharacterToEdit) {
+      GuiData::current_character_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
+    }
+    if (GuiData::isChoosingItemToEdit) {
+      GuiData::current_item_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
     }
     window.draw(GuiData::selectFileNames);
   }
@@ -260,6 +268,7 @@ void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   GuiData::realTimeTypeFeedback.setOrigin(GuiData::realTimeTypeFeedback.getGlobalBounds().width/2.0f, GuiData::realTimeTypeFeedback.getGlobalBounds().height/2.0f);
   sf::Color realTimeTypeFeedbackColor(248, 248, 242);
   GuiData::realTimeTypeFeedback.setFillColor(realTimeTypeFeedbackColor);
+  GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 150.0f);
   if (GuiData::isChoosingMapToCreate) {
     GuiData::realTimeTypeFeedback.setString(GuiData::createdMap);
   }
@@ -272,7 +281,16 @@ void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
   if (GuiData::isChoosingItemToCreate) {
     GuiData::realTimeTypeFeedback.setString(GuiData::createdItem);
   }
-  GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 150.0f);
+  if (GuiData::isCreatingCharacter) {
+    GuiData::realTimeTypeFeedback.setCharacterSize(26);
+    GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 230.0f);
+    GuiData::realTimeTypeFeedback.setString(GuiData::createdCharacterArgs);
+  }
+  if (GuiData::isEditingCharacter) {
+    GuiData::realTimeTypeFeedback.setCharacterSize(26);
+    GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 230.0f);
+    GuiData::realTimeTypeFeedback.setString(GuiData::chosenCharacterArgs);
+  }
   window.draw(GuiData::realTimeTypeFeedback);
 }
 
@@ -675,4 +693,17 @@ void Ui::drawItemValidationError(sf::RenderWindow& window) {
   GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
   window.draw(GuiData::mapValidationError);
 }
+
+void Ui::drawCharacterValuePrompt(sf::RenderWindow& window) {
+  GuiData::characterValuePrompt.setString("Enter Character Abilities as comma-separated integers\nStrength,Dexterity,Constitution,Intelligence,Wisdom,Charisma\nEx: 15,14,13,12,10,8");
+  GuiData::characterValuePrompt.setFont(GuiData::currentFont);
+  GuiData::characterValuePrompt.setCharacterSize(21);
+  GuiData::characterValuePrompt.setOrigin(GuiData::characterValuePrompt.getGlobalBounds().width/2.0f, GuiData::characterValuePrompt.getGlobalBounds().height/2.0f);
+  GuiData::characterValuePrompt.setPosition(GuiData::WINDOW_WIDTH/2.0f, 100.0f);
+  sf::Color characterValuePromptColor(248, 248, 242);
+  GuiData::characterValuePrompt.setFillColor(characterValuePromptColor);
+  window.draw(GuiData::characterValuePrompt);
+}
+
+
 

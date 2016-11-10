@@ -1,6 +1,7 @@
 //! @file
 //! @brief Implementation file for the Map class
 //!
+#include <algorithm>
 #include <string>
 #include <sstream>
 #include <dirent.h>
@@ -53,5 +54,9 @@ vector<string> Utils::readCurrentDirectoryContents(string fileType) {
     }
   }
   return fileNames;
+}
+
+void Utils::removeSpaceCharFromString(string& str) {
+  str.erase(std::remove (str.begin(), str.end(), ' '), str.end());
 }
 

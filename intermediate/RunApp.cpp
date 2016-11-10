@@ -114,6 +114,7 @@ int main(int argc, char* argv[]) {
       if (GuiData::isChoosingMapToCreate ||
           GuiData::isChoosingCampaignToCreate ||
           GuiData::isChoosingCharacterToCreate ||
+          GuiData::isCreatingCampaign ||
           GuiData::isChoosingItemToCreate) {
         GuiData::uiManager.drawHomeButton(window);
         GuiData::uiManager.drawTypeMapCampaignName(window);
@@ -208,6 +209,17 @@ int main(int argc, char* argv[]) {
         GuiData::uiManager.drawCampaignMapOrder(window);
         if (GuiData::shouldShowCampaignValidationError) {
           GuiData::uiManager.drawCampaignValidationError(window);
+        }
+      }
+
+      if (GuiData::isCreatingCharacter || GuiData::isEditingCharacter) {
+        GuiData::uiManager.drawSaveButton(window);
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawCharacterValuePrompt(window);
+        GuiData::uiManager.drawRealTimeTypeFeedback(window);
+
+        if (GuiData::shouldShowCharacterValidationError) {
+          GuiData::uiManager.drawCharacterValidationError(window);
         }
       }
 

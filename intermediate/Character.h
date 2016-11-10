@@ -53,7 +53,7 @@ public:
 	void updatestats();
 	void displayItemsEquipped();
 	void displayItemsInBackPack();
-
+        bool validateNewCharacter();
 
 	ItemContainer* getBackpack();
 	ItemContainer* getEquipment();
@@ -85,10 +85,6 @@ class Fighter : public Character {
 public:
 	Fighter();
 	Fighter(int, int, int, int, int, int);
-
-
 private:
-
-
 };
 

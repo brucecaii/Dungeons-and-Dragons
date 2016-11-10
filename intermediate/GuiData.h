@@ -63,6 +63,7 @@ namespace GuiData{
   extern sf::Text campaignValidationError;
   extern sf::Text characterValidationError;
   extern sf::Text itemValidationError;
+  extern sf::Text characterValuePrompt;
 
 
   extern char currentMapTileSelectedChar;
@@ -89,6 +90,8 @@ namespace GuiData{
   extern string chosenCharacter;
   extern string createdCampaign;
   extern string createdCharacter;
+  extern string createdCharacterArgs;
+  extern string chosenCharacterArgs;
   extern string createdItem;
   extern string createdMap;
   extern vector<string> current_maps;
@@ -101,6 +104,8 @@ namespace GuiData{
   extern vector<sf::FloatRect> current_campaign_positions;
   extern vector<string> current_campaign_map_order;
   extern vector<sf::FloatRect> current_campaign_map_order_positions;
+  extern vector<sf::FloatRect> current_character_positions;
+  extern vector<sf::FloatRect> current_item_positions;
   extern float greetingsTransparency;
   extern float callToActionTransparency;
   extern float selectionBoxTransparency;
@@ -128,6 +133,10 @@ namespace GuiData{
   extern bool isChoosingItemToCreate;
   extern bool isChoosingItemToEdit;
   extern bool isChoosingMapToPlay;
+  extern bool isCreatingCharacter;
+  extern bool isCreatingItem;
+  extern bool isEditingCharacter;
+  extern bool isEditingItem;
   extern bool shouldBlockThread;
   extern bool isMapValid;
   extern bool shouldShowNameConflictError;
