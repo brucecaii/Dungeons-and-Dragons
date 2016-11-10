@@ -2,7 +2,10 @@
 //! @brief IMplementation file for the ItemContainer class  
 //!
 
+#include <iostream>
 #include "ItemContainer.h"
+
+using namespace std;
 
 //! default constructor
 ItemContainer::ItemContainer()
@@ -61,22 +64,49 @@ void ItemContainer::deleteItemByType(string type) {
 	}
 }
 
-//! returning size of item container 
+//! method returning size of item container 
 int ItemContainer::getSize() {
 	return this->Items.size();
 }
 
-Backpack::Backpack() //! construtor for backpack items container; creating items vector of max size 10
+//! method to display items inside a container to console
+void ItemContainer::display()
+{
+	//Getting items from the container and printing it
+	auto items = this->getItems();
+	for (int i = 0; i < items.size(); i++)
+	{
+		//Printing item information
+		cout << "=================================" << endl;
+		cout << "Item name: " << items[i].getName() << endl;
+		cout << "Item type: " << items[i].getType() << endl;
+
+		//Printing item enhancement
+		auto enhancements = items[i].getInfluences();
+		for (int j = 0; j < enhancements.size(); j++)
+		{
+			cout << enhancements[j].getType() << ": " << enhancements[j].getBonus() << endl;
+		}
+
+		//formatting output
+		cout << "=================================" << endl;
+	}
+}
+
+//! construtor for backpack items container; creating items vector of max size 10
+Backpack::Backpack() 
 {
 	Items = vector<Item>(10);
 }
 
-Chest::Chest()  //! construtor for chest items container; creating items vector of max size 3
+//! construtor for chest items container; creating items vector of max size 3
+Chest::Chest()  
 {
 	Items = vector<Item>(3);
 }
 
-EquipedItems::EquipedItems() //! construtor for equipped items container; creating items vector of max size 6
+//! construtor for equipped items container; creating items vector of max size 6
+EquipedItems::EquipedItems() 
 {
 	Items = vector<Item>(6);
 }

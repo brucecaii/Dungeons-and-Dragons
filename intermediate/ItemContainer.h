@@ -49,6 +49,8 @@ class ItemContainer
 		void deleteItemByType(string type);
 		//! method to get size of container
 		int getSize();
+		//! method to display items in container
+		void display();
 	private:
 		vector<Item> Items;
 };
