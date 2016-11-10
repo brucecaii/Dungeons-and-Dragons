@@ -51,6 +51,8 @@ public:
 	void equipItem(Item);
 	void deEquipItem(string);
 	void updatestats();
+	void displayItemsEquipped();
+	void displayItemsInBackPack();
 
 
 	ItemContainer* getBackpack();

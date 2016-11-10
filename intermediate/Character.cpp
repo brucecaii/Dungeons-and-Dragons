@@ -327,24 +327,22 @@ void Character::updatestats() {
 
 }
 
-
+//! method returning items the character is equipped with
+//! @return vector<Item>: vector containing items the character is equipped with 
 ItemContainer* Character::getEquipment()  
 {
 	return this->equipment;
 }
 
+//! method returning items in the character's backpack
+//! @return vector<Item>: vector containing items the character has in his backpack
 ItemContainer* Character::getBackpack()
 {
 	return this->backpack;
 }
 
 //! method to display the character
-
 void Character::displayCharacter() {
-	
-	
-	
-	
 	cout << "*******************************************" << endl;
 	cout << "Here are you stats for your character " << endl;
 	cout << "Your strength is : " << abilityScores[0] << endl;
@@ -366,4 +364,14 @@ void Character::displayCharacter() {
 	}
 
 	cout << "*******************************************";
+}
+
+//! method to display items you have currently equipped
+void Character::displayItemsEquipped() {
+	this->equipment->display(); 
+}
+
+//! method to display items in character's backpack
+void Character::displayItemsInBackPack() {
+	this->backpack->display();
 }
