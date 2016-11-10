@@ -24,7 +24,7 @@ void CharacterFileIO::saveCharacter(string filePath, Character ch)
 	//get character backpack and get backpack json
 	auto backpack = ch.getBackpack();
 	json backpackJson;
-	getItemContainerJson( backpack, backpackJson);
+	getItemContainerJson(backpack, backpackJson);
 
 	//get character inventory and get equiped items json
 	auto equipment = ch.getEquipment();
@@ -60,10 +60,11 @@ void CharacterFileIO::readCharacter(string filePath, Character& ch)
 	ch.setWisdom(int(character["wisdom"]));
 	ch.setDexterity(int(character["dexterity"]));
 	//ch.setLevel(int(character["level"]));
-	
+
 	//Load his backpack items
 	loadBackpackItems(character, ch);
 	loadEquipItems(character, ch);
+	ch.updatestats();
 }
 
 //! Method to retrieve JSON of the character's backpack or equiped items
@@ -120,11 +121,11 @@ void CharacterFileIO::loadBackpackItems(json jsonText, Character& ch)
 		auto enhancers = temp["enhancements"];
 
 		// looping through each enhancement in the enhancement list
-		for(int j = 0; j < enhancers.size() ; j++)
+		for (int j = 0; j < enhancers.size(); j++)
 		{
 			//Creating an enhancement vector
 			auto currentEnhancement = enhancers.at(j);
-			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(), 
+			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(),
 				currentEnhancement["bonus"].get<int>()));
 		}
 
