@@ -358,10 +358,15 @@ void Character::displayCharacter() {
 	cout << "---------------------------------------" << endl;
 	cout << "Your items equipped are " << endl;
 
-	vector<Item> test = equipment->getItems();
-	for (int i = 0; i < test.size(); i++) {
-		cout << "Your " << test[i].getType() << " is " << test[i].getName() << endl;
-	}
+        try {
+          vector<Item> test = equipment->getItems();
+          for (int i = 0; i < test.size(); i++) {
+                  cout << "Your " << test[i].getType() << " is " << test[i].getName() << endl;
+          }
+        } catch (std::bad_alloc& ba) {
+          cout << "NULL" << endl;
+        }
+
 
 	cout << "*******************************************";
 }

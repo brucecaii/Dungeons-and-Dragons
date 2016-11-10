@@ -22,6 +22,7 @@ class Events {
     void respondToMapBoxClick(sf::RenderWindow& window);
     void respondToCampaignAvailableMapsClick(sf::RenderWindow& window);
     void respondToCampaignMapOrderClick(sf::RenderWindow& window);
+    void respondToPlayingGameEvents(sf::RenderWindow& window);
 
 };
 

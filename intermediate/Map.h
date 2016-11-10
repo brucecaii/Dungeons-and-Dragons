@@ -27,10 +27,20 @@ class Map {
     string getMapData();
     void setMapData(string);
     bool isBeside(int x, int y, char type);
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+    void setCharacter(int x, int y);
+    void clearCell(int x, int y);
+    void openChest();
+    bool setCurrentPosition();
+    int getCurrentPositionX();
+    int getCurrentPositionY();
   private:
     int mapWidth;
     int mapLength;
     vector<vector<char>> map;
     int level;
+    int currentPosition[2];
 };
-

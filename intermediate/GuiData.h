@@ -86,6 +86,7 @@ namespace GuiData{
 
   extern string playedCampaign;
   extern string playedCharacter;
+  extern string playedMap;
   extern string chosenMap;
   extern string chosenCampaign;
   extern string chosenItem;
@@ -112,6 +113,7 @@ namespace GuiData{
   extern float callToActionTransparency;
   extern float selectionBoxTransparency;
   extern bool hasCreateMapPosition;
+  extern bool hasReachedEndOfMap;
   extern bool hasEditMapPosition;
   extern bool hasCreateCampaignPosition;
   extern bool hasEditCampaignPosition;
@@ -120,6 +122,7 @@ namespace GuiData{
   extern bool hasCreateItemPosition;
   extern bool hasEditItemPosition;
   extern bool hasPlayPosition;
+  extern bool isPlayingGame;
   extern bool isSelectingChoice;
   extern bool isSelectingMapSize;
   extern bool isChoosingMapToCreate;
@@ -148,6 +151,7 @@ namespace GuiData{
   extern bool shouldShowCharacterValidationError;
   extern bool shouldShowItemValidationError;
   extern unsigned long msSinceStart;
+  extern int GamePlayCurrentMap;
 
   extern int tempMapWidth;
   extern int tempMapLength;

@@ -181,7 +181,7 @@ void Ui::drawSelectMapCampaign(sf::RenderWindow& window) {
   if (GuiData::isChoosingCampaignToEdit || GuiData::isChoosingCampaignToPlay) {
     GuiData::selectMap.setString("Select a campaign from the following list.");
   }
-  if (GuiData::isChoosingCharacterToEdit) {
+  if (GuiData::isChoosingCharacterToEdit || GuiData::isChoosingCharacterToPlay) {
     GuiData::selectMap.setString("Select a character from the following list.");
   }
   if (GuiData::isChoosingItemToEdit) {
@@ -251,7 +251,7 @@ void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_fi
     if (GuiData::isChoosingCampaignToEdit || GuiData::isChoosingCampaignToPlay) {
       GuiData::current_campaign_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
     }
-    if (GuiData::isChoosingCharacterToEdit) {
+    if (GuiData::isChoosingCharacterToEdit || GuiData::isChoosingCharacterToPlay) {
       GuiData::current_character_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
     }
     if (GuiData::isChoosingItemToEdit) {
@@ -317,10 +317,6 @@ void Ui::drawHomeButton(sf::RenderWindow& window) {
   GuiData::HomeButton.setString("<< HOME");
   GuiData::HomeButton.setPosition(60.0f, 30.0f);
   window.draw(GuiData::HomeButton);
-}
-
-void Ui::drawMapUi(sf::RenderWindow& window) {
-  // TBD
 }
 
 //! Implementation of drawWidthIndicator, displays the current map width while editing or creating a new map
@@ -501,7 +497,12 @@ void Ui::drawMapClickableBox(sf::RenderWindow& window) {
         mapClickableBox.setTexture(&GuiData::wallTexture);
       }
       else if (tempMapCell == 'S') {
-        mapClickableBox.setTexture(&GuiData::startTexture);
+        if (GuiData::isCreatingMap || GuiData::isEditingMap) {
+          mapClickableBox.setTexture(&GuiData::startTexture);
+        }
+        if (GuiData::isPlayingGame) {
+          mapClickableBox.setTexture(&GuiData::characterTexture);
+        }
       }
       else if (tempMapCell == 'E') {
         mapClickableBox.setTexture(&GuiData::exitTexture);

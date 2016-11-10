@@ -87,6 +87,7 @@ int main(int argc, char* argv[]) {
       GuiData::eventManager.respondToMapTileSelect(window);
       GuiData::eventManager.respondToCampaignAvailableMapsClick(window);
       GuiData::eventManager.respondToCampaignMapOrderClick(window);
+      GuiData::eventManager.respondToPlayingGameEvents(window);
 
 
       // SCENE SELECTION
@@ -159,7 +160,6 @@ int main(int argc, char* argv[]) {
       }
       if (GuiData::isEditingMap) {
         GuiData::uiManager.drawHomeButton(window);
-        GuiData::uiManager.drawMapUi(window);
         GuiData::uiManager.drawSaveButton(window);
         GuiData::uiManager.drawWallSpriteSelector(window);
         GuiData::uiManager.drawTreasureSpriteSelector(window);
@@ -180,7 +180,6 @@ int main(int argc, char* argv[]) {
       }
       if (GuiData::isCreatingMap) {
         GuiData::uiManager.drawHomeButton(window);
-        GuiData::uiManager.drawMapUi(window);
         GuiData::uiManager.drawSaveButton(window);
         GuiData::uiManager.drawWallSpriteSelector(window);
         GuiData::uiManager.drawTreasureSpriteSelector(window);
@@ -230,6 +229,24 @@ int main(int argc, char* argv[]) {
         if (GuiData::shouldShowCampaignValidationError) {
           GuiData::uiManager.drawCampaignValidationError(window);
         }
+      }
+
+      if (GuiData::isChoosingCharacterToPlay) {
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawSelectMapCampaign(window);
+        GuiData::uiManager.drawSelectFileNames(window, GuiData::current_characters);
+        if (GuiData::shouldShowCampaignValidationError) {
+          GuiData::uiManager.drawCampaignValidationError(window);
+        }
+      }
+      if (GuiData::isPlayingGame) {
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawMapBorder(window);
+        GuiData::uiManager.drawMapClickableBox(window);
+        if (GuiData::shouldShowMapValidationError) {
+          GuiData::uiManager.drawMapValidationError(window);
+        }
+
       }
 
       window.display();

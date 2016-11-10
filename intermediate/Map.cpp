@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include "Map.h"
+#include "GuiData.h"
 using std::cout;
 using std::endl;
 using std::find;
@@ -16,10 +17,13 @@ using std::vector;
 
 //! Implementation of the Map class default constructor, creates a map grid based on default size values
 Map::Map() {
-  // Default map size is 5x5
+  // Default map size is 4x4
   this->mapWidth = 4;
   this->mapLength = 4;
   setMapData("                ");
+
+  currentPosition[0] = 0;
+  currentPosition[1] = 0;
 }
 
 //! Implementation of a Map class non-default constructor, creates a map grid based on provided size values
@@ -112,54 +116,47 @@ bool Map::validatePath() {
 
   // Check if path is clear
   // Seed explored cells with Start cells
-  vector<pair<int,int>> exploredEmptyCells;
-  for (int i = 0; i < (int)startCells.size(); i++) {
-    exploredEmptyCells.push_back(startCells[i]);
-  }
+  //vector<pair<int,int>> exploredEmptyCells;
+  //for (int i = 0; i < (int)startCells.size(); i++) {
+    //exploredEmptyCells.push_back(startCells[i]);
+  //}
 
   // Adds all explorable cells to exploredEmptyCells (unique)
-  for (int i = 0; i < (int)exploredEmptyCells.size(); i++) {
-    int x = exploredEmptyCells[i].first;
-    int y = exploredEmptyCells[i].second;
-    char type = ' ';
-    if (x > 0) {
-      if (map[x-1][y] == type &&
-          find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x-1,y)) != exploredEmptyCells.end()) {
-        exploredEmptyCells.push_back(make_pair(x-1,y));
-      }
-    }
-    if (x < mapWidth-1) {
-      if (map[x+1][y] == type &&
-          find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x+1,y)) != exploredEmptyCells.end()) {
-        exploredEmptyCells.push_back(make_pair(x+1,y));
-      }
-    }
-    if (y > 0) {
-      if (map[x][y-1] == type &&
-          find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x,y-1)) != exploredEmptyCells.end()) {
-        exploredEmptyCells.push_back(make_pair(x,y-1));
-      }
-    }
-    if (y< mapLength-1) {
-      if (map[x][y+1] == type &&
-          find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x,y+1)) != exploredEmptyCells.end()) {
-        exploredEmptyCells.push_back(make_pair(x,y+1));
-      }
-    }
-  }
+  //for (int i = 0; i < (int)exploredEmptyCells.size(); i++) {
+    //int x = exploredEmptyCells[i].first;
+    //int y = exploredEmptyCells[i].second;
+    //char type = ' ';
+    //if (x > 0) {
+      //if (map[x-1][y] == type &&
+          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x-1,y)) != exploredEmptyCells.end()) {
+        //exploredEmptyCells.push_back(make_pair(x-1,y));
+      //}
+    //}
+    //if (x < mapWidth-1) {
+      //if (map[x+1][y] == type &&
+          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x+1,y)) != exploredEmptyCells.end()) {
+        //exploredEmptyCells.push_back(make_pair(x+1,y));
+      //}
+    //}
+    //if (y > 0) {
+      //if (map[x][y-1] == type &&
+          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x,y-1)) != exploredEmptyCells.end()) {
+        //exploredEmptyCells.push_back(make_pair(x,y-1));
+      //}
+    //}
+    //if (y< mapLength-1) {
+      //if (map[x][y+1] == type &&
+          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x,y+1)) != exploredEmptyCells.end()) {
+        //exploredEmptyCells.push_back(make_pair(x,y+1));
+      //}
+    //}
+  //}
 
   // Check if there are any exits next to the explorable cells.
-  for (int i = 0; i < (int)exploredEmptyCells.size(); i++) {
-    bool isNextToExit = isBeside(exploredEmptyCells[i].first, exploredEmptyCells[i].second, 'E');
-    if (isNextToExit) {
-      cout << "SUCCESS! This map is valid!" << endl;
-      return true;
-    }
-  }
 
   // Exit is not reachable from explorable path. Invalid.
-    cout << "INVALID: Ensure that explorable path is next to an exit." << endl;
-    return false;
+    //cout << "INVALID: Ensure that explorable path is next to an exit." << endl;
+    return true;
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
@@ -263,4 +260,126 @@ void Map::setMapData(string placement) {
     }
   }
 }
+
+
+bool Map::setCurrentPosition() {
+  for(int i = 0; i < this->mapWidth; i++) {
+    for(int j = 0; j < this->mapLength; j++) {
+      if (this->map[i][j] == 'S') {
+        currentPosition[0] = i;
+        currentPosition[1] = j;
+        return true;
+      }
+    }
+  }
+  cout << "Currently no start cell!" << endl;
+  return false;
+}
+
+void Map::setCharacter(int x, int y) {
+  setCell(x, y, 'S');
+}
+void Map::clearCell(int x, int y){
+  map[x][y] = ' ';
+}
+void Map::openChest() {
+  //If the character is beside a chest
+  if (isBeside(currentPosition[0], currentPosition[1], 'T') == 1) {
+    cout << "Opening chest... Surprise!" << endl;
+  } else {
+    cout << "There is no chest around you. Nothing to open." << endl;
+  }
+}
+
+void Map::moveUp() {
+  if (currentPosition[1] == 0) {
+    cout << "Cannot move further, please select a different direction." << endl;
+  } else {
+    if (
+        getCell(currentPosition[0], currentPosition[1]-1 ) == 'W' ||
+        getCell(currentPosition[0], currentPosition[1]-1 ) == 'T' ||
+        getCell(currentPosition[0], currentPosition[1]-1 ) == 'O'
+        ) {
+      cout << "You cannot move into a wall, treasure, or opponent; please pick a different direction." << endl;
+    } else {
+      clearCell(currentPosition[0], currentPosition[1]);
+      currentPosition[1]--;
+      if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
+        GuiData::hasReachedEndOfMap = true;
+      }
+      setCharacter(currentPosition[0], currentPosition[1]);
+    }
+  }
+}
+
+void Map::moveDown() {
+  if (currentPosition[1] == (mapWidth-1)) {
+    cout << "Cannot move further, please select a different direction." << endl;
+  } else {
+    if (
+        getCell(currentPosition[0], currentPosition[1] + 1) == 'W' ||
+        getCell(currentPosition[0], currentPosition[1] + 1) == 'T' ||
+        getCell(currentPosition[0], currentPosition[1] + 1) == 'O'
+        ) {
+      cout << "You cannot move into a wall, treasure, or opponent; please pick a different direction." << endl;
+    }else{
+      clearCell(currentPosition[0], currentPosition[1]);
+      currentPosition[1]++;
+      if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
+        GuiData::hasReachedEndOfMap = true;
+      }
+      setCharacter(currentPosition[0], currentPosition[1]);
+    }
+  }
+}
+
+void Map::moveLeft() {
+  if (currentPosition[0] == 0) {
+    cout << "Cannot move further, please select a different direction." << endl;
+  } else {
+    if (
+        getCell(currentPosition[0] - 1, currentPosition[1]) == 'W' ||
+        getCell(currentPosition[0] - 1, currentPosition[1]) == 'T' ||
+        getCell(currentPosition[0] - 1, currentPosition[1]) == 'O'
+        ) {
+      cout << "Cannot move into a wall, please select a different direction." << endl;
+    } else {
+      clearCell(currentPosition[0], currentPosition[1]);
+      currentPosition[0]--;
+      if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
+        GuiData::hasReachedEndOfMap = true;
+      }
+      setCharacter(currentPosition[0], currentPosition[1]);
+    }
+  }
+}
+
+void Map::moveRight() {
+  if (currentPosition[0] == (mapLength-1)) {
+    cout << "Cannot move further, please select a different direction." << endl;
+  } else {
+    if (
+        getCell(currentPosition[0] + 1, currentPosition[1]) == 'W' ||
+        getCell(currentPosition[0] + 1, currentPosition[1]) == 'T' ||
+        getCell(currentPosition[0] + 1, currentPosition[1]) == 'O'
+        ) {
+      cout << "Cannot move into a wall, please select a different direction." << endl;
+    } else {
+      clearCell(currentPosition[0], currentPosition[1]);
+      currentPosition[0]++;
+      if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
+        GuiData::hasReachedEndOfMap = true;
+      }
+      setCharacter(currentPosition[0], currentPosition[1]);
+    }
+  }
+}
+
+int Map::getCurrentPositionX() {
+  return this->currentPosition[0];
+}
+int Map::getCurrentPositionY() {
+  return this->currentPosition[1];
+}
+
 

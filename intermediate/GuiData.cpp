@@ -101,6 +101,7 @@ namespace GuiData {
   vector<sf::FloatRect> current_item_positions;
   string playedCampaign;
   string playedCharacter;
+  string playedMap;
   string chosenCampaign;
   string chosenMap;
   string chosenItem;
@@ -116,11 +117,13 @@ namespace GuiData {
   float selectionBoxTransparency = 0.0f;
   bool isSelectingChoice = true;
   bool hasCreateMapPosition = false;
+  bool hasReachedEndOfMap = false;
   bool hasEditMapPosition = false;
   bool hasCreateCampaignPosition = false;
   bool hasEditCampaignPosition = false;
   bool hasCreateCharacterPosition = false;
   bool hasEditCharacterPosition = false;
+  bool isPlayingGame = false;
   bool hasCreateItemPosition = false;
   bool hasEditItemPosition = false;
   bool hasPlayPosition= false;
@@ -152,6 +155,7 @@ namespace GuiData {
   bool shouldShowItemValidationError = false;
   char currentMapTileSelectedChar = ' ';
   unsigned long msSinceStart;
+  int GamePlayCurrentMap = 0;
 
   int tempMapWidth = 4;
   int tempMapLength = 4;
