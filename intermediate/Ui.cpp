@@ -178,7 +178,7 @@ void Ui::drawSelectMapCampaign(sf::RenderWindow& window) {
   if (GuiData::isChoosingMapToEdit) {
     GuiData::selectMap.setString("Select a map from the following list.");
   }
-  if (GuiData::isChoosingCampaignToEdit) {
+  if (GuiData::isChoosingCampaignToEdit || GuiData::isChoosingCampaignToPlay) {
     GuiData::selectMap.setString("Select a campaign from the following list.");
   }
   if (GuiData::isChoosingCharacterToEdit) {
@@ -248,7 +248,7 @@ void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_fi
     if (GuiData::isChoosingMapToEdit) {
       GuiData::current_map_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
     }
-    if (GuiData::isChoosingCampaignToEdit) {
+    if (GuiData::isChoosingCampaignToEdit || GuiData::isChoosingCampaignToPlay) {
       GuiData::current_campaign_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
     }
     if (GuiData::isChoosingCharacterToEdit) {

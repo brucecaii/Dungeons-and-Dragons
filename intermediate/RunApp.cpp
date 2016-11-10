@@ -223,6 +223,15 @@ int main(int argc, char* argv[]) {
         }
       }
 
+      if (GuiData::isChoosingCampaignToPlay) {
+        GuiData::uiManager.drawHomeButton(window);
+        GuiData::uiManager.drawSelectMapCampaign(window);
+        GuiData::uiManager.drawSelectFileNames(window, GuiData::current_campaigns);
+        if (GuiData::shouldShowCampaignValidationError) {
+          GuiData::uiManager.drawCampaignValidationError(window);
+        }
+      }
+
       window.display();
 
       // Prevent multiple consecutive clicks

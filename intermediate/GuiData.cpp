@@ -99,6 +99,8 @@ namespace GuiData {
   vector<sf::FloatRect> current_campaign_map_order_positions;
   vector<sf::FloatRect> current_character_positions;
   vector<sf::FloatRect> current_item_positions;
+  string playedCampaign;
+  string playedCharacter;
   string chosenCampaign;
   string chosenMap;
   string chosenItem;
@@ -137,7 +139,8 @@ namespace GuiData {
   bool isChoosingCharacterToEdit = false;
   bool isChoosingItemToCreate = false;
   bool isChoosingItemToEdit = false;
-  bool isChoosingMapToPlay = false;
+  bool isChoosingCampaignToPlay = false;
+  bool isChoosingCharacterToPlay = false;
   bool isCreatingCharacter = false;
   bool isCreatingItem = false;
   bool isEditingCharacter = false;

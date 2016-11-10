@@ -84,6 +84,8 @@ namespace GuiData{
   extern sf::Sprite exitSelectionSprite;
   extern sf::Sprite treasureSelectionSprite;
 
+  extern string playedCampaign;
+  extern string playedCharacter;
   extern string chosenMap;
   extern string chosenCampaign;
   extern string chosenItem;
@@ -132,7 +134,8 @@ namespace GuiData{
   extern bool isChoosingCharacterToEdit;
   extern bool isChoosingItemToCreate;
   extern bool isChoosingItemToEdit;
-  extern bool isChoosingMapToPlay;
+  extern bool isChoosingCharacterToPlay;
+  extern bool isChoosingCampaignToPlay;
   extern bool isCreatingCharacter;
   extern bool isCreatingItem;
   extern bool isEditingCharacter;

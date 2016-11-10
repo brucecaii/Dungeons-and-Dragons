@@ -66,9 +66,11 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
         GuiData::isChoosingItemToEdit= true;
       }
       if (GuiData::playPosition.contains(mousePosition)) {
+        GuiData::current_campaigns = util.readCurrentDirectoryContents("campaign");
         GuiData::current_maps = util.readCurrentDirectoryContents("map");
+        GuiData::current_characters = util.readCurrentDirectoryContents("character");
         GuiData::isSelectingChoice = false;
-        GuiData::isChoosingMapToPlay = true;
+        GuiData::isChoosingCampaignToPlay = true;
 
       }
     }
@@ -152,6 +154,30 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
     }
   }
 
+  if (GuiData::isChoosingCampaignToPlay) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+
+      for (int i = 0; i < (int)GuiData::current_campaign_positions.size(); i++) {
+        if (GuiData::current_campaign_positions[i].contains(mousePosition)) {
+          string ext = ".campaign";
+          GuiData::playedCampaign = string(GuiData::current_campaigns[i]) + string(ext);
+          MapCampaignFileIO mfio;
+          Utils util;
+          mfio.readCampaignJSON(GuiData::playedCampaign);
+          GuiData::current_maps = util.readCurrentDirectoryContents("map");
+          if (!GameData::currentCampaignObject->isCampaignValid(GuiData::current_maps)) {
+            GuiData::shouldShowCampaignValidationError = true;
+          } else {
+            GuiData::shouldShowCampaignValidationError = false;
+            GuiData::isChoosingCampaignToPlay = false;
+            GuiData::isChoosingCharacterToPlay = true;
+          }
+          GuiData::shouldBlockThread = true;
+        }
+      }
+    }
+  }
 
 }
 
@@ -311,7 +337,7 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
         GuiData::isChoosingCharacterToEdit = false;
         GuiData::isChoosingItemToCreate = false;
         GuiData::isChoosingItemToEdit = false;
-        GuiData::isChoosingMapToPlay = false;
+        GuiData::isChoosingCampaignToPlay = false;
         GuiData::isCreatingCharacter = false;
         GuiData::isCreatingItem = false;
         GuiData::isEditingCharacter = false;
