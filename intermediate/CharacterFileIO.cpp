@@ -24,22 +24,30 @@ void CharacterFileIO::saveCharacter(string filePath, Character ch)
 	//get character backpack and get backpack json
 	auto backpack = ch.getBackpack();
 	json backpackJson;
-	getItemContainerJson(backpack, backpackJson);
-
+	
+	if (backpack->getSize() > 0)
+	{
+		getItemContainerJson(backpack, backpackJson);
+		character["backpack"] = backpackJson;
+	}
+	
 	//get character inventory and get equiped items json
 	auto equipment = ch.getEquipment();
 	json equipmentJson;
-	getItemContainerJson(equipment, equipmentJson);
 
-	//Character shits
+	if (equipment->getSize() > 0)
+	{
+		getItemContainerJson(equipment, equipmentJson);
+		character["equipment"] = equipmentJson;
+	}
+	
+	//Character json serialize
 	character["strength"] = ch.getStrengthFromBase();
 	character["dexterity"] = ch.getDexterityFromBase();
 	character["constitution"] = ch.getConstitutionFromBase();
 	character["intelligence"] = ch.getIntelegenceFromBase();
 	character["wisdom"] = ch.getWisdomFromBase();
 	character["charisma"] = ch.getCharismaFromBase();
-	character["backpack"] = backpackJson;
-	character["equipment"] = equipmentJson;
 
 	writeJsonFile << character;
 	writeJsonFile.close();
