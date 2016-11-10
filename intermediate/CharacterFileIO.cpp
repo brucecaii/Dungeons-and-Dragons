@@ -32,12 +32,12 @@ void CharacterFileIO::saveCharacter(string filePath, Character ch)
 	getItemContainerJson(equipment, equipmentJson);
 
 	//Character shits
-	character["strength"] = ch.getStrength();
-	character["dexterity"] = ch.getDexterity();
-	character["constitution"] = ch.getConstitution();
-	character["intelligence"] = ch.getIntelegence();
-	character["wisdom"] = ch.getWisdom();
-	character["charisma"] = ch.getCharisma();
+	character["strength"] = ch.getStrengthFromBase();
+	character["dexterity"] = ch.getDexterityFromBase();
+	character["constitution"] = ch.getConstitutionFromBase();
+	character["intelligence"] = ch.getIntelegenceFromBase();
+	character["wisdom"] = ch.getWisdomFromBase();
+	character["charisma"] = ch.getCharismaFromBase();
 	character["backpack"] = backpackJson;
 	character["equipment"] = equipmentJson;
 
