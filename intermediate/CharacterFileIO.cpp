@@ -11,6 +11,10 @@ using std::stringstream;
 using std::vector;
 using json = nlohmann::json;
 
+
+//! Method to serialize character into json object
+//! @param filePath : file name of the serialized character
+//! @param ch : character to serialize
 void CharacterFileIO::saveCharacter(string filePath, Character ch)
 {
 	std::cout << "Saving Character..." << endl;
@@ -41,6 +45,9 @@ void CharacterFileIO::saveCharacter(string filePath, Character ch)
 	writeJsonFile.close();
 }
 
+//! Method to deserialize character from json object
+//! @param filePath : file name of the serialized character
+//! @param &ch : character to deserialize 
 void CharacterFileIO::readCharacter(string filePath, Character& ch)
 {
 	ifstream readJsonFile(filePath, ifstream::in);
@@ -59,10 +66,13 @@ void CharacterFileIO::readCharacter(string filePath, Character& ch)
 	loadEquipItems(character, ch);
 }
 
-void CharacterFileIO::getItemContainerJson(ItemContainer* bp, json& bpJson)
+//! Method to retrieve JSON of the character's backpack or equiped items
+//! @param it : the item container of which you want the json of
+//! @param &itJson : reference to a json object
+void CharacterFileIO::getItemContainerJson(ItemContainer* it, json& itJson)
 {
 	//Retrieve items from item container
-	auto items = bp->getItems();
+	auto items = it->getItems();
 
 	//Retrieve enhancement type and bonus from each item
 	for (auto i = items.begin(); i != items.end(); i++)
@@ -90,23 +100,26 @@ void CharacterFileIO::getItemContainerJson(ItemContainer* bp, json& bpJson)
 		currentItem["enhancements"] = influences;
 
 		//add to main
-		bpJson.push_back(currentItem);
+		itJson.push_back(currentItem);
 	}
 }
 
+//! Method to deserialize a json into a backpack
+//! @param json : json to deserialize into a backpack
+//! @param &ch : reference to a character 
 void CharacterFileIO::loadBackpackItems(json jsonText, Character& ch)
 {
 	//Retrieving enhancements
 	auto backpack = jsonText["backpack"];
 
-	auto lol = backpack.at(0);
-
 	for (int i = 0; i < backpack.size(); i++)
 	{
+		//Retrieve enhancement at index i
 		vector<Enhancement> enhancements;
 		auto temp = backpack.at(i);
 		auto enhancers = temp["enhancements"];
 
+		// looping through each enhancement in the enhancement list
 		for(int j = 0; j < enhancers.size() ; j++)
 		{
 			//Creating an enhancement vector
@@ -115,24 +128,29 @@ void CharacterFileIO::loadBackpackItems(json jsonText, Character& ch)
 				currentEnhancement["bonus"].get<int>()));
 		}
 
+		//Creating the item and adding it to the character's backpack
 		ch.addItemBackpack(Item(temp["itemType"], enhancements, temp["itemName"]));
 		enhancements.clear();
 	}
 }
 
+//! Method to deserialize a json into equiped items
+//! @param json : json to deserialize into equiped items
+//! @param &ch : reference to a character 
 void CharacterFileIO::loadEquipItems(json jsonText, Character& ch)
 {
 	//Retrieving enhancements
 	auto backpack = jsonText["equipment"];
 
-	auto lol = backpack.at(0);
-
+	//Retrieve enhancement at index i
 	for (int i = 0; i < backpack.size(); i++)
 	{
+		//Retrieve enhancement at index i
 		vector<Enhancement> enhancements;
 		auto temp = backpack.at(i);
 		auto enhancers = temp["enhancements"];
 
+		// looping through each enhancement in the enhancement list
 		for (int j = 0; j < enhancers.size(); j++)
 		{
 			auto currentEnhancement = enhancers.at(j);
@@ -140,6 +158,7 @@ void CharacterFileIO::loadEquipItems(json jsonText, Character& ch)
 				currentEnhancement["bonus"].get<int>()));
 		}
 
+		//Creating the item and equipping it to the character
 		ch.equipItem(Item(temp["itemType"], enhancements, temp["itemName"]));
 		enhancements.clear();
 	}

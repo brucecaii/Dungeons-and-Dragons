@@ -11,6 +11,9 @@ using std::stringstream;
 using std::vector;
 using json = nlohmann::json;
 
+//! Method to serialize character into json object
+//! @param filePath : file name of the serialized character
+//! @param item : item to serialize
 void ItemFileIO::saveItem(string filePath, Item item)
 {
 	std::cout << "Saving Item..." << endl;
@@ -28,6 +31,9 @@ void ItemFileIO::saveItem(string filePath, Item item)
 	writeJsonFile.close();
 }
 
+//! Method to deserialize item from json object
+//! @param filePath : file name of the serialized character
+//! @param &item : item to deserialize
 void ItemFileIO::readItem(string filePath, Item& item)
 {
 	ifstream readJsonFile(filePath, ifstream::in);
@@ -50,6 +56,9 @@ void ItemFileIO::readItem(string filePath, Item& item)
 	item.setEnhancements( enhancements );
 }
 
+//! Method to get JSON format of influences from an item
+//! @param &influence : reference to json object
+//! @param item : item to extract influences from
 void ItemFileIO::getInfluencesJson(json& influence, Item item)
 {
 	auto enhancements = item.getInfluences();
