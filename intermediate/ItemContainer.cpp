@@ -42,6 +42,7 @@ Item ItemContainer::getItem(string itemType)
 			return Items[i];
 }
 
+//!  deleting item by item name
 void ItemContainer::deleteItem(string s) {
 	
 	for (int i = 0; i < Items.size(); i++){
@@ -49,19 +50,18 @@ void ItemContainer::deleteItem(string s) {
 			Items.erase(Items.begin()+i);
 		}
 	}
-		
 }
 
+//! deleting item by type
 void ItemContainer::deleteItemByType(string type) {
-
 	for (int i = 0; i < Items.size(); i++){
 		if (Items[i].getType() == type) {
 			Items.erase(Items.begin()+i);
-		}
+			}
 	}
-
 }
 
+//! returning size of item container 
 int ItemContainer::getSize() {
 	return this->Items.size();
 }
