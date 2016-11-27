@@ -2,9 +2,8 @@
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "GuiData.h"
+#include "Gui.h"
 #include "Fonts.h"
-#include "Texts.h"
 #include "Events.h"
 #include "Ui.h"
 
@@ -12,28 +11,34 @@ using namespace std::chrono;
 using std::string;
 using std::vector;
 
-namespace GuiData {
+namespace Gui{
 
-  const sf::Color SELECTION_BACKGROUND_COLOR(40,42,54);
-  const sf::Color ELLIPSIS_COLOR(189, 147, 249);
+  const sf::Color DARK_GRAY(40,42,54);
+  const sf::Color LIGHT_GRAY(68,71,90);
+  const sf::Color WHITE(248, 248, 242);
+  const sf::Color PURPLE(189, 147, 249);
+  const sf::Color PINK(255, 121, 198);
+  const sf::Color RED(255, 85, 85);
+  const sf::Color TRANSPARENT(0, 0, 0, 0);
 
-  const int WINDOW_HEIGHT = 800;
-  const int WINDOW_WIDTH = 800;
+  const int W_HEIGHT = 800;
+  const int W_WIDTH = 800;
   const int MAP_DISPLAY_WIDTH_LENGTH = 560;
-  const float FADE_IN_STEP = 0.3f;
-  const unsigned long UNIX_TIME_MS_START = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-  const unsigned long GREETINGS_APPEAR_TIME = 500;
-  const unsigned long CALL_TO_ACTION_APPEAR_TIME = 2000;
-  const unsigned long SELECTION_BOXES_APPEAR_TIME = 4000;
   const unsigned long BLOCK_THREAD_WAIT_TIME = 500;
-  const float  TEXT_OUTLINE_THICKNESS = 0.3f;
-  const sf::Vector2f mapAbsolutePositioning(60,120);
+  const sf::Vector2f mapAbsolutePositioning(330,470);
   Fonts fontGenerator;
-  Texts textGenerator;
   Events eventManager;
   Ui uiManager;
 
-  sf::Font currentFont;
+  sf::Font font;
+  sf::Text text;
+  sf::RectangleShape box;
+  sf::Sprite sprite;
+
+  // General button positions
+  sf::FloatRect homeButtonPosition;
+  sf::FloatRect saveButtonPosition;
+
   sf::FloatRect createMapPosition;
   sf::FloatRect editMapPosition;
   sf::FloatRect createCampaignPosition;
@@ -43,25 +48,29 @@ namespace GuiData {
   sf::FloatRect createItemPosition;
   sf::FloatRect editItemPosition;
   sf::FloatRect playPosition;
-  sf::Text ellipsis;
-  sf::Text greetings;
-  sf::Text callToAction;
-  sf::Text selectionBoxText;
+
+  sf::FloatRect widthPlusPosition;
+  sf::FloatRect widthMinusPosition;
+  sf::FloatRect lengthPlusPosition;
+  sf::FloatRect lengthMinusPosition;
+  sf::FloatRect mapCreateOkPosition;
+
+  sf::FloatRect wallSelectionSpritePosition;
+  sf::FloatRect exitSelectionSpritePosition;
+  sf::FloatRect startSelectionSpritePosition;
+  sf::FloatRect treasureSelectionSpritePosition;
+  sf::FloatRect monsterSelectionSpritePosition;
+  sf::FloatRect emptySelectionSpritePosition;
+  sf::FloatRect mapBorderPosition;
+
+
   sf::Text selectMap;
   sf::Text typeMapName;
   sf::Text selectFileNames;
   sf::Text realTimeTypeFeedback;
   sf::Text NameConflictError;
   sf::Text HomeButton;
-  sf::Text mapCreateOkButton;
   sf::Text selectMapSize;
-  sf::Text saveButton;
-  sf::Text widthIndicator;
-  sf::Text widthPlus;
-  sf::Text widthMinus;
-  sf::Text lengthIndicator;
-  sf::Text lengthPlus;
-  sf::Text lengthMinus;
   sf::Text currentMapTileSelected;
   sf::Text campaignAvailableMapsText;
   sf::Text campaignMapOrderText;
@@ -80,20 +89,15 @@ namespace GuiData {
   sf::Texture treasureTexture;
   sf::Texture emptyTexture;
   sf::Texture characterTexture;
-  sf::Sprite emptySelectionSprite;
-  sf::Sprite wallSelectionSprite;
-  sf::Sprite monsterSelectionSprite;
-  sf::Sprite startSelectionSprite;
-  sf::Sprite exitSelectionSprite;
-  sf::Sprite treasureSelectionSprite;
 
   vector<string> current_maps;
   vector<string> current_characters;
   vector<string> current_items;
+  vector<string> current_campaigns;
+
   vector<sf::FloatRect> current_map_positions;
   vector<sf::FloatRect> current_available_map_positions;
   vector<vector<sf::FloatRect>> currentMapTilePositions;
-  vector<string> current_campaigns;
   vector<sf::FloatRect> current_campaign_positions;
   vector<string> current_campaign_map_order;
   vector<sf::FloatRect> current_campaign_map_order_positions;
@@ -115,18 +119,9 @@ namespace GuiData {
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;
   float selectionBoxTransparency = 0.0f;
-  bool isSelectingChoice = true;
-  bool hasCreateMapPosition = false;
   bool hasReachedEndOfMap = false;
-  bool hasEditMapPosition = false;
-  bool hasCreateCampaignPosition = false;
-  bool hasEditCampaignPosition = false;
-  bool hasCreateCharacterPosition = false;
-  bool hasEditCharacterPosition = false;
+  bool isSelectingChoice = true;
   bool isPlayingGame = false;
-  bool hasCreateItemPosition = false;
-  bool hasEditItemPosition = false;
-  bool hasPlayPosition= false;
   bool isSelectingMapSize = false;
   bool isChoosingMapToCreate = false;
   bool isChoosingMapToEdit = false;

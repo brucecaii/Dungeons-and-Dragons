@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include "Map.h"
-#include "GuiData.h"
+#include "Gui.h"
 using std::cout;
 using std::endl;
 using std::find;
@@ -305,7 +305,7 @@ void Map::moveUp() {
       clearCell(currentPosition[0], currentPosition[1]);
       currentPosition[1]--;
       if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        GuiData::hasReachedEndOfMap = true;
+        Gui::hasReachedEndOfMap = true;
       }
       setCharacter(currentPosition[0], currentPosition[1]);
     }
@@ -326,7 +326,7 @@ void Map::moveDown() {
       clearCell(currentPosition[0], currentPosition[1]);
       currentPosition[1]++;
       if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        GuiData::hasReachedEndOfMap = true;
+        Gui::hasReachedEndOfMap = true;
       }
       setCharacter(currentPosition[0], currentPosition[1]);
     }
@@ -347,7 +347,7 @@ void Map::moveLeft() {
       clearCell(currentPosition[0], currentPosition[1]);
       currentPosition[0]--;
       if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        GuiData::hasReachedEndOfMap = true;
+        Gui::hasReachedEndOfMap = true;
       }
       setCharacter(currentPosition[0], currentPosition[1]);
     }
@@ -368,7 +368,7 @@ void Map::moveRight() {
       clearCell(currentPosition[0], currentPosition[1]);
       currentPosition[0]++;
       if (getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        GuiData::hasReachedEndOfMap = true;
+        Gui::hasReachedEndOfMap = true;
       }
       setCharacter(currentPosition[0], currentPosition[1]);
     }

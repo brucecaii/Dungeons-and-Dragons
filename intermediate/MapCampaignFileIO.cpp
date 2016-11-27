@@ -9,7 +9,6 @@
 #include "json.hpp"
 #include "MapCampaignFileIO.h"
 #include "Utils.h"
-#include "GuiData.h"
 #include "GameData.h"
 
 using std::ifstream;

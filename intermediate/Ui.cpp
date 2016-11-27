@@ -4,8 +4,9 @@
 #include <chrono>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "GameData.h"
-#include "GuiData.h"
+#include "Gui.h"
 #include "Ui.h"
 #include "MapCampaignFileIO.h"
 
@@ -15,696 +16,370 @@ using std::cout;
 using std::endl;
 using std::to_string;
 
-//! Implementation of updateTime, determines the tunning total of milliseconds since the launch of the program.
-void Ui::updateTime() {
-  unsigned long msTimeNow = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-  GuiData::msSinceStart = msTimeNow - GuiData::UNIX_TIME_MS_START;
+////////////////////////
+// BASIC UI FUNCTIONS //
+////////////////////////
+
+// Draws some text and returns the position of its area on the screen
+sf::FloatRect Ui::drawText(sf::RenderWindow& w, string s, int charSize, const sf::Color& c, float posX, float posY) {
+  Gui::text.setFont(Gui::font);
+  Gui::text.setString(s);
+  Gui::text.setCharacterSize(charSize);
+  Gui::text.setOrigin(Gui::text.getGlobalBounds().width/2, Gui::text.getGlobalBounds().height/2.0f);
+  Gui::text.setPosition(posX, posY);
+  Gui::text.setFillColor(c);
+  w.draw(Gui::text);
+  return Gui::text.getGlobalBounds();
 }
 
-//! Implementation of drawEllipsis, displays ellipses
-void Ui::drawEllipsis(sf::RenderWindow& window) {
-  window.draw(GuiData::ellipsis);
+// Draws a box and returns the position of its area on the screen
+sf::FloatRect Ui::drawBox(sf::RenderWindow& w, float width, float height, const sf::Color& c, float posX, float posY) {
+  Gui::box.setSize(sf::Vector2f(width, height));
+  Gui::box.setFillColor(c);
+  Gui::box.setOrigin(Gui::box.getGlobalBounds().width/2, Gui::box.getGlobalBounds().height/2.0f);
+  Gui::box.setPosition(posX, posY);
+  w.draw(Gui::box);
+  return Gui::box.getGlobalBounds();
 }
 
-//! Implementation of drawGreetings, displays the greeting text with a fade in
-void Ui::drawGreetings(sf::RenderWindow& window) {
-  if (GuiData::msSinceStart > GuiData::GREETINGS_APPEAR_TIME) {
-    if ((int)GuiData::greetingsTransparency < 255) {
-      GuiData::greetingsTransparency += GuiData::FADE_IN_STEP;
-      sf::Color greetingsColor(248, 248, 242, (int)GuiData::greetingsTransparency);
-      sf::Color greetingsOutlineColor(189, 147, 249, (int)GuiData::greetingsTransparency);
-      GuiData::greetings.setFillColor(greetingsColor);
-      GuiData::greetings.setOutlineColor(greetingsOutlineColor);
-    }
-    window.draw(GuiData::greetings);
-  }
+sf::FloatRect Ui::drawSprite(sf::RenderWindow& w, sf::Texture& t, float scaleX, float scaleY, float posX, float posY ) {
+  Gui::sprite.setTexture(t);
+  Gui::sprite.setOrigin(Gui::sprite.getGlobalBounds().width/2.0f, Gui::sprite.getGlobalBounds().height/2.0f);
+  Gui::sprite.setColor(sf::Color(255, 255, 255));
+  Gui::sprite.setScale(scaleX, scaleY);
+  Gui::sprite.setPosition(posX, posY);
+  w.draw(Gui::sprite);
+  return Gui::sprite.getGlobalBounds();
 }
 
-//! Implementation of drawCallToAction, displays the callToAction text with a fade in
-void Ui::drawCallToAction(sf::RenderWindow& window) {
-  if (GuiData::msSinceStart > GuiData::CALL_TO_ACTION_APPEAR_TIME) {
-    if ((int)GuiData::callToActionTransparency < 255) {
-      GuiData::callToActionTransparency += GuiData::FADE_IN_STEP;
-      sf::Color callToActionColor(248, 248, 242, (int)GuiData::callToActionTransparency);
-      sf::Color callToActionOutlineColor(189, 147, 249, (int)GuiData::callToActionTransparency);
-      GuiData::callToAction.setFillColor(callToActionColor);
-      GuiData::callToAction.setOutlineColor(callToActionOutlineColor);
-    }
-    window.draw(GuiData::callToAction);
-  }
-}
-
-//! Implementation of drawSelectionBoxes, displays clickable boxes for the user to decide their initial action.
-void Ui::drawSelectionBoxes(sf::RenderWindow& window, sf::RectangleShape& selectionBox) {
-  if (GuiData::msSinceStart > GuiData::SELECTION_BOXES_APPEAR_TIME) {
-    if ((int)GuiData::selectionBoxTransparency < 255) {
-      GuiData::selectionBoxTransparency += GuiData::FADE_IN_STEP;
-      sf::Color selectionBoxColor(68, 71, 90, (int)GuiData::selectionBoxTransparency);
-      sf::Color selectionBoxTextColor(248, 248, 242, (int)GuiData::selectionBoxTransparency);
-      sf::Color selectionBoxTextOutlineColor(189, 147, 249, (int)GuiData::selectionBoxTransparency);
-      selectionBox.setFillColor(selectionBoxColor);
-      GuiData::selectionBoxText.setFillColor(selectionBoxTextColor);
-      GuiData::selectionBoxText.setOutlineColor(selectionBoxTextOutlineColor);
-    }
-
-    // Draw "Create Map" Box and record coordinates
-    selectionBox.setPosition(200.0f, 200.0f);
-    GuiData::selectionBoxText.setString("Create Map");
-    GuiData::selectionBoxText.setPosition(125.0f, 185.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasCreateMapPosition){
-      GuiData::createMapPosition = selectionBox.getGlobalBounds();
-      GuiData::hasCreateMapPosition = true;
-    }
-
-    // Draw "Edit Map" Box and record coordinates
-    selectionBox.setPosition(600.0f, 200.0f);
-    GuiData::selectionBoxText.setString("Edit Map");
-    GuiData::selectionBoxText.setPosition(540.0f, 185.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasEditMapPosition){
-      GuiData::editMapPosition =selectionBox.getGlobalBounds();
-      GuiData::hasEditMapPosition = true;
-    }
-
-    // Draw "Create Campaign" Box and record coordinates
-    selectionBox.setPosition(200.0f, 300.0f);
-    GuiData::selectionBoxText.setString("Create Campaign");
-    GuiData::selectionBoxText.setPosition(90.0f, 285.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasCreateCampaignPosition){
-      GuiData::createCampaignPosition = selectionBox.getGlobalBounds();
-      GuiData::hasCreateCampaignPosition = true;
-    }
-
-    //// Draw "Edit Campaign" Box and record coordinates
-    selectionBox.setPosition(600.0f, 300.0f);
-    GuiData::selectionBoxText.setString("Edit Campaign");
-    GuiData::selectionBoxText.setPosition(505.0f, 285.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasEditCampaignPosition){
-      GuiData::editCampaignPosition = selectionBox.getGlobalBounds();
-      GuiData::hasEditCampaignPosition = true;
-    }
-
-    //// Draw "Create Character" Box and record coordinates
-    selectionBox.setPosition(200.0f, 400.0f);
-    GuiData::selectionBoxText.setString("Create Character");
-    GuiData::selectionBoxText.setPosition(90.0f, 385.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasCreateCharacterPosition){
-      GuiData::createCharacterPosition = selectionBox.getGlobalBounds();
-      GuiData::hasCreateCharacterPosition = true;
-    }
-
-    //// Draw "Edit Character" Box and record coordinates
-    selectionBox.setPosition(600.0f, 400.0f);
-    GuiData::selectionBoxText.setString("Edit Character");
-    GuiData::selectionBoxText.setPosition(495.0f, 385.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasEditCharacterPosition){
-      GuiData::editCharacterPosition = selectionBox.getGlobalBounds();
-      GuiData::hasEditCharacterPosition = true;
-    }
-
-    //// Draw "Create Item" Box and record coordinates
-    selectionBox.setPosition(200.0f, 500.0f);
-    GuiData::selectionBoxText.setString("Create Item");
-    GuiData::selectionBoxText.setPosition(120.0f, 485.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasCreateItemPosition){
-      GuiData::createItemPosition = selectionBox.getGlobalBounds();
-      GuiData::hasCreateItemPosition = true;
-    }
-
-    //// Draw "Edit Item" Box and record coordinates
-    selectionBox.setPosition(600.0f, 500.0f);
-    GuiData::selectionBoxText.setString("Edit Item");
-    GuiData::selectionBoxText.setPosition(520.0f, 485.0f);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasEditItemPosition){
-      GuiData::editItemPosition = selectionBox.getGlobalBounds();
-      GuiData::hasEditItemPosition = true;
-    }
-
-    // Draw "Play" Box and record coordinates
-    selectionBox.setPosition(400.0f, 650.0f);
-    selectionBox.scale(1.2f, 1.2f);
-    GuiData::selectionBoxText.setString("Play");
-    GuiData::selectionBoxText.setPosition(350.0f, 620.0f);
-    GuiData::selectionBoxText.setCharacterSize(40);
-    window.draw(selectionBox);
-    window.draw(GuiData::selectionBoxText);
-    if (!GuiData::hasPlayPosition){
-      GuiData::playPosition= selectionBox.getGlobalBounds();
-      GuiData::hasPlayPosition = true;
-    }
-    selectionBox.scale(0.833333f, 0.833333f);
-    GuiData::selectionBoxText.setCharacterSize(24);
-  }
-}
-
-//! Implementation of drawSelectMapCampaign, displays header text for selecting a map or campaign from files on disk.
-void Ui::drawSelectMapCampaign(sf::RenderWindow& window) {
-  GuiData::selectMap.setFont(GuiData::currentFont);
-  if (GuiData::isChoosingMapToEdit) {
-    GuiData::selectMap.setString("Select a map from the following list.");
-  }
-  if (GuiData::isChoosingCampaignToEdit || GuiData::isChoosingCampaignToPlay) {
-    GuiData::selectMap.setString("Select a campaign from the following list.");
-  }
-  if (GuiData::isChoosingCharacterToEdit || GuiData::isChoosingCharacterToPlay) {
-    GuiData::selectMap.setString("Select a character from the following list.");
-  }
-  if (GuiData::isChoosingItemToEdit) {
-    GuiData::selectMap.setString("Select an item from the following list.");
-  }
-  GuiData::selectMap.setCharacterSize(24);
-  GuiData::selectMap.setOrigin(GuiData::selectMap.getGlobalBounds().width/2.0f, GuiData::selectMap.getGlobalBounds().height/2.0f);
-  GuiData::selectMap.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  GuiData::selectMap.setOutlineThickness(GuiData::TEXT_OUTLINE_THICKNESS);
-  sf::Color selectMapColor(248, 248, 242);
-  sf::Color selectMapOutlineColor(189, 147, 249);
-  GuiData::selectMap.setFillColor(selectMapColor);
-  GuiData::selectMap.setOutlineColor(selectMapOutlineColor);
-  window.draw(GuiData::selectMap);
-}
-
-//! Implementation of drawTypeMapCampaignName, displays header text a new map or campaign.
-void Ui::drawTypeMapCampaignName(sf::RenderWindow& window) {
-  GuiData::typeMapName.setFont(GuiData::currentFont);
-  if (GuiData::isChoosingMapToCreate) {
-    GuiData::typeMapName.setString("Type the name of a new map.\nPress Enter when done.");
-  }
-  if (GuiData::isChoosingCampaignToCreate) {
-    GuiData::typeMapName.setString("Type the name of a new campaign.\nPress Enter when done.");
-  }
-  if (GuiData::isChoosingCharacterToCreate) {
-    GuiData::typeMapName.setString("Type the name of a new character.\nPress Enter when done.");
-  }
-  if (GuiData::isChoosingItemToCreate) {
-    GuiData::typeMapName.setString("Type the name of a new item.\nPress Enter when done.");
-  }
-  GuiData::typeMapName.setCharacterSize(24);
-  GuiData::typeMapName.setOrigin(GuiData::typeMapName.getGlobalBounds().width/2.0f, GuiData::typeMapName.getGlobalBounds().height/2.0f);
-  GuiData::typeMapName.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  GuiData::typeMapName.setOutlineThickness(GuiData::TEXT_OUTLINE_THICKNESS);
-  sf::Color typeMapNameColor(248, 248, 242);
-  sf::Color typeMapNameOutlineColor(189, 147, 249);
-  GuiData::typeMapName.setFillColor(typeMapNameColor);
-  GuiData::typeMapName.setOutlineColor(typeMapNameOutlineColor);
-  window.draw(GuiData::typeMapName);
-}
-
-//! Implementation of drawSelectFileNames, displays text for selecting a map or campaign from files for each file of a specific type on disk.
-void Ui::drawSelectFileNames(sf::RenderWindow& window, vector<string> current_files) {
-  GuiData::selectFileNames.setFont(GuiData::currentFont);
-  GuiData::selectFileNames.setCharacterSize(20);
-  GuiData::selectFileNames.setOrigin(GuiData::selectFileNames.getGlobalBounds().width/2.0f, GuiData::selectFileNames.getGlobalBounds().height/2.0f);
-  GuiData::selectFileNames.setOutlineThickness(GuiData::TEXT_OUTLINE_THICKNESS);
-  sf::Color selectFileNamesColor(248, 248, 242);
-  GuiData::selectFileNames.setFillColor(selectFileNamesColor);
-
-  float firstFileHeight = 120.0f;
-  float fileHeightIncrement = 30.0f;
-
-  GuiData::current_map_positions.clear();
-  GuiData::current_campaign_positions.clear();
-  GuiData::current_character_positions.clear();
-  GuiData::current_item_positions.clear();
-  for (int i = 0; i < (int)current_files.size(); i++) {
-    GuiData::selectFileNames.setString(current_files[i]);
-    GuiData::selectFileNames.setPosition(GuiData::WINDOW_WIDTH/2.0f, firstFileHeight);
-    firstFileHeight += fileHeightIncrement;
-
-    if (GuiData::isChoosingMapToEdit) {
-      GuiData::current_map_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
-    }
-    if (GuiData::isChoosingCampaignToEdit || GuiData::isChoosingCampaignToPlay) {
-      GuiData::current_campaign_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
-    }
-    if (GuiData::isChoosingCharacterToEdit || GuiData::isChoosingCharacterToPlay) {
-      GuiData::current_character_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
-    }
-    if (GuiData::isChoosingItemToEdit) {
-      GuiData::current_item_positions.push_back(GuiData::selectFileNames.getGlobalBounds());
-    }
-    window.draw(GuiData::selectFileNames);
-  }
-}
-
-//! Implementation of drawRealTimeTypeFeedbac, displays text as the user type for a filename for a new map or campaign.
-void Ui::drawRealTimeTypeFeedback(sf::RenderWindow& window) {
-  GuiData::realTimeTypeFeedback.setFont(GuiData::currentFont);
-  GuiData::realTimeTypeFeedback.setCharacterSize(20);
-  GuiData::realTimeTypeFeedback.setOrigin(GuiData::realTimeTypeFeedback.getGlobalBounds().width/2.0f, GuiData::realTimeTypeFeedback.getGlobalBounds().height/2.0f);
-  sf::Color realTimeTypeFeedbackColor(248, 248, 242);
-  GuiData::realTimeTypeFeedback.setFillColor(realTimeTypeFeedbackColor);
-  GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 150.0f);
-  if (GuiData::isChoosingMapToCreate) {
-    GuiData::realTimeTypeFeedback.setString(GuiData::createdMap);
-  }
-  if (GuiData::isChoosingCampaignToCreate) {
-    GuiData::realTimeTypeFeedback.setString(GuiData::createdCampaign);
-  }
-  if (GuiData::isChoosingCharacterToCreate) {
-    GuiData::realTimeTypeFeedback.setString(GuiData::createdCharacter);
-  }
-  if (GuiData::isChoosingItemToCreate) {
-    GuiData::realTimeTypeFeedback.setString(GuiData::createdItem);
-  }
-  if (GuiData::isCreatingCharacter) {
-    GuiData::realTimeTypeFeedback.setCharacterSize(26);
-    GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 230.0f);
-    GuiData::realTimeTypeFeedback.setString(GuiData::createdCharacterArgs);
-  }
-  if (GuiData::isEditingCharacter) {
-    GuiData::realTimeTypeFeedback.setCharacterSize(26);
-    GuiData::realTimeTypeFeedback.setPosition(GuiData::WINDOW_WIDTH/2.0f, 230.0f);
-    GuiData::realTimeTypeFeedback.setString(GuiData::chosenCharacterArgs);
-  }
-  window.draw(GuiData::realTimeTypeFeedback);
-}
-
-//! Implementation of drawNameConflictError, displays error text is a file with that name already exists
-void Ui::drawNameConflictError(sf::RenderWindow& window) {
-  GuiData::NameConflictError.setFont(GuiData::currentFont);
-  GuiData::NameConflictError.setCharacterSize(24);
-  GuiData::NameConflictError.setOrigin(GuiData::NameConflictError.getGlobalBounds().width/2.0f, GuiData::NameConflictError.getGlobalBounds().height/2.0f);
-  sf::Color NameConflictErrorColor(255, 85, 85);
-  GuiData::NameConflictError.setFillColor(NameConflictErrorColor);
-  GuiData::NameConflictError.setString("File already exists. Use a different name.");
-  GuiData::NameConflictError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 650.0f);
-  window.draw(GuiData::NameConflictError);
-}
+////////////////////////////
+// COMMON UTILITY METHODS //
+////////////////////////////
 
 //! Implementation of drawHomeButton, displays a link back the home page on most pages
 void Ui::drawHomeButton(sf::RenderWindow& window) {
-  GuiData::HomeButton.setFont(GuiData::currentFont);
-  GuiData::HomeButton.setCharacterSize(19);
-  GuiData::HomeButton.setOrigin(GuiData::HomeButton.getGlobalBounds().width/2.0f, GuiData::HomeButton.getGlobalBounds().height/2.0f);
-  sf::Color HomeButtonColor(255, 121, 198);
-  GuiData::HomeButton.setFillColor(HomeButtonColor);
-  GuiData::HomeButton.setStyle(sf::Text::Bold);
-  GuiData::HomeButton.setString("<< HOME");
-  GuiData::HomeButton.setPosition(60.0f, 30.0f);
-  window.draw(GuiData::HomeButton);
+  Gui::homeButtonPosition = this->drawText(window, "<< HOME", 16, Gui::PINK, 60.0f, 30.0f);
 }
 
-//! Implementation of drawWidthIndicator, displays the current map width while editing or creating a new map
-void Ui::drawWidthIndicator(sf::RenderWindow& window) {
-  GuiData::widthIndicator.setFont(GuiData::currentFont);
-  GuiData::widthIndicator.setCharacterSize(19);
-  GuiData::widthIndicator.setOrigin(GuiData::widthIndicator.getGlobalBounds().width/2.0f, GuiData::widthIndicator.getGlobalBounds().height/2.0f);
-  sf::Color widthIndicatorColor(248, 248, 242);
-  GuiData::widthIndicator.setFillColor(widthIndicatorColor);
-  GuiData::widthIndicator.setString("Width\n "+to_string(GuiData::tempMapWidth));
-  GuiData::widthIndicator.setPosition(125.0f, 260.0f);
-  window.draw(GuiData::widthIndicator);
+void Ui::drawValidationErrorIfNeeded(sf::RenderWindow& window) {
+  if (Gui::shouldShowMapValidationError)
+    this->drawText(window, "MAP IS NOT VALID", 24, Gui::RED, Gui::W_WIDTH/2.0f, 50.0f);
+  if (Gui::shouldShowCampaignValidationError)
+    this->drawText(window, "CAMPAIGN IS NOT VALID", 24, Gui::RED, Gui::W_WIDTH/2.0f, 50.0f);
+  if (Gui::shouldShowCharacterValidationError)
+    this->drawText(window, "CHARACTER IS NOT VALID", 24, Gui::RED, Gui::W_WIDTH/2.0f, 50.0f);
+  if (Gui::shouldShowItemValidationError)
+    this->drawText(window, "ITEM IS NOT VALID", 24, Gui::RED, Gui::W_WIDTH/2.0f, 50.0f);
 }
 
-//! Implementation of drawWidthPlus, allows the user to increase map size
-void Ui::drawWidthPlus(sf::RenderWindow& window) {
-  GuiData::widthPlus.setFont(GuiData::currentFont);
-  GuiData::widthPlus.setCharacterSize(40);
-  GuiData::widthPlus.setOrigin(GuiData::widthPlus.getGlobalBounds().width/2.0f, GuiData::widthPlus.getGlobalBounds().height/2.0f);
-  sf::Color widthPlusColor(255, 121, 198);
-  GuiData::widthPlus.setFillColor(widthPlusColor);
-  GuiData::widthPlus.setString("+");
-  GuiData::widthPlus.setPosition(90.0f, 290.0f);
-  window.draw(GuiData::widthPlus);
-}
-
-//! Implementation of drawWidthMinus, allows the user to decrease map size
-void Ui::drawWidthMinus(sf::RenderWindow& window) {
-  GuiData::widthMinus.setFont(GuiData::currentFont);
-  GuiData::widthMinus.setCharacterSize(40);
-  GuiData::widthMinus.setOrigin(GuiData::widthMinus.getGlobalBounds().width/2.0f, GuiData::widthMinus.getGlobalBounds().height/2.0f);
-  sf::Color widthMinusColor(255, 121, 198);
-  GuiData::widthMinus.setFillColor(widthMinusColor);
-  GuiData::widthMinus.setString("-");
-  GuiData::widthMinus.setPosition(160.0f, 280.0f);
-  window.draw(GuiData::widthMinus);
-
-}
-
-//! Implementation of drawLengthIndicator, displays the current map length while editing or creating a new map
-void Ui::drawLengthIndicator(sf::RenderWindow& window) {
-  GuiData::lengthIndicator.setFont(GuiData::currentFont);
-  GuiData::lengthIndicator.setCharacterSize(19);
-  GuiData::lengthIndicator.setOrigin(GuiData::lengthIndicator.getGlobalBounds().width/2.0f, GuiData::lengthIndicator.getGlobalBounds().height/2.0f);
-  sf::Color lengthIndicatorColor(248, 248, 242);
-  GuiData::lengthIndicator.setFillColor(lengthIndicatorColor);
-  GuiData::lengthIndicator.setString("Length\n "+to_string(GuiData::tempMapLength));
-  GuiData::lengthIndicator.setPosition(GuiData::WINDOW_WIDTH-125.0f, 260.0f);
-  window.draw(GuiData::lengthIndicator);
-}
-
-//! Implementation of drawLengthPlus, allows the user to increase map size
-void Ui::drawLengthPlus(sf::RenderWindow& window) {
-  GuiData::lengthPlus.setFont(GuiData::currentFont);
-  GuiData::lengthPlus.setCharacterSize(40);
-  GuiData::lengthPlus.setOrigin(GuiData::lengthPlus.getGlobalBounds().width/2.0f, GuiData::lengthPlus.getGlobalBounds().height/2.0f);
-  sf::Color lengthPlusColor(255, 121, 198);
-  GuiData::lengthPlus.setFillColor(lengthPlusColor);
-  GuiData::lengthPlus.setString("+");
-  GuiData::lengthPlus.setPosition(GuiData::WINDOW_WIDTH-160.0f, 290.0f);
-  window.draw(GuiData::lengthPlus);
-}
-
-//! Implementation of drawLengthMinus, allows the user to decrease map size
-void Ui::drawLengthMinus(sf::RenderWindow& window){
-  GuiData::lengthMinus.setFont(GuiData::currentFont);
-  GuiData::lengthMinus.setCharacterSize(40);
-  GuiData::lengthMinus.setOrigin(GuiData::lengthMinus.getGlobalBounds().width/2.0f, GuiData::lengthMinus.getGlobalBounds().height/2.0f);
-  sf::Color lengthMinusColor(255, 121, 198);
-  GuiData::lengthMinus.setFillColor(lengthMinusColor);
-  GuiData::lengthMinus.setString("-");
-  GuiData::lengthMinus.setPosition(GuiData::WINDOW_WIDTH-90.0f, 280.0f);
-  window.draw(GuiData::lengthMinus);
-}
-
-//! Implementation of drawSaveButton, allows the user to save a specific map or campaign to disk
 void Ui::drawSaveButton(sf::RenderWindow& window) {
-  GuiData::saveButton.setFont(GuiData::currentFont);
-  GuiData::saveButton.setCharacterSize(19);
-  GuiData::saveButton.setOrigin(GuiData::saveButton.getGlobalBounds().width/2.0f, GuiData::saveButton.getGlobalBounds().height/2.0f);
-  sf::Color saveButtonColor(255, 121, 198);
-  GuiData::saveButton.setFillColor(saveButtonColor);
-  GuiData::saveButton.setStyle(sf::Text::Bold);
-  GuiData::saveButton.setString("SAVE");
-  GuiData::saveButton.setPosition(GuiData::WINDOW_WIDTH-75.0f, 30.0f);
-  window.draw(GuiData::saveButton);
+  Gui::saveButtonPosition = this->drawText(window, "SAVE", 19, Gui::PINK, Gui::W_WIDTH-75.0f, 30.0f);
 }
 
-//! Implementation of drawWallSpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawWallSpriteSelector(sf::RenderWindow& window) {
-  GuiData::wallSelectionSprite.setTexture(GuiData::wallTexture);
-  GuiData::wallSelectionSprite.setOrigin(GuiData::wallSelectionSprite.getGlobalBounds().width/2.0f, GuiData::wallSelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::wallSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::wallSelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::wallSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 300);
-  window.draw(GuiData::wallSelectionSprite);
-}
+void Ui::drawMap(sf::RenderWindow& window) {
+  Gui::box.setOutlineColor(Gui::PURPLE);
+  Gui::box.setOutlineThickness(5.0f);
+  Gui::mapBorderPosition = this->drawBox(window, Gui::MAP_DISPLAY_WIDTH_LENGTH, Gui::MAP_DISPLAY_WIDTH_LENGTH,
+      Gui::LIGHT_GRAY, Gui::mapAbsolutePositioning.x, Gui::mapAbsolutePositioning.y);
+  Gui::box.setOutlineColor(Gui::TRANSPARENT);
+  Gui::box.setOutlineThickness(0.0f);
 
-//! Implementation of drawTreasureSpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawTreasureSpriteSelector(sf::RenderWindow& window) {
-  GuiData::treasureSelectionSprite.setTexture(GuiData::treasureTexture);
-  GuiData::treasureSelectionSprite.setOrigin(GuiData::treasureSelectionSprite.getGlobalBounds().width/2.0f, GuiData::treasureSelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::treasureSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::treasureSelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::treasureSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 300);
-  window.draw(GuiData::treasureSelectionSprite);
-}
-
-//! Implementation of drawExitSpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawExitSpriteSelector(sf::RenderWindow& window) {
-  GuiData::exitSelectionSprite.setTexture(GuiData::exitTexture);
-  GuiData::exitSelectionSprite.setOrigin(GuiData::exitSelectionSprite.getGlobalBounds().width/2.0f, GuiData::exitSelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::exitSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::exitSelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::exitSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 360);
-  window.draw(GuiData::exitSelectionSprite);
-}
-
-//! Implementation of drawStartSpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawStartSpriteSelector(sf::RenderWindow& window) {
-  GuiData::startSelectionSprite.setTexture(GuiData::startTexture);
-  GuiData::startSelectionSprite.setOrigin(GuiData::startSelectionSprite.getGlobalBounds().width/2.0f, GuiData::startSelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::startSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::startSelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::startSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 360);
-  window.draw(GuiData::startSelectionSprite);
-}
-
-//! Implementation of drawMonsterSpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawMonsterSpriteSelector(sf::RenderWindow& window) {
-  GuiData::monsterSelectionSprite.setTexture(GuiData::monsterTexture);
-  GuiData::monsterSelectionSprite.setOrigin(GuiData::monsterSelectionSprite.getGlobalBounds().width/2.0f, GuiData::monsterSelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::monsterSelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::monsterSelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::monsterSelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 40, GuiData::WINDOW_HEIGHT - 240);
-  window.draw(GuiData::monsterSelectionSprite);
-}
-
-//! Implementation of drawEmptySpriteSelector, shows a sprite icon available to select for placement on the map.
-void Ui::drawEmptySpriteSelector(sf::RenderWindow& window) {
-  GuiData::emptySelectionSprite.setTexture(GuiData::emptyTexture);
-  GuiData::emptySelectionSprite.setOrigin(GuiData::emptySelectionSprite.getGlobalBounds().width/2.0f, GuiData::emptySelectionSprite.getGlobalBounds().height/2.0f);
-  GuiData::emptySelectionSprite.setColor(sf::Color(255, 255, 255, 200));
-  GuiData::emptySelectionSprite.setScale(0.5f, 0.5f);
-  GuiData::emptySelectionSprite.setPosition(GuiData::WINDOW_WIDTH - 100, GuiData::WINDOW_HEIGHT - 240);
-  window.draw(GuiData::emptySelectionSprite);
-}
-//! Implementation of drawMapBorder, shows a box around the area where the map is displayed.
-void Ui::drawMapBorder(sf::RenderWindow& window) {
-  sf::RectangleShape mapBorder(sf::Vector2f(GuiData::MAP_DISPLAY_WIDTH_LENGTH, GuiData::MAP_DISPLAY_WIDTH_LENGTH));
-  sf::Color mapBorderColor(68, 71, 90);
-  sf::Color mapBorderOutlineColor(189, 147, 249);
-  mapBorder.setFillColor(mapBorderColor);
-  mapBorder.setOutlineColor(mapBorderOutlineColor);
-  mapBorder.setOutlineThickness(5.0f);
-  mapBorder.setPosition(GuiData::mapAbsolutePositioning);
-  window.draw(mapBorder);
-}
-
-void Ui::drawMapClickableBox(sf::RenderWindow& window) {
   int tempWidth = GameData::currentMapObject->getMapWidth();
   int tempLength = GameData::currentMapObject->getMapLength();
-  float tempBoxWidth = GuiData::MAP_DISPLAY_WIDTH_LENGTH/tempWidth;
-  float tempBoxLength = GuiData::MAP_DISPLAY_WIDTH_LENGTH/tempLength;
-  sf::RectangleShape mapClickableBox(sf::Vector2f(tempBoxWidth, tempBoxLength));
-  sf::Color mapClickableBoxOutlineColor(248, 248, 242);
-  mapClickableBox.setFillColor(sf::Color::White);
-  mapClickableBox.setOutlineColor(mapClickableBoxOutlineColor);
-  mapClickableBox.setOutlineThickness(2.0f);
+  float tempBoxWidth = Gui::MAP_DISPLAY_WIDTH_LENGTH/tempWidth;
+  float tempBoxLength = Gui::MAP_DISPLAY_WIDTH_LENGTH/tempLength;
+  sf::RectangleShape mapTile(sf::Vector2f(tempBoxWidth, tempBoxLength));
+  sf::Color mapTileOutlineColor(248, 248, 242);
+  mapTile.setFillColor(sf::Color::White);
+  mapTile.setOutlineColor(mapTileOutlineColor);
+  mapTile.setOutlineThickness(2.0f);
 
-  GuiData::currentMapTilePositions.resize(tempWidth);
+  Gui::currentMapTilePositions.resize(tempWidth);
   for (int i = 0; i < tempWidth; i++) {
-    GuiData::currentMapTilePositions[i].resize(tempLength);
+    Gui::currentMapTilePositions[i].resize(tempLength);
     for (int j =0; j < tempLength; j++) {
       char tempMapCell = GameData::currentMapObject->getCell(i,j);
 
       if (tempMapCell == 'W') {
-        mapClickableBox.setTexture(&GuiData::wallTexture);
+        mapTile.setTexture(&Gui::wallTexture);
       }
       else if (tempMapCell == 'S') {
-        if (GuiData::isCreatingMap || GuiData::isEditingMap) {
-          mapClickableBox.setTexture(&GuiData::startTexture);
+        if (Gui::isCreatingMap || Gui::isEditingMap) {
+          mapTile.setTexture(&Gui::startTexture);
         }
-        if (GuiData::isPlayingGame) {
-          mapClickableBox.setTexture(&GuiData::characterTexture);
+        if (Gui::isPlayingGame) {
+          mapTile.setTexture(&Gui::characterTexture);
         }
       }
       else if (tempMapCell == 'E') {
-        mapClickableBox.setTexture(&GuiData::exitTexture);
+        mapTile.setTexture(&Gui::exitTexture);
       }
       else if (tempMapCell == 'T') {
-        mapClickableBox.setTexture(&GuiData::treasureTexture);
+        mapTile.setTexture(&Gui::treasureTexture);
       }
       else if (tempMapCell == 'O') {
-        mapClickableBox.setTexture(&GuiData::monsterTexture);
+        mapTile.setTexture(&Gui::monsterTexture);
       }
       else {
-        mapClickableBox.setTexture(&GuiData::emptyTexture);
+        mapTile.setTexture(&Gui::emptyTexture);
       }
 
-      mapClickableBox.setPosition(
-          GuiData::mapAbsolutePositioning.x + tempBoxWidth*i,
-          GuiData::mapAbsolutePositioning.y + tempBoxLength*j
+      mapTile.setPosition(
+          Gui::mapBorderPosition.left+ tempBoxWidth*i + 5,
+          Gui::mapBorderPosition.top + tempBoxLength*j +5
       );
 
-      GuiData::currentMapTilePositions[i][j] = mapClickableBox.getGlobalBounds();
+      Gui::currentMapTilePositions[i][j] = mapTile.getGlobalBounds();
 
-      window.draw(mapClickableBox);
+      window.draw(mapTile);
     }
   }
 }
-void Ui::drawMapCreateOkButton(sf::RenderWindow& window) {
-  GuiData::mapCreateOkButton.setFont(GuiData::currentFont);
-  GuiData::mapCreateOkButton.setCharacterSize(19);
-  GuiData::mapCreateOkButton.setOrigin(GuiData::mapCreateOkButton.getGlobalBounds().width/2.0f, GuiData::mapCreateOkButton.getGlobalBounds().height/2.0f);
-  sf::Color mapCreateOkButtonColor(255, 121, 198);
-  GuiData::mapCreateOkButton.setFillColor(mapCreateOkButtonColor);
-  GuiData::mapCreateOkButton.setStyle(sf::Text::Bold);
-  GuiData::mapCreateOkButton.setString("OK");
-  GuiData::mapCreateOkButton.setPosition(GuiData::WINDOW_WIDTH-75.0f, 30.0f);
-  window.draw(GuiData::mapCreateOkButton);
+
+//////////////////////////
+// UI DRIVER FOR SCENES //
+//////////////////////////
+
+void Ui::isSelectingChoice(sf::RenderWindow& window) {
+  this->drawText(window, "...", 24, Gui::PURPLE, Gui::W_WIDTH/2.0f, 0.0f);
+  this->drawText(window, "Greetings, traveler.", 29, Gui::WHITE, Gui::W_WIDTH/2.0f, 60.0f);
+  this->drawText(window, "What fate awaits you today?", 24, Gui::WHITE, Gui::W_WIDTH/2.0f, 120.0f);
+
+  float selectionBoxWidth = 280.0f;
+  float selectionBoxHeight = 85.0f;
+
+  Gui::createMapPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, Gui::W_WIDTH/4.0f, 200.0f);
+  Gui::editMapPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, 3*Gui::W_WIDTH/4.0f, 200.0f);
+  Gui::createCampaignPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, Gui::W_WIDTH/4.0f, 300.0f);
+  Gui::editCampaignPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, 3*Gui::W_WIDTH/4.0f, 300.0f);
+  Gui::createCharacterPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, Gui::W_WIDTH/4.0f, 400.0f);
+  Gui::editCharacterPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, 3*Gui::W_WIDTH/4.0f, 400.0f);
+  Gui::createItemPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, Gui::W_WIDTH/4.0f, 500.0f);
+  Gui::editItemPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, 3*Gui::W_WIDTH/4.0f, 500.0f);
+  Gui::playPosition = this->drawBox(window, selectionBoxWidth+50.0f, selectionBoxHeight+50.0f, Gui::LIGHT_GRAY, Gui::W_WIDTH/2.0f, 650.0f);
+
+  this->drawText(window, "Create Map", 24, Gui::WHITE,
+      Gui::createMapPosition.left + Gui::createMapPosition.width/2.0f,
+      Gui::createMapPosition.top + Gui::createMapPosition.height/2.0f
+  );
+  this->drawText(window, "Edit Map", 24, Gui::WHITE,
+      Gui::editMapPosition.left + Gui::editMapPosition.width/2.0f,
+      Gui::editMapPosition.top + Gui::editMapPosition.height/2.0f
+  );
+  this->drawText(window, "Create Campaign", 24, Gui::WHITE,
+      Gui::createCampaignPosition.left + Gui::createCampaignPosition.width/2.0f,
+      Gui::createCampaignPosition.top + Gui::createCampaignPosition.height/2.0f
+  );
+  this->drawText(window, "Edit Campaign", 24, Gui::WHITE,
+      Gui::editCampaignPosition.left + Gui::editCampaignPosition.width/2.0f,
+      Gui::editCampaignPosition.top + Gui::editCampaignPosition.height/2.0f
+  );
+  this->drawText(window, "Create Character", 24, Gui::WHITE,
+      Gui::createCharacterPosition.left + Gui::createCharacterPosition.width/2.0f,
+      Gui::createCharacterPosition.top + Gui::createCharacterPosition.height/2.0f
+  );
+  this->drawText(window, "Edit Character", 24, Gui::WHITE,
+      Gui::editCharacterPosition.left + Gui::editCharacterPosition.width/2.0f,
+      Gui::editCharacterPosition.top + Gui::editCharacterPosition.height/2.0f
+  );
+  this->drawText(window, "Create Item", 24, Gui::WHITE,
+      Gui::createItemPosition.left + Gui::createItemPosition.width/2.0f,
+      Gui::createItemPosition.top + Gui::createItemPosition.height/2.0f
+  );
+  this->drawText(window, "Edit Item", 24, Gui::WHITE,
+      Gui::editItemPosition.left + Gui::editItemPosition.width/2.0f,
+      Gui::editItemPosition.top + Gui::editItemPosition.height/2.0f
+  );
+  this->drawText(window, "Play", 50, Gui::WHITE,
+      Gui::playPosition.left + Gui::playPosition.width/2.0f,
+      Gui::playPosition.top + Gui::playPosition.height/2.0f
+  );
 }
 
-void Ui::drawSelectMapSize(sf::RenderWindow& window) {
-  GuiData::selectMapSize.setString("Select a map size (min 4x4)");
-  GuiData::selectMapSize.setFont(GuiData::currentFont);
-  GuiData::selectMapSize.setCharacterSize(24);
-  GuiData::selectMapSize.setOrigin(GuiData::selectMapSize.getGlobalBounds().width/2.0f, GuiData::selectMapSize.getGlobalBounds().height/2.0f);
-  GuiData::selectMapSize.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  GuiData::selectMapSize.setOutlineThickness(GuiData::TEXT_OUTLINE_THICKNESS);
-  sf::Color selectMapSizeColor(248, 248, 242);
-  sf::Color selectMapSizeOutlineColor(189, 147, 249);
-  GuiData::selectMapSize.setFillColor(selectMapSizeColor);
-  GuiData::selectMapSize.setOutlineColor(selectMapSizeOutlineColor);
-  window.draw(GuiData::selectMapSize);
+void Ui::isSelectingMapSize(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  Gui::mapCreateOkPosition = this->drawText(window, "OK", 18, Gui::PINK, Gui::W_WIDTH-30.0f, 30.0f);
+
+  this->drawText(window, "Select a map size (min 4x4)", 24, Gui::WHITE, Gui::W_WIDTH/2.0f, 50.0f);
+
+  // Map Width Controls
+  this->drawText(window, "Width\n "+to_string(Gui::tempMapWidth), 19, Gui::WHITE, 125.0f, 260.0f);
+  Gui::widthPlusPosition = this->drawText(window, "+", 60, Gui::PINK, 90.0f, 290.0f);
+  Gui::widthMinusPosition = this->drawText(window, "-", 60, Gui::PINK, 160.0f, 280.0f);
+
+  // Map Length Controls
+  this->drawText(window, "Length\n "+to_string(Gui::tempMapLength), 19, Gui::WHITE, Gui::W_WIDTH-125.0f, 260.0f);
+  Gui::lengthPlusPosition = this->drawText(window, "+", 60, Gui::PINK, Gui::W_WIDTH-160.0f, 290.0f);
+  Gui::lengthMinusPosition = this->drawText(window, "-", 60, Gui::PINK, Gui::W_WIDTH-90.0f, 280.0f);
 }
 
-void Ui::drawCurrentMapTileSelected(sf::RenderWindow& window) {
-  GuiData::currentMapTileSelected.setString("Current\nMap Tile");
-  GuiData::currentMapTileSelected.setFont(GuiData::currentFont);
-  GuiData::currentMapTileSelected.setCharacterSize(20);
-  GuiData::currentMapTileSelected.setOrigin(GuiData::currentMapTileSelected.getGlobalBounds().width/2.0f, GuiData::currentMapTileSelected.getGlobalBounds().height/2.0f);
-  GuiData::currentMapTileSelected.setPosition(GuiData::WINDOW_WIDTH-70.0f, 130.0f);
-  sf::Color currentMapTileSelectedColor(248, 248, 242);
-  GuiData::currentMapTileSelected.setFillColor(currentMapTileSelectedColor);
-  window.draw(GuiData::currentMapTileSelected);
-}
+void Ui::isTypingNameToCreate(sf::RenderWindow& window){
+  this->drawHomeButton(window);
 
-//! Implementation of drawCurrentMapTileSelectedBox, shows the currently selected sprite icon.
-void Ui::drawCurrentMapTileSprite(sf::RenderWindow& window) {
-  sf::Sprite currentMapTileSprite;
-  currentMapTileSprite.setOrigin(currentMapTileSprite.getGlobalBounds().width/2.0f, currentMapTileSprite.getGlobalBounds().height/2.0f);
-  currentMapTileSprite.setColor(sf::Color::White);
-  currentMapTileSprite.setScale(0.5f, 0.5f);
-  currentMapTileSprite.setPosition(GuiData::WINDOW_WIDTH - 100, 180);
+  string instructions = "";
+  string realTimeType = "";
 
-  if (GuiData::currentMapTileSelectedChar == ' ') {
-    currentMapTileSprite.setTexture(GuiData::emptyTexture);
+  if (Gui::isChoosingMapToCreate) {
+    instructions = "Type the name of a new map.\nPress Enter when done.";
+    realTimeType = Gui::createdMap;
   }
-  if (GuiData::currentMapTileSelectedChar == 'W') {
-    currentMapTileSprite.setTexture(GuiData::wallTexture);
+  if (Gui::isChoosingCampaignToCreate) {
+    instructions = "Type the name of a new campaign.\nPress Enter when done.";
+    realTimeType = Gui::createdCampaign;
   }
-  if (GuiData::currentMapTileSelectedChar == 'T') {
-    currentMapTileSprite.setTexture(GuiData::treasureTexture);
+  if (Gui::isChoosingCharacterToCreate) {
+    instructions = "Type the name of a new character.\nPress Enter when done.";
+    realTimeType = Gui::createdCharacter;
   }
-  if (GuiData::currentMapTileSelectedChar == 'O') {
-    currentMapTileSprite.setTexture(GuiData::monsterTexture);
-  }
-  if (GuiData::currentMapTileSelectedChar == 'S') {
-    currentMapTileSprite.setTexture(GuiData::startTexture);
-  }
-  if (GuiData::currentMapTileSelectedChar == 'E') {
-    currentMapTileSprite.setTexture(GuiData::exitTexture);
+  if (Gui::isChoosingItemToCreate) {
+    instructions = "Type the name of a new item.\nPress Enter when done.";
+    realTimeType = Gui::createdItem;
   }
 
-  window.draw(currentMapTileSprite);
+  this->drawText(window, instructions, 24, Gui::WHITE, Gui::W_WIDTH/2.0f, 50.0f);
+  this->drawText(window, realTimeType, 20, Gui::WHITE, Gui::W_WIDTH/2.0f, 150.0f);
+
+  if (Gui::shouldShowNameConflictError)
+    this->drawText(window, "File already exists. User a different name.", 24, Gui::RED, Gui::W_WIDTH/2.0f, 650.0f);
 
 }
 
-void Ui::drawCampaignAvailableMapsText(sf::RenderWindow& window) {
-  GuiData::campaignAvailableMapsText.setString("Availble Maps\nClick to add");
-  GuiData::campaignAvailableMapsText.setFont(GuiData::currentFont);
-  GuiData::campaignAvailableMapsText.setCharacterSize(24);
-  GuiData::campaignAvailableMapsText.setOrigin(GuiData::campaignAvailableMapsText.getGlobalBounds().width/2.0f, GuiData::campaignAvailableMapsText.getGlobalBounds().height/2.0f);
-  GuiData::campaignAvailableMapsText.setPosition(GuiData::WINDOW_WIDTH/4.0f, 100.0f);
-  sf::Color campaignAvailableMapsTextColor(189, 147, 249);
-  GuiData::campaignAvailableMapsText.setFillColor(campaignAvailableMapsTextColor);
-  window.draw(GuiData::campaignAvailableMapsText);
+void Ui::isChoosingSomethingToEditOrPlay(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+
+  string instructions = "";
+  vector<string> fileList;
+  float firstFileHeight = 120.0f;
+  float fileHeightIncrement = 30.0f;
+
+  // Display instructions to user
+  if (Gui::isChoosingMapToEdit) {
+    instructions = "Select a map from the following list.";
+    fileList = Gui::current_maps;
+    Gui::current_map_positions.clear();
+  }
+  if (Gui::isChoosingCampaignToEdit || Gui::isChoosingCampaignToPlay) {
+    instructions = "Select a campaign from the following list.";
+    fileList = Gui::current_campaigns;
+    Gui::current_campaign_positions.clear();
+  }
+  if (Gui::isChoosingCharacterToEdit || Gui::isChoosingCharacterToPlay) {
+    instructions = "Select a character from the following list.";
+    fileList = Gui::current_characters;
+    Gui::current_character_positions.clear();
+  }
+  if (Gui::isChoosingItemToEdit) {
+    instructions = "Select a item from the following list.";
+    fileList = Gui::current_items;
+    Gui::current_item_positions.clear();
+  }
+
+  this->drawText(window, instructions, 24, Gui::WHITE, Gui::W_WIDTH/2.0f, 50.0f);
+
+  // Display clickable file list to user
+
+  for (int i = 0; i < (int)fileList.size(); i++) {
+    sf::FloatRect filePosition = this->drawText(window, fileList[i], 20, Gui::WHITE, Gui::W_WIDTH/2.0f, firstFileHeight);
+    firstFileHeight += fileHeightIncrement;
+
+    if (Gui::isChoosingMapToEdit)
+      Gui::current_map_positions.push_back(filePosition);
+    if (Gui::isChoosingCampaignToEdit || Gui::isChoosingCampaignToPlay)
+      Gui::current_campaign_positions.push_back(filePosition);
+    if (Gui::isChoosingCharacterToEdit || Gui::isChoosingCharacterToPlay)
+      Gui::current_character_positions.push_back(filePosition);
+    if (Gui::isChoosingItemToEdit)
+      Gui::current_item_positions.push_back(filePosition);
+  }
+
+  this->drawValidationErrorIfNeeded(window);
 }
 
-void Ui::drawCampaignMapOrderText(sf::RenderWindow& window) {
-  GuiData::campaignMapOrderText.setString("Map Order\nClick to remove");
-  GuiData::campaignMapOrderText.setFont(GuiData::currentFont);
-  GuiData::campaignMapOrderText.setCharacterSize(24);
-  GuiData::campaignMapOrderText.setOrigin(GuiData::campaignMapOrderText.getGlobalBounds().width/2.0f, GuiData::campaignMapOrderText.getGlobalBounds().height/2.0f);
-  GuiData::campaignMapOrderText.setPosition(GuiData::WINDOW_WIDTH*3/4.0f, 100.0f);
-  sf::Color campaignMapOrderTextColor(189, 147, 249);
-  GuiData::campaignMapOrderText.setFillColor(campaignMapOrderTextColor);
-  window.draw(GuiData::campaignMapOrderText);
+void Ui::isCreatingOrEditingMap(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  this->drawSaveButton(window);
+
+  // draw sprite menu to select
+  Gui::wallSelectionSpritePosition = this->drawSprite(window, Gui::wallTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, Gui::W_HEIGHT-300);
+  Gui::treasureSelectionSpritePosition = this->drawSprite(window, Gui::treasureTexture, 0.5f, 0.5f, Gui::W_WIDTH-40, Gui::W_HEIGHT-300);
+  Gui::startSelectionSpritePosition = this->drawSprite(window, Gui::startTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, Gui::W_HEIGHT-360);
+  Gui::exitSelectionSpritePosition = this->drawSprite(window, Gui::exitTexture, 0.5f, 0.5f, Gui::W_WIDTH-40, Gui::W_HEIGHT-360);
+  Gui::emptySelectionSpritePosition = this->drawSprite(window, Gui::emptyTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, Gui::W_HEIGHT-240);
+  Gui::monsterSelectionSpritePosition = this->drawSprite(window, Gui::monsterTexture, 0.5f, 0.5f, Gui::W_WIDTH-40, Gui::W_HEIGHT-240);
+
+  this->drawMap(window);
+
+  // Show the currently selected map tile
+  this->drawText(window, "Current\nMap Tile", 20, Gui::WHITE, Gui::W_WIDTH-70.0f, 130.0f);
+  if (Gui::currentMapTileSelectedChar == ' ') {
+    this->drawSprite(window, Gui::emptyTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+  if (Gui::currentMapTileSelectedChar == 'W') {
+    this->drawSprite(window, Gui::wallTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+  if (Gui::currentMapTileSelectedChar == 'T') {
+    this->drawSprite(window, Gui::treasureTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+  if (Gui::currentMapTileSelectedChar == 'O') {
+    this->drawSprite(window, Gui::monsterTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+  if (Gui::currentMapTileSelectedChar == 'S') {
+    this->drawSprite(window, Gui::startTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+  if (Gui::currentMapTileSelectedChar == 'E') {
+    this->drawSprite(window, Gui::exitTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+
+  this->drawValidationErrorIfNeeded(window);
 }
 
-void Ui::drawCampaignAvailableMaps(sf::RenderWindow& window) {
-  GuiData::campaignAvailableMaps.setFont(GuiData::currentFont);
-  GuiData::campaignAvailableMaps.setCharacterSize(20);
-  GuiData::campaignAvailableMaps.setOrigin(GuiData::campaignAvailableMaps.getGlobalBounds().width/2.0f, GuiData::campaignAvailableMaps.getGlobalBounds().height/2.0f);
-  sf::Color campaignAvailableMapsColor(248,248,242);
-  GuiData::campaignAvailableMaps.setFillColor(campaignAvailableMapsColor);
+
+void Ui::isCreatingOrEditingCampaign(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  this->drawSaveButton(window);
+  this->drawText(window, "Available Maps\nClick to add", 24, Gui::PURPLE, Gui::W_WIDTH/4.0f, 100.0f);
+  this->drawText(window, "Map Order\nClick to remove", 24, Gui::PURPLE, 3*Gui::W_WIDTH/4.0f, 100.0f);
 
   float mapPositionIncrement = 35.0f;
-  GuiData::current_available_map_positions.clear();
-  for (int i = 0; i < (int)GuiData::current_maps.size(); i++) {
-    GuiData::campaignAvailableMaps.setString(GuiData::current_maps[i]);
-    GuiData::campaignAvailableMaps.setPosition(GuiData::WINDOW_WIDTH/4.0f, 170.0f+(i*mapPositionIncrement));
-    GuiData::current_available_map_positions.push_back(GuiData::campaignAvailableMaps.getGlobalBounds());
-    window.draw(GuiData::campaignAvailableMaps);
+
+  // Draw availables to add to campaign
+  Gui::current_available_map_positions.clear();
+  for (int i = 0; i < (int)Gui::current_maps.size(); i++) {
+    Gui::current_available_map_positions.push_back(
+      this->drawText(window, Gui::current_maps[i], 20, Gui::WHITE, Gui::W_WIDTH/4.0f, 170.0f+(i*mapPositionIncrement))
+    );
   }
-}
 
-void Ui::drawCampaignMapOrder(sf::RenderWindow& window) {
-  GuiData::campaignMapOrder.setFont(GuiData::currentFont);
-  GuiData::campaignMapOrder.setCharacterSize(20);
-  GuiData::campaignMapOrder.setOrigin(GuiData::campaignMapOrder.getGlobalBounds().width/2.0f, GuiData::campaignMapOrder.getGlobalBounds().height/2.0f);
-  sf::Color campaignMapOrderColor(248,248,242);
-  GuiData::campaignMapOrder.setFillColor(campaignMapOrderColor);
-
-  float mapPositionIncrement = 35.0f;
-  GuiData::current_campaign_map_order_positions.clear();
+  // Draw maps currently in selected campaign
+  Gui::current_campaign_map_order_positions.clear();
   for (int i = 0; i < (int)GameData::currentCampaignObject->getCampaignMapOrder().size(); i++) {
-    GuiData::campaignMapOrder.setString(GameData::currentCampaignObject->getCampaignMapOrder()[i]);
-    GuiData::campaignMapOrder.setPosition(GuiData::WINDOW_WIDTH*3/4.0f, 170.0f+(i*mapPositionIncrement));
-    GuiData::current_campaign_map_order_positions.push_back(GuiData::campaignMapOrder.getGlobalBounds());
-    window.draw(GuiData::campaignMapOrder);
+    Gui::current_campaign_map_order_positions.push_back(
+      this->drawText(window, GameData::currentCampaignObject->getCampaignMapOrder()[i],
+        20, Gui::WHITE, 3*Gui::W_WIDTH/4.0f, 170.0f+(i*mapPositionIncrement))
+    );
   }
-}
-void Ui::drawMapValidationError(sf::RenderWindow& window) {
-  GuiData::mapValidationError.setString("MAP IS NOT VALID");
-  GuiData::mapValidationError.setFont(GuiData::currentFont);
-  GuiData::mapValidationError.setCharacterSize(24);
-  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
-  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  sf::Color mapValidationErrorColor(255, 85, 85);
-  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
-  window.draw(GuiData::mapValidationError);
+
+  this->drawValidationErrorIfNeeded(window);
 }
 
-void Ui::drawCampaignValidationError(sf::RenderWindow& window) {
-  GuiData::mapValidationError.setString("CAMPAIGN IS NOT VALID");
-  GuiData::mapValidationError.setFont(GuiData::currentFont);
-  GuiData::mapValidationError.setCharacterSize(24);
-  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
-  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  sf::Color mapValidationErrorColor(255, 85, 85);
-  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
-  window.draw(GuiData::mapValidationError);
+void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  this->drawSaveButton(window);
+  this->drawText(window,
+      "Enter Character Abilities as comma-separated integers\nStrength,Dexterity,Constitution,Intelligence,Wisdom,Charisma\nEx: 15,14,13,12,10,8",
+      21, Gui::WHITE, Gui::W_WIDTH/2.0f, 100.0f);
+
+  if (Gui::isCreatingCharacter)
+    this->drawText(window, Gui::createdCharacterArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 230.0f);
+  if (Gui::isEditingCharacter)
+    this->drawText(window, Gui::chosenCharacterArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 230.0f);
+
+  this->drawValidationErrorIfNeeded(window);
 }
 
-void Ui::drawCharacterValidationError(sf::RenderWindow& window) {
-  GuiData::mapValidationError.setString("CHARACTER IS NOT VALID");
-  GuiData::mapValidationError.setFont(GuiData::currentFont);
-  GuiData::mapValidationError.setCharacterSize(24);
-  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
-  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  sf::Color mapValidationErrorColor(255, 85, 85);
-  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
-  window.draw(GuiData::mapValidationError);
+void Ui::isPlayingGame(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  this->drawMap(window);
+  this->drawValidationErrorIfNeeded(window);
 }
-
-void Ui::drawItemValidationError(sf::RenderWindow& window) {
-  GuiData::mapValidationError.setString("ITEM IS NOT VALID");
-  GuiData::mapValidationError.setFont(GuiData::currentFont);
-  GuiData::mapValidationError.setCharacterSize(24);
-  GuiData::mapValidationError.setOrigin(GuiData::mapValidationError.getGlobalBounds().width/2.0f, GuiData::mapValidationError.getGlobalBounds().height/2.0f);
-  GuiData::mapValidationError.setPosition(GuiData::WINDOW_WIDTH/2.0f, 50.0f);
-  sf::Color mapValidationErrorColor(255, 85, 85);
-  GuiData::mapValidationError.setFillColor(mapValidationErrorColor);
-  window.draw(GuiData::mapValidationError);
-}
-
-void Ui::drawCharacterValuePrompt(sf::RenderWindow& window) {
-  GuiData::characterValuePrompt.setString("Enter Character Abilities as comma-separated integers\nStrength,Dexterity,Constitution,Intelligence,Wisdom,Charisma\nEx: 15,14,13,12,10,8");
-  GuiData::characterValuePrompt.setFont(GuiData::currentFont);
-  GuiData::characterValuePrompt.setCharacterSize(21);
-  GuiData::characterValuePrompt.setOrigin(GuiData::characterValuePrompt.getGlobalBounds().width/2.0f, GuiData::characterValuePrompt.getGlobalBounds().height/2.0f);
-  GuiData::characterValuePrompt.setPosition(GuiData::WINDOW_WIDTH/2.0f, 100.0f);
-  sf::Color characterValuePromptColor(248, 248, 242);
-  GuiData::characterValuePrompt.setFillColor(characterValuePromptColor);
-  window.draw(GuiData::characterValuePrompt);
-}
-
-
 

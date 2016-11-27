@@ -13,10 +13,7 @@ class Events {
     void respondToRealTimeTypeFeedback(sf::Event& evt);
     void respondToHomeButtonClick(sf::RenderWindow& window);
     void respondToSaveMapCampaign(sf::RenderWindow& window);
-    void respondToWidthPlusClick(sf::RenderWindow& window);
-    void respondToWidthMinusClick(sf::RenderWindow& window);
-    void respondToLengthPlusClick(sf::RenderWindow& window);
-    void respondToLengthMinusClick(sf::RenderWindow& window);
+    void respondToMapSizeClick(sf::RenderWindow& window);
     void respondToMapCreateOkButton(sf::RenderWindow& window);
     void respondToMapTileSelect(sf::RenderWindow& window);
     void respondToMapBoxClick(sf::RenderWindow& window);
