@@ -16,11 +16,7 @@ Character::Character(CharacterAttr *characterAttr) {
 }
 
 Character::~Character() {
-	delete this->characterAttr, 
-		this->characterBackpack, 
-		this->characterEquipment, 
-		this->attackbonus, 
-		this;
+	delete this;
 }
 
 /*
@@ -28,11 +24,11 @@ action methods
 */
 
 void Character::equipItem(Item item) {
-	if (characterEquipment->getItem(item.getType()).getType()!="") {
-		characterEquipment->addItem(item);
-		for (int i = 0; i < item.getInfluences().size(); i++) {
+	if (characterEquipment->getItem(item.getType()).getType()=="") {
+		for (int i = 0; i < item.getInfluences().size();  i++) {
 			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
 		}
+		characterEquipment->addItem(item);
 	}
 }
 
