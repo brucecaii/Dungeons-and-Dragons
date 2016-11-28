@@ -1,0 +1,189 @@
+#include "Character.h"
+#include <cmath>
+#include <iostream>
+#include <stdio.h>      
+#include <stdlib.h>     
+#include <time.h>      
+#include <string>
+using namespace std;
+
+Character::Character() {}
+
+Character::Character(CharacterAttr *characterAttr) {
+	this->characterAttr = characterAttr;
+	this->characterLevel = 1;
+	this->setHitPoint(10);
+}
+
+Character::~Character() {
+	delete this->characterAttr, 
+		this->characterBackpack, 
+		this->characterEquipment, 
+		this->attackbonus, 
+		this;
+}
+
+/*
+action methods
+*/
+
+void Character::equipItem(Item item) {
+	if (characterEquipment->getItem(item.getType()).getType()!="") {
+		characterEquipment->addItem(item);
+		for (int i = 0; i < item.getInfluences().size(); i++) {
+			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
+		}
+	}
+}
+
+void Character::deEquipItem(string typeofItem) {
+	if (characterEquipment->getItem(typeofItem).getType() == typeofItem) {
+		Item current = characterEquipment->getItem(typeofItem);
+		for (int i = 0; i < current.getInfluences().size(); i++) {
+			changeAttr(current.getInfluences()[i].getType(), current.getInfluences()[i].getBonus(), "-");
+		}
+		characterEquipment->deleteItemByType(typeofItem);
+	}
+}
+
+void Character::addItemBackpack(Item item) {
+	if (characterBackpack->getItems().size() < 20) {
+		characterBackpack->addItem(item);
+	}
+	else {
+		cout << "your bag is full" << endl;
+	}
+}
+
+void Character::removeItemfromBackpack(string name) {
+	characterBackpack->deleteItem(name);
+}
+
+void Character::changeAttr(string type, int value, string action) {
+	if (type.compare("int") == 0) {
+		if (action == "+") this->characterAttr->setIntelligence(this->characterAttr->getIntelligence() + value);
+		if (action == "-") this->characterAttr->setIntelligence(this->characterAttr->getIntelligence() - value);
+	}
+	else if (type.compare("wis") == 0) {
+		if (action == "+") this->characterAttr->setWisdom(this->characterAttr->getWisdom() + value);
+		if (action == "-") this->characterAttr->setWisdom(this->characterAttr->getWisdom() - value);
+	}
+	else if (type.compare("str") == 0) {
+		if (action == "+") this->characterAttr->setStrength(this->characterAttr->getStrength() + value);
+		if (action == "-") this->characterAttr->setStrength(this->characterAttr->getStrength() - value);
+	}
+	else if (type.compare("con") == 0) {
+		if (action == "+") this->characterAttr->setConstitution(this->characterAttr->getConstitution() + value);
+		if (action == "-") this->characterAttr->setConstitution(this->characterAttr->getConstitution() - value);
+	}
+	else if (type.compare("cha") == 0) {
+		if (action == "+") this->characterAttr->setCharisma(this->characterAttr->getCharisma() + value);
+		if (action == "-") this->characterAttr->setCharisma(this->characterAttr->getCharisma() - value);
+	}
+	else if (type.compare("dex") == 0) {
+		if (action == "+") this->characterAttr->setDexterity(this->characterAttr->getDexterity() + value);
+		if (action == "-") this->characterAttr->setDexterity(this->characterAttr->getDexterity() - value);
+	}
+}
+
+int Character::modifier(int dice, int bonus) const {
+	return dice += bonus;
+}
+
+void Character::levelUp() {
+	this->characterLevel++;
+}
+
+bool Character::validateNewCharacter() {
+	return this->characterAttr->validateAttr();
+}
+
+/*
+getter and setter
+*/
+
+int Character::getLevel() const {
+	return this->characterLevel;
+}
+
+int Character::getHitPoint() const {
+	return this->hitPoint;
+}
+
+void Character::setHitPoint(int hitPoint) {
+	this->hitPoint = hitPoint;
+}
+
+int Character::getArmorClass() const {
+	return this->armorClass;
+}
+
+void Character::setArmorClass(int armorClass) {
+	this->armorClass = armorClass;
+}
+
+vector<int> Character::getAttackBonus() const {
+	return this->attackbonus;
+}
+
+void Character::setAttackBonus(const vector<int> &attackBonus) {
+	this->attackbonus = attackBonus;
+}
+
+ItemContainer* Character::getCharacterEquipment() const {
+	return this->characterEquipment;
+}
+
+void Character::setCharacterEquipment(ItemContainer *characterEquipment) {
+	this->characterEquipment = characterEquipment;
+}
+
+ItemContainer* Character::getCharacterBackpack() const {
+	return this->characterBackpack;
+}
+
+void Character::setCharacterBackpack(ItemContainer *characterBackpack) {
+	this->characterBackpack = characterBackpack;
+}
+
+CharacterAttr* Character::getCharacterAttr() const {
+	return this->characterAttr;
+}
+
+void Character::setCharacterAttr(CharacterAttr *characterAttr) {
+	this->characterAttr = characterAttr;
+}
+
+
+/*
+//! method to display the character
+void Character::displayCharacter() {
+	cout << "*******************************************" << endl;
+	cout << "Here are you stats for your character " << endl;
+	cout << "Your strength is : " << abilityScores[0] << endl;
+	cout << "Your dexterity is : " << abilityScores[1] << endl;
+	cout << "Your constitution is : " << abilityScores[2] << endl;
+	cout << "Your intelligence is : " << abilityScores[3] << endl;
+	cout << "Your wisdom is : " << abilityScores[4] << endl;
+	cout << "Your charisma is : " << abilityScores[5] << endl;
+	cout << "Your hp is : " << this->getHitPoints() << endl;
+	cout << "Your level is : " << this->getLevel() << endl;
+	cout << "Your armorclass is : " << armorclass << endl;
+	cout << "Your attackbonus is : " << attackbonus << endl;
+	cout << "---------------------------------------" << endl;
+	cout << "Your items equipped are " << endl;
+
+        try {
+          vector<Item> test = equipment->getItems();
+          for (int i = 0; i < test.size(); i++) {
+                  cout << "Your " << test[i].getType() << " is " << test[i].getName() << endl;
+          }
+        } catch (std::bad_alloc& ba) {
+          cout << "NULL" << endl;
+        }
+
+
+	cout << "*******************************************";
+}
+*/
+

@@ -1,0 +1,18 @@
+{
+  "enhancements": [
+    {
+      "bonus": 5,
+      "enhancement_type": "Intelligence",
+    },
+    {
+      "bonus": 5,
+      "enhancement_type": "Wisdom",
+    },
+    {
+      "bonus": 5,
+      "enhancement_type": "Armor class",
+    }
+  ],
+  "item_name": "Acne Studio Hat",
+  "item_type": "Helmet"
+}
