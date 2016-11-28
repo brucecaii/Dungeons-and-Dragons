@@ -2,10 +2,10 @@
 //! @brief Driver file to create and execute the test suite 
 //!
 #include <string>
-#include "../Item/Item.h"
-#include "../Character/Fighter.h"
-#include "../Item/Enhancement.h"
-#include "../Character/CharacterAttr.h"
+#include "Item/Item.h"
+#include "Character/Fighter.h"
+#include "Item/Enhancement.h"
+#include "Character/CharacterAttr.h"
 #include <iostream>
 using namespace std;
 
