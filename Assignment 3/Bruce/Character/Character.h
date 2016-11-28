@@ -1,7 +1,5 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-
-
 #include "Subject.h"
 #include "../item/ItemContainer.h"
 #include "../Dependency/json.hpp"
@@ -10,6 +8,7 @@ using json = nlohmann::json;
 using namespace std;
 
 class Character : public Subject {
+
 public:
 	Character();
 	Character(CharacterAttr *characterAttr);

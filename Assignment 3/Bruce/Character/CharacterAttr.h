@@ -2,6 +2,7 @@
 #define CHARACTER_ATTR_H
 
 class CharacterAttr {
+
 public:
 	CharacterAttr();
 	CharacterAttr(int intelligence, int wisdom, int strength, int dexterity, int constitution, int charisma);
@@ -20,6 +21,7 @@ public:
 	void setConstitution(int constitution);
 	int getCharisma() const;
 	void setCharisma(int charisma);
+
 private:
 	int intelligence, wisdom, strength, dexterity, constitution, charisma; //basic attr
 };
