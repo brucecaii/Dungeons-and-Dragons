@@ -261,7 +261,7 @@ void Map::setMapData(string placement) {
 }
 
 
-
+//! Implementation of the display method. Prints an ASCII map to the console.
 void Map::display() {
   cout << string(mapWidth+2,'#') << endl;
   for (int i = 0; i < (int)map.size(); i++) {
@@ -279,6 +279,9 @@ void Map::setCharacter(int x, int y) {
 void Map::clearCell(int x, int y){
   map[x][y] = ' ';
 }
+
+//! Implementation of the getAllCharacterPositions method. This allows for the eventual construction of Character objects that correspond to letters on the map grid.
+// @return a vector of tuples, which contain the character type and its position on the map.
 vector<tuple<char,int,int>> Map::getAllCharacterPositions() {
   vector<tuple<char,int,int>> characterPositions;
   for(int i = 0; i < this->mapWidth; i++) {
@@ -291,6 +294,8 @@ vector<tuple<char,int,int>> Map::getAllCharacterPositions() {
   return characterPositions;
 }
 
+//! Implementation of the getHumanPosition method. This returns a empty vector if no start character/position is found (technically an invalid map), and a vector 2 ints corresponding to the start position if one is found
+// @return a vector of ints corresponding to the start position
 
 vector<int> Map::getHumanPosition() {
   vector<int> humanPosition = {};

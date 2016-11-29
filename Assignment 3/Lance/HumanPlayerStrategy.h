@@ -16,5 +16,7 @@ class HumanPlayerStrategy : public Strategy {
     void moveDown(Map& m, Character& c);
     void moveRight(Map& m, Character& c);
     void moveLeft(Map& m, Character& c);
+    void canAttackOneAdjacentCharacter(Map& m, Character& c);
+    void attackCharacterAtPosition(Character& c, int charPosX, int charPosY);
 };
 

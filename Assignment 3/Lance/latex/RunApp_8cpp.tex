@@ -1,0 +1,52 @@
+\hypertarget{RunApp_8cpp}{}\section{Run\+App.\+cpp File Reference}
+\label{RunApp_8cpp}\index{Run\+App.\+cpp@{Run\+App.\+cpp}}
+
+
+Driver file to drive the main program.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}Map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Character.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Aggressor\+Strategy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Friendly\+Strategy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Human\+Player\+Strategy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Global.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{RunApp_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{RunApp_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
+int \hyperlink{RunApp_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Program main method. Drives the creation of mock data (map and characters). Drives the program until the user\textquotesingle{}s character dies or quits the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Driver file to drive the main program. 
+
+To run the program (Linux)\+:
+\begin{DoxyItemize}
+\item Make sure you are in the project directory.
+\item \$ g++ -\/g $\ast$.cpp -\/o test \&\& ./test
+\end{DoxyItemize}
+
+This program should also run easily on any platform.
+
+Doxygen H\+T\+ML docs can be found in the html/ directory.
+
+Some assumptions about this program\+:
+\begin{DoxyItemize}
+\item The simplest possible case was chosen in order to satisfy all assignment requirements without additional complexity. Therefore, no items, item containers, or enhancements exist in the implementation of this game.
+\item No specific character classes were assumed.
+\item No other patterns (Observer, Builder) are illustrated in this assignment, since they are not strictly required and would add unneeded complexity to this simple showcasing of the \hyperlink{classStrategy}{Strategy} pattern.
+\end{DoxyItemize}
+
+Some future optimizations\+:
+\begin{DoxyItemize}
+\item Better path finding algorithm (eg. shortest\+Distance\+To\+Human method). Currently, the algorithm used does not consider obstacles such as walls, other characters, etc.
+\item Proper multiple attack.
+\item proper attack success based on dice roll and armor class.
+\item proper hitpoint reductions if attack is successful. 
+\end{DoxyItemize}

@@ -1,0 +1,336 @@
+\hypertarget{classCharacter}{}\section{Character Class Reference}
+\label{classCharacter}\index{Character@{Character}}
+
+
+A class representing a character, whether friendly or unfriendly.  
+
+
+
+
+{\ttfamily \#include $<$Character.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classCharacter_a329427ee87720c6f322c85c9e5adee21}{}\label{classCharacter_a329427ee87720c6f322c85c9e5adee21} 
+\hyperlink{classCharacter_a329427ee87720c6f322c85c9e5adee21}{Character} (int str, int dex, int con, int intel, int wis, int cha, \hyperlink{classStrategy}{Strategy} $\ast$init\+Strategy, int posX, int posY, char type\+On\+Map)
+\begin{DoxyCompactList}\small\item\em Constructor\+: passes values to each ability score, set hit points to 10, assigns a \hyperlink{classStrategy}{Strategy} type and a map position. \end{DoxyCompactList}\item 
+int \hyperlink{classCharacter_ac28870a30c9b451f55c3e27adaabfbfa}{get\+Hit\+Points} ()
+\item 
+void \hyperlink{classCharacter_a549925b3196f1a1b756f2b43df8ab392}{set\+Hit\+Points} (int HP)
+\item 
+\hypertarget{classCharacter_aaaffb44b62eb70df0e545700c6011210}{}\label{classCharacter_aaaffb44b62eb70df0e545700c6011210} 
+void \hyperlink{classCharacter_aaaffb44b62eb70df0e545700c6011210}{level\+Up} ()
+\begin{DoxyCompactList}\small\item\em this method is when you wish to level up the character and it scales the abilties appropiatly. \end{DoxyCompactList}\item 
+int \hyperlink{classCharacter_a54374ab71aec1bc86805b6f8aa7e7567}{modifier} (int)
+\item 
+\hypertarget{classCharacter_a18ff2d8cf9264e321e1faff4e8bd0c7c}{}\label{classCharacter_a18ff2d8cf9264e321e1faff4e8bd0c7c} 
+void \hyperlink{classCharacter_a18ff2d8cf9264e321e1faff4e8bd0c7c}{display\+Character} ()
+\begin{DoxyCompactList}\small\item\em Utility method to display lots of information about the current character. \end{DoxyCompactList}\item 
+bool \hyperlink{classCharacter_adae2bb0e0bb6b8d010be6d1ac3b1fd5f}{validate\+New\+Character} ()
+\item 
+int \hyperlink{classCharacter_a8ccbb82b13e59f02c9df0b321fae577d}{get\+Strength} ()
+\begin{DoxyCompactList}\small\item\em getters for total scores \end{DoxyCompactList}\item 
+int \hyperlink{classCharacter_a86b9d59f326c3df44a6bf2484fd95a7c}{get\+Dexterity} ()
+\item 
+int \hyperlink{classCharacter_a2f731997fba7630b66c0686ee2c10a8f}{get\+Constitution} ()
+\item 
+int \hyperlink{classCharacter_a0cd463a2b68c2cc2b73707b859709635}{get\+Intelligence} ()
+\item 
+int \hyperlink{classCharacter_a4d4d5548ed8ed813e4f59f123180afcb}{get\+Wisdom} ()
+\item 
+int \hyperlink{classCharacter_af03c7318bd3015262a0f4873b74a1d51}{get\+Charisma} ()
+\item 
+int \hyperlink{classCharacter_ade8602e9521fc4c1849d1d1026bc0399}{get\+Level} ()
+\item 
+int \hyperlink{classCharacter_a0c9f1088f6b98c5fb5080267dd7cde49}{get\+Strength\+From\+Base} ()
+\begin{DoxyCompactList}\small\item\em getters for scores from your base attributes, not item enhancments \end{DoxyCompactList}\item 
+\hypertarget{classCharacter_a9d9f78f0f550737bc8657c74bafd1da7}{}\label{classCharacter_a9d9f78f0f550737bc8657c74bafd1da7} 
+int {\bfseries get\+Dexterity\+From\+Base} ()
+\item 
+\hypertarget{classCharacter_a4917e88b4954b7c8bf5cca9bac814eee}{}\label{classCharacter_a4917e88b4954b7c8bf5cca9bac814eee} 
+int {\bfseries get\+Constitution\+From\+Base} ()
+\item 
+\hypertarget{classCharacter_a693fb1317d566aac988c575a2252ce0b}{}\label{classCharacter_a693fb1317d566aac988c575a2252ce0b} 
+int {\bfseries get\+Intelligence\+From\+Base} ()
+\item 
+\hypertarget{classCharacter_ac579d07a40589d6abb44f75b95dba847}{}\label{classCharacter_ac579d07a40589d6abb44f75b95dba847} 
+int {\bfseries get\+Wisdom\+From\+Base} ()
+\item 
+\hypertarget{classCharacter_a38fb2dbfbafe81f03365ede8ad95d92b}{}\label{classCharacter_a38fb2dbfbafe81f03365ede8ad95d92b} 
+int {\bfseries get\+Charisma\+From\+Base} ()
+\item 
+void \hyperlink{classCharacter_afb85385ddf9ea03258e3df50184606bd}{set\+Strength} (int)
+\begin{DoxyCompactList}\small\item\em setters for your base character stats \end{DoxyCompactList}\item 
+\hypertarget{classCharacter_a7a2376d083253985ec93f07b06880f09}{}\label{classCharacter_a7a2376d083253985ec93f07b06880f09} 
+void {\bfseries set\+Dexterity} (int)
+\item 
+\hypertarget{classCharacter_ac4c0552ec6568c89cc6350c7172ac43e}{}\label{classCharacter_ac4c0552ec6568c89cc6350c7172ac43e} 
+void {\bfseries set\+Constitution} (int)
+\item 
+\hypertarget{classCharacter_a5d4ce1fb3f237b7ef9f30f1c97239398}{}\label{classCharacter_a5d4ce1fb3f237b7ef9f30f1c97239398} 
+void {\bfseries set\+Intelligence} (int)
+\item 
+\hypertarget{classCharacter_a53cada6e4dccff94e3d1a067b1062a59}{}\label{classCharacter_a53cada6e4dccff94e3d1a067b1062a59} 
+void {\bfseries set\+Wisdom} (int)
+\item 
+\hypertarget{classCharacter_a01fb8e01e0686ce465fe95e18078aebe}{}\label{classCharacter_a01fb8e01e0686ce465fe95e18078aebe} 
+void {\bfseries set\+Charisma} (int)
+\item 
+void \hyperlink{classCharacter_a509659845edbecfe7806ca1606ec8f18}{set\+Type\+On\+Map} (char t)
+\item 
+char \hyperlink{classCharacter_a51e80d6194b8c0f4558b593c8e9b58f6}{get\+Type\+On\+Map} ()
+\item 
+bool \hyperlink{classCharacter_a74d1c28e2a5a4a3618c1f6c54c74fde4}{set\+Current\+Position} (\hyperlink{classMap}{Map} m)
+\item 
+int \hyperlink{classCharacter_ae0a3d4fb5985bf2101292f7a4fc6b9c2}{get\+Current\+PositionX} ()
+\item 
+int \hyperlink{classCharacter_aa2b5d86af4a2f086b5f80eac3e209dcc}{get\+Current\+PositionY} ()
+\item 
+void \hyperlink{classCharacter_aaed0028340719ad6edc3c4fbcc79b726}{set\+Current\+PositionX} (int char\+PosX)
+\item 
+void \hyperlink{classCharacter_a5a06122e27f7c4baa5ea0f38d95308b5}{set\+Current\+PositionY} (int char\+PosY)
+\item 
+void \hyperlink{classCharacter_a8a0a60768f62bb565268b7700bcc3ba3}{set\+Strategy} (\hyperlink{classStrategy}{Strategy} $\ast$new\+Strategy)
+\item 
+void \hyperlink{classCharacter_a67e50bbbfdf69cce320c1b5079f5f052}{execute\+Strategy} (\hyperlink{classMap}{Map} \&m)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class representing a character, whether friendly or unfriendly. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classCharacter_a67e50bbbfdf69cce320c1b5079f5f052}{}\label{classCharacter_a67e50bbbfdf69cce320c1b5079f5f052} 
+\index{Character@{Character}!execute\+Strategy@{execute\+Strategy}}
+\index{execute\+Strategy@{execute\+Strategy}!Character@{Character}}
+\subsubsection{\texorpdfstring{execute\+Strategy()}{executeStrategy()}}
+{\footnotesize\ttfamily void Character\+::execute\+Strategy (\begin{DoxyParamCaption}\item[{\hyperlink{classMap}{Map} \&}]{m }\end{DoxyParamCaption})}
+
+Implementation of the execute\+Strategy method. Calls the current strategy\textquotesingle{}s execute method, and passes along a reference to the current character object. 
+\begin{DoxyParams}{Parameters}
+{\em Reference} & to the current map object \\
+\hline
+{\em Reference} & to the current character object \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_af03c7318bd3015262a0f4873b74a1d51}{}\label{classCharacter_af03c7318bd3015262a0f4873b74a1d51} 
+\index{Character@{Character}!get\+Charisma@{get\+Charisma}}
+\index{get\+Charisma@{get\+Charisma}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Charisma()}{getCharisma()}}
+{\footnotesize\ttfamily int Character\+::get\+Charisma (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the Charisma ability \begin{DoxyReturn}{Returns}
+int representing the Charisma ability 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a2f731997fba7630b66c0686ee2c10a8f}{}\label{classCharacter_a2f731997fba7630b66c0686ee2c10a8f} 
+\index{Character@{Character}!get\+Constitution@{get\+Constitution}}
+\index{get\+Constitution@{get\+Constitution}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Constitution()}{getConstitution()}}
+{\footnotesize\ttfamily int Character\+::get\+Constitution (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the Constitution ability \begin{DoxyReturn}{Returns}
+int representing the Constitution ability 
+\end{DoxyReturn}
+\hypertarget{classCharacter_ae0a3d4fb5985bf2101292f7a4fc6b9c2}{}\label{classCharacter_ae0a3d4fb5985bf2101292f7a4fc6b9c2} 
+\index{Character@{Character}!get\+Current\+PositionX@{get\+Current\+PositionX}}
+\index{get\+Current\+PositionX@{get\+Current\+PositionX}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Current\+Position\+X()}{getCurrentPositionX()}}
+{\footnotesize\ttfamily int Character\+::get\+Current\+PositionX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for current character\textquotesingle{}s x-\/coordinate in the current map. \begin{DoxyReturn}{Returns}
+int representnt current chaacter x-\/coordinate 
+\end{DoxyReturn}
+\hypertarget{classCharacter_aa2b5d86af4a2f086b5f80eac3e209dcc}{}\label{classCharacter_aa2b5d86af4a2f086b5f80eac3e209dcc} 
+\index{Character@{Character}!get\+Current\+PositionY@{get\+Current\+PositionY}}
+\index{get\+Current\+PositionY@{get\+Current\+PositionY}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Current\+Position\+Y()}{getCurrentPositionY()}}
+{\footnotesize\ttfamily int Character\+::get\+Current\+PositionY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for current character\textquotesingle{}s y-\/coordinate in the current map. \begin{DoxyReturn}{Returns}
+int representnt current chaacter y-\/coordinate 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a86b9d59f326c3df44a6bf2484fd95a7c}{}\label{classCharacter_a86b9d59f326c3df44a6bf2484fd95a7c} 
+\index{Character@{Character}!get\+Dexterity@{get\+Dexterity}}
+\index{get\+Dexterity@{get\+Dexterity}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Dexterity()}{getDexterity()}}
+{\footnotesize\ttfamily int Character\+::get\+Dexterity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the Dexterity ability \begin{DoxyReturn}{Returns}
+int representing the Dexterity ability 
+\end{DoxyReturn}
+\hypertarget{classCharacter_ac28870a30c9b451f55c3e27adaabfbfa}{}\label{classCharacter_ac28870a30c9b451f55c3e27adaabfbfa} 
+\index{Character@{Character}!get\+Hit\+Points@{get\+Hit\+Points}}
+\index{get\+Hit\+Points@{get\+Hit\+Points}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Hit\+Points()}{getHitPoints()}}
+{\footnotesize\ttfamily int Character\+::get\+Hit\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the number of character\textquotesingle{}s hitpoints \begin{DoxyReturn}{Returns}
+int\+: value of current\+Hit\+Points 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a0cd463a2b68c2cc2b73707b859709635}{}\label{classCharacter_a0cd463a2b68c2cc2b73707b859709635} 
+\index{Character@{Character}!get\+Intelligence@{get\+Intelligence}}
+\index{get\+Intelligence@{get\+Intelligence}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Intelligence()}{getIntelligence()}}
+{\footnotesize\ttfamily int Character\+::get\+Intelligence (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the Intelligence ability \begin{DoxyReturn}{Returns}
+int representing the Intelligence ability 
+\end{DoxyReturn}
+\hypertarget{classCharacter_ade8602e9521fc4c1849d1d1026bc0399}{}\label{classCharacter_ade8602e9521fc4c1849d1d1026bc0399} 
+\index{Character@{Character}!get\+Level@{get\+Level}}
+\index{get\+Level@{get\+Level}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Level()}{getLevel()}}
+{\footnotesize\ttfamily int Character\+::get\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the current character level \begin{DoxyReturn}{Returns}
+int representing the current character level 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a8ccbb82b13e59f02c9df0b321fae577d}{}\label{classCharacter_a8ccbb82b13e59f02c9df0b321fae577d} 
+\index{Character@{Character}!get\+Strength@{get\+Strength}}
+\index{get\+Strength@{get\+Strength}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Strength()}{getStrength()}}
+{\footnotesize\ttfamily int Character\+::get\+Strength (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+getters for total scores 
+
+Getter for the Strength ability \begin{DoxyReturn}{Returns}
+int representing the Strength ability 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a0c9f1088f6b98c5fb5080267dd7cde49}{}\label{classCharacter_a0c9f1088f6b98c5fb5080267dd7cde49} 
+\index{Character@{Character}!get\+Strength\+From\+Base@{get\+Strength\+From\+Base}}
+\index{get\+Strength\+From\+Base@{get\+Strength\+From\+Base}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Strength\+From\+Base()}{getStrengthFromBase()}}
+{\footnotesize\ttfamily int Character\+::get\+Strength\+From\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+getters for scores from your base attributes, not item enhancments 
+
+getters for base scores used for saving \hypertarget{classCharacter_a51e80d6194b8c0f4558b593c8e9b58f6}{}\label{classCharacter_a51e80d6194b8c0f4558b593c8e9b58f6} 
+\index{Character@{Character}!get\+Type\+On\+Map@{get\+Type\+On\+Map}}
+\index{get\+Type\+On\+Map@{get\+Type\+On\+Map}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Type\+On\+Map()}{getTypeOnMap()}}
+{\footnotesize\ttfamily char Character\+::get\+Type\+On\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for current character\textquotesingle{}s type as represented on the current map \begin{DoxyReturn}{Returns}
+a char representing the type of character as seen on the map 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a4d4d5548ed8ed813e4f59f123180afcb}{}\label{classCharacter_a4d4d5548ed8ed813e4f59f123180afcb} 
+\index{Character@{Character}!get\+Wisdom@{get\+Wisdom}}
+\index{get\+Wisdom@{get\+Wisdom}!Character@{Character}}
+\subsubsection{\texorpdfstring{get\+Wisdom()}{getWisdom()}}
+{\footnotesize\ttfamily int Character\+::get\+Wisdom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the Wisdom ability \begin{DoxyReturn}{Returns}
+int representing the Wisdom ability 
+\end{DoxyReturn}
+\hypertarget{classCharacter_a54374ab71aec1bc86805b6f8aa7e7567}{}\label{classCharacter_a54374ab71aec1bc86805b6f8aa7e7567} 
+\index{Character@{Character}!modifier@{modifier}}
+\index{modifier@{modifier}!Character@{Character}}
+\subsubsection{\texorpdfstring{modifier()}{modifier()}}
+{\footnotesize\ttfamily int Character\+::modifier (\begin{DoxyParamCaption}\item[{int}]{abilityscore }\end{DoxyParamCaption})}
+
+according to d20 rules modifier is (ability score -\/10) /2 
+\begin{DoxyParams}{Parameters}
+{\em int} & representing score of one of the abilities \\
+\hline
+{\em int} & representing updated ability score after modifer was applied \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_a74d1c28e2a5a4a3618c1f6c54c74fde4}{}\label{classCharacter_a74d1c28e2a5a4a3618c1f6c54c74fde4} 
+\index{Character@{Character}!set\+Current\+Position@{set\+Current\+Position}}
+\index{set\+Current\+Position@{set\+Current\+Position}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Current\+Position()}{setCurrentPosition()}}
+{\footnotesize\ttfamily bool Character\+::set\+Current\+Position (\begin{DoxyParamCaption}\item[{\hyperlink{classMap}{Map}}]{m }\end{DoxyParamCaption})}
+
+Implementation of the set\+Current\+Position method. Searches in the map for a start cell, and if found, assigns it to the \hyperlink{classCharacter}{Character}\textquotesingle{}s position on the map. 
+\begin{DoxyParams}{Parameters}
+{\em a} & \hyperlink{classMap}{Map} object to iterate through \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool value, true of the character is valid (stats should be in the 3-\/18 range for a new character), false if invalid. 
+\end{DoxyReturn}
+\hypertarget{classCharacter_aaed0028340719ad6edc3c4fbcc79b726}{}\label{classCharacter_aaed0028340719ad6edc3c4fbcc79b726} 
+\index{Character@{Character}!set\+Current\+PositionX@{set\+Current\+PositionX}}
+\index{set\+Current\+PositionX@{set\+Current\+PositionX}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Current\+Position\+X()}{setCurrentPositionX()}}
+{\footnotesize\ttfamily void Character\+::set\+Current\+PositionX (\begin{DoxyParamCaption}\item[{int}]{char\+PosX }\end{DoxyParamCaption})}
+
+Setter for current character\textquotesingle{}s x-\/coordinate in the current map. 
+\begin{DoxyParams}{Parameters}
+{\em int} & representnt current character x-\/coordinate \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_a5a06122e27f7c4baa5ea0f38d95308b5}{}\label{classCharacter_a5a06122e27f7c4baa5ea0f38d95308b5} 
+\index{Character@{Character}!set\+Current\+PositionY@{set\+Current\+PositionY}}
+\index{set\+Current\+PositionY@{set\+Current\+PositionY}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Current\+Position\+Y()}{setCurrentPositionY()}}
+{\footnotesize\ttfamily void Character\+::set\+Current\+PositionY (\begin{DoxyParamCaption}\item[{int}]{char\+PosY }\end{DoxyParamCaption})}
+
+Setter for current character\textquotesingle{}s y-\/coordinate in the current map. 
+\begin{DoxyParams}{Parameters}
+{\em int} & representnt current character y-\/coordinate \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_a549925b3196f1a1b756f2b43df8ab392}{}\label{classCharacter_a549925b3196f1a1b756f2b43df8ab392} 
+\index{Character@{Character}!set\+Hit\+Points@{set\+Hit\+Points}}
+\index{set\+Hit\+Points@{set\+Hit\+Points}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Hit\+Points()}{setHitPoints()}}
+{\footnotesize\ttfamily void Character\+::set\+Hit\+Points (\begin{DoxyParamCaption}\item[{int}]{HP }\end{DoxyParamCaption})}
+
+Setter for the number of character\textquotesingle{}s hitpoints 
+\begin{DoxyParams}{Parameters}
+{\em int} & value of current\+Hit\+Points \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_a8a0a60768f62bb565268b7700bcc3ba3}{}\label{classCharacter_a8a0a60768f62bb565268b7700bcc3ba3} 
+\index{Character@{Character}!set\+Strategy@{set\+Strategy}}
+\index{set\+Strategy@{set\+Strategy}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Strategy()}{setStrategy()}}
+{\footnotesize\ttfamily void Character\+::set\+Strategy (\begin{DoxyParamCaption}\item[{\hyperlink{classStrategy}{Strategy} $\ast$}]{new\+Strategy }\end{DoxyParamCaption})}
+
+Setter for a new strategy 
+\begin{DoxyParams}{Parameters}
+{\em pointer} & to a new strategy \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_afb85385ddf9ea03258e3df50184606bd}{}\label{classCharacter_afb85385ddf9ea03258e3df50184606bd} 
+\index{Character@{Character}!set\+Strength@{set\+Strength}}
+\index{set\+Strength@{set\+Strength}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Strength()}{setStrength()}}
+{\footnotesize\ttfamily void Character\+::set\+Strength (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+setters for your base character stats 
+
+setters for Base abilityscores \hypertarget{classCharacter_a509659845edbecfe7806ca1606ec8f18}{}\label{classCharacter_a509659845edbecfe7806ca1606ec8f18} 
+\index{Character@{Character}!set\+Type\+On\+Map@{set\+Type\+On\+Map}}
+\index{set\+Type\+On\+Map@{set\+Type\+On\+Map}!Character@{Character}}
+\subsubsection{\texorpdfstring{set\+Type\+On\+Map()}{setTypeOnMap()}}
+{\footnotesize\ttfamily void Character\+::set\+Type\+On\+Map (\begin{DoxyParamCaption}\item[{char}]{t }\end{DoxyParamCaption})}
+
+Setter for current character\textquotesingle{}s type as represented on the current map 
+\begin{DoxyParams}{Parameters}
+{\em a} & char representing the type of character as seen on the map \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCharacter_adae2bb0e0bb6b8d010be6d1ac3b1fd5f}{}\label{classCharacter_adae2bb0e0bb6b8d010be6d1ac3b1fd5f} 
+\index{Character@{Character}!validate\+New\+Character@{validate\+New\+Character}}
+\index{validate\+New\+Character@{validate\+New\+Character}!Character@{Character}}
+\subsubsection{\texorpdfstring{validate\+New\+Character()}{validateNewCharacter()}}
+{\footnotesize\ttfamily bool Character\+::validate\+New\+Character (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Implementation of the verification of a newly created \hyperlink{classCharacter}{Character} \begin{DoxyReturn}{Returns}
+bool value, true of the character is valid (stats should be in the 3-\/18 range for a new character), false if invalid. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Character.\+h\item 
+\hyperlink{Character_8cpp}{Character.\+cpp}\end{DoxyCompactItemize}

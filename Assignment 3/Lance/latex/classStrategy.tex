@@ -1,0 +1,47 @@
+\hypertarget{classStrategy}{}\section{Strategy Class Reference}
+\label{classStrategy}\index{Strategy@{Strategy}}
+
+
+{\ttfamily \#include $<$Character.\+h$>$}
+
+Inheritance diagram for Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classStrategy}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classStrategy_a02ebf45b3c8760d55796a72831dd9b49}{}\label{classStrategy_a02ebf45b3c8760d55796a72831dd9b49} 
+virtual void {\bfseries execute} (\hyperlink{classMap}{Map} \&m, \hyperlink{classCharacter}{Character} \&character)=0
+\item 
+\hypertarget{classStrategy_a1f92b4c56087e4cc880765a7ffef451a}{}\label{classStrategy_a1f92b4c56087e4cc880765a7ffef451a} 
+virtual void {\bfseries move\+Up} (\hyperlink{classMap}{Map} \&m, \hyperlink{classCharacter}{Character} \&character)=0
+\item 
+\hypertarget{classStrategy_a68e1fec84059fe461622f3be224de5fe}{}\label{classStrategy_a68e1fec84059fe461622f3be224de5fe} 
+virtual void {\bfseries move\+Down} (\hyperlink{classMap}{Map} \&m, \hyperlink{classCharacter}{Character} \&character)=0
+\item 
+\hypertarget{classStrategy_a559e61db1212d7b60955065f0b06ae95}{}\label{classStrategy_a559e61db1212d7b60955065f0b06ae95} 
+virtual void {\bfseries move\+Right} (\hyperlink{classMap}{Map} \&m, \hyperlink{classCharacter}{Character} \&character)=0
+\item 
+\hypertarget{classStrategy_ada942b5564bfef4bbd528ce1e5f15c10}{}\label{classStrategy_ada942b5564bfef4bbd528ce1e5f15c10} 
+virtual void {\bfseries move\+Left} (\hyperlink{classMap}{Map} \&m, \hyperlink{classCharacter}{Character} \&character)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implement character (friendly or unfriendly) actions as strategy pattern Each turn, a character can proceed with\+:
+\begin{DoxyItemize}
+\item move
+\item attack
+\item free action
+\end{DoxyItemize}
+
+Must implement these Concrete\+Strategies\+: 1) a \hyperlink{classHumanPlayerStrategy}{Human\+Player\+Strategy} that lets the user decide where to move, who to attack, and what free actions to take; 2) an \hyperlink{classAggressorStrategy}{Aggressor\+Strategy} that make the character automatically move towards and attack the player character; 3) a \hyperlink{classFriendlyStrategy}{Friendly\+Strategy} that makes the character automatically move towards the character, but not attack unless attacked, in which case it adopts the Aggressor\+Strategy.\+klA
+
+\hyperlink{classStrategy}{Strategy} is the abstract class that all above Concrete\+Classes extend from. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Character.\+h\end{DoxyCompactItemize}

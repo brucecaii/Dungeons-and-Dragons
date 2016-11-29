@@ -1,3 +1,5 @@
+//! @file
+//! @brief Implementation file for the Character class
 
 #include "Character.h"
 #include <cmath>
@@ -7,9 +9,8 @@
 
 using namespace std;
 
-//! Constructor: passes values to each ability score and set hit points to 10
+//! Constructor: passes values to each ability score, set hit points to 10, assigns a Strategy type and a map position.
 Character::Character(int str, int dex, int con, int intel, int wis, int cha, Strategy* initStrategy, int posX, int posY, char typeOnMap) {
-	//! your modifer values are stored here
 	modifers[0] = modifier(str);
 	modifers[1] = modifier(dex);
 	modifers[2] = modifier(con);
@@ -17,7 +18,6 @@ Character::Character(int str, int dex, int con, int intel, int wis, int cha, Str
 	modifers[4] = modifier(wis);
 	modifers[5] = modifier(cha);
 
-	//! intializing your total scores and base scores , will be same value on constuctor call
 	abilityScores[0] = str; abilityScoresFromChar[0] = str;
 	abilityScores[1] = dex; abilityScoresFromChar[1] = dex;
 	abilityScores[2] = con; abilityScoresFromChar[2] = con;
@@ -25,52 +25,60 @@ Character::Character(int str, int dex, int con, int intel, int wis, int cha, Str
 	abilityScores[4] = wis; abilityScoresFromChar[4] = wis;
 	abilityScores[5] = cha; abilityScoresFromChar[5] = cha;
 
-	//! set hit points to 10 and multyping it by consitution level, as consitution level influnces hitpoints and by lvl
 	currentHitPoints = 10 + abilityScores[2];
-	//!  base armor class is 10+ the modifer of your dexterity
 	armorclass = 10 + modifers[1];
         ArmorfromChar  = 10 + modifers[1];
 
-	//! base attack bonus is your strength and dexterity modifers summed and multiplyed by level
 	attackbonus  = (modifers[0] + modifers[1])*lvl;
         attackbonusFromChar = (modifers[0] + modifers[1])*lvl;
 	damagebonus = modifers[0];
 
         this->strategy = initStrategy;
         this->typeOnMap = typeOnMap;
-        // Setting position on map
         currentPosition.resize(2);
         currentPosition[0] = posX;
         currentPosition[1] = posY;
 }
 
-//! getters below for total abilityscores
+//! Getter for the Strength ability
+//! @return int representing the Strength ability
 int Character::getStrength() {
 	return abilityScores[0];
 }
 
+//! Getter for the Dexterity ability
+//! @return int representing the Dexterity ability
 int Character::getDexterity() {
 	return abilityScores[1];
 }
 
+//! Getter for the Constitution ability
+//! @return int representing the Constitution ability
 int Character::getConstitution() {
 	return abilityScores[2];
 }
 
+//! Getter for the Intelligence ability
+//! @return int representing the Intelligence ability
 int Character::getIntelligence() {
 	return abilityScores[3];
 }
 
+//! Getter for the Wisdom ability
+//! @return int representing the Wisdom ability
 int Character::getWisdom() {
 	return abilityScores[4];
 }
 
+//! Getter for the Charisma ability
+//! @return int representing the Charisma ability
 int Character::getCharisma() {
 	return abilityScores[5];
 }
 
 
-//! getter for current level
+//! Getter for the current character level
+//! @return int representing the current character level
 int Character::getLevel() {
 	return lvl;
 }
@@ -126,17 +134,18 @@ void Character::setCharisma(int i) {
 	abilityScoresFromChar[5] = i;
 }
 
-//! this method is when you wish to level up the character and it scales the abilties appropiatly. 
+//! this method is when you wish to level up the character and it scales the abilties appropiatly.
 void Character::levelUp() {
 	this->lvl++;
 	for (int i = 0; i < 5; i++) {
 		abilityScores[i] = abilityScores[i] * lvl;
 	}
 	this->currentHitPoints *= lvl;
-	//updatestats();
 }
 
-//! according to rules modifier is (ability score -10) /2
+//! according to d20 rules modifier is (ability score -10) /2
+//! @param int representing score of one of the abilities
+//! @param int representing updated ability score after modifer was applied
 int Character::modifier(int abilityscore) {
 	int modi = floor((abilityscore - 10) / 2);
 	if (modi <= 0) {
@@ -145,30 +154,22 @@ int Character::modifier(int abilityscore) {
 	return modi;
 }
 
-//! @param damage: damage sustained by the character
-void Character::hit(int damage) {
-	currentHitPoints = currentHitPoints - damage;
-	//Notify();
-}
-
-
+//! Getter for the number of character's hitpoints
 //! @return int: value of currentHitPoints
 int Character::getHitPoints() {
 	return currentHitPoints;
 }
 
-
-//! this displays the ability scores
-void Character::showAbilityScores() {
-	for (int i = 0; i < 6; i++) {
-		cout << abilityScores[i] << endl;
-	}
+//! Setter for the number of character's hitpoints
+//! @param int value of currentHitPoints
+void Character::setHitPoints(int HP) {
+  this->currentHitPoints = HP;
 }
 
-//! method to display the character
+//! Utility method to display lots of information about the current character
 void Character::displayCharacter() {
 	cout << "*******************************************" << endl;
-	cout << "Here are you stats for your character " << endl;
+	cout << "Here are you stats for your character " << typeOnMap << endl;
 	cout << "Your strength is : " << abilityScores[0] << endl;
 	cout << "Your dexterity is : " << abilityScores[1] << endl;
 	cout << "Your constitution is : " << abilityScores[2] << endl;
@@ -179,7 +180,9 @@ void Character::displayCharacter() {
 	cout << "Your level is : " << this->getLevel() << endl;
 	cout << "Your armorclass is : " << armorclass << endl;
 	cout << "Your attackbonus is : " << attackbonus << endl;
-	cout << "*******************************************";
+	cout << "Your position is : (" << currentPosition[0] << "," << currentPosition[1]<< ")" << endl;
+	cout << "*******************************************" << endl;
+	cout << endl;
 }
 
 //! Implementation of the verification of a newly created Character
@@ -192,6 +195,9 @@ bool Character::validateNewCharacter()
 	return true;
 }
 
+//! Implementation of the setCurrentPosition method. Searches in the map for a start cell, and if found, assigns it to the Character's position on the map.
+//! @param a Map object to iterate through
+//! @return bool value, true of the character is valid (stats should be in the 3-18 range for a new character), false if invalid.
 bool Character::setCurrentPosition(Map m) {
   // Assumption that there is only one user playing (at most 1 'S').
   for(int i = 0; i < m.getMapWidth(); i++) {
@@ -207,33 +213,52 @@ bool Character::setCurrentPosition(Map m) {
   return false;
 }
 
-
-
+//! Setter for a new strategy
+//! @param pointer to a new strategy
 void Character::setStrategy(Strategy* newStrategy) {
+  delete this->strategy;
   this->strategy = newStrategy;
 }
 
+//! Implementation of the executeStrategy method. Calls the current strategy's execute method, and passes along a reference to the current character object.
+//! @param Reference to the current map object
+//! @param Reference to the current character object
 void Character::executeStrategy(Map& m) {
   this->strategy->execute(m, *this);
 }
 
+//! Getter for current character's x-coordinate in the current map.
+//! @return int representnt current chaacter x-coordinate
 int Character::getCurrentPositionX() {
   return this->currentPosition[0];
 }
+
+//! Getter for current character's y-coordinate in the current map.
+//! @return int representnt current chaacter y-coordinate
 int Character::getCurrentPositionY() {
   return this->currentPosition[1];
 }
+
+//! Setter for current character's x-coordinate in the current map.
+//! @param int representnt current character x-coordinate
 void Character::setCurrentPositionX(int charPosX) {
   this->currentPosition[0] = charPosX;
 }
+
+//! Setter for current character's y-coordinate in the current map.
+//! @param int representnt current character y-coordinate
 void Character::setCurrentPositionY(int charPosY) {
   this->currentPosition[1] = charPosY;
 }
+
+//! Getter for current character's type as represented on the current map
+//! @return a char representing the type of character as seen on the map
 char Character::getTypeOnMap() {
   return this->typeOnMap;
 }
+
+//! Setter for current character's type as represented on the current map
+//! @param a char representing the type of character as seen on the map
 void Character::setTypeOnMap(char t) {
   this->typeOnMap = t;
 }
-
-

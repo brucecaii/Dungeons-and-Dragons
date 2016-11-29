@@ -5,14 +5,14 @@
 
 class Strategy;
 
+//! A class representing a character, whether friendly or unfriendly.
 class Character {
 public:
 	Character(int str, int dex, int con, int intel, int wis, int cha, Strategy* initStrategy, int posX, int posY, char typeOnMap);
-	void hit(int);
 	int getHitPoints();
+	void setHitPoints(int HP);
 	void levelUp();
 	int modifier(int);
-	void showAbilityScores();
 	void displayCharacter();
         bool validateNewCharacter();
 
@@ -40,7 +40,6 @@ public:
 	void setIntelligence(int);
 	void setWisdom(int);
 	void setCharisma(int);
-
         void setTypeOnMap(char t);
         char getTypeOnMap();
 
@@ -72,6 +71,18 @@ private:
         char typeOnMap;
 };
 
+//! Implement character (friendly or unfriendly) actions as strategy pattern
+//! Each turn, a character can proceed with:
+//! - move
+//! - attack
+//! - free action
+//!
+//! Must implement these ConcreteStrategies:
+//! 1) a HumanPlayerStrategy that lets the user decide where to move, who to attack, and what free actions to take;
+//! 2) an AggressorStrategy that make the character automatically move towards and attack the player character;
+//! 3) a FriendlyStrategy that makes the character automatically move towards the character, but not attack unless attacked, in which case it adopts the AggressorStrategy.klA
+//!
+//! Strategy is the abstract class that all above ConcreteClasses extend from.
 class Strategy {
   public:
     virtual void execute(Map& m, Character& character) = 0;
