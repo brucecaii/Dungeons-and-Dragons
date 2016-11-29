@@ -24,23 +24,14 @@ class Map {
     int getMapLength();
     void setMapWidth(int width);
     void setMapLength(int length);
-    void setMapLevel(int lv);
-    int getMapLevel();
     string getMapData();
     void setMapData(string);
     bool isBeside(int x, int y, char type);
-    void moveUp();
-    void moveDown();
-    void moveLeft();
-    void moveRight();
-    void setCharacter(int x, int y);
     void clearCell(int x, int y);
-    void display();
     vector<tuple<char,int,int>> getAllCharacterPositions();
     vector<int> getHumanPosition();
   private:
     int mapWidth;
     int mapLength;
     vector<vector<char>> map;
-    int level;
 };

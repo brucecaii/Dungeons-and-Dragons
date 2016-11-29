@@ -209,18 +209,6 @@ void Map::setMapLength(int ml) {
   this->mapLength = ml;
 }
 
-
-//! Implementation of setMapLevel, set the map level
-void Map::setMapLevel(int lv) {
-  this->level = lv;
-}
-
-//! Implementation of getMapLevel
-//@return a int of map level
-int Map::getMapLevel() {
-  return this->level;
-}
-
 //! Implementation of getMapdata
 //@return map data in the form of a vector of vector of chars.
 string Map::getMapData() {
@@ -262,20 +250,21 @@ void Map::setMapData(string placement) {
 
 
 //! Implementation of the display method. Prints an ASCII map to the console.
-void Map::display() {
-  cout << string(mapWidth+2,'#') << endl;
-  for (int i = 0; i < (int)map.size(); i++) {
-    cout << "#";
-    for (int j = 0; j < (int)map[i].size(); j++) {
-      cout << map[i][j];
-    }
-    cout << "#" << endl;
-  }
-  cout << string(mapWidth+2,'#') << endl;
-}
-void Map::setCharacter(int x, int y) {
-  setCell(x, y, 'S');
-}
+/////////////////////////////////////////////////////////////
+// SHOULD NO LONGER BE NEEDED WHEN BENNY MERGES HIS LOGGER //
+/////////////////////////////////////////////////////////////
+//void Map::display() {
+  //cout << string(mapWidth+2,'#') << endl;
+  //for (int i = 0; i < (int)map.size(); i++) {
+    //cout << "#";
+    //for (int j = 0; j < (int)map[i].size(); j++) {
+      //cout << map[i][j];
+    //}
+    //cout << "#" << endl;
+  //}
+  //cout << string(mapWidth+2,'#') << endl;
+//}
+
 void Map::clearCell(int x, int y){
   map[x][y] = ' ';
 }
