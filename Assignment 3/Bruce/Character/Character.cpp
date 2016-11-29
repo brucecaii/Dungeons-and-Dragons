@@ -7,12 +7,17 @@
 #include <string>
 using namespace std;
 
-Character::Character() {}
+Character::Character() {
+	this->characterLevel = 1;
+	this->setHitPoint(10);
+	this->setAttackBonus({1, 0, 0, 0});
+}
 
 Character::Character(CharacterAttr *characterAttr) {
 	this->characterAttr = characterAttr;
 	this->characterLevel = 1;
 	this->setHitPoint(10);
+	this->setAttackBonus({ 1, 0, 0, 0 });
 }
 
 Character::~Character() {
@@ -87,7 +92,35 @@ int Character::modifier(int dice, int bonus) const {
 }
 
 void Character::levelUp() {
-	this->characterLevel++;
+	if (this->getLevel() != 20) {
+		this->characterLevel++;
+		int conModifier = (this->getCharacterAttr()->getConstitution() - 10) / 2;
+		vector<int> roll = Dice::roll("1d10");
+		int hitPointIncrease = modifier(roll[0], conModifier);
+		if (hitPointIncrease < 1) hitPointIncrease = 1;
+		this->setHitPoint(this->getHitPoint() + hitPointIncrease);
+		vector<int> attackBonus;
+		attackBonus.push_back(this->getLevel());
+		if (this->getLevel() - 5 > 0) {
+			attackBonus.push_back(this->getLevel() - 5);
+		}
+		else {
+			attackBonus.push_back(0);
+		}
+		if (this->getLevel() - 10 > 0) {
+			attackBonus.push_back(this->getLevel() - 10);
+		}
+		else {
+			attackBonus.push_back(0);
+		}
+		if (this->getLevel() - 15 > 0) {
+			attackBonus.push_back(this->getLevel() - 15);
+		}
+		else {
+			attackBonus.push_back(0);
+		}
+		this->setAttackBonus(attackBonus);
+	}
 }
 
 bool Character::validateNewCharacter() {

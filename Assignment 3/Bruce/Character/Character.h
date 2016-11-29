@@ -4,6 +4,7 @@
 #include "../item/ItemContainer.h"
 #include "../Dependency/json.hpp"
 #include "CharacterAttr.h"
+#include "../Dice/Dice.h"
 using json = nlohmann::json;
 using namespace std;
 
