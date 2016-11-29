@@ -1,6 +1,3 @@
-//! @file 
-//! @brief Driver file to create and execute the test suite 
-//!
 #include <string>
 #include "Character/CharacterGenerator.h"
 #include <iostream>
