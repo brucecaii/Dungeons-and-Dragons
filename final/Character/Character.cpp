@@ -127,8 +127,23 @@ bool Character::validateNewCharacter() {
 	return this->characterAttr->validateAttr();
 }
 
-void Character::attack(Character opponent) {
-	
+void Character::attack(Character *opponent) {
+	for (int i = 0; i < 4; i++) {
+		if (this->getAttackBonus()[i] == 0) break;
+		int damage;
+		bool isHit;
+		int attackRoll = Dice::roll("1d20")[0];
+		damage = attackRoll + this->getAttackBonus()[i];
+		if (attackRoll == 20) isHit = true;
+		else if (attackRoll == 1) isHit = false;
+		else {
+			if (damage > opponent->getArmorClass()) isHit = true;
+			else isHit = false;
+		}
+		if (isHit) {
+			opponent->setHitPoint(opponent->getHitPoint() - damage);
+		}
+	}
 }
 
 /*
