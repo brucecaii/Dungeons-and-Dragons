@@ -146,7 +146,10 @@ void Character::attack(Character *opponent) {
 		if (attackRoll == 20) isHit = true;
 		else if (attackRoll == 1) isHit = false;
 		else {
-			if (damage > opponent->getArmorClass()) isHit = true;
+			double hitChance = (double(attackRoll) / double(20)) * 100;
+			if (rand() % 100 + 1 < hitChance && damage > opponent->getArmorClass()) {
+				isHit = true;
+			}
 			else isHit = false;
 		}
 		if (isHit) {
