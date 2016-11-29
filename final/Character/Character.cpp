@@ -103,6 +103,7 @@ void Character::levelUp() {
 	if (this->getLevel() != 20) {
 		this->characterLevel++;
 		int conModifier = (this->getCharacterAttr()->getConstitution() - 10) / 2;
+		if (conModifier <= 0) conModifier = 0;
 		vector<int> roll = Dice::roll("1d10");
 		int hitPointIncrease = modifier(roll[0], conModifier);
 		if (hitPointIncrease < 1) hitPointIncrease = 1;
