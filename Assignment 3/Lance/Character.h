@@ -75,6 +75,10 @@ private:
 class Strategy {
   public:
     virtual void execute(Map& m, Character& character) = 0;
+    virtual void moveUp(Map& m, Character& character) = 0;
+    virtual void moveDown(Map& m, Character& character) = 0;
+    virtual void moveRight(Map& m, Character& character) = 0;
+    virtual void moveLeft(Map& m, Character& character) = 0;
 };
 
 

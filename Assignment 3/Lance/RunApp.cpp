@@ -2,11 +2,16 @@
 //! @brief Driver file to drive the main program
 //!
 //!
+//!
 //! Some assumptions about this program:
 //! - The simplest possible case was chosen in order to satisfy all assignment requirements without additional complexity. Therefore, no items, item containers, or enhancements exist in the implementation of this game.
 //! - No specific character classes were assumed.
 //! - No other patterns (Observer, Builder) are illustrated in this assignment, since they are not strictly required and would add unneeded complexity to this simple showcasing of the Strategy pattern.
 //!
+//! Some future optimizations:
+//! - Better path finding algorithm (eg. shortestDistanceToHuman method). Currently, the algorithm used does not consider obstacles such as walls, other characters, etc.
+//! - Better calculation of point deductions from attacks.
+//! - Friendly characters are currently not being modified into Aggressor characters upon being attacked.
 //!
 //!
 //!
