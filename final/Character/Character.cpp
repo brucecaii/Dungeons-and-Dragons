@@ -127,6 +127,10 @@ bool Character::validateNewCharacter() {
 	return this->characterAttr->validateAttr();
 }
 
+void Character::attack(Character opponent) {
+	
+}
+
 /*
 getter and setter
 */
