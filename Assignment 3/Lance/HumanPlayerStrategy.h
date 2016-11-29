@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Character.h"
+#include "Strategy.h"
 #include "Map.h"
 
 class HumanPlayerStrategy : public Strategy {
@@ -12,10 +13,6 @@ class HumanPlayerStrategy : public Strategy {
   public:
     void execute(Map& m, Character& c);
     void movePlayer(Map& m, Character& c);
-    void moveUp(Map& m, Character& c);
-    void moveDown(Map& m, Character& c);
-    void moveRight(Map& m, Character& c);
-    void moveLeft(Map& m, Character& c);
     void canAttackOneAdjacentCharacter(Map& m, Character& c);
     void attackCharacterAtPosition(Character& c, int charPosX, int charPosY);
 };
