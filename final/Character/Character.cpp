@@ -85,6 +85,14 @@ void Character::changeAttr(string type, int value, string action) {
 		if (action == "+") this->characterAttr->setDexterity(this->characterAttr->getDexterity() + value);
 		if (action == "-") this->characterAttr->setDexterity(this->characterAttr->getDexterity() - value);
 	}
+	else if (type.compare("arm") == 0) {
+		if (action == "+") this->setArmorClass(this->getArmorClass() + value);
+		if (action == "-") this->setArmorClass(this->getArmorClass() - value);
+	}
+	else if (type.compare("dmg") == 0) {
+		if (action == "+") this->setDamageBonus(this->getDamageBonus() + value);
+		if (action == "-") this->setDamageBonus(this->getDamageBonus() - value);
+	}
 }
 
 int Character::modifier(int dice, int bonus) const {
@@ -95,6 +103,7 @@ void Character::levelUp() {
 	if (this->getLevel() != 20) {
 		this->characterLevel++;
 		int conModifier = (this->getCharacterAttr()->getConstitution() - 10) / 2;
+		if (conModifier <= 0) conModifier = 0;
 		vector<int> roll = Dice::roll("1d10");
 		int hitPointIncrease = modifier(roll[0], conModifier);
 		if (hitPointIncrease < 1) hitPointIncrease = 1;
@@ -127,8 +136,23 @@ bool Character::validateNewCharacter() {
 	return this->characterAttr->validateAttr();
 }
 
-void Character::attack(Character opponent) {
-	
+void Character::attack(Character *opponent) {
+	for (int i = 0; i < 4; i++) {
+		if (this->getAttackBonus()[i] == 0) break;
+		int damage;
+		bool isHit;
+		int attackRoll = Dice::roll("1d20")[0];
+		damage = attackRoll + this->getAttackBonus()[i] + this->getDamageBonus();
+		if (attackRoll == 20) isHit = true;
+		else if (attackRoll == 1) isHit = false;
+		else {
+			if (damage > opponent->getArmorClass()) isHit = true;
+			else isHit = false;
+		}
+		if (isHit) {
+			opponent->setHitPoint(opponent->getHitPoint() - damage);
+		}
+	}
 }
 
 /*
@@ -153,6 +177,14 @@ int Character::getArmorClass() const {
 
 void Character::setArmorClass(int armorClass) {
 	this->armorClass = armorClass;
+}
+
+void Character::setDamageBonus(int damageBonus) {
+	this->damageBonus += damageBonus;
+}
+
+int Character::getDamageBonus() const{
+	return this->damageBonus;
 }
 
 vector<int> Character::getAttackBonus() const {

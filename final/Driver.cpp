@@ -70,6 +70,13 @@ int main() {
 	for (int k = 0; k < 4; k++) {
 		cout << "round " << k << ": attack bonus + " << enermy->getAttackBonus()[k] << endl;
 	}
+	//attack
+	cout << "you have hitpoint " << player->getHitPoint() << endl;
+	cout << "enermy has hitpoint " << enermy->getHitPoint() << endl;
+	cout << "you attack!" << endl;
+	player->attack(enermy);
+	cout << "you have hitpoint " << player->getHitPoint() << endl;
+	cout << "enermy has hitpoint " << enermy->getHitPoint() << endl;
 	//prompt close console
 	int i = 1;
 	while (i == 1) {
