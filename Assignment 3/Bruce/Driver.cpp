@@ -10,12 +10,18 @@ int main() {
 	cout << endl << "Enter type of fighter (Bully, Tank, or Nimble) you wish you use: " << endl;
 	string fighterType1;
 	cin >> fighterType1;
-	CharacterBuilder* playerBuilder = new PlayerCharacterBuilder(fighterType1);
+	cout << endl << "Enter the level of the character: " << endl;
+	int level1;
+	cin >> level1;
+	CharacterBuilder* playerBuilder = new PlayerCharacterBuilder(fighterType1, level1);
 	//prompt enermy config
 	cout << endl << "Enter type of fighter (Bully, Tank, or Nimble) you wish your enermy to be: " << endl;
 	string fighterType2;
 	cin >> fighterType2;
-	CharacterBuilder* enermyBuilder = new EnermyCharacterBuilder(fighterType2);
+	cout << endl << "Enter the level of the character: " << endl;
+	int level2;
+	cin >> level2;
+	CharacterBuilder* enermyBuilder = new EnermyCharacterBuilder(fighterType2, level2);
 	//config generator
 	selectHero.setCharacterBuilder(playerBuilder);
 	selectHero.createCharacter();
@@ -39,8 +45,8 @@ int main() {
 	for (int j = 0; j < 4; j++) {
 		cout << "round " << j << ": attack bonus + " << player->getAttackBonus()[j] << endl;
 	}
-	for (int i = 0; i < 11; i++) player->levelUp();
-	cout << "Now let's level up to level 11. After level up you have " << player->getHitPoint() << " hit points." << endl;
+	player->levelUp();
+	cout << "Now let's level up. After level up you have " << player->getHitPoint() << " hit points." << endl;
 	cout << "Bonus attack at: " << endl;
 	for (int k = 0; k < 4; k++) {
 		cout << "round " << k << ": attack bonus + " << player->getAttackBonus()[k] << endl;
@@ -58,8 +64,8 @@ int main() {
 	for (int j = 0; j < 4; j++) {
 		cout << "round " << j << ": attack bonus + " << enermy->getAttackBonus()[j] << endl;
 	}
-	for (int i = 0; i < 11; i++) enermy->levelUp();
-	cout << "Now let's level up to level 11. After level up you have " << enermy->getHitPoint() << " hit points." << endl;
+	enermy->levelUp();
+	cout << "Now let's level up. After level up you have " << enermy->getHitPoint() << " hit points." << endl;
 	cout << "Bonus attack at: " << endl;
 	for (int k = 0; k < 4; k++) {
 		cout << "round " << k << ": attack bonus + " << enermy->getAttackBonus()[k] << endl;

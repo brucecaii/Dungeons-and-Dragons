@@ -8,7 +8,7 @@ using namespace std;
 class CharacterBuilder {
 
 public:
-	CharacterBuilder(string fighterType);
+	CharacterBuilder(string fighterType, int level);
 	Character* getCharacter();
 	void createCharacter();
 	virtual void setPlayerType() = 0;
@@ -16,12 +16,13 @@ public:
 protected:
 	Fighter* c_character;
 	string fighterType;
+	int fighterLevel;
 };
 
 class PlayerCharacterBuilder : public CharacterBuilder {
 
 public:
-	PlayerCharacterBuilder(string fighterType);
+	PlayerCharacterBuilder(string fighterType, int level);
 	void setPlayerType();
 
 };
@@ -29,7 +30,7 @@ public:
 class EnermyCharacterBuilder : public CharacterBuilder {
 
 public:
-	EnermyCharacterBuilder(string fighterType);
+	EnermyCharacterBuilder(string fighterType, int level);
 	void setPlayerType();
 
 };

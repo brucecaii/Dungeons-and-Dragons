@@ -25,6 +25,7 @@ public:
 	int modifier(int dice, int bonus) const;
 	void levelUp();
 	bool validateNewCharacter();
+	void attack(Character opponent);
 	/*
 	setter and getter
 	*/
