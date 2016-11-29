@@ -141,7 +141,7 @@ void Character::attack(Character *opponent) {
 		int damage;
 		bool isHit;
 		int attackRoll = Dice::roll("1d20")[0];
-		damage = attackRoll + this->getAttackBonus()[i];
+		damage = attackRoll + this->getAttackBonus()[i] + this->getDamageBonus();
 		if (attackRoll == 20) isHit = true;
 		else if (attackRoll == 1) isHit = false;
 		else {
