@@ -85,6 +85,14 @@ void Character::changeAttr(string type, int value, string action) {
 		if (action == "+") this->characterAttr->setDexterity(this->characterAttr->getDexterity() + value);
 		if (action == "-") this->characterAttr->setDexterity(this->characterAttr->getDexterity() - value);
 	}
+	else if (type.compare("arm") == 0) {
+		if (action == "+") this->setArmorClass(this->getArmorClass() + value);
+		if (action == "-") this->setArmorClass(this->getArmorClass() - value);
+	}
+	else if (type.compare("dmg") == 0) {
+		if (action == "+") this->setDamageBonus(this->getDamageBonus() + value);
+		if (action == "-") this->setDamageBonus(this->getDamageBonus() - value);
+	}
 }
 
 int Character::modifier(int dice, int bonus) const {
@@ -168,6 +176,14 @@ int Character::getArmorClass() const {
 
 void Character::setArmorClass(int armorClass) {
 	this->armorClass = armorClass;
+}
+
+void Character::setDamageBonus(int damageBonus) {
+	this->damageBonus += damageBonus;
+}
+
+int Character::getDamageBonus() const{
+	return this->damageBonus;
 }
 
 vector<int> Character::getAttackBonus() const {

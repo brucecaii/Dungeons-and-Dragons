@@ -35,6 +35,8 @@ public:
 	int getArmorClass() const;
 	void setArmorClass(int armorClass);
 	vector<int> getAttackBonus() const;
+	void setDamageBonus(int dmg);
+	int getDamageBonus() const;
 	void setAttackBonus(const vector<int> &attackBonus);
 	ItemContainer* getCharacterEquipment() const;
 	void setCharacterEquipment(ItemContainer *characterEquipment);
@@ -50,6 +52,7 @@ private:
 	int characterLevel;
 	int armorClass;
 	int hitPoint;
+	int damageBonus;
 	vector<int> attackbonus;
 	CharacterAttr *characterAttr;
 	ItemContainer *characterEquipment;
