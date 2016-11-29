@@ -2,7 +2,9 @@
 
 #include <string>
 #include "Map.h"
+#include "Strategy.h"
 
+// This forward declaration is needed. _DONT_TOUCH_IT_! (Lance)
 class Strategy;
 
 //! A class representing a character, whether friendly or unfriendly.
@@ -70,26 +72,4 @@ private:
         Strategy *strategy;
         char typeOnMap;
 };
-
-//! Implement character (friendly or unfriendly) actions as strategy pattern
-//! Each turn, a character can proceed with:
-//! - move
-//! - attack
-//! - free action
-//!
-//! Must implement these ConcreteStrategies:
-//! 1) a HumanPlayerStrategy that lets the user decide where to move, who to attack, and what free actions to take;
-//! 2) an AggressorStrategy that make the character automatically move towards and attack the player character;
-//! 3) a FriendlyStrategy that makes the character automatically move towards the character, but not attack unless attacked, in which case it adopts the AggressorStrategy.klA
-//!
-//! Strategy is the abstract class that all above ConcreteClasses extend from.
-class Strategy {
-  public:
-    virtual void execute(Map& m, Character& character) = 0;
-    virtual void moveUp(Map& m, Character& character) = 0;
-    virtual void moveDown(Map& m, Character& character) = 0;
-    virtual void moveRight(Map& m, Character& character) = 0;
-    virtual void moveLeft(Map& m, Character& character) = 0;
-};
-
 

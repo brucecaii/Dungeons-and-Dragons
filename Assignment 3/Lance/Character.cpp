@@ -2,6 +2,7 @@
 //! @brief Implementation file for the Character class
 
 #include "Character.h"
+#include "Strategy.h"
 #include <cmath>
 #include <iostream>
 #include <time.h>
