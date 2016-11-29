@@ -41,11 +41,15 @@ public:
 	void setWisdom(int);
 	void setCharisma(int);
 
+        void setTypeOnMap(char t);
+        char getTypeOnMap();
 
         // relates to a character moving on a map.
         bool setCurrentPosition(Map m);
         int getCurrentPositionX();
         int getCurrentPositionY();
+        void setCurrentPositionX(int charPosX);
+        void setCurrentPositionY(int charPosY);
         void setStrategy(Strategy* newStrategy);
         void executeStrategy(Map& m);
 

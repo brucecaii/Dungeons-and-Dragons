@@ -23,9 +23,6 @@ Map::Map() {
   this->mapWidth = 4;
   this->mapLength = 4;
   setMapData("                ");
-
-  currentPosition[0] = 0;
-  currentPosition[1] = 0;
 }
 
 //! Implementation of a Map class non-default constructor, creates a map grid based on provided size values

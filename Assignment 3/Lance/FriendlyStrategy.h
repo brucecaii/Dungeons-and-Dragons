@@ -8,7 +8,7 @@ class FriendlyStrategy : public Strategy {
   public:
     void execute(Map& m, Character& c);
     void moveCloserToHuman(Map& m, Character &c);
-    int shortestDistanceToHuman(Map& m, Character& c);
+    int shortestDistanceToHuman(int charPosX, int charPosY, int humanPosX, int humanPosY);
     void moveUp(Map& m, Character& c);
     void moveDown(Map& m, Character& c);
     void moveRight(Map& m, Character& c);

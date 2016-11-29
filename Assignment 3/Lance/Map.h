@@ -35,10 +35,6 @@ class Map {
     void moveRight();
     void setCharacter(int x, int y);
     void clearCell(int x, int y);
-    void openChest();
-    bool setCurrentPosition();
-    int getCurrentPositionX();
-    int getCurrentPositionY();
     void display();
     vector<tuple<char,int,int>> getAllCharacterPositions();
     vector<int> getHumanPosition();
@@ -47,5 +43,4 @@ class Map {
     int mapLength;
     vector<vector<char>> map;
     int level;
-    int currentPosition[2];
 };

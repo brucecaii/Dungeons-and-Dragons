@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
+#include <ctype.h>
 
-# include "Character.h"
-# include "HumanPlayerStrategy.h"
-# include "Map.h"
+#include "Character.h"
+#include "HumanPlayerStrategy.h"
+#include "Map.h"
 
 using std::cin;
 using std::cout;
@@ -12,9 +13,38 @@ using std::endl;
 
 
 void HumanPlayerStrategy::execute(Map& m, Character& c) {
+  m.display();
+  this->movePlayer(m,c);
+}
+
+void HumanPlayerStrategy::movePlayer(Map& m, Character& c) {
+  int charPosX = c.getCurrentPositionX();
+  int charPosY = c.getCurrentPositionY();
+
   string temp;
-  cout << "for now just enter something" << endl;
+  cout << "MOVE: Enter 'w' for up, 'a' for left, 's' for down or 'd' for right." << endl;
   getline(cin, temp);
+
+
+  if (temp.size()>0) {
+    if (tolower(temp.at(0)) == 'w' &&
+        charPosX>0 &&
+        (m.getCell(charPosX-1, charPosY) == ' ' || m.getCell(charPosX-1, charPosY) == 'E')) {
+      this->moveUp(m,c);
+    } else if (tolower(temp.at(0)) == 'a' &&
+        charPosY>0 &&
+        (m.getCell(charPosX, charPosY-1) == ' ' || m.getCell(charPosX, charPosY-1) == 'E')) {
+      this->moveLeft(m,c);
+    } else if (tolower(temp.at(0)) == 's' &&
+        charPosX<m.getMapWidth()-1 &&
+        (m.getCell(charPosX+1, charPosY) == ' ' || m.getCell(charPosX+1, charPosY) == 'E')) {
+      this->moveDown(m,c);
+    } else if (tolower(temp.at(0)) == 'd' &&
+        charPosY<m.getMapLength()-1 &&
+        (m.getCell(charPosX, charPosY+1) == ' ' || m.getCell(charPosX, charPosY+1) == 'E')) {
+      this->moveRight(m,c);
+    }
+  }
 }
 //void Character::openChest(Map m) {
   ////If the character is beside a chest
@@ -24,88 +54,41 @@ void HumanPlayerStrategy::execute(Map& m, Character& c) {
     //cout << "There is no chest around you. Nothing to open." << endl;
   //}
 //}
+//
 
-//void Character::moveUp(Map m) {
-  //if (currentPosition[1] == 0) {
-    //cout << "Cannot move further, please select a different direction." << endl;
-  //} else {
-    //if (
-        //m.getCell(currentPosition[0], currentPosition[1]-1 ) == 'W' ||
-        //m.getCell(currentPosition[0], currentPosition[1]-1 ) == 'T' ||
-        //m.getCell(currentPosition[0], currentPosition[1]-1 ) == 'O'
-        //) {
-      //cout << "You cannot move into a wall, treasure, or opponent; please pick a different direction." << endl;
-    //} else {
-      //m.clearCell(currentPosition[0], currentPosition[1]);
-      //currentPosition[1]--;
-      //if (m.getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        //this->wonGame();
-      //}
-      //m.setCharacter(currentPosition[0], currentPosition[1]);
-    //}
-  //}
-//}
 
-//void Character::moveDown(Map m) {
-  //if (currentPosition[1] == (m.getMapWidth()-1)) {
-    //cout << "Cannot move further, please select a different direction." << endl;
-  //} else {
-    //if (
-        //m.getCell(currentPosition[0], currentPosition[1] + 1) == 'W' ||
-        //m.getCell(currentPosition[0], currentPosition[1] + 1) == 'T' ||
-        //m.getCell(currentPosition[0], currentPosition[1] + 1) == 'O'
-        //) {
-      //cout << "You cannot move into a wall, treasure, or opponent; please pick a different direction." << endl;
-    //}else{
-      //m.clearCell(currentPosition[0], currentPosition[1]);
-      //currentPosition[1]++;
-      //if (m.getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        //this->wonGame();
-      //}
-      //m.setCharacter(currentPosition[0], currentPosition[1]);
-    //}
-  //}
-//}
+void HumanPlayerStrategy::moveUp(Map& m, Character& c) {
+  vector<int> currentPosition = {c.getCurrentPositionX(), c.getCurrentPositionY()};
+  vector<int> humanPosition = {m.getHumanPosition()[0], m.getHumanPosition()[1]};
+  m.clearCell(currentPosition[0], currentPosition[1]);
+  currentPosition[0]--;
+  m.setCell(currentPosition[0], currentPosition[1], c.getTypeOnMap());
+  c.setCurrentPositionX(currentPosition[0]);
+}
 
-//void Character::moveLeft(Map m) {
-  //if (currentPosition[0] == 0) {
-    //cout << "Cannot move further, please select a different direction." << endl;
-  //} else {
-    //if (
-        //m.getCell(currentPosition[0] - 1, currentPosition[1]) == 'W' ||
-        //m.getCell(currentPosition[0] - 1, currentPosition[1]) == 'T' ||
-        //m.getCell(currentPosition[0] - 1, currentPosition[1]) == 'O'
-        //) {
-      //cout << "Cannot move into a wall, please select a different direction." << endl;
-    //} else {
-      //m.clearCell(currentPosition[0], currentPosition[1]);
-      //currentPosition[0]--;
-      //if (m.getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        //this->wonGame();
-      //}
-      //m.setCharacter(currentPosition[0], currentPosition[1]);
-    //}
-  //}
-//}
+void HumanPlayerStrategy::moveDown(Map& m, Character& c) {
+  vector<int> currentPosition = {c.getCurrentPositionX(), c.getCurrentPositionY()};
+  vector<int> humanPosition = {m.getHumanPosition()[0], m.getHumanPosition()[1]};
+  m.clearCell(currentPosition[0], currentPosition[1]);
+  currentPosition[0]++;
+  m.setCell(currentPosition[0], currentPosition[1], c.getTypeOnMap());
+  c.setCurrentPositionX(currentPosition[0]);
+}
 
-//void Character::moveRight(Map m) {
-  //if (currentPosition[0] == (m.getMapLength()-1)) {
-    //cout << "Cannot move further, please select a different direction." << endl;
-  //} else {
-    //if (
-        //m.getCell(currentPosition[0] + 1, currentPosition[1]) == 'W' ||
-        //m.getCell(currentPosition[0] + 1, currentPosition[1]) == 'T' ||
-        //m.getCell(currentPosition[0] + 1, currentPosition[1]) == 'O'
-        //) {
-      //cout << "Cannot move into a wall, please select a different direction." << endl;
-    //} else {
-      //m.clearCell(currentPosition[0], currentPosition[1]);
-      //currentPosition[0]++;
-      //if (m.getCell(currentPosition[0], currentPosition[1]) == 'E'){
-        //this->wonGame();
-      //}
-      //m.setCharacter(currentPosition[0], currentPosition[1]);
-    //}
-  //}
-//}
+void HumanPlayerStrategy::moveLeft(Map& m, Character& c) {
+  vector<int> currentPosition = {c.getCurrentPositionX(), c.getCurrentPositionY()};
+  vector<int> humanPosition = {m.getHumanPosition()[0], m.getHumanPosition()[1]};
+  m.clearCell(currentPosition[0], currentPosition[1]);
+  currentPosition[1]--;
+  m.setCell(currentPosition[0], currentPosition[1], c.getTypeOnMap());
+  c.setCurrentPositionY(int(currentPosition[1]));
+}
 
+void HumanPlayerStrategy::moveRight(Map& m, Character& c) {
+  vector<int> currentPosition = {c.getCurrentPositionX(), c.getCurrentPositionY()};
+  vector<int> humanPosition = {m.getHumanPosition()[0], m.getHumanPosition()[1]};
+  m.clearCell(currentPosition[0], currentPosition[1]);
+  currentPosition[1]++;
+  m.setCell(currentPosition[0], currentPosition[1], c.getTypeOnMap());
+  c.setCurrentPositionY(currentPosition[1]);
+}

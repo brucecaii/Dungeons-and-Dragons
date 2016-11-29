@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
   cout << "Watch out, if you attack other characters, they might get angry and become aggresive ('O')..." << endl;
 
   // Hardcoding a basic map
-  Map m(5,5,"S                C       ");
+  Map m(5,5,"S                C     O");
   m.display();
 
   // Initializing all characters on the map
@@ -78,12 +78,13 @@ int main(int argc, char* argv[]) {
   }
   cout << endl;
 
+
+
   while (true) {
-    for (Character character : gameCharacters) {
-      character.executeStrategy(m);
+    for (int i = 0; i < (int)gameCharacters.size(); i++) {
+      gameCharacters[i].executeStrategy(m);
     }
   }
-
 
 
 

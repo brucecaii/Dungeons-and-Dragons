@@ -223,5 +223,17 @@ int Character::getCurrentPositionX() {
 int Character::getCurrentPositionY() {
   return this->currentPosition[1];
 }
+void Character::setCurrentPositionX(int charPosX) {
+  this->currentPosition[0] = charPosX;
+}
+void Character::setCurrentPositionY(int charPosY) {
+  this->currentPosition[1] = charPosY;
+}
+char Character::getTypeOnMap() {
+  return this->typeOnMap;
+}
+void Character::setTypeOnMap(char t) {
+  this->typeOnMap = t;
+}
 
 
