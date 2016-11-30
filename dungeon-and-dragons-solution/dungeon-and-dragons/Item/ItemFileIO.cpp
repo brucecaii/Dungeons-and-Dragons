@@ -1,7 +1,6 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "json.hpp"
 #include "ItemFileIO.h"
 
 using std::ifstream;
@@ -43,7 +42,7 @@ void ItemFileIO::readItem(string filePath, Item& item)
 	auto enhancers = jsonItem["enhancements"];
 	
 	//retrieving enhancements 
-	for (int j = 0; j < enhancers.size(); j++)
+	for (size_t  j = 0; j < enhancers.size(); j++)
 	{
 		//Creating an enhancement vector
 		auto currentEnhancement = enhancers.at(j);

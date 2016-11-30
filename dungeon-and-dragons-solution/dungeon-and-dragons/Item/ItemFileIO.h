@@ -2,7 +2,8 @@
 
 #include <string>
 #include <vector>
-#include "Character.h"
+#include "../Character/Character.h"
+#include "../Dependency/json.hpp"
 
 using std::string;
 using std::vector;

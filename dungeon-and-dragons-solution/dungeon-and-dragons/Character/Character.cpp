@@ -12,7 +12,7 @@ Character::Character() {
 	this->characterLevel = 1;
 	this->setHitPoint(10);
 	this->setAttackBonus({1, 0, 0, 0});
-    this->strategy = nullptr;
+	this->strategy = nullptr;
 	this->armorClass = 10;
 }
 
@@ -21,7 +21,7 @@ Character::Character(CharacterAttr *characterAttr) {
 	this->characterLevel = 1;
 	this->setHitPoint(10);
 	this->setAttackBonus({ 1, 0, 0, 0 });
-    this->strategy = nullptr;
+	this->strategy = nullptr;
 	this->armorClass = 10;
 }
 
@@ -35,7 +35,7 @@ action methods
 
 void Character::equipItem(Item item) {
 	if (characterEquipment->getItem(item.getType()).getType()=="") {
-		for (int i = 0; i < item.getInfluences().size();  i++) {
+		for (size_t i = 0; i < item.getInfluences().size();  i++) {
 			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
 		}
 		characterEquipment->addItem(item);
@@ -45,7 +45,7 @@ void Character::equipItem(Item item) {
 void Character::deEquipItem(string typeofItem) {
 	if (characterEquipment->getItem(typeofItem).getType() == typeofItem) {
 		Item current = characterEquipment->getItem(typeofItem);
-		for (int i = 0; i < current.getInfluences().size(); i++) {
+		for (size_t i = 0; i < current.getInfluences().size(); i++) {
 			changeAttr(current.getInfluences()[i].getType(), current.getInfluences()[i].getBonus(), "-");
 		}
 		characterEquipment->deleteItemByType(typeofItem);
