@@ -18,6 +18,46 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Character\AggressorStrategy.h" />
+    <ClInclude Include="Character\Character.h" />
+    <ClInclude Include="Character\CharacterAttr.h" />
+    <ClInclude Include="Character\CharacterBuilder.h" />
+    <ClInclude Include="Character\CharacterGenerator.h" />
+    <ClInclude Include="Character\CharacterStrategy.h" />
+    <ClInclude Include="Character\Fighter.h" />
+    <ClInclude Include="Character\FriendlyStrategy.h" />
+    <ClInclude Include="Character\HumanPlayerStrategy.h" />
+    <ClInclude Include="Character\Observer.h" />
+    <ClInclude Include="Character\Subject.h" />
+    <ClInclude Include="Dependency\json.hpp" />
+    <ClInclude Include="Dice\Dice.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="Item\Enhancement.h" />
+    <ClInclude Include="Item\Item.h" />
+    <ClInclude Include="Item\ItemContainer.h" />
+    <ClInclude Include="Map\Map.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Character\AggressorStrategy.cpp" />
+    <ClCompile Include="Character\Character.cpp" />
+    <ClCompile Include="Character\CharacterAttr.cpp" />
+    <ClCompile Include="Character\CharacterBuilder.cpp" />
+    <ClCompile Include="Character\CharacterGenerator.cpp" />
+    <ClCompile Include="Character\CharacterStrategy.cpp" />
+    <ClCompile Include="Character\Fighter.cpp" />
+    <ClCompile Include="Character\FriendlyStrategy.cpp" />
+    <ClCompile Include="Character\HumanPlayerStrategy.cpp" />
+    <ClCompile Include="Character\Observer.cpp" />
+    <ClCompile Include="Character\Subject.cpp" />
+    <ClCompile Include="Dice\Dice.cpp" />
+    <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="Item\Enhancement.cpp" />
+    <ClCompile Include="Item\Item.cpp" />
+    <ClCompile Include="Item\ItemContainer.cpp" />
+    <ClCompile Include="Map\Map.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C25E5624-6134-434B-B5F9-378DACAF6747}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -157,9 +197,6 @@
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
