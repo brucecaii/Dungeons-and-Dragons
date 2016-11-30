@@ -112,21 +112,21 @@ void AggressorStrategy::attackCharacterAtPosition(Character& c, int charPosX, in
     if (Global::gameCharacters[i]->getCurrentPosition()[0] == charPosX &&
         Global::gameCharacters[i]->getCurrentPosition()[1] == charPosY) {
       charBeingAttacked = Global::gameCharacters[i];
+      // Now checking if character had the friendly strategy. If yes, it should now have the aggressor strategy.
+      if (charBeingAttacked->getTypeOnMap() == 'C') {
+        charBeingAttacked->setTypeOnMap('O');
+        charBeingAttacked->setStrategy(new AggressorStrategy());
+      }
+      // Now remove hitpoints.
+      // IMPORTANT TO IMPLEMENT FOR FINAL DELIVERABLE:
+      // - Proper multiple attack.
+      // - proper attack success based on dice roll and armor class.
+      // - proper hitpoints reduction if attack is successful.
+      //int tempHP = charBeingAttacked->getHitPoints();
+      //charBeingAttacked->setHitPoints(tempHP-1);
     }
   }
 
-  // Now checking if character had the friendly strategy. If yes, it should now have the aggressor strategy.
-  if (charBeingAttacked->getTypeOnMap() == 'C') {
-    charBeingAttacked->setTypeOnMap('O');
-    charBeingAttacked->setStrategy(new AggressorStrategy());
-  }
 
-  // Now remove hitpoints.
-  // IMPORTANT TO IMPLEMENT FOR FINAL DELIVERABLE:
-  // - Proper multiple attack.
-  // - proper attack success based on dice roll and armor class.
-  // - proper hitpoints reduction if attack is successful.
-  //int tempHP = charBeingAttacked->getHitPoints();
-  //charBeingAttacked->setHitPoints(tempHP-1);
 }
 
