@@ -10,6 +10,6 @@
 
 //! This is a global namespaces in order to access all characters currently playing the game from all classes.
 namespace Global {
-  extern vector<Character> gameCharacters;
+  extern vector<Character*> gameCharacters;
 }
 

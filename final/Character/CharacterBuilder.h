@@ -34,5 +34,12 @@ public:
 	void setPlayerType();
 
 };
+class FriendlyCharacterBuilder : public CharacterBuilder {
+
+public:
+	FriendlyCharacterBuilder(string fighterType, int level);
+	void setPlayerType();
+
+};
 
 #endif

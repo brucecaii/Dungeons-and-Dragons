@@ -30,6 +30,7 @@ class Map {
     void clearCell(int x, int y);
     vector<tuple<char,int,int>> getAllCharacterPositions();
     vector<int> getHumanPosition();
+    void display();
   private:
     int mapWidth;
     int mapLength;

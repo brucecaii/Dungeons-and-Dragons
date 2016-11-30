@@ -1,4 +1,7 @@
 #include "CharacterBuilder.h"
+#include "HumanPlayerStrategy.h"
+#include "FriendlyStrategy.h"
+#include "AggressorStrategy.h"
 
 CharacterBuilder::CharacterBuilder(string fighterType, int level) {
 	this->fighterType = fighterType;
@@ -39,10 +42,23 @@ PlayerCharacterBuilder::PlayerCharacterBuilder(string fighterType, int level) : 
 
 void PlayerCharacterBuilder::setPlayerType() {
 	this->c_character->setPlayerType("player");
+	this->c_character->setTypeOnMap('S');
+        this->c_character->setStrategy(new HumanPlayerStrategy());
 }
 
 EnermyCharacterBuilder::EnermyCharacterBuilder(string fighterType, int level) : CharacterBuilder(fighterType, level) {};
 
 void EnermyCharacterBuilder::setPlayerType() {
 	this->c_character->setPlayerType("enermy");
+	this->c_character->setTypeOnMap('O');
+	this->c_character->setStrategy(new AggressorStrategy());
 }
+
+FriendlyCharacterBuilder::FriendlyCharacterBuilder(string fighterType, int level) : CharacterBuilder(fighterType, level) {};
+
+void FriendlyCharacterBuilder::setPlayerType() {
+	this->c_character->setPlayerType("friendly");
+	this->c_character->setTypeOnMap('C');
+	this->c_character->setStrategy(new FriendlyStrategy());
+}
+

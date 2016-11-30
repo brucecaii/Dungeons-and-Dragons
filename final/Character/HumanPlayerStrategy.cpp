@@ -36,13 +36,13 @@ void HumanPlayerStrategy::execute(Map& m, Character& c) {
     // NEED BENNYS LOGGER HERE //
     /////////////////////////////
     //c.displayCharacter();
-    //m.display();
-    this->movePlayer(m,c);
+    m.display();
+    this->canAttackOneAdjacentCharacter(m, c);
     /////////////////////////////
     // NEED BENNYS LOGGER HERE //
     /////////////////////////////
-    //m.display();
-    this->canAttackOneAdjacentCharacter(m, c);
+    m.display();
+    this->movePlayer(m,c);
   } else {
     /////////////////////////////
     // NEED BENNYS LOGGER HERE //
@@ -141,9 +141,9 @@ void HumanPlayerStrategy::attackCharacterAtPosition(Character& c, int charPosX, 
   //First need to find the character instance at position (charPosX, charPosY)
   Character* charBeingAttacked;
   for (int i = 0; i < (int)Global::gameCharacters.size(); i++) {
-    if (Global::gameCharacters[i].getCurrentPosition()[0] == charPosX &&
-        Global::gameCharacters[i].getCurrentPosition()[1] == charPosY) {
-      charBeingAttacked = &Global::gameCharacters[i];
+    if (Global::gameCharacters[i]->getCurrentPosition()[0] == charPosX &&
+        Global::gameCharacters[i]->getCurrentPosition()[1] == charPosY) {
+      charBeingAttacked = Global::gameCharacters[i];
     }
   }
 

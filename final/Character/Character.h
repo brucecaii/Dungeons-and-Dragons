@@ -17,7 +17,6 @@ class Character : public Subject {
 public:
 	Character();
 	Character(CharacterAttr *characterAttr);
-	Character(CharacterAttr *characterAttr, CharacterStrategy *initStrategy, char typeOnMap, vector<int> currentPosition);
 	~Character();
 	/*
 	action methods

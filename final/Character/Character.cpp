@@ -12,6 +12,7 @@ Character::Character() {
 	this->characterLevel = 1;
 	this->setHitPoint(10);
 	this->setAttackBonus({1, 0, 0, 0});
+        this->strategy = nullptr;
 }
 
 Character::Character(CharacterAttr *characterAttr) {
@@ -19,16 +20,7 @@ Character::Character(CharacterAttr *characterAttr) {
 	this->characterLevel = 1;
 	this->setHitPoint(10);
 	this->setAttackBonus({ 1, 0, 0, 0 });
-}
-
-Character::Character(CharacterAttr *characterAttr, CharacterStrategy *initStrategy, char typeOnMap, vector<int> currentPosition) {
-	this->characterAttr = characterAttr;
-	this->characterLevel = 1;
-	this->setHitPoint(10);
-	this->setAttackBonus({ 1, 0, 0, 0 });
-	this->strategy = initStrategy;
-	this->typeOnMap = typeOnMap;
-        this->currentPosition = currentPosition;
+        this->strategy = nullptr;
 }
 
 Character::~Character() {
@@ -231,7 +223,8 @@ void Character::setCharacterAttr(CharacterAttr *characterAttr) {
 }
 
 void Character::setStrategy(CharacterStrategy* newStrategy) {
-  delete this->strategy;
+  if (strategy != nullptr)
+    delete this->strategy;
   this->strategy = newStrategy;
 }
 

@@ -109,9 +109,9 @@ void AggressorStrategy::attackCharacterAtPosition(Character& c, int charPosX, in
   //First need to find the character instance at position (charPosX, charPosY)
   Character* charBeingAttacked;
   for (int i = 0; i < (int)Global::gameCharacters.size(); i++) {
-    if (Global::gameCharacters[i].getCurrentPosition()[0] == charPosX &&
-        Global::gameCharacters[i].getCurrentPosition()[1] == charPosY) {
-      charBeingAttacked = &Global::gameCharacters[i];
+    if (Global::gameCharacters[i]->getCurrentPosition()[0] == charPosX &&
+        Global::gameCharacters[i]->getCurrentPosition()[1] == charPosY) {
+      charBeingAttacked = Global::gameCharacters[i];
     }
   }
 

@@ -253,17 +253,17 @@ void Map::setMapData(string placement) {
 /////////////////////////////////////////////////////////////
 // SHOULD NO LONGER BE NEEDED WHEN BENNY MERGES HIS LOGGER //
 /////////////////////////////////////////////////////////////
-//void Map::display() {
-  //cout << string(mapWidth+2,'#') << endl;
-  //for (int i = 0; i < (int)map.size(); i++) {
-    //cout << "#";
-    //for (int j = 0; j < (int)map[i].size(); j++) {
-      //cout << map[i][j];
-    //}
-    //cout << "#" << endl;
-  //}
-  //cout << string(mapWidth+2,'#') << endl;
-//}
+void Map::display() {
+  cout << string(mapWidth+2,'#') << endl;
+  for (int i = 0; i < (int)map.size(); i++) {
+    cout << "#";
+    for (int j = 0; j < (int)map[i].size(); j++) {
+      cout << map[i][j];
+    }
+    cout << "#" << endl;
+  }
+  cout << string(mapWidth+2,'#') << endl;
+}
 
 void Map::clearCell(int x, int y){
   map[x][y] = ' ';

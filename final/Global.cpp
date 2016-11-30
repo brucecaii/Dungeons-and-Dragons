@@ -10,5 +10,5 @@
 
 //! This is a global namespaces in order to access all characters currently playing the game from all classes.
 namespace Global {
-  vector<Character> gameCharacters;
+  vector<Character*> gameCharacters;
 }
