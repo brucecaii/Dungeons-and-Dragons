@@ -8,7 +8,7 @@
 #include <sstream>
 #include "MapCampaignFileIO.h"
 #include "../GUI/Utils.h"
-#include "../GUI/GameData.h"
+#include "../GameData.h"
 
 using std::ifstream;
 using std::ofstream;

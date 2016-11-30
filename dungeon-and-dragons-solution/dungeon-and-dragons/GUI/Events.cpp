@@ -5,11 +5,14 @@
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
-#include "GameData.h"
+#include "../GameData.h"
 #include "Gui.h"
 #include "Events.h"
 #include "../Map/MapCampaignFileIO.h"
 #include "../Character/CharacterFileIO.h"
+#include "../Character/CharacterBuilder.h"
+#include "../Character/CharacterGenerator.h"
+#include "../Character/HumanPlayerStrategy.h"
 #include "Utils.h"
 
 using std::stoi;
@@ -185,11 +188,99 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           cfio.readCharacter(Gui::playedCampaign, *GameData::currentCharacterObject);
           Gui::isChoosingCharacterToPlay = false;
           Gui::isPlayingGame = true;
-          GameData::currentCharacterObject->displayCharacter();
+          ///////////////////////////////////////////////////
+          //   NEED BENNY LOGGER HERE                     //
+          ///////////////////////////////////////////////////
+          //GameData::currentCharacterObject->displayCharacter();
           Gui::playedMap = GameData::currentCampaignObject->getCampaignMapOrder()[Gui::GamePlayCurrentMap];
           MapCampaignFileIO mfio;
           mfio.readMapJSON(Gui::playedMap+".map");
-          GameData::currentMapObject->setCurrentPosition();
+
+          vector<tuple<char,int,int>> characterPositions = GameData::currentMapObject->getAllCharacterPositions();
+
+          // As you read characters off the map, need to prompt user about type and level of character
+          CharacterGenerator selectHero;
+          for (int i = 0; i < (int)characterPositions.size(); i++) {
+            // Create a new one with appropriate position and type
+            char type; int posX; int posY;
+            tie(type, posX, posY) = characterPositions[i];
+            if (type == 'S') {
+              cout << "There is a human character at position ("<< posX << ","<< posY <<")" << endl;
+              cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
+              cout << "Example: Bully,3" << endl;
+              string answer;
+              string delimeter(",");
+              Utils util;
+              getline(cin, answer);
+
+
+              if (answer.find(delimeter) != string::npos) {
+                vector<string> result;
+                util.split(answer,delimeter.at(0), result);
+                if ((int)result.size() == 2) {
+                  //CharacterBuilder* playerBuilder = new PlayerCharacterBuilder("Bully", 2);
+                  //selectHero.setCharacterBuilder(playerBuilder);
+                  //selectHero.createCharacter();
+                  //Character *player = selectHero.getCharacter();
+                  vector<int> currentPosition = {posX,posY};
+                  GameData::currentCharacterObject->setCurrentPosition(currentPosition);
+                  GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
+                  GameData::gameCharacters.push_back(GameData::currentCharacterObject);
+                }
+               }
+            }
+            if (type == 'C') {
+              cout << "There is a friendly character at position ("<< posX << ","<< posY <<")" << endl;
+              cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
+              cout << "Example: Bully,3" << endl;
+              string answer;
+              string delimeter(",");
+              Utils util;
+              getline(cin, answer);
+
+
+              if (answer.find(delimeter) != string::npos) {
+                vector<string> result;
+                util.split(answer,delimeter.at(0), result);
+                if ((int)result.size() == 2) {
+                CharacterBuilder* friendlyBuilder = new FriendlyCharacterBuilder("Tank", 4);
+                selectHero.setCharacterBuilder(friendlyBuilder);
+                selectHero.createCharacter();
+                Character *friendly = selectHero.getCharacter();
+                vector<int> currentPosition = {posX,posY};
+                friendly->setCurrentPosition(currentPosition);
+                GameData::gameCharacters.push_back(friendly);
+                }
+              }
+            }
+            if (type == 'O') {
+              cout << "There is an aggressor character at position ("<< posX << ","<< posY <<")" << endl;
+              cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
+              cout << "Example: Bully,3" << endl;
+              string answer;
+              string delimeter(",");
+              Utils util;
+              getline(cin, answer);
+
+
+              if (answer.find(delimeter) != string::npos) {
+                vector<string> result;
+                util.split(answer,delimeter.at(0), result);
+                if ((int)result.size() == 2) {
+                  CharacterBuilder* enermyBuilder = new EnermyCharacterBuilder("Nimble", 3);
+                  selectHero.setCharacterBuilder(enermyBuilder);
+                  selectHero.createCharacter();
+                  Character *enermy = selectHero.getCharacter();
+                  vector<int> currentPosition = {posX,posY};
+                  enermy->setCurrentPosition(currentPosition);
+                  GameData::gameCharacters.push_back(enermy);
+                }
+              }
+            }
+            // ALSO CHECK FOR CHEST CONTENTS HERE
+          }
+          cout << endl;
+
           Gui::shouldBlockThread = true;
         }
       }
@@ -413,59 +504,64 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
       }
 
       if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
-        string args;
-        string tempCreatedArgs(Gui::createdCharacterArgs);
-        string tempChosenArgs(Gui::chosenCharacterArgs);
-        string fileNameOutput;
-        if (Gui::isCreatingCharacter) {
-          args = string(tempCreatedArgs);
-          fileNameOutput = Gui::createdCharacter;
-        }
-        if (Gui::isEditingCharacter) {
-          args = string(tempChosenArgs);
-          fileNameOutput = Gui::chosenCharacter;
-        }
+
+        /////////////////////////////////////////////////
+        // NEED TO REDO CHARACTER EDITING AND CREATION //
+        /////////////////////////////////////////////////
+
+        //string args;
+        //string tempCreatedArgs(Gui::createdCharacterArgs);
+        //string tempChosenArgs(Gui::chosenCharacterArgs);
+        //string fileNameOutput;
+        //if (Gui::isCreatingCharacter) {
+          //args = string(tempCreatedArgs);
+          //fileNameOutput = Gui::createdCharacter;
+        //}
+        //if (Gui::isEditingCharacter) {
+          //args = string(tempChosenArgs);
+          //fileNameOutput = Gui::chosenCharacter;
+        //}
 
         // check if csv is valid
-        Utils util;
-        util.removeSpaceCharFromString(args);
-        vector<string> stringArgElements;
-        vector<int> intArgElements;
-        util.split(args, ',', stringArgElements);
+        //Utils util;
+        //util.removeSpaceCharFromString(args);
+        //vector<string> stringArgElements;
+        //vector<int> intArgElements;
+        //util.split(args, ',', stringArgElements);
 
-        if (stringArgElements.size() != 6) {
-          cout << "INVALID: Must provide 6 ability values." << endl;
-          Gui::shouldShowCharacterValidationError = true;
-          return;
-        }
+        //if (stringArgElements.size() != 6) {
+          //cout << "INVALID: Must provide 6 ability values." << endl;
+          //Gui::shouldShowCharacterValidationError = true;
+          //return;
+        //}
 
-        for (int i = 0; i < (int)stringArgElements.size(); i++) {
-          try {
-            intArgElements.push_back(stoi(stringArgElements[i]));
-          } catch (...) {
-            //string to int cast failed
-            cout << "INVALID: Ability values must be integers." << endl;
-            Gui::shouldShowCharacterValidationError = true;
-            return;
-          }
-        }
+        //for (int i = 0; i < (int)stringArgElements.size(); i++) {
+          //try {
+            //intArgElements.push_back(stoi(stringArgElements[i]));
+          //} catch (...) {
+            ////string to int cast failed
+            //cout << "INVALID: Ability values must be integers." << endl;
+            //Gui::shouldShowCharacterValidationError = true;
+            //return;
+          //}
+        //}
 
         // check if character is valid
-        GameData::currentCharacterObject = new Character(
-          intArgElements[0],
-          intArgElements[1],
-          intArgElements[2],
-          intArgElements[3],
-          intArgElements[4],
-          intArgElements[5]
-        );
+        //GameData::currentCharacterObject = new Character(
+          //intArgElements[0],
+          //intArgElements[1],
+          //intArgElements[2],
+          //intArgElements[3],
+          //intArgElements[4],
+          //intArgElements[5]
+        //);
 
-        // Character is valid
-        Gui::shouldShowCharacterValidationError = false;
-        CharacterFileIO cfio;
-        cfio.saveCharacter(fileNameOutput, *GameData::currentCharacterObject);
-        GameData::currentCharacterObject->displayCharacter();
-        Gui::shouldBlockThread = true;
+        //// Character is valid
+        //Gui::shouldShowCharacterValidationError = false;
+        //CharacterFileIO cfio;
+        //cfio.saveCharacter(fileNameOutput, *GameData::currentCharacterObject);
+        //GameData::currentCharacterObject->displayCharacter();
+        //Gui::shouldBlockThread = true;
       }
     }
   }
@@ -604,11 +700,11 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window) {
       Gui::GamePlayCurrentMap++;
       if (Gui::GamePlayCurrentMap != (int)GameData::currentCampaignObject->getCampaignMapOrder().size()) {
         GameData::currentCharacterObject->levelUp();
-        GameData::currentCharacterObject->displayCharacter();
+        //GameData::currentCharacterObject->displayCharacter();
         Gui::playedMap = GameData::currentCampaignObject->getCampaignMapOrder()[Gui::GamePlayCurrentMap];
         MapCampaignFileIO mfio;
         mfio.readMapJSON(Gui::playedMap+".map");
-        GameData::currentMapObject->setCurrentPosition();
+        //GameData::currentMapObject->setCurrentPosition();
       }
       else {
         cout << "!!! YOU WON THE CAMPAIGN !!!" << endl;
@@ -617,27 +713,27 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window) {
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
-      GameData::currentMapObject->openChest();
+      //GameData::currentMapObject->openChest();
       Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
-      GameData::currentCharacterObject->displayCharacter();
+      //GameData::currentCharacterObject->displayCharacter();
       Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-      GameData::currentMapObject->moveLeft();
+      //GameData::currentMapObject->moveLeft();
       Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-      GameData::currentMapObject->moveRight();
+      //GameData::currentMapObject->moveRight();
       Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-      GameData::currentMapObject->moveUp();
+      //GameData::currentMapObject->moveUp();
       Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-      GameData::currentMapObject->moveDown();
+      //GameData::currentMapObject->moveDown();
       Gui::shouldBlockThread = true;
     }
   }

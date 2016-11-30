@@ -1,7 +1,7 @@
-#include "../Map/Map.h"
-#include "../Map/MapCampaign.h"
-#include "../Character/Character.h"
-#include "../Item/Item.h"
+#include "Map/Map.h"
+#include "Map/MapCampaign.h"
+#include "Character/Character.h"
+#include "Item/Item.h"
 
 namespace GameData {
 
@@ -9,5 +9,6 @@ namespace GameData {
   MapCampaign* currentCampaignObject = new MapCampaign();
   Character* currentCharacterObject = new Character();
   Item* currentItemObject = new Item();
+  vector<Character*> gameCharacters;
 
 }

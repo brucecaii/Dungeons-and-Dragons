@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "GameData.h"
+#include "../GameData.h"
 #include "Gui.h"
 #include "Ui.h"
 #include "../Map/MapCampaignFileIO.h"
