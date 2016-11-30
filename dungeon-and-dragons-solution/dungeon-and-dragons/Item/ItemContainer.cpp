@@ -38,10 +38,24 @@ void ItemContainer::addItem(Item anitem)
 //! assumption: the container can only contain one element of each type
 //! @param itemType : type of item to extract from the container
 //! @return : item of the specified kind provided in input
-Item ItemContainer::getItem(string itemType)
+Item ItemContainer::getItemByType(string itemType)
 {
 	for (int i = 0; i < Items.size(); i++) {
-		if (Items[i].getType() == itemType) return Items[i];
+		if (Items[i].getType() == itemType) 
+			return Items[i];
+	}
+	Item notFound;
+	return notFound;
+}
+
+//! method to return an item with a specific name contained in the ItemContainer
+//! @param itemType : type of item to extract from the container
+//! @return : item of the specified kind provided in input
+Item ItemContainer::getItemByName(string itemName)
+{
+	for (int i = 0; i < Items.size(); i++) {
+		if (Items[i].getName() == itemName) 
+			return Items[i];
 	}
 	Item notFound;
 	return notFound;

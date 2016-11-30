@@ -42,8 +42,10 @@ class ItemContainer
 		vector<Item> getItems();
 		// method to add an item to the item container
 		void addItem(Item anitem);
+		// mehod to get an item by name
+		Item getItemByName(string itemName);
 		// method to get an item from the item container
-		Item getItem(string itemType);
+		Item getItemByType(string itemType);
 		//! method to delete an item
 		void deleteItem(string name); //! take name of item to delete
 		void deleteItemByType(string type);
