@@ -75,12 +75,6 @@
     <ClInclude Include="Character\HumanPlayerStrategy.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Observer.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\Subject.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Dependency\json.hpp">
       <Filter>Header Files\Dependency</Filter>
     </ClInclude>
@@ -165,12 +159,6 @@
       <Filter>Source Files\Character</Filter>
     </ClCompile>
     <ClCompile Include="Character\HumanPlayerStrategy.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Observer.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Subject.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
     <ClCompile Include="Dice\Dice.cpp">

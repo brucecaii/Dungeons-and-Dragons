@@ -29,8 +29,6 @@
     <ClInclude Include="Character\Fighter.h" />
     <ClInclude Include="Character\FriendlyStrategy.h" />
     <ClInclude Include="Character\HumanPlayerStrategy.h" />
-    <ClInclude Include="Character\Observer.h" />
-    <ClInclude Include="Character\Subject.h" />
     <ClInclude Include="Dependency\json.hpp" />
     <ClInclude Include="Dice\Dice.h" />
     <ClInclude Include="GameData.h" />
@@ -61,8 +59,6 @@
     <ClCompile Include="Character\Fighter.cpp" />
     <ClCompile Include="Character\FriendlyStrategy.cpp" />
     <ClCompile Include="Character\HumanPlayerStrategy.cpp" />
-    <ClCompile Include="Character\Observer.cpp" />
-    <ClCompile Include="Character\Subject.cpp" />
     <ClCompile Include="Dice\Dice.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="GameData.cpp" />

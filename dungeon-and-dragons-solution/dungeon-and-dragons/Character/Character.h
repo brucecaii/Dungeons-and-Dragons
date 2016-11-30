@@ -1,6 +1,5 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-#include "Subject.h"
 #include "../Item/ItemContainer.h"
 #include "../Dependency/json.hpp"
 #include "CharacterAttr.h"
@@ -12,7 +11,7 @@ using namespace std;
 
 class CharacterStrategy; // This forward declaration is needed. _DONT_TOUCH_IT_! (Lance)
 
-class Character : public Subject {
+class Character {
 
 public:
 	Character();
