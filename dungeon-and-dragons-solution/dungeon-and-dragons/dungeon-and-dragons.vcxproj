@@ -23,6 +23,7 @@
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\CharacterAttr.h" />
     <ClInclude Include="Character\CharacterBuilder.h" />
+    <ClInclude Include="Character\CharacterFileIO.h" />
     <ClInclude Include="Character\CharacterGenerator.h" />
     <ClInclude Include="Character\CharacterStrategy.h" />
     <ClInclude Include="Character\Fighter.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="Character\Character.cpp" />
     <ClCompile Include="Character\CharacterAttr.cpp" />
     <ClCompile Include="Character\CharacterBuilder.cpp" />
+    <ClCompile Include="Character\CharacterFileIO.cpp" />
     <ClCompile Include="Character\CharacterGenerator.cpp" />
     <ClCompile Include="Character\CharacterStrategy.cpp" />
     <ClCompile Include="Character\Fighter.cpp" />

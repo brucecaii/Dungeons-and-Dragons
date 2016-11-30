@@ -164,6 +164,10 @@ void Character::attack(Character *opponent) {
 getter and setter
 */
 
+void Character::setLevel(int level) {
+	this->characterLevel = level;
+}
+
 int Character::getLevel() const {
 	return this->characterLevel;
 }
