@@ -34,11 +34,20 @@
     <ClInclude Include="Dependency\json.hpp" />
     <ClInclude Include="Dice\Dice.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="GUI\dirent.h" />
+    <ClInclude Include="GUI\Events.h" />
+    <ClInclude Include="GUI\Fonts.h" />
+    <ClInclude Include="GUI\GameData.h" />
+    <ClInclude Include="GUI\Gui.h" />
+    <ClInclude Include="GUI\Ui.h" />
+    <ClInclude Include="GUI\Utils.h" />
     <ClInclude Include="Item\Enhancement.h" />
     <ClInclude Include="Item\Item.h" />
     <ClInclude Include="Item\ItemContainer.h" />
     <ClInclude Include="Item\ItemFileIO.h" />
     <ClInclude Include="Map\Map.h" />
+    <ClInclude Include="Map\MapCampaign.h" />
+    <ClInclude Include="Map\MapCampaignFileIO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character\AggressorStrategy.cpp" />
@@ -56,11 +65,19 @@
     <ClCompile Include="Dice\Dice.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="GUI\Events.cpp" />
+    <ClCompile Include="GUI\Fonts.cpp" />
+    <ClCompile Include="GUI\GameData.cpp" />
+    <ClCompile Include="GUI\Gui.cpp" />
+    <ClCompile Include="GUI\Ui.cpp" />
+    <ClCompile Include="GUI\Utils.cpp" />
     <ClCompile Include="Item\Enhancement.cpp" />
     <ClCompile Include="Item\Item.cpp" />
     <ClCompile Include="Item\ItemContainer.cpp" />
     <ClCompile Include="Item\ItemFileIO.cpp" />
     <ClCompile Include="Map\Map.cpp" />
+    <ClCompile Include="Map\MapCampaign.cpp" />
+    <ClCompile Include="Map\MapCampaignFileIO.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C25E5624-6134-434B-B5F9-378DACAF6747}</ProjectGuid>
