@@ -12,7 +12,8 @@ Character::Character() {
 	this->characterLevel = 1;
 	this->setHitPoint(10);
 	this->setAttackBonus({1, 0, 0, 0});
-        this->strategy = nullptr;
+	this->strategy = nullptr;
+	this->armorClass = 10;
 }
 
 Character::Character(CharacterAttr *characterAttr) {
@@ -20,7 +21,8 @@ Character::Character(CharacterAttr *characterAttr) {
 	this->characterLevel = 1;
 	this->setHitPoint(10);
 	this->setAttackBonus({ 1, 0, 0, 0 });
-        this->strategy = nullptr;
+	this->strategy = nullptr;
+	this->armorClass = 10;
 }
 
 Character::~Character() {
@@ -33,7 +35,7 @@ action methods
 
 void Character::equipItem(Item item) {
 	if (characterEquipment->getItem(item.getType()).getType()=="") {
-		for (int i = 0; i < item.getInfluences().size();  i++) {
+		for (size_t i = 0; i < item.getInfluences().size();  i++) {
 			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
 		}
 		characterEquipment->addItem(item);
@@ -43,7 +45,7 @@ void Character::equipItem(Item item) {
 void Character::deEquipItem(string typeofItem) {
 	if (characterEquipment->getItem(typeofItem).getType() == typeofItem) {
 		Item current = characterEquipment->getItem(typeofItem);
-		for (int i = 0; i < current.getInfluences().size(); i++) {
+		for (size_t i = 0; i < current.getInfluences().size(); i++) {
 			changeAttr(current.getInfluences()[i].getType(), current.getInfluences()[i].getBonus(), "-");
 		}
 		characterEquipment->deleteItemByType(typeofItem);
@@ -145,11 +147,14 @@ void Character::attack(Character *opponent) {
 		int damage;
 		bool isHit;
 		int attackRoll = Dice::roll("1d20")[0];
-		damage = attackRoll + this->getAttackBonus()[i] + this->getDamageBonus();
+		damage = this->getAttackBonus()[i] + this->getDamageBonus();
 		if (attackRoll == 20) isHit = true;
 		else if (attackRoll == 1) isHit = false;
 		else {
-			if (damage > opponent->getArmorClass()) isHit = true;
+			double hitChance = (double(attackRoll) / double(20)) * 100;
+			if (rand() % 100 + 1 < hitChance && damage > opponent->getArmorClass()) {
+				isHit = true;
+			}
 			else isHit = false;
 		}
 		if (isHit) {
@@ -161,6 +166,10 @@ void Character::attack(Character *opponent) {
 /*
 getter and setter
 */
+
+void Character::setLevel(int level) {
+	this->characterLevel = level;
+}
 
 int Character::getLevel() const {
 	return this->characterLevel;

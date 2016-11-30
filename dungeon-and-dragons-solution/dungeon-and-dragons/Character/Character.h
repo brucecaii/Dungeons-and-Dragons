@@ -30,11 +30,12 @@ public:
 	void levelUp();
 	bool validateNewCharacter();
 	void attack(Character *opponent);
-        void executeStrategy(Map& m);
+	void executeStrategy(Map& m);
 
 	/*
 	setter and getter
 	*/
+	void setLevel(int level);
 	int getLevel() const;
 	int getHitPoint() const;
 	void setHitPoint(int hitPoint);
@@ -50,11 +51,11 @@ public:
 	void setCharacterBackpack(ItemContainer *characterBackpack);
 	CharacterAttr* getCharacterAttr() const;
 	void setCharacterAttr(CharacterAttr *characterAttr);
-        char getTypeOnMap();
-        void setTypeOnMap(char type);
-        vector<int> getCurrentPosition();
-        void setCurrentPosition(vector<int> currentPosition);
-        void setStrategy(CharacterStrategy* newStrategy);
+	char getTypeOnMap();
+	void setTypeOnMap(char type);
+	vector<int> getCurrentPosition();
+	void setCurrentPosition(vector<int> currentPosition);
+	void setStrategy(CharacterStrategy* newStrategy);
 
 private:
 	/*
@@ -64,13 +65,13 @@ private:
 	int armorClass;
 	int hitPoint;
 	int damageBonus;
-        char typeOnMap;
+	char typeOnMap;
 	vector<int> attackbonus;
-        vector<int> currentPosition;
+	vector<int> currentPosition;
 	CharacterAttr *characterAttr;
 	ItemContainer *characterEquipment;
 	ItemContainer *characterBackpack;
-        CharacterStrategy *strategy;
+	CharacterStrategy *strategy;
 };
 
 #endif
