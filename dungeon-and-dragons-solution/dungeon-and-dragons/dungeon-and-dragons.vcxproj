@@ -33,6 +33,7 @@
     <ClInclude Include="Character\Subject.h" />
     <ClInclude Include="Dependency\json.hpp" />
     <ClInclude Include="Dice\Dice.h" />
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GUI\dirent.h" />
     <ClInclude Include="GUI\Events.h" />
@@ -64,10 +65,9 @@
     <ClCompile Include="Character\Subject.cpp" />
     <ClCompile Include="Dice\Dice.cpp" />
     <ClCompile Include="Driver.cpp" />
-    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GUI\Events.cpp" />
     <ClCompile Include="GUI\Fonts.cpp" />
-    <ClCompile Include="GUI\GameData.cpp" />
     <ClCompile Include="GUI\Gui.cpp" />
     <ClCompile Include="GUI\Ui.cpp" />
     <ClCompile Include="GUI\Utils.cpp" />

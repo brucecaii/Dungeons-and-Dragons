@@ -135,6 +135,9 @@
     <ClInclude Include="GUI\Utils.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character\AggressorStrategy.cpp">
@@ -188,9 +191,6 @@
     <ClCompile Include="Driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Item\ItemFileIO.cpp">
       <Filter>Source Files\Item</Filter>
     </ClCompile>
@@ -209,9 +209,6 @@
     <ClCompile Include="GUI\Fonts.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\GameData.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\Gui.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -220,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="GUI\Utils.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
