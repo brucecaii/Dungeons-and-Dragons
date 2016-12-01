@@ -18,6 +18,78 @@ using namespace std::this_thread;
 //! Runs the main map creation program:
 int main(int argc, char* argv[]) {
 
+	//Items for testing purpose
+	
+	//Creating all the types of enhancements
+	Enhancement intelligence("Intelligence", 5);
+	Enhancement wisdom("Wisdom", 5);
+	Enhancement armor("Armor class", 5);
+	Enhancement strength("Strength", 5);
+	Enhancement constitution("Constitution", 5);
+	Enhancement charisma("Charisma", 5);
+	Enhancement dexterity("Dexterity", 5);
+	Enhancement attack("Attack bonus", 5);
+	Enhancement damage("Damage bonus", 5);
+	Enhancement fake("Fake Enhancement", 5);
+
+	//Adding helmet allowed enhancements to vector
+	vector<Enhancement> helmet_enhan;
+	helmet_enhan.push_back(intelligence);
+	helmet_enhan.push_back(wisdom);
+	helmet_enhan.push_back(armor);
+
+	//Adding armor allowed enhancements to vector
+	vector<Enhancement> armor_enhan;
+	armor_enhan.push_back(armor);
+
+	//Adding shield allowed enhancements to vector
+	vector<Enhancement> shield_enhan;
+	shield_enhan.push_back(armor);
+
+	//Adding ring allowed enhancements to vector
+	vector<Enhancement> ring_enhan;
+	ring_enhan.push_back(armor);
+	ring_enhan.push_back(strength);
+	ring_enhan.push_back(constitution);
+	ring_enhan.push_back(wisdom);
+	ring_enhan.push_back(armor);
+
+	//Adding belt allowed enhancements to vector
+	vector<Enhancement> belt_enhan;
+	belt_enhan.push_back(constitution);
+	belt_enhan.push_back(strength);
+
+	//Adding boots allowed enhancements to vector
+	vector<Enhancement> boots_enhan;
+	boots_enhan.push_back(armor);
+	boots_enhan.push_back(dexterity);
+
+	//Adding weapon allowed enhancements to vector
+	vector<Enhancement> weapon_enhan;
+	weapon_enhan.push_back(attack);
+	weapon_enhan.push_back(damage);
+
+	//Creating a helmet object and assigning valid enhancements
+	Item helmet_item("Helmet", helmet_enhan, "Beautiful Hat");
+
+	//Creating a armor object and assigning valid enhancements
+	Item armor_item("Armor", armor_enhan, "Beautiful Armor");
+
+	//Creating a shield object and assigning valid enhancements
+	Item shield_item("Shield", shield_enhan, "Beautiful Shield");
+
+	//Creating a ring object and assigning valid enhancements
+	Item ring_item("Ring", ring_enhan, "Beautiful Ring");
+
+	//Creating a belt object and assigning valid enhancements
+	Item belt_item("Belt", belt_enhan, "Beautiful Belt");
+
+	//Creating a boots object and assigning valid enhancements
+	Item boots_item("Boots", boots_enhan, "Beautiful Boots");
+
+	//Creating a helmet object and assigning valid enhancements
+	Item weapon_item("Weapon", weapon_enhan, "Beautiful Weapon");
+
     ///////////////////////////
     // INITIALIZING GUI DATA //
     ///////////////////////////
