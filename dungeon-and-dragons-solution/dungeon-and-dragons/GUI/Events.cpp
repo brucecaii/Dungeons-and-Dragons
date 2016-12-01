@@ -19,8 +19,9 @@ using std::stoi;
 using std::cout;
 using std::endl;
 
-void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
-  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt) {
+  if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
+    cout << "TEST" << endl;
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     Utils util;
     if (Gui::isSelectingChoice) {
@@ -79,9 +80,9 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window) {
   }
 }
 
-void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
+void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isChoosingMapToEdit) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
       for (int i = 0; i < (int)Gui::current_map_positions.size(); i++) {
@@ -99,14 +100,13 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
             Gui::isChoosingMapToEdit = false;
             Gui::isEditingMap = true;
           }
-          Gui::shouldBlockThread = true;
         }
       }
     }
   }
 
   if (Gui::isChoosingCampaignToEdit) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
       for (int i = 0; i < (int)Gui::current_campaign_positions.size(); i++) {
@@ -124,14 +124,13 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
             Gui::isChoosingCampaignToEdit = false;
             Gui::isEditingCampaign = true;
           }
-          Gui::shouldBlockThread = true;
         }
       }
     }
   }
 
   if (Gui::isChoosingCharacterToEdit) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
       for (int i = 0; i < (int)Gui::current_character_positions.size(); i++) {
@@ -145,14 +144,13 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           Gui::shouldShowCharacterValidationError = false;
           Gui::isChoosingCharacterToEdit = false;
           Gui::isEditingCharacter = true;
-          Gui::shouldBlockThread = true;
         }
       }
     }
   }
 
   if (Gui::isChoosingCampaignToPlay) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
       for (int i = 0; i < (int)Gui::current_campaign_positions.size(); i++) {
@@ -170,14 +168,13 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
             Gui::isChoosingCampaignToPlay = false;
             Gui::isChoosingCharacterToPlay = true;
           }
-          Gui::shouldBlockThread = true;
         }
       }
     }
   }
 
   if (Gui::isChoosingCharacterToPlay) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
       for (int i = 0; i < (int)Gui::current_character_positions.size(); i++) {
@@ -281,7 +278,6 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           }
           cout << endl;
 
-          Gui::shouldBlockThread = true;
         }
       }
     }
@@ -307,7 +303,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::createdMap = Gui::createdMap + ".map";
               Gui::isChoosingMapToCreate = false;
               Gui::isSelectingMapSize = true;
-              Gui::shouldBlockThread = true;
+  
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
             if (Gui::createdMap.length() != 0)
@@ -335,7 +331,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::isCreatingCampaign = true;
               delete GameData::currentCampaignObject;
               GameData::currentCampaignObject = new MapCampaign();
-              Gui::shouldBlockThread = true;
+  
 
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
@@ -362,7 +358,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::createdCharacter = Gui::createdCharacter + ".character";
               Gui::isChoosingCharacterToCreate = false;
               Gui::isCreatingCharacter = true;
-              Gui::shouldBlockThread = true;
+  
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
             if (Gui::createdCharacter.length() != 0)
@@ -388,7 +384,7 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::createdItem = Gui::createdItem + ".item";
               Gui::isChoosingItemToCreate = false;
               Gui::isCreatingItem = true;
-              Gui::shouldBlockThread = true;
+  
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
             if (Gui::createdItem.length() != 0)
@@ -418,9 +414,9 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
     }
 }
 
-void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
+void Events::respondToHomeButtonClick(sf::RenderWindow& window, sf::Event& evt) {
   if (!Gui::isSelectingChoice) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
       if (Gui::homeButtonPosition.contains(mousePosition)) {
         Gui::isSelectingChoice = true;
@@ -446,7 +442,6 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
         Gui::isCreatingItem = false;
         Gui::isEditingCharacter = false;
         Gui::isEditingItem = false;
-        Gui::shouldBlockThread = false;
         Gui::shouldShowCampaignValidationError = false;
         Gui::shouldShowMapValidationError = false;
         Gui::shouldShowCharacterValidationError = false;
@@ -465,8 +460,8 @@ void Events::respondToHomeButtonClick(sf::RenderWindow& window) {
   }
 }
 
-void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
-  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+void Events::respondToSaveMapCampaign(sf::RenderWindow& window, sf::Event& evt) {
+  if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     if (Gui::saveButtonPosition.contains(mousePosition)) {
       MapCampaignFileIO mfio;
@@ -561,42 +556,40 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window) {
         //CharacterFileIO cfio;
         //cfio.saveCharacter(fileNameOutput, *GameData::currentCharacterObject);
         //GameData::currentCharacterObject->displayCharacter();
-        //Gui::shouldBlockThread = true;
       }
     }
   }
 }
 
-void Events::respondToMapSizeClick(sf::RenderWindow& window) {
-  if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && Gui::isSelectingMapSize) {
+void Events::respondToMapSizeClick(sf::RenderWindow& window, sf::Event& evt) {
+  if (evt.type == sf::Event::MouseButtonReleased &&
+      evt.mouseButton.button == sf::Mouse::Left &&
+      Gui::isSelectingMapSize) {
+
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
     if (Gui::widthPlusPosition.contains(mousePosition)) {
       Gui::tempMapWidth += 1;
-      Gui::shouldBlockThread = true;
     }
     if (Gui::lengthPlusPosition.contains(mousePosition)) {
       Gui::tempMapLength += 1;
-      Gui::shouldBlockThread = true;
     }
     if (Gui::widthMinusPosition.contains(mousePosition)) {
       if (Gui::tempMapWidth > 4) {
           Gui::tempMapWidth -= 1;
-        Gui::shouldBlockThread = true;
       }
     }
     if (Gui::lengthMinusPosition.contains(mousePosition)) {
       if (Gui::tempMapLength > 4) {
         Gui::tempMapLength -= 1;
-        Gui::shouldBlockThread = true;
       }
     }
   }
 }
 
-void Events::respondToMapCreateOkButton(sf::RenderWindow& window) {
+void Events::respondToMapCreateOkButton(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isSelectingMapSize) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
       if (Gui::mapCreateOkPosition.contains(mousePosition)) {
         delete GameData::currentMapObject;
@@ -608,15 +601,14 @@ void Events::respondToMapCreateOkButton(sf::RenderWindow& window) {
 
         Gui::isSelectingMapSize = false;
         Gui::isCreatingMap = true;
-        Gui::shouldBlockThread = true;
       }
     }
   }
 }
 
-void Events::respondToMapTileSelect(sf::RenderWindow& window) {
+void Events::respondToMapTileSelect(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isEditingMap || Gui::isCreatingMap) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
       if (Gui::wallSelectionSpritePosition.contains(mousePosition)) {
         Gui::currentMapTileSelectedChar = 'W';
@@ -643,9 +635,9 @@ void Events::respondToMapTileSelect(sf::RenderWindow& window) {
   }
 }
 
-void Events::respondToMapBoxClick(sf::RenderWindow& window) {
+void Events::respondToMapBoxClick(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isEditingMap || Gui::isCreatingMap) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
       int tempWidth = GameData::currentMapObject->getMapWidth();
@@ -655,7 +647,6 @@ void Events::respondToMapBoxClick(sf::RenderWindow& window) {
         for (int j =0; j < tempLength; j++) {
           if (Gui::currentMapTilePositions[i][j].contains(mousePosition)) {
             GameData::currentMapObject->setCell(i, j, Gui::currentMapTileSelectedChar);
-            Gui::shouldBlockThread = true;
           }
         }
       }
@@ -663,39 +654,37 @@ void Events::respondToMapBoxClick(sf::RenderWindow& window) {
   }
 }
 
-void Events::respondToCampaignAvailableMapsClick(sf::RenderWindow& window) {
+void Events::respondToCampaignAvailableMapsClick(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isEditingCampaign|| Gui::isCreatingCampaign) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
       for (int i = 0; i < (int)Gui::current_available_map_positions.size(); i++) {
         if (Gui::current_available_map_positions[i].contains(mousePosition)) {
           vector<string> tempMapOrder = GameData::currentCampaignObject->getCampaignMapOrder();
           tempMapOrder.push_back(Gui::current_maps[i]);
           GameData::currentCampaignObject->setCampaignMapOrder(tempMapOrder);
-          Gui::shouldBlockThread = true;
         }
       }
     }
   }
 }
 
-void Events::respondToCampaignMapOrderClick(sf::RenderWindow& window) {
+void Events::respondToCampaignMapOrderClick(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isEditingCampaign|| Gui::isCreatingCampaign) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
       for (int i = 0; i < (int)Gui::current_campaign_map_order_positions.size(); i++) {
         if (Gui::current_campaign_map_order_positions[i].contains(mousePosition)) {
           vector<string> tempMapOrder = GameData::currentCampaignObject->getCampaignMapOrder();
           tempMapOrder.erase(tempMapOrder.begin()+i);
           GameData::currentCampaignObject->setCampaignMapOrder(tempMapOrder);
-          Gui::shouldBlockThread = true;
         }
       }
     }
   }
 }
 
-void Events::respondToPlayingGameEvents(sf::RenderWindow& window) {
+void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isPlayingGame) {
 
     if (Gui::hasReachedEndOfMap) {
@@ -717,27 +706,21 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window) {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
       //GameData::currentMapObject->openChest();
-      Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
       //GameData::currentCharacterObject->displayCharacter();
-      Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
       //GameData::currentMapObject->moveLeft();
-      Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
       //GameData::currentMapObject->moveRight();
-      Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
       //GameData::currentMapObject->moveUp();
-      Gui::shouldBlockThread = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
       //GameData::currentMapObject->moveDown();
-      Gui::shouldBlockThread = true;
     }
   }
 }

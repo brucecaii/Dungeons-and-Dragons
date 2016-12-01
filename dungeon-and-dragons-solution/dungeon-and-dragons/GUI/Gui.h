@@ -133,7 +133,6 @@ namespace Gui{
   extern bool isCreatingItem;
   extern bool isEditingCharacter;
   extern bool isEditingItem;
-  extern bool shouldBlockThread;
   extern bool shouldShowCampaignValidationError;
   extern bool shouldShowMapValidationError;
   extern bool shouldShowCharacterValidationError;
