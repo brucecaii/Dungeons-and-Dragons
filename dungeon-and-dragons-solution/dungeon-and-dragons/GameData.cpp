@@ -11,5 +11,8 @@ namespace GameData {
   Character* currentCharacterObject = new Character();
   Item* currentItemObject = new Item();
   vector<Character*> gameCharacters;
+  Dice* gameDice = new Dice();
 
+  //Logging
+  GameLogger* diceLogger = new GameLogger(gameDice, true);
 }

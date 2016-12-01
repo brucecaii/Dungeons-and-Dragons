@@ -11,5 +11,9 @@ namespace GameData {
   extern Character* currentCharacterObject;
   extern Item* currentItemObject;
   extern vector<Character*> gameCharacters;
+  extern Dice* gameDice;
+  
+  //Logger
+  extern GameLogger* diceLogger;
 }
 

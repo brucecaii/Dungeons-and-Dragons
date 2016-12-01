@@ -10,6 +10,8 @@ using namespace std;
 
 class Dice : public Subject{
 	public:
-		static vector<int> roll(string dice);
+		Dice();
+		~Dice();
+		vector<int> roll(string dice);
 };
 

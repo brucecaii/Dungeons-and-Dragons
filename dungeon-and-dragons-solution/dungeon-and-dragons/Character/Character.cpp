@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include "../GameData.h"
 using namespace std;
 
 Character::Character() {
@@ -109,7 +110,7 @@ void Character::levelUp() {
 		this->characterLevel++;
 		int conModifier = (this->getCharacterAttr()->getConstitution() - 10) / 2;
 		if (conModifier <= 0) conModifier = 0;
-		vector<int> roll = Dice::roll("1d10");
+		vector<int> roll = GameData::gameDice->roll("1d10");
 		int hitPointIncrease = modifier(roll[0], conModifier);
 		if (hitPointIncrease < 1) hitPointIncrease = 1;
 		this->setHitPoint(this->getHitPoint() + hitPointIncrease);
@@ -146,7 +147,7 @@ void Character::attack(Character *opponent) {
 		if (this->getAttackBonus()[i] == 0) break;
 		int damage;
 		bool isHit;
-		int attackRoll = Dice::roll("1d20")[0];
+		int attackRoll = GameData::gameDice->roll("1d20")[0];
 		damage = this->getAttackBonus()[i] + this->getDamageBonus();
 		if (attackRoll == 20) isHit = true;
 		else if (attackRoll == 1) isHit = false;

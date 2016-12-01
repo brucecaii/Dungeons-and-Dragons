@@ -87,7 +87,7 @@ GameLogger::GameLogger(CharacterStrategy * cs, bool isLogging)
 //! Deconstructor of observer LiveMap 
 GameLogger::~GameLogger()
 {
-
+	delete this;
 };
 
 void GameLogger::Update() {};
