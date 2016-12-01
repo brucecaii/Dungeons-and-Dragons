@@ -28,7 +28,7 @@ namespace Gui{
   const unsigned long BLOCK_THREAD_WAIT_TIME = 500;
   const sf::Vector2f mapAbsolutePositioning(330,470);
   Fonts fontGenerator;
-  Events *eventManager;
+  Events *eventManager = new Events();
   //Events Logger
   GameLogger *eventLogger = new GameLogger(eventManager, true);
   Ui uiManager;
