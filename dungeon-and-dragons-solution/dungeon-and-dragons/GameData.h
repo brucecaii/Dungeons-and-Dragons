@@ -3,6 +3,7 @@
 #include "Character/Character.h"
 #include "Item/Item.h"
 #include "GameLogger.h"
+#include "GUI/Events.h"
 
 namespace GameData {
 
@@ -12,8 +13,10 @@ namespace GameData {
   extern Item* currentItemObject;
   extern vector<Character*> gameCharacters;
   extern Dice* gameDice;
-  
+  extern Events* eventManager;
+
   //Logger
   extern GameLogger* diceLogger;
+  extern GameLogger* eventLogger;
 }
 
