@@ -15,6 +15,9 @@ Character::Character() {
 	this->setAttackBonus({1, 0, 0, 0});
 	this->strategy = nullptr;
 	this->armorClass = 10;
+	this->setCharacterBackpack(new Backpack());
+	this->setCharacterEquipment(new Backpack());
+	this->damageBonus = 0;
 }
 
 Character::Character(CharacterAttr *characterAttr) {
@@ -24,6 +27,9 @@ Character::Character(CharacterAttr *characterAttr) {
 	this->setAttackBonus({ 1, 0, 0, 0 });
 	this->strategy = nullptr;
 	this->armorClass = 10;
+	this->setCharacterBackpack(new Backpack());
+	this->setCharacterEquipment(new Backpack());
+	this->damageBonus = 0;
 }
 
 Character::~Character() {
@@ -215,7 +221,7 @@ void Character::setDamageBonus(int damageBonus) {
 	this->damageBonus += damageBonus;
 }
 
-int Character::getDamageBonus() const{
+int Character::getDamageBonus(){
 	return this->damageBonus;
 }
 
