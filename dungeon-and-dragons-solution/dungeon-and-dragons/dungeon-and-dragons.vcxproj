@@ -29,15 +29,13 @@
     <ClInclude Include="Character\Fighter.h" />
     <ClInclude Include="Character\FriendlyStrategy.h" />
     <ClInclude Include="Character\HumanPlayerStrategy.h" />
-    <ClInclude Include="Character\Observer.h" />
-    <ClInclude Include="Character\Subject.h" />
     <ClInclude Include="Dependency\json.hpp" />
     <ClInclude Include="Dice\Dice.h" />
-    <ClInclude Include="Global.h" />
+    <ClInclude Include="GameData.h" />
+    <ClInclude Include="GameLogger.h" />
     <ClInclude Include="GUI\dirent.h" />
     <ClInclude Include="GUI\Events.h" />
     <ClInclude Include="GUI\Fonts.h" />
-    <ClInclude Include="GUI\GameData.h" />
     <ClInclude Include="GUI\Gui.h" />
     <ClInclude Include="GUI\Ui.h" />
     <ClInclude Include="GUI\Utils.h" />
@@ -48,6 +46,8 @@
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Map\MapCampaign.h" />
     <ClInclude Include="Map\MapCampaignFileIO.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="Subject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character\AggressorStrategy.cpp" />
@@ -60,14 +60,12 @@
     <ClCompile Include="Character\Fighter.cpp" />
     <ClCompile Include="Character\FriendlyStrategy.cpp" />
     <ClCompile Include="Character\HumanPlayerStrategy.cpp" />
-    <ClCompile Include="Character\Observer.cpp" />
-    <ClCompile Include="Character\Subject.cpp" />
     <ClCompile Include="Dice\Dice.cpp" />
     <ClCompile Include="Driver.cpp" />
-    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="GUI\Events.cpp" />
     <ClCompile Include="GUI\Fonts.cpp" />
-    <ClCompile Include="GUI\GameData.cpp" />
     <ClCompile Include="GUI\Gui.cpp" />
     <ClCompile Include="GUI\Ui.cpp" />
     <ClCompile Include="GUI\Utils.cpp" />
@@ -78,6 +76,8 @@
     <ClCompile Include="Map\Map.cpp" />
     <ClCompile Include="Map\MapCampaign.cpp" />
     <ClCompile Include="Map\MapCampaignFileIO.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Subject.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C25E5624-6134-434B-B5F9-378DACAF6747}</ProjectGuid>
@@ -149,7 +149,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>..\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

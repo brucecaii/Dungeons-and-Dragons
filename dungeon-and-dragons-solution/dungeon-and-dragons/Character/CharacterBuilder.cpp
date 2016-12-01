@@ -2,6 +2,7 @@
 #include "HumanPlayerStrategy.h"
 #include "FriendlyStrategy.h"
 #include "AggressorStrategy.h"
+#include "../GameData.h"
 
 CharacterBuilder::CharacterBuilder(string fighterType, int level) {
 	this->fighterType = fighterType;
@@ -16,7 +17,7 @@ void CharacterBuilder::createCharacter() {
 	vector<int> singleRoll;
 	vector<int> ability;
 	for (int i = 0; i < 6; i++) {
-		singleRoll = Dice::roll("4d6");
+		singleRoll = GameData::gameDice->roll("4d6");
 		sort(singleRoll.begin(), singleRoll.end(), greater<int>());
 		ability.push_back(singleRoll[0] + singleRoll[1] + singleRoll[2]);
 	}

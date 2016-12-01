@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include "../GameData.h"
 using namespace std;
 
 Character::Character() {
@@ -34,7 +35,7 @@ action methods
 */
 
 void Character::equipItem(Item item) {
-	if (characterEquipment->getItem(item.getType()).getType()=="") {
+	if (characterEquipment->getItemByType(item.getType()).getType()=="") {
 		for (size_t i = 0; i < item.getInfluences().size();  i++) {
 			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
 		}
@@ -43,8 +44,8 @@ void Character::equipItem(Item item) {
 }
 
 void Character::deEquipItem(string typeofItem) {
-	if (characterEquipment->getItem(typeofItem).getType() == typeofItem) {
-		Item current = characterEquipment->getItem(typeofItem);
+	if (characterEquipment->getItemByType(typeofItem).getType() == typeofItem) {
+		Item current = characterEquipment->getItemByType(typeofItem);
 		for (size_t i = 0; i < current.getInfluences().size(); i++) {
 			changeAttr(current.getInfluences()[i].getType(), current.getInfluences()[i].getBonus(), "-");
 		}
@@ -109,7 +110,7 @@ void Character::levelUp() {
 		this->characterLevel++;
 		int conModifier = (this->getCharacterAttr()->getConstitution() - 10) / 2;
 		if (conModifier <= 0) conModifier = 0;
-		vector<int> roll = Dice::roll("1d10");
+		vector<int> roll = GameData::gameDice->roll("1d10");
 		int hitPointIncrease = modifier(roll[0], conModifier);
 		if (hitPointIncrease < 1) hitPointIncrease = 1;
 		this->setHitPoint(this->getHitPoint() + hitPointIncrease);
@@ -146,7 +147,7 @@ void Character::attack(Character *opponent) {
 		if (this->getAttackBonus()[i] == 0) break;
 		int damage;
 		bool isHit;
-		int attackRoll = Dice::roll("1d20")[0];
+		int attackRoll = GameData::gameDice->roll("1d20")[0];
 		damage = this->getAttackBonus()[i] + this->getDamageBonus();
 		if (attackRoll == 20) isHit = true;
 		else if (attackRoll == 1) isHit = false;

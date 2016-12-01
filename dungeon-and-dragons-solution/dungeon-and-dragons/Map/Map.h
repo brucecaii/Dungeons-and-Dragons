@@ -6,13 +6,14 @@
 #include <string>
 #include <vector>
 #include <tuple>
+#include "../Subject.h"
 
 using std::tuple;
 using std::string;
 using std::vector;
 
 //! Class implementing a game map
-class Map {
+class Map : public Subject{
   public:
     Map();
     Map(int width, int length, string placement);

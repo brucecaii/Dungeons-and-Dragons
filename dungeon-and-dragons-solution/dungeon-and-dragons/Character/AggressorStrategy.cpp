@@ -16,7 +16,7 @@
 #include "AggressorStrategy.h"
 #include "Character.h"
 #include "../Map/Map.h"
-#include "../Global.h"
+#include "../GameData.h"
 
 //! Implementation of the Strategy pattern execute method. In this case, if the character is alive, they are displaced by 1 cell towards the human player. After moving, if one adjacent character is available to attack, it is done.
 //! @param Reference to the map currently being played
@@ -108,10 +108,10 @@ void AggressorStrategy::canAttackOneAdjacentCharacter(Map& m, Character& c) {
 void AggressorStrategy::attackCharacterAtPosition(Character& c, int charPosX, int charPosY) {
   //First need to find the character instance at position (charPosX, charPosY)
   Character* charBeingAttacked;
-  for (int i = 0; i < (int)Global::gameCharacters.size(); i++) {
-    if (Global::gameCharacters[i]->getCurrentPosition()[0] == charPosX &&
-        Global::gameCharacters[i]->getCurrentPosition()[1] == charPosY) {
-      charBeingAttacked = Global::gameCharacters[i];
+  for (int i = 0; i < (int)GameData::gameCharacters.size(); i++) {
+    if (GameData::gameCharacters[i]->getCurrentPosition()[0] == charPosX &&
+        GameData::gameCharacters[i]->getCurrentPosition()[1] == charPosY) {
+      charBeingAttacked = GameData::gameCharacters[i];
       // Now checking if character had the friendly strategy. If yes, it should now have the aggressor strategy.
       if (charBeingAttacked->getTypeOnMap() == 'C') {
         charBeingAttacked->setTypeOnMap('O');

@@ -1,6 +1,5 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-#include "Subject.h"
 #include "../Item/ItemContainer.h"
 #include "../Dependency/json.hpp"
 #include "CharacterAttr.h"
@@ -75,4 +74,3 @@ private:
 };
 
 #endif
-

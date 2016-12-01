@@ -75,12 +75,6 @@
     <ClInclude Include="Character\HumanPlayerStrategy.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Observer.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\Subject.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Dependency\json.hpp">
       <Filter>Header Files\Dependency</Filter>
     </ClInclude>
@@ -98,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="Map\Map.h">
       <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Item\ItemFileIO.h">
       <Filter>Header Files\Item</Filter>
@@ -123,9 +114,6 @@
     <ClInclude Include="GUI\Fonts.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\GameData.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\Gui.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -134,6 +122,18 @@
     </ClInclude>
     <ClInclude Include="GUI\Utils.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,12 +164,6 @@
     <ClCompile Include="Character\HumanPlayerStrategy.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Character\Observer.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Subject.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
     <ClCompile Include="Dice\Dice.cpp">
       <Filter>Source Files\Dice</Filter>
     </ClCompile>
@@ -186,9 +180,6 @@
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Item\ItemFileIO.cpp">
@@ -209,9 +200,6 @@
     <ClCompile Include="GUI\Fonts.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\GameData.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\Gui.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -220,6 +208,18 @@
     </ClCompile>
     <ClCompile Include="GUI\Utils.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogger.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -76,12 +76,14 @@ namespace Gui{
   extern sf::Texture treasureTexture;
   extern sf::Texture emptyTexture;
   extern sf::Texture characterTexture;
+  extern sf::Texture friendlyTexture;
   extern sf::FloatRect emptySelectionSpritePosition;
   extern sf::FloatRect wallSelectionSpritePosition;
   extern sf::FloatRect monsterSelectionSpritePosition;
   extern sf::FloatRect startSelectionSpritePosition;
   extern sf::FloatRect exitSelectionSpritePosition;
   extern sf::FloatRect treasureSelectionSpritePosition;
+  extern sf::FloatRect friendlySelectionSpritePosition;
 
   extern vector<string> current_maps;
   extern vector<string> current_characters;

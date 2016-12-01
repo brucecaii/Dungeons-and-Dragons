@@ -61,6 +61,7 @@ namespace Gui{
   sf::FloatRect treasureSelectionSpritePosition;
   sf::FloatRect monsterSelectionSpritePosition;
   sf::FloatRect emptySelectionSpritePosition;
+  sf::FloatRect friendlySelectionSpritePosition;
   sf::FloatRect mapBorderPosition;
 
 
@@ -89,6 +90,7 @@ namespace Gui{
   sf::Texture treasureTexture;
   sf::Texture emptyTexture;
   sf::Texture characterTexture;
+  sf::Texture friendlyTexture;
 
   vector<string> current_maps;
   vector<string> current_characters;

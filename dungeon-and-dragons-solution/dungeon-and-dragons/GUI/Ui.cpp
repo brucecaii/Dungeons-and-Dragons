@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "GameData.h"
+#include "../GameData.h"
 #include "Gui.h"
 #include "Ui.h"
 #include "../Map/MapCampaignFileIO.h"
@@ -116,6 +116,9 @@ void Ui::drawMap(sf::RenderWindow& window) {
       }
       else if (tempMapCell == 'T') {
         mapTile.setTexture(&Gui::treasureTexture);
+      }
+      else if (tempMapCell == 'C') {
+        mapTile.setTexture(&Gui::friendlyTexture);
       }
       else if (tempMapCell == 'O') {
         mapTile.setTexture(&Gui::monsterTexture);
@@ -306,6 +309,7 @@ void Ui::isCreatingOrEditingMap(sf::RenderWindow& window) {
   Gui::exitSelectionSpritePosition = this->drawSprite(window, Gui::exitTexture, 0.5f, 0.5f, Gui::W_WIDTH-40, Gui::W_HEIGHT-360);
   Gui::emptySelectionSpritePosition = this->drawSprite(window, Gui::emptyTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, Gui::W_HEIGHT-240);
   Gui::monsterSelectionSpritePosition = this->drawSprite(window, Gui::monsterTexture, 0.5f, 0.5f, Gui::W_WIDTH-40, Gui::W_HEIGHT-240);
+  Gui::friendlySelectionSpritePosition = this->drawSprite(window, Gui::friendlyTexture, 0.5f, 0.5f, Gui::W_WIDTH-70, Gui::W_HEIGHT-180);
 
   this->drawMap(window);
 
@@ -328,6 +332,9 @@ void Ui::isCreatingOrEditingMap(sf::RenderWindow& window) {
   }
   if (Gui::currentMapTileSelectedChar == 'E') {
     this->drawSprite(window, Gui::exitTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
+  }
+  if (Gui::currentMapTileSelectedChar == 'C') {
+    this->drawSprite(window, Gui::friendlyTexture, 0.5f, 0.5f, Gui::W_WIDTH-100, 180);
   }
 
   this->drawValidationErrorIfNeeded(window);

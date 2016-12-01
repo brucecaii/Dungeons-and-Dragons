@@ -5,7 +5,7 @@
 #include "CharacterAttr.h"
 using namespace std;
 
-class CharacterBuilder {
+class CharacterBuilder : public Subject{
 
 public:
 	CharacterBuilder(string fighterType, int level);
