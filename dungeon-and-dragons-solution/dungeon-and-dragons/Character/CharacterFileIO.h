@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "Character.h"
+#include "Fighter.h"
 #include "../Dependency/json.hpp"
 
 using std::string;
@@ -13,9 +13,9 @@ class CharacterFileIO {
 
 public:
 	// method to serialize a character into json object
-	void saveCharacter(string filePath, Character ch);
+	void saveCharacter(string filePath, Fighter ch);
 	//method to deserialize a character from a json object
-	void readCharacter(string filePath, Character& ch);
+	Fighter* readCharacter(string filePath);
 	// method used to obtain json format of an item container
 	void getItemContainerJson( ItemContainer* bp, json& bpJson );
 	//deserialize backpack from a json object
