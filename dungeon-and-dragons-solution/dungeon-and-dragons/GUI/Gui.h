@@ -109,6 +109,7 @@ namespace Gui{
   extern string createdCharacterArgs;
   extern string chosenCharacterArgs;
   extern string createdItem;
+  extern bool shouldShowPlayerTypeError;
   extern bool hasReachedEndOfMap;
   extern bool isSelectingChoice;
   extern bool isPlayingGame;

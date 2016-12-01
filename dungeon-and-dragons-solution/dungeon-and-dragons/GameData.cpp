@@ -13,6 +13,9 @@ namespace GameData {
   Item* currentItemObject = new Item();
   vector<Fighter*> gameCharacters;
   vector<Fighter*> availableCharacters;
+  vector<Fighter*> availablePlayers;
+  vector<Fighter*> availableFriendlies;
+  vector<Fighter*> availableAggressors;
   Dice* gameDice = new Dice();
   Events *eventManager = new Events();
 

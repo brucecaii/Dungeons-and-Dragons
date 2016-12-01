@@ -121,6 +121,7 @@ namespace Gui{
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;
   float selectionBoxTransparency = 0.0f;
+  bool shouldShowPlayerTypeError = false;
   bool hasReachedEndOfMap = false;
   bool isSelectingChoice = true;
   bool isPlayingGame = false;

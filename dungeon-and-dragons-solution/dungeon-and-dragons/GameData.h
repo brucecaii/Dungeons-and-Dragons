@@ -13,6 +13,9 @@ namespace GameData {
   extern Item* currentItemObject;
   extern vector<Fighter*> gameCharacters;
   extern vector<Fighter*> availableCharacters;
+  extern vector<Fighter*> availablePlayers;
+  extern vector<Fighter*> availableFriendlies;
+  extern vector<Fighter*> availableAggressors;
   extern Dice* gameDice;
   extern Events* eventManager;
 

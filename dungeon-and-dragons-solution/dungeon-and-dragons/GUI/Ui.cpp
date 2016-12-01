@@ -295,6 +295,10 @@ void Ui::isChoosingSomethingToEditOrPlay(sf::RenderWindow& window) {
       Gui::current_item_positions.push_back(filePosition);
   }
 
+  if (Gui::shouldShowPlayerTypeError) {
+    this->drawText(window, "ERROR: must select a Player type character.", 20, Gui::RED, Gui::W_WIDTH/2.0f, 750.0f);
+  }
+
   this->drawValidationErrorIfNeeded(window);
 }
 
