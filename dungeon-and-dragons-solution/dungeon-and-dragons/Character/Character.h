@@ -11,7 +11,7 @@ using namespace std;
 
 class CharacterStrategy; // This forward declaration is needed. _DONT_TOUCH_IT_! (Lance)
 
-class Character {
+class Character : public Subject {
 
 public:
 	Character();
