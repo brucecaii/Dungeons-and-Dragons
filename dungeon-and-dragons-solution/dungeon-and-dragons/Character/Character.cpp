@@ -34,7 +34,7 @@ action methods
 */
 
 void Character::equipItem(Item item) {
-	if (characterEquipment->getItem(item.getType()).getType()=="") {
+	if (characterEquipment->getItemByType(item.getType()).getType()=="") {
 		for (size_t i = 0; i < item.getInfluences().size();  i++) {
 			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
 		}
@@ -43,8 +43,8 @@ void Character::equipItem(Item item) {
 }
 
 void Character::deEquipItem(string typeofItem) {
-	if (characterEquipment->getItem(typeofItem).getType() == typeofItem) {
-		Item current = characterEquipment->getItem(typeofItem);
+	if (characterEquipment->getItemByType(typeofItem).getType() == typeofItem) {
+		Item current = characterEquipment->getItemByType(typeofItem);
 		for (size_t i = 0; i < current.getInfluences().size(); i++) {
 			changeAttr(current.getInfluences()[i].getType(), current.getInfluences()[i].getBonus(), "-");
 		}

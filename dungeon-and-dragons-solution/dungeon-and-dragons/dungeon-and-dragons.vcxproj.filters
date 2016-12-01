@@ -75,12 +75,6 @@
     <ClInclude Include="Character\HumanPlayerStrategy.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Character\Observer.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\Subject.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
     <ClInclude Include="Dependency\json.hpp">
       <Filter>Header Files\Dependency</Filter>
     </ClInclude>
@@ -98,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="Map\Map.h">
       <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Item\ItemFileIO.h">
       <Filter>Header Files\Item</Filter>
@@ -138,6 +129,15 @@
     <ClInclude Include="GameData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character\AggressorStrategy.cpp">
@@ -165,12 +165,6 @@
       <Filter>Source Files\Character</Filter>
     </ClCompile>
     <ClCompile Include="Character\HumanPlayerStrategy.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Observer.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Subject.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
     <ClCompile Include="Dice\Dice.cpp">
@@ -219,6 +213,15 @@
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GameData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

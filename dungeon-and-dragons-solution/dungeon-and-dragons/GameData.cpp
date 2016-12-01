@@ -2,6 +2,7 @@
 #include "Map/MapCampaign.h"
 #include "Character/Character.h"
 #include "Item/Item.h"
+#include "GameLogger.h"
 
 namespace GameData {
 

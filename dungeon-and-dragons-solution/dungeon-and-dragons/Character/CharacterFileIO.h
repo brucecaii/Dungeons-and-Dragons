@@ -3,13 +3,14 @@
 #include <string>
 #include <vector>
 #include "Character.h"
+#include "../Subject.h"
 #include "../Dependency/json.hpp"
 
 using std::string;
 using std::vector;
 using json = nlohmann::json;
 
-class CharacterFileIO {
+class CharacterFileIO : public Subject{
 
 public:
 	// method to serialize a character into json object
