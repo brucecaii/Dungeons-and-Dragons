@@ -30,7 +30,8 @@ public:
 	bool validateNewCharacter();
 	void attack(Character *opponent);
 	void executeStrategy(Map& m);
-
+	void lootChest(ItemContainer* chest);
+	void lootEnermy(Character* enermy);
 	/*
 	setter and getter
 	*/

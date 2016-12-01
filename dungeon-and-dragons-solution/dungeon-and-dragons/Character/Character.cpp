@@ -164,6 +164,25 @@ void Character::attack(Character *opponent) {
 	}
 }
 
+void Character::executeStrategy(Map& m) {
+	this->strategy->execute(m, *this);
+}
+
+void Character::lootChest(ItemContainer* chest) {
+	for (size_t i = 0; i < chest->getItems().size(); i++) {
+		this->addItemBackpack(chest->getItems()[i]);
+	}
+}
+
+void Character::lootEnermy(Character* enermy) {
+	for (size_t i = 0; i < enermy->getCharacterBackpack()->getItems().size(); i++) {
+		this->addItemBackpack(enermy->getCharacterBackpack()->getItems()[i]);
+	}
+	for (size_t i = 0; i < enermy->getCharacterEquipment()->getItems().size(); i++) {
+		this->addItemBackpack(enermy->getCharacterEquipment()->getItems()[i]);
+	}
+}
+
 /*
 getter and setter
 */
@@ -236,10 +255,6 @@ void Character::setStrategy(CharacterStrategy* newStrategy) {
   if (strategy != nullptr)
     delete this->strategy;
   this->strategy = newStrategy;
-}
-
-void Character::executeStrategy(Map& m) {
-  this->strategy->execute(m, *this);
 }
 
 vector<int> Character::getCurrentPosition() {
