@@ -141,7 +141,7 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           Gui::chosenCharacter = string(Gui::current_characters[i]) + string(ext);
           CharacterFileIO cfio;
           GameData::currentCharacterObject = new Character();
-          cfio.readCharacter(Gui::chosenCharacter, *GameData::currentCharacterObject);
+          GameData:: currentCharacterObject = cfio.readCharacter(Gui::chosenCharacter);
           Gui::shouldShowCharacterValidationError = false;
           Gui::isChoosingCharacterToEdit = false;
           Gui::isEditingCharacter = true;
@@ -185,7 +185,7 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window) {
           string ext = ".character";
           Gui::playedCampaign = string(Gui::current_characters[i]) + string(ext);
           CharacterFileIO cfio;
-          cfio.readCharacter(Gui::playedCampaign, *GameData::currentCharacterObject);
+          GameData::currentCharacterObject = cfio.readCharacter(Gui::playedCampaign);
           Gui::isChoosingCharacterToPlay = false;
           Gui::isPlayingGame = true;
           ///////////////////////////////////////////////////
