@@ -633,6 +633,9 @@ void Events::respondToMapTileSelect(sf::RenderWindow& window) {
       if (Gui::monsterSelectionSpritePosition.contains(mousePosition)) {
         Gui::currentMapTileSelectedChar = 'O';
       }
+      if (Gui::friendlySelectionSpritePosition.contains(mousePosition)) {
+        Gui::currentMapTileSelectedChar = 'C';
+      }
       if (Gui::emptySelectionSpritePosition.contains(mousePosition)) {
         Gui::currentMapTileSelectedChar = ' ';
       }

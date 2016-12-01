@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
     Gui::monsterTexture.loadFromFile("GUI/textures/monster.png");
     Gui::treasureTexture.loadFromFile("GUI/textures/treasure.png");
     Gui::characterTexture.loadFromFile("GUI/textures/character.png");
+    Gui::friendlyTexture.loadFromFile("GUI/textures/friendly.png");
 
     ///////////////
     // GAME LOOP //
