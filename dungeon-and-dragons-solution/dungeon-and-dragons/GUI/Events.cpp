@@ -6,6 +6,7 @@
 #include <random>
 #include <chrono>
 #include <thread>
+#include <tuple>
 #include <SFML/Graphics.hpp>
 #include "../GameData.h"
 #include "Gui.h"
@@ -200,13 +201,10 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
             Gui::shouldShowPlayerTypeError = true;
             return;
           }
+
+          // Setup for remainder of game.
+
           Gui::shouldShowPlayerTypeError = false;
-
-
-
-
-
-
           Gui::isChoosingCharacterToPlay = false;
           Gui::isPlayingGame = true;
           Gui::playedMap = GameData::currentCampaignObject->getCampaignMapOrder()[Gui::GamePlayCurrentMap];
@@ -214,86 +212,74 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           mfio.readMapJSON(Gui::playedMap+".map");
 
           vector<tuple<char,int,int>> characterPositions = GameData::currentMapObject->getAllCharacterPositions();
+          Gui::tempGameCharacters.clear();
 
-          // As you read characters off the map, need to prompt user about type and level of character
-          CharacterGenerator selectHero;
           for (int i = 0; i < (int)characterPositions.size(); i++) {
-            // Create a new one with appropriate position and type
-            char type; int posX; int posY;
-            tie(type, posX, posY) = characterPositions[i];
-            //if (type == 'S') {
-              //cout << "There is a human character at position ("<< posX << ","<< posY <<")" << endl;
-              //cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
-              //cout << "Example: Bully,3" << endl;
-              //string answer;
-              //string delimeter(",");
-              //Utils util;
-              //getline(cin, answer);
-
-
-              //if (answer.find(delimeter) != string::npos) {
-                //vector<string> result = util.splitBySpace(answer));
-                //if ((int)result.size() == 2) {
-                  ////CharacterBuilder* playerBuilder = new PlayerCharacterBuilder("Bully", 2);
-                  ////selectHero.setCharacterBuilder(playerBuilder);
-                  ////selectHero.createCharacter();
-                  ////Character *player = selectHero.getCharacter();
-                  //vector<int> currentPosition = {posX,posY};
-                  //GameData::currentCharacterObject->setCurrentPosition(currentPosition);
-                  //GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
-                  //GameData::gameCharacters.push_back(GameData::currentCharacterObject);
-                //}
-               //}
-            //}
-            //if (type == 'C') {
-              //cout << "There is a friendly character at position ("<< posX << ","<< posY <<")" << endl;
-              //cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
-              //cout << "Example: Bully,3" << endl;
-              //string answer;
-              //string delimeter(",");
-              //Utils util;
-              //getline(cin, answer);
-
-
-              //if (answer.find(delimeter) != string::npos) {
-                //vector<string> result = util.splitBySpace(answer));
-                //if ((int)result.size() == 2) {
-                //CharacterBuilder* friendlyBuilder = new FriendlyCharacterBuilder("Tank", 4);
-                //selectHero.setCharacterBuilder(friendlyBuilder);
-                //selectHero.createCharacter();
-                //Character *friendly = selectHero.getCharacter();
-                //vector<int> currentPosition = {posX,posY};
-                //friendly->setCurrentPosition(currentPosition);
-                //GameData::gameCharacters.push_back(friendly);
-                //}
-              //}
-            //}
-            //if (type == 'O') {
-              //cout << "There is an aggressor character at position ("<< posX << ","<< posY <<")" << endl;
-              //cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
-              //cout << "Example: Bully,3" << endl;
-              //string answer;
-              //string delimeter(",");
-              //Utils util;
-              //getline(cin, answer);
-
-
-              //if (answer.find(delimeter) != string::npos) {
-                //vector<string> result = util.splitBySpace(answer));
-                //if ((int)result.size() == 2) {
-                  //CharacterBuilder* aggressorBuilder = new AggressorCharacterBuilder("Nimble", 3);
-                  //selectHero.setCharacterBuilder(aggressorBuilder);
-                  //selectHero.createCharacter();
-                  //Character *aggressor = selectHero.getCharacter();
-                  //vector<int> currentPosition = {posX,posY};
-                  //aggressor->setCurrentPosition(currentPosition);
-                  //GameData::gameCharacters.push_back(aggressor);
-                //}
-              //}
-            //}
-            //// ALSO CHECK FOR CHEST CONTENTS HERE
+            Fighter* isFound = nullptr;
+            for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
+              if (GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
+                  GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
+                  GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i]) &&
+                  std::get<0>(characterPositions[i]) != 'S') {
+                // game character matches to one on map!!
+                isFound = GameData::gameCharacters[i];
+              }
+              if (std::get<0>(characterPositions[i]) == 'S') {
+                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                GameData::currentCharacterObject->setCurrentPosition(currentPosition);
+                isFound = GameData::currentCharacterObject;
+              }
+            }
+            if (isFound != nullptr) {
+                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                isFound->setCurrentPosition(currentPosition);
+              Gui::tempGameCharacters.push_back(isFound);
+            }
           }
-          //cout << endl;
+
+          // Removed all gameCharacters that were not on the Map.
+          GameData::gameCharacters = Gui::tempGameCharacters;
+
+
+          // Also need to scale each to the campaign level
+          // Also need to make sure that the 'S' Character is always consistent across maps in campaign
+
+          // Now add defaults for all that were not specified
+          CharacterGenerator selectHero;
+          CharacterBuilder* builder;
+          for (int i = 0; i < (int)characterPositions.size(); i++) {
+            bool shouldMakeDefaultChar = true;
+            for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
+              if (GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
+                  GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
+                  GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
+                shouldMakeDefaultChar  = false;
+              }
+            }
+            if (shouldMakeDefaultChar) {
+              if (std::get<0>(characterPositions[i]) == 'C') {
+                builder = new FriendlyCharacterBuilder("Nimble", 1); // Default is set to Nimble type and lvl1
+                selectHero.setCharacterBuilder(builder);
+                //selectHero.createCharacter();
+                //Fighter* temp = selectHero.getCharacter();
+                //vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                //temp->setCurrentPosition(currentPosition);
+                //GameData::gameCharacters.push_back(temp);
+              }
+              if (std::get<0>(characterPositions[i]) == 'O') {
+                builder = new AggressorCharacterBuilder("Nimble", 1);
+                selectHero.setCharacterBuilder(builder);
+                //selectHero.createCharacter();
+                //Fighter* temp = selectHero.getCharacter();
+                //vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                //temp->setCurrentPosition(currentPosition);
+                //GameData::gameCharacters.push_back(temp);
+              }
+            }
+          }
+
+
+            //// ALSO CHECK FOR CHEST CONTENTS HERE
         }
       }
     }
@@ -400,7 +386,6 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::createdItem = Gui::createdItem + ".item";
               Gui::isChoosingItemToCreate = false;
               Gui::isCreatingItem = true;
-  
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE
             if (Gui::createdItem.length() != 0)
@@ -592,7 +577,6 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window, sf::Event& evt) 
         Gui::shouldShowCharacterValidationError = false;
         CharacterFileIO cfio;
         cfio.saveCharacter(fileNameOutput, GameData::currentCharacterObject);
-        //GameData::currentCharacterObject->displayCharacter();
       }
     }
   }
@@ -801,24 +785,24 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt
       }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
-      //GameData::currentMapObject->openChest();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
-      //GameData::currentCharacterObject->displayCharacter();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-      //GameData::currentMapObject->moveLeft();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-      //GameData::currentMapObject->moveRight();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-      //GameData::currentMapObject->moveUp();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-      //GameData::currentMapObject->moveDown();
-    }
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
+      ////GameData::currentMapObject->openChest();
+    //}
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
+      ////GameData::currentCharacterObject->displayCharacter();
+    //}
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+      ////GameData::currentMapObject->moveLeft();
+    //}
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+      ////GameData::currentMapObject->moveRight();
+    //}
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+      ////GameData::currentMapObject->moveUp();
+    //}
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+      ////GameData::currentMapObject->moveDown();
+    //}
   }
 }
 

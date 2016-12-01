@@ -1,6 +1,7 @@
 #include "Events.h"
 #include "Fonts.h"
 #include "Ui.h"
+#include "../Character/Fighter.h"
 
 namespace Gui{
 
@@ -144,5 +145,7 @@ namespace Gui{
 
   extern int tempMapWidth;
   extern int tempMapLength;
+
+  extern vector<Fighter*> tempGameCharacters;
 };
 
