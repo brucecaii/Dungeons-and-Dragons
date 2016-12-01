@@ -6,7 +6,6 @@
 #include "CharacterAttr.h"
 #include "CharacterStrategy.h"
 #include "../Map/Map.h"
-#include "../Dice/Dice.h"
 using json = nlohmann::json;
 using namespace std;
 
