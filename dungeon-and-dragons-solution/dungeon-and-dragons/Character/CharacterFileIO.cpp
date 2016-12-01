@@ -11,7 +11,7 @@ using std::vector;
 using json = nlohmann::json;
 
 //! saving character to a file in json format
-void CharacterFileIO::saveCharacter(string filePath, Character ch)
+void CharacterFileIO::saveCharacter(string filePath, Fighter ch)
 {
 	std::cout << "Saving Character..." << endl;
 	ofstream writeJsonFile(filePath, ofstream::out);
@@ -43,17 +43,20 @@ void CharacterFileIO::saveCharacter(string filePath, Character ch)
 	character["damageBonus"] = ch.getDamageBonus();
 	character["currentPosition"] = ch.getCurrentPosition();
 	character["mapType"] = ch.getTypeOnMap();
+	character["fighterType"] = typeid(ch).name();
+	character["playerType"] = ch.getPlayerType();
 
 	writeJsonFile << character;
 	writeJsonFile.close();
 }
 
 //! reading a character from a file in json format 
-void CharacterFileIO::readCharacter(string filePath, Character& ch)
+Fighter* CharacterFileIO::readCharacter(string filePath)
 {
 	ifstream readJsonFile(filePath, ifstream::in);
 	json character(readJsonFile);
 
+	Fighter *ch = new Fighter();
 	// setting the values read from the file
 	CharacterAttr *loadAttr = new CharacterAttr(
 		character["intelligence"], 
@@ -63,28 +66,34 @@ void CharacterFileIO::readCharacter(string filePath, Character& ch)
 		character["constitution"], 
 		character["charisma"]
 	);
-	ch.setCharacterAttr(loadAttr);
-	ch.setLevel(character["level"]);
-	ch.setHitPoint(character["hitPoint"]);
-	ch.setArmorClass(character["armorClass"]);
-	ch.setAttackBonus(character["attackBonus"]);
-	ch.setDamageBonus(character["damageBonus"]);
-	ch.setCurrentPosition(character["currentPosition"]);
+	if (character["fighterType"] == "Bully") ch = new Bully(loadAttr);
+	if (character["fighterType"] == "Tank") ch = new Tank(loadAttr);
+	if (character["fighterType"] == "Nimble") ch = new Nimble(loadAttr);
+	ch->setCharacterAttr(loadAttr);
+	ch->setLevel(character["level"]);
+	ch->setHitPoint(character["hitPoint"]);
+	ch->setArmorClass(character["armorClass"]);
+	ch->setAttackBonus(character["attackBonus"]);
+	ch->setDamageBonus(character["damageBonus"]);
+	ch->setCurrentPosition(character["currentPosition"]);
+	ch->setPlayerType(character["playerType"]);
 	string str = character["mapType"];
 	const char *cstr = str.c_str();
-	ch.setTypeOnMap(*cstr);
+	ch->setTypeOnMap(*cstr);
 	
 	//Load his backpack items, but check if null first
 	if (!character["backpack"].is_null())
 	{
-		loadBackpackItems(character, ch);
+		loadBackpackItems(character, *ch);
 	}
 
 	//Load his equipment items, but check if null first
 	if (!character["equipment"].is_null())
 	{
-		loadEquipItems(character, ch);
+		loadEquipItems(character, *ch);
 	}
+
+	return ch;
 }
 
 void CharacterFileIO::getItemContainerJson(ItemContainer* bp, json& bpJson)
