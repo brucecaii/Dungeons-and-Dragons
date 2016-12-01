@@ -37,7 +37,16 @@ void CharacterBuilder::createCharacter() {
 	for (int i = 0; i < this->fighterLevel; i++) {
 		this->c_character->levelUp();
 	}
-};
+}
+string CharacterBuilder::getFighterType()
+{
+	return this->fighterType;
+}
+int CharacterBuilder::getFighterLevel()
+{
+	return this->fighterLevel;
+}
+;
 
 PlayerCharacterBuilder::PlayerCharacterBuilder(string fighterType, int level) : CharacterBuilder(fighterType, level) {};
 

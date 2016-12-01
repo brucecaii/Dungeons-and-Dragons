@@ -82,6 +82,12 @@ GameLogger::GameLogger(CharacterStrategy * cs, bool isLogging)
 	_charStrategy->Attach(this);
 	_isActive = isLogging;
 }
+GameLogger::GameLogger(CharacterGenerator * cg, bool isLogging)
+{
+	_charGenerator = cg;
+	_charGenerator->Attach(this);
+	_isActive = isLogging;
+}
 GameLogger::GameLogger(Events * e, bool isLogging)
 {
 	_events = e;

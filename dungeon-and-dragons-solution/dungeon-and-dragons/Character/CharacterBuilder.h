@@ -12,6 +12,8 @@ public:
 	Character* getCharacter();
 	void createCharacter();
 	virtual void setPlayerType() = 0;
+	string getFighterType();
+	int getFighterLevel();
 
 protected:
 	Fighter* c_character;
