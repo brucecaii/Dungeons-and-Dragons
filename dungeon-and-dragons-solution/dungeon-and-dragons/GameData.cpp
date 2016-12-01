@@ -19,6 +19,8 @@ namespace GameData {
   Dice* gameDice = new Dice();
   Events *eventManager = new Events();
 
+  //Character Observer
+
   //Logging
   GameLogger *diceLogger = new GameLogger(gameDice, true);
   GameLogger *eventLogger = new GameLogger(eventManager, true);
