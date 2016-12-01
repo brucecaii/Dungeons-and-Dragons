@@ -49,18 +49,18 @@ int main(int argc, char* argv[]) {
         if (evt.type == sf::Event::Closed) {
           window.close();
         }
-        Gui::eventManager->respondToRealTimeTypeFeedback(evt);
+        GameData::eventManager->respondToRealTimeTypeFeedback(evt);
       }
-      Gui::eventManager->respondToSelectionBoxClick(window);
-      Gui::eventManager->respondToHomeButtonClick(window);
-      Gui::eventManager->respondToSaveMapCampaign(window);
-      Gui::eventManager->respondToFileSelectionClick(window);
-      Gui::eventManager->respondToMapSizeClick(window);
-      Gui::eventManager->respondToMapCreateOkButton(window);
-      Gui::eventManager->respondToMapTileSelect(window);
-      Gui::eventManager->respondToCampaignAvailableMapsClick(window);
-      Gui::eventManager->respondToCampaignMapOrderClick(window);
-      Gui::eventManager->respondToPlayingGameEvents(window);
+      GameData::eventManager->respondToSelectionBoxClick(window);
+      GameData::eventManager->respondToHomeButtonClick(window);
+      GameData::eventManager->respondToSaveMapCampaign(window);
+      GameData::eventManager->respondToFileSelectionClick(window);
+      GameData::eventManager->respondToMapSizeClick(window);
+      GameData::eventManager->respondToMapCreateOkButton(window);
+      GameData::eventManager->respondToMapTileSelect(window);
+      GameData::eventManager->respondToCampaignAvailableMapsClick(window);
+      GameData::eventManager->respondToCampaignMapOrderClick(window);
+      GameData::eventManager->respondToPlayingGameEvents(window);
 
       /////////////////////
       // SCENE SELECTION //
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
       }
       if (Gui::isEditingMap || Gui::isCreatingMap) {
         Gui::uiManager.isCreatingOrEditingMap(window);
-        Gui::eventManager->respondToMapBoxClick(window);
+        GameData::eventManager->respondToMapBoxClick(window);
       }
       if (Gui::isCreatingCampaign || Gui::isEditingCampaign) {
         Gui::uiManager.isCreatingOrEditingCampaign(window);
