@@ -189,6 +189,62 @@ void Character::lootCharacter(Character* character) {
 	}
 }
 
+string Character::getTypeInString(char c)
+{
+	string objName;
+	if (c == 'S')
+		objName = "Human Character";
+	if (c == 'C')
+		objName = "Friendly Character";
+	if (c == 'O')
+		objName = "Aggressor Character";
+	return objName;
+}
+
+void Character::display()
+{
+	//Getting attributes of character
+	auto characterAttributes = this->getCharacterAttr();
+	auto attackBonus = this->getAttackBonus();
+
+	string currentCharType = getTypeInString(this->getTypeOnMap());
+	string currentLevel = to_string(this->getLevel());
+	string currentHitPoint = to_string(this->getHitPoint());
+	string currentArmorClass= to_string(this->getArmorClass());
+	string currentDex = to_string(characterAttributes->getDexterity());
+	string currentConst = to_string(characterAttributes->getConstitution());
+	string currentCharisma = to_string(characterAttributes->getCharisma());
+	string currentInt = to_string(characterAttributes->getIntelligence());
+	string currentStr = to_string(characterAttributes->getStrength());
+	string currentWisdom = to_string(characterAttributes->getWisdom());
+	string currentDamageBonus = to_string(this->getDamageBonus());
+	string currentAttackBonus = "[";
+
+	for (int i = 0; i < attackBonus.size(); i++)
+	{
+		if (i == attackBonus.size() - 1)
+		{
+			currentAttackBonus += to_string(attackBonus[i]) + "]";
+		} else {
+			currentAttackBonus += to_string(attackBonus[i]) + ", ";
+		}
+	}
+
+	cout << "=======================================================" << endl;
+	cout << currentCharType + " - " + "Level " + currentLevel << endl;
+	cout << "=======================================================" << endl;
+	cout << "HP: " + currentHitPoint << endl;
+	cout << "Armor Class: " + currentArmorClass << endl;
+	cout << "Dexterity: " + currentDex << endl;
+	cout << "Constitution: " + currentConst << endl;
+	cout << "Strength: " + currentStr << endl;
+	cout << "Intelligence: " + currentInt << endl;
+	cout << "Charisma: " + currentCharisma << endl;
+	cout << "Wisdom: " + currentWisdom << endl;
+	cout << "Damage Bonus: " + currentDamageBonus << endl;
+	cout << "Attack Bonus: " + currentAttackBonus << endl;
+}
+
 /*
 getter and setter
 */
@@ -278,3 +334,5 @@ char Character::getTypeOnMap() {
 void Character::setTypeOnMap(char t) {
   this->typeOnMap = t;
 }
+
+

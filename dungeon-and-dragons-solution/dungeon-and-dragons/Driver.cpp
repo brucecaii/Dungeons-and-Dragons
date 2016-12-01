@@ -38,8 +38,11 @@ int main(int argc, char* argv[]) {
 	characterMaker.createCharacter(); //make coffee
 	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
 
+	enermy->display();
+	myBoy->display();
+	you->display();
+
 	//Items for testing purpose
-	
 	//Creating all the types of enhancements
 	Enhancement intelligence("Intelligence", 5);
 	Enhancement wisdom("Wisdom", 5);

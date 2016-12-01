@@ -32,6 +32,8 @@ public:
 	void executeStrategy(Map& m);
 	void lootChest(ItemContainer* chest);
 	void lootCharacter(Character* character);
+	string getTypeInString(char c);
+	void display();
 	/*
 	setter and getter
 	*/
