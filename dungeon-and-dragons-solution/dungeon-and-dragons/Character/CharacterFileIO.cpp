@@ -44,7 +44,6 @@ void CharacterFileIO::saveCharacter(string filePath, Fighter* ch)
         character["damageBonus"] = ch->getDamageBonus();
         character["currentPosition"] = ch->getCurrentPosition();
         character["mapType"] = ch->getTypeOnMap();
-        character["fighterType"] = typeid(ch).name();
         character["playerType"] = ch->getPlayerType();
 
         writeJsonFile << character;
@@ -58,7 +57,6 @@ Fighter* CharacterFileIO::readCharacter(string filePath)
 	if (readJsonFile.is_open())
 	{
 		json character(readJsonFile);
-		Fighter *ch = new Fighter();
 		// setting the values read from the file
 		CharacterAttr *loadAttr = new CharacterAttr(
 			character["intelligence"],
@@ -68,9 +66,7 @@ Fighter* CharacterFileIO::readCharacter(string filePath)
 			character["constitution"],
 			character["charisma"]
 		);
-		if (character["fighterType"] == "Bully") ch = new Bully(loadAttr);
-		if (character["fighterType"] == "Tank") ch = new Tank(loadAttr);
-		if (character["fighterType"] == "Nimble") ch = new Nimble(loadAttr);
+		Fighter *ch = new Fighter(loadAttr);
 		ch->setCharacterAttr(loadAttr);
 		ch->setLevel(character["level"]);
 		ch->setHitPoint(character["hitPoint"]);
@@ -79,9 +75,8 @@ Fighter* CharacterFileIO::readCharacter(string filePath)
 		ch->setDamageBonus(character["damageBonus"]);
 		ch->setCurrentPosition(character["currentPosition"]);
 		ch->setPlayerType(character["playerType"]);
-		string str = character["mapType"];
-		const char *cstr = str.c_str();
-		ch->setTypeOnMap(*cstr);
+		char mapType = int(character["mapType"]);
+		ch->setTypeOnMap(mapType);
 
 		//Load his backpack items, but check if null first
 		if (!character["backpack"].is_null())

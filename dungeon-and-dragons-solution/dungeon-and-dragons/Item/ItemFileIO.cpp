@@ -36,23 +36,24 @@ void ItemFileIO::saveItem(string filePath, Item item)
 void ItemFileIO::readItem(string filePath, Item& item)
 {
 	ifstream readJsonFile(filePath, ifstream::in);
-	json jsonItem(readJsonFile);
 
-	vector<Enhancement> enhancements;
-	auto enhancers = jsonItem["enhancements"];
-	
-	//retrieving enhancements 
-	for (size_t  j = 0; j < enhancers.size(); j++)
+	if (readJsonFile.is_open())
 	{
-		//Creating an enhancement vector
-		auto currentEnhancement = enhancers.at(j);
-		enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(),
-			currentEnhancement["bonus"].get<int>()));
+		json jsonItem(readJsonFile);
+		vector<Enhancement> enhancements;
+		auto enhancers = jsonItem["enhancements"];
+		//retrieving enhancements 
+		for (size_t j = 0; j < enhancers.size(); j++)
+		{
+			//Creating an enhancement vector
+			auto currentEnhancement = enhancers.at(j);
+			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(),
+				currentEnhancement["bonus"].get<int>()));
+		}
+		item.setName(jsonItem["item_name"]);
+		item.setType(jsonItem["item_type"]);
+		item.setEnhancements(enhancements);
 	}
-
-	item.setName(jsonItem["item_name"]);
-	item.setType(jsonItem["item_type"]);
-	item.setEnhancements( enhancements );
 }
 
 //! Method to get JSON format of influences from an item

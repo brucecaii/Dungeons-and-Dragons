@@ -43,7 +43,7 @@ public:
 	void setArmorClass(int armorClass);
 	vector<int> getAttackBonus() const;
 	void setDamageBonus(int dmg);
-	int getDamageBonus() const;
+	int getDamageBonus();
 	void setAttackBonus(const vector<int> &attackBonus);
 	ItemContainer* getCharacterEquipment() const;
 	void setCharacterEquipment(ItemContainer *characterEquipment);
