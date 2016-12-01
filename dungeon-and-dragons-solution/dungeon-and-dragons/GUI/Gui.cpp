@@ -28,9 +28,6 @@ namespace Gui{
   const unsigned long BLOCK_THREAD_WAIT_TIME = 500;
   const sf::Vector2f mapAbsolutePositioning(330,470);
   Fonts fontGenerator;
-  Events *eventManager = new Events();
-  //Events Logger
-  GameLogger *eventLogger = new GameLogger(eventManager, true);
   Ui uiManager;
 
   sf::Font font;
@@ -124,6 +121,7 @@ namespace Gui{
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;
   float selectionBoxTransparency = 0.0f;
+  bool shouldShowPlayerTypeError = false;
   bool hasReachedEndOfMap = false;
   bool isSelectingChoice = true;
   bool isPlayingGame = false;
@@ -148,7 +146,6 @@ namespace Gui{
   bool isCreatingItem = false;
   bool isEditingCharacter = false;
   bool isEditingItem = false;
-  bool shouldBlockThread = false;
   bool shouldShowCampaignValidationError = false;
   bool shouldShowMapValidationError = false;
   bool shouldShowCharacterValidationError = false;

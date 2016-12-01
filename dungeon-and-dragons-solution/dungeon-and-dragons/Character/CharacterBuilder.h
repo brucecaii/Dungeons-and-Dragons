@@ -9,9 +9,11 @@ class CharacterBuilder : public Subject{
 
 public:
 	CharacterBuilder(string fighterType, int level);
-	Character* getCharacter();
+	Fighter* getCharacter();
 	void createCharacter();
 	virtual void setPlayerType() = 0;
+	string getFighterType();
+	int getFighterLevel();
 
 protected:
 	Fighter* c_character;
@@ -27,10 +29,10 @@ public:
 
 };
 
-class EnermyCharacterBuilder : public CharacterBuilder {
+class AggressorCharacterBuilder : public CharacterBuilder {
 
 public:
-	EnermyCharacterBuilder(string fighterType, int level);
+	AggressorCharacterBuilder(string fighterType, int level);
 	void setPlayerType();
 
 };

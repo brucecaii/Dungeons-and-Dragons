@@ -3,17 +3,25 @@
 #include "Character/Character.h"
 #include "Item/Item.h"
 #include "GameLogger.h"
+#include "GUI/Events.h"
 
 namespace GameData {
 
   extern Map* currentMapObject;
   extern MapCampaign* currentCampaignObject;
-  extern Character* currentCharacterObject;
+  extern Fighter* currentCharacterObject;
   extern Item* currentItemObject;
-  extern vector<Character*> gameCharacters;
+  extern vector<Fighter*> gameCharacters;
+  extern vector<Fighter*> availableCharacters;
+  extern vector<Fighter*> availablePlayers;
+  extern vector<Fighter*> availableFriendlies;
+  extern vector<Fighter*> availableAggressors;
   extern Dice* gameDice;
-  
+  extern Events* eventManager;
+
   //Logger
   extern GameLogger* diceLogger;
+  extern GameLogger* eventLogger;
+  extern GameLogger* mapLogger;
 }
 

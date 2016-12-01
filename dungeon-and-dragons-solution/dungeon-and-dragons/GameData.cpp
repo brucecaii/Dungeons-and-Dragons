@@ -3,16 +3,25 @@
 #include "Character/Character.h"
 #include "Item/Item.h"
 #include "GameLogger.h"
+#include "GUI/Events.h"
 
 namespace GameData {
 
   Map* currentMapObject = new Map();
   MapCampaign* currentCampaignObject = new MapCampaign();
-  Character* currentCharacterObject = new Character();
+  Fighter* currentCharacterObject = new Fighter();
   Item* currentItemObject = new Item();
-  vector<Character*> gameCharacters;
+  vector<Fighter*> gameCharacters;
+  vector<Fighter*> availableCharacters;
+  vector<Fighter*> availablePlayers;
+  vector<Fighter*> availableFriendlies;
+  vector<Fighter*> availableAggressors;
   Dice* gameDice = new Dice();
+  Events *eventManager = new Events();
 
   //Logging
-  GameLogger* diceLogger = new GameLogger(gameDice, true);
+  GameLogger *diceLogger = new GameLogger(gameDice, true);
+  GameLogger *eventLogger = new GameLogger(eventManager, true);
+  GameLogger *mapLogger = new GameLogger(currentMapObject, true);
+
 }

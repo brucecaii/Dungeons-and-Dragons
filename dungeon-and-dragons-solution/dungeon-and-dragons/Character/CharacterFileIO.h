@@ -14,7 +14,7 @@ class CharacterFileIO : public Subject{
 
 public:
 	// method to serialize a character into json object
-	void saveCharacter(string filePath, Fighter ch);
+	void saveCharacter(string filePath, Fighter* ch);
 	//method to deserialize a character from a json object
 	Fighter* readCharacter(string filePath);
 	// method used to obtain json format of an item container

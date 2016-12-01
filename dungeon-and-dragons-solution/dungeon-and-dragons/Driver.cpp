@@ -49,19 +49,18 @@ int main(int argc, char* argv[]) {
         if (evt.type == sf::Event::Closed) {
           window.close();
         }
-        Gui::eventManager->respondToRealTimeTypeFeedback(evt);
+        GameData::eventManager->respondToRealTimeTypeFeedback(evt);
+        GameData::eventManager->respondToSelectionBoxClick(window, evt);
+        GameData::eventManager->respondToHomeButtonClick(window, evt);
+        GameData::eventManager->respondToSaveMapCampaign(window, evt);
+        GameData::eventManager->respondToFileSelectionClick(window, evt);
+        GameData::eventManager->respondToMapSizeClick(window, evt);
+        GameData::eventManager->respondToMapCreateOkButton(window, evt);
+        GameData::eventManager->respondToMapTileSelect(window, evt);
+        GameData::eventManager->respondToCampaignAvailableMapsClick(window, evt);
+        GameData::eventManager->respondToCampaignMapOrderClick(window, evt);
+        GameData::eventManager->respondToPlayingGameEvents(window, evt);
       }
-      Gui::eventManager->respondToSelectionBoxClick(window);
-      Gui::eventManager->respondToHomeButtonClick(window);
-      Gui::eventManager->respondToSaveMapCampaign(window);
-      Gui::eventManager->respondToFileSelectionClick(window);
-      Gui::eventManager->respondToMapSizeClick(window);
-      Gui::eventManager->respondToMapCreateOkButton(window);
-      Gui::eventManager->respondToMapTileSelect(window);
-      Gui::eventManager->respondToCampaignAvailableMapsClick(window);
-      Gui::eventManager->respondToCampaignMapOrderClick(window);
-      Gui::eventManager->respondToPlayingGameEvents(window);
-
       /////////////////////
       // SCENE SELECTION //
       /////////////////////
@@ -84,7 +83,11 @@ int main(int argc, char* argv[]) {
       }
       if (Gui::isEditingMap || Gui::isCreatingMap) {
         Gui::uiManager.isCreatingOrEditingMap(window);
-        Gui::eventManager->respondToMapBoxClick(window);
+
+        // special case: needs to be created after isCreatingOrEditingMp
+        while (window.pollEvent(evt)) {
+          GameData::eventManager->respondToMapBoxClick(window, evt);
+        }
       }
       if (Gui::isCreatingCampaign || Gui::isEditingCampaign) {
         Gui::uiManager.isCreatingOrEditingCampaign(window);
@@ -101,12 +104,6 @@ int main(int argc, char* argv[]) {
       }
 
       window.display();
-
-      // Prevent multiple consecutive clicks
-      if (Gui::shouldBlockThread) {
-        sleep_for(milliseconds(Gui::BLOCK_THREAD_WAIT_TIME));
-        Gui::shouldBlockThread = false;
-      }
     }
 
     return 0;

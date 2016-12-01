@@ -1,12 +1,13 @@
 #ifndef CHARACTER_GENERATOR_H
 #define CHARACTER_GENERATOR_H
 #include "CharacterBuilder.h"
+#include "../Subject.h"
 
-class CharacterGenerator {
+class CharacterGenerator : public Subject {
 
 public:
 	void setCharacterBuilder(CharacterBuilder* cb);
-	Character* getCharacter();
+	Fighter* getCharacter();
 	void createCharacter();
 
 private:

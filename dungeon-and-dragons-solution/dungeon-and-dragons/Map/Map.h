@@ -32,6 +32,7 @@ class Map : public Subject{
     vector<tuple<char,int,int>> getAllCharacterPositions();
     vector<int> getHumanPosition();
     void display();
+	string getLetterType(char obj);
   private:
     int mapWidth;
     int mapLength;

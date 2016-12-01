@@ -11,46 +11,47 @@ using std::vector;
 using json = nlohmann::json;
 
 //! saving character to a file in json format
-void CharacterFileIO::saveCharacter(string filePath, Fighter ch)
+void CharacterFileIO::saveCharacter(string filePath, Fighter* ch)
 {
 	std::cout << "Saving Character..." << endl;
-	ofstream writeJsonFile(filePath, ofstream::out);
-	json character;
+	std::cout << filePath << endl;
+        ofstream writeJsonFile(filePath, ofstream::out);
+        json character;
 
 	//get character backpack and get backpack json
-	auto backpack = ch.getCharacterBackpack();
-	json backpackJson;
-	getItemContainerJson( backpack, backpackJson);
+        //auto backpack = ch->getCharacterBackpack();
+        //json backpackJson;
+        //getItemContainerJson( backpack, backpackJson);
 
 	//get character inventory and get equiped items json
-	auto equipment = ch.getCharacterEquipment();
-	json equipmentJson;
-	getItemContainerJson(equipment, equipmentJson);
+        //auto equipment = ch->getCharacterEquipment();
+        //json equipmentJson;
+        //getItemContainerJson(equipment, equipmentJson);
 
 	//Character attributes that are saved in json format
-	character["strength"] = ch.getCharacterAttr()->getStrength();
-	character["dexterity"] = ch.getCharacterAttr()->getDexterity();
-	character["constitution"] = ch.getCharacterAttr()->getConstitution();
-	character["intelligence"] = ch.getCharacterAttr()->getIntelligence();
-	character["wisdom"] = ch.getCharacterAttr()->getWisdom();
-	character["charisma"] = ch.getCharacterAttr()->getCharisma();
-	character["backpack"] = backpackJson;
-	character["equipment"] = equipmentJson;
-	character["level"] = ch.getLevel();
-	character["hitPoint"] = ch.getHitPoint();
-	character["armorClass"] = ch.getArmorClass();
-	character["attackBonus"] = ch.getAttackBonus();
-	character["damageBonus"] = ch.getDamageBonus();
-	character["currentPosition"] = ch.getCurrentPosition();
-	character["mapType"] = ch.getTypeOnMap();
-	character["fighterType"] = typeid(ch).name();
-	character["playerType"] = ch.getPlayerType();
+        character["strength"] = ch->getCharacterAttr()->getStrength();
+        character["dexterity"] = ch->getCharacterAttr()->getDexterity();
+        character["constitution"] = ch->getCharacterAttr()->getConstitution();
+        character["intelligence"] = ch->getCharacterAttr()->getIntelligence();
+        character["wisdom"] = ch->getCharacterAttr()->getWisdom();
+        character["charisma"] = ch->getCharacterAttr()->getCharisma();
+        //character["backpack"] = backpackJson;
+        //character["equipment"] = equipmentJson;
+        character["level"] = ch->getLevel();
+        character["hitPoint"] = ch->getHitPoint();
+        character["armorClass"] = ch->getArmorClass();
+        character["attackBonus"] = ch->getAttackBonus();
+        character["damageBonus"] = ch->getDamageBonus();
+        character["currentPosition"] = ch->getCurrentPosition();
+        character["mapType"] = ch->getTypeOnMap();
+        character["fighterType"] = typeid(ch).name();
+        character["playerType"] = ch->getPlayerType();
 
-	writeJsonFile << character;
-	writeJsonFile.close();
+        writeJsonFile << character;
+        writeJsonFile.close();
 }
 
-//! reading a character from a file in json format 
+//! reading a character from a file in json format
 Fighter* CharacterFileIO::readCharacter(string filePath)
 {
 	ifstream readJsonFile(filePath, ifstream::in);

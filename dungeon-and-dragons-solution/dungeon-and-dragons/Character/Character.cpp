@@ -174,12 +174,12 @@ void Character::lootChest(ItemContainer* chest) {
 	}
 }
 
-void Character::lootEnermy(Character* enermy) {
-	for (size_t i = 0; i < enermy->getCharacterBackpack()->getItems().size(); i++) {
-		this->addItemBackpack(enermy->getCharacterBackpack()->getItems()[i]);
+void Character::lootCharacter(Character* character) {
+	for (size_t i = 0; i < character->getCharacterBackpack()->getItems().size(); i++) {
+		this->addItemBackpack(character->getCharacterBackpack()->getItems()[i]);
 	}
-	for (size_t i = 0; i < enermy->getCharacterEquipment()->getItems().size(); i++) {
-		this->addItemBackpack(enermy->getCharacterEquipment()->getItems()[i]);
+	for (size_t i = 0; i < character->getCharacterEquipment()->getItems().size(); i++) {
+		this->addItemBackpack(character->getCharacterEquipment()->getItems()[i]);
 	}
 }
 

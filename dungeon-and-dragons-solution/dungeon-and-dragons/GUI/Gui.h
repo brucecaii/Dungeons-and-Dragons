@@ -18,7 +18,6 @@ namespace Gui{
   extern const unsigned long BLOCK_THREAD_WAIT_TIME;
   extern const sf::Vector2f mapAbsolutePositioning;
   extern Fonts fontGenerator;
-  extern Events* eventManager;
   extern Ui uiManager;
 
   extern sf::Font font;
@@ -110,6 +109,7 @@ namespace Gui{
   extern string createdCharacterArgs;
   extern string chosenCharacterArgs;
   extern string createdItem;
+  extern bool shouldShowPlayerTypeError;
   extern bool hasReachedEndOfMap;
   extern bool isSelectingChoice;
   extern bool isPlayingGame;
@@ -134,7 +134,6 @@ namespace Gui{
   extern bool isCreatingItem;
   extern bool isEditingCharacter;
   extern bool isEditingItem;
-  extern bool shouldBlockThread;
   extern bool shouldShowCampaignValidationError;
   extern bool shouldShowMapValidationError;
   extern bool shouldShowCharacterValidationError;
