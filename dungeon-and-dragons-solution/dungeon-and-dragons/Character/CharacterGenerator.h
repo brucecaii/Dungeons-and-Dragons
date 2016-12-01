@@ -7,7 +7,7 @@ class CharacterGenerator : public Subject {
 
 public:
 	void setCharacterBuilder(CharacterBuilder* cb);
-	Character* getCharacter();
+	Fighter* getCharacter();
 	void createCharacter();
 
 private:

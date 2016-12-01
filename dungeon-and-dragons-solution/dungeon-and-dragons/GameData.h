@@ -9,7 +9,7 @@ namespace GameData {
 
   extern Map* currentMapObject;
   extern MapCampaign* currentCampaignObject;
-  extern Character* currentCharacterObject;
+  extern Fighter* currentCharacterObject;
   extern Item* currentItemObject;
   extern vector<Character*> gameCharacters;
   extern Dice* gameDice;

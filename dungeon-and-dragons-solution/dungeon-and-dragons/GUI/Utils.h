@@ -11,7 +11,8 @@ using std::vector;
 //! Class implementing utility functions
 class Utils {
   public:
-    void split(const string &s, char delim, vector<string> &elems);
+    vector<string> splitBySpace(string source);
+    vector<string> split(const string &text, char sep);
     vector<string> readCurrentDirectoryContents(string fileType);
     void removeSpaceCharFromString(string& str);
 };

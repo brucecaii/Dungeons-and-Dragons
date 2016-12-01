@@ -9,7 +9,7 @@ namespace GameData {
 
   Map* currentMapObject = new Map();
   MapCampaign* currentCampaignObject = new MapCampaign();
-  Character* currentCharacterObject = new Character();
+  Fighter* currentCharacterObject = new Fighter();
   Item* currentItemObject = new Item();
   vector<Character*> gameCharacters;
   Dice* gameDice = new Dice();

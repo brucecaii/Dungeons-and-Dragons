@@ -373,7 +373,7 @@ void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
   this->drawHomeButton(window);
   this->drawSaveButton(window);
   this->drawText(window,
-      "Enter Character Abilities as comma-separated integers\nStrength,Dexterity,Constitution,Intelligence,Wisdom,Charisma\nEx: 15,14,13,12,10,8",
+      "Enter fighter type (Tank, Nimble, Bully),\nfighter strategy (Player, Friendly, Aggressor) and \ncharacter level as a space-separated string",
       21, Gui::WHITE, Gui::W_WIDTH/2.0f, 100.0f);
 
   if (Gui::isCreatingCharacter)

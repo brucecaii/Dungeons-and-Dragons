@@ -2,6 +2,7 @@
 //! @brief Implementation file for the Events class
 //!
 #include <iostream>
+#include <algorithm>
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
@@ -147,7 +148,7 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           string ext = ".character";
           Gui::chosenCharacter = string(Gui::current_characters[i]) + string(ext);
           CharacterFileIO cfio;
-          GameData::currentCharacterObject = new Character();
+          //GameData::currentCharacterObject = new Fighter();
           GameData:: currentCharacterObject = cfio.readCharacter(Gui::chosenCharacter);
           Gui::shouldShowCharacterValidationError = false;
           Gui::isChoosingCharacterToEdit = false;
@@ -209,82 +210,79 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
             // Create a new one with appropriate position and type
             char type; int posX; int posY;
             tie(type, posX, posY) = characterPositions[i];
-            if (type == 'S') {
-              cout << "There is a human character at position ("<< posX << ","<< posY <<")" << endl;
-              cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
-              cout << "Example: Bully,3" << endl;
-              string answer;
-              string delimeter(",");
-              Utils util;
-              getline(cin, answer);
+            //if (type == 'S') {
+              //cout << "There is a human character at position ("<< posX << ","<< posY <<")" << endl;
+              //cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
+              //cout << "Example: Bully,3" << endl;
+              //string answer;
+              //string delimeter(",");
+              //Utils util;
+              //getline(cin, answer);
 
 
-              if (answer.find(delimeter) != string::npos) {
-                vector<string> result;
-                util.split(answer,delimeter.at(0), result);
-                if ((int)result.size() == 2) {
-                  //CharacterBuilder* playerBuilder = new PlayerCharacterBuilder("Bully", 2);
-                  //selectHero.setCharacterBuilder(playerBuilder);
+              //if (answer.find(delimeter) != string::npos) {
+                //vector<string> result = util.splitBySpace(answer));
+                //if ((int)result.size() == 2) {
+                  ////CharacterBuilder* playerBuilder = new PlayerCharacterBuilder("Bully", 2);
+                  ////selectHero.setCharacterBuilder(playerBuilder);
+                  ////selectHero.createCharacter();
+                  ////Character *player = selectHero.getCharacter();
+                  //vector<int> currentPosition = {posX,posY};
+                  //GameData::currentCharacterObject->setCurrentPosition(currentPosition);
+                  //GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
+                  //GameData::gameCharacters.push_back(GameData::currentCharacterObject);
+                //}
+               //}
+            //}
+            //if (type == 'C') {
+              //cout << "There is a friendly character at position ("<< posX << ","<< posY <<")" << endl;
+              //cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
+              //cout << "Example: Bully,3" << endl;
+              //string answer;
+              //string delimeter(",");
+              //Utils util;
+              //getline(cin, answer);
+
+
+              //if (answer.find(delimeter) != string::npos) {
+                //vector<string> result = util.splitBySpace(answer));
+                //if ((int)result.size() == 2) {
+                //CharacterBuilder* friendlyBuilder = new FriendlyCharacterBuilder("Tank", 4);
+                //selectHero.setCharacterBuilder(friendlyBuilder);
+                //selectHero.createCharacter();
+                //Character *friendly = selectHero.getCharacter();
+                //vector<int> currentPosition = {posX,posY};
+                //friendly->setCurrentPosition(currentPosition);
+                //GameData::gameCharacters.push_back(friendly);
+                //}
+              //}
+            //}
+            //if (type == 'O') {
+              //cout << "There is an aggressor character at position ("<< posX << ","<< posY <<")" << endl;
+              //cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
+              //cout << "Example: Bully,3" << endl;
+              //string answer;
+              //string delimeter(",");
+              //Utils util;
+              //getline(cin, answer);
+
+
+              //if (answer.find(delimeter) != string::npos) {
+                //vector<string> result = util.splitBySpace(answer));
+                //if ((int)result.size() == 2) {
+                  //CharacterBuilder* enermyBuilder = new EnermyCharacterBuilder("Nimble", 3);
+                  //selectHero.setCharacterBuilder(enermyBuilder);
                   //selectHero.createCharacter();
-                  //Character *player = selectHero.getCharacter();
-                  vector<int> currentPosition = {posX,posY};
-                  GameData::currentCharacterObject->setCurrentPosition(currentPosition);
-                  GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
-                  GameData::gameCharacters.push_back(GameData::currentCharacterObject);
-                }
-               }
-            }
-            if (type == 'C') {
-              cout << "There is a friendly character at position ("<< posX << ","<< posY <<")" << endl;
-              cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
-              cout << "Example: Bully,3" << endl;
-              string answer;
-              string delimeter(",");
-              Utils util;
-              getline(cin, answer);
-
-
-              if (answer.find(delimeter) != string::npos) {
-                vector<string> result;
-                util.split(answer,delimeter.at(0), result);
-                if ((int)result.size() == 2) {
-                CharacterBuilder* friendlyBuilder = new FriendlyCharacterBuilder("Tank", 4);
-                selectHero.setCharacterBuilder(friendlyBuilder);
-                selectHero.createCharacter();
-                Character *friendly = selectHero.getCharacter();
-                vector<int> currentPosition = {posX,posY};
-                friendly->setCurrentPosition(currentPosition);
-                GameData::gameCharacters.push_back(friendly);
-                }
-              }
-            }
-            if (type == 'O') {
-              cout << "There is an aggressor character at position ("<< posX << ","<< posY <<")" << endl;
-              cout << "Enter a CSV for type of fighter (Nimble/Tank/Bully) and Fighter level." << endl;
-              cout << "Example: Bully,3" << endl;
-              string answer;
-              string delimeter(",");
-              Utils util;
-              getline(cin, answer);
-
-
-              if (answer.find(delimeter) != string::npos) {
-                vector<string> result;
-                util.split(answer,delimeter.at(0), result);
-                if ((int)result.size() == 2) {
-                  CharacterBuilder* enermyBuilder = new EnermyCharacterBuilder("Nimble", 3);
-                  selectHero.setCharacterBuilder(enermyBuilder);
-                  selectHero.createCharacter();
-                  Character *enermy = selectHero.getCharacter();
-                  vector<int> currentPosition = {posX,posY};
-                  enermy->setCurrentPosition(currentPosition);
-                  GameData::gameCharacters.push_back(enermy);
-                }
-              }
-            }
-            // ALSO CHECK FOR CHEST CONTENTS HERE
+                  //Character *enermy = selectHero.getCharacter();
+                  //vector<int> currentPosition = {posX,posY};
+                  //enermy->setCurrentPosition(currentPosition);
+                  //GameData::gameCharacters.push_back(enermy);
+                //}
+              //}
+            //}
+            //// ALSO CHECK FOR CHEST CONTENTS HERE
           }
-          cout << endl;
+          //cout << endl;
 
         }
       }
@@ -508,61 +506,82 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window, sf::Event& evt) 
 
       if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
 
-        /////////////////////////////////////////////////
-        // NEED TO REDO CHARACTER EDITING AND CREATION //
-        /////////////////////////////////////////////////
-
-        //string args;
-        //string tempCreatedArgs(Gui::createdCharacterArgs);
-        //string tempChosenArgs(Gui::chosenCharacterArgs);
-        //string fileNameOutput;
-        //if (Gui::isCreatingCharacter) {
-          //args = string(tempCreatedArgs);
-          //fileNameOutput = Gui::createdCharacter;
-        //}
-        //if (Gui::isEditingCharacter) {
-          //args = string(tempChosenArgs);
-          //fileNameOutput = Gui::chosenCharacter;
-        //}
+        string args;
+        string fileNameOutput;
+        if (Gui::isCreatingCharacter) {
+          string tempCreatedArgs(Gui::createdCharacterArgs);
+          args = string(tempCreatedArgs);
+          fileNameOutput = Gui::createdCharacter;
+        }
+        if (Gui::isEditingCharacter) {
+        string tempChosenArgs(Gui::chosenCharacterArgs);
+          args = string(tempChosenArgs);
+          fileNameOutput = Gui::chosenCharacter;
+        }
 
         // check if csv is valid
-        //Utils util;
-        //util.removeSpaceCharFromString(args);
-        //vector<string> stringArgElements;
-        //vector<int> intArgElements;
-        //util.split(args, ',', stringArgElements);
+        Utils util;
 
-        //if (stringArgElements.size() != 6) {
-          //cout << "INVALID: Must provide 6 ability values." << endl;
-          //Gui::shouldShowCharacterValidationError = true;
-          //return;
-        //}
+        vector<string> stringArgElements = util.splitBySpace(args);
 
-        //for (int i = 0; i < (int)stringArgElements.size(); i++) {
-          //try {
-            //intArgElements.push_back(stoi(stringArgElements[i]));
-          //} catch (...) {
-            ////string to int cast failed
-            //cout << "INVALID: Ability values must be integers." << endl;
-            //Gui::shouldShowCharacterValidationError = true;
-            //return;
-          //}
-        //}
+        if (stringArgElements.size() != 3) {
+          cout << "INVALID: Must provide 3 values to build character." << endl;
+          Gui::shouldShowCharacterValidationError = true;
+          return;
+        }
+        if (stringArgElements[0] != "Tank" &&
+            stringArgElements[0] != "Nimble" &
+            stringArgElements[0] != "Bully" ) {
+          //cout << "INVALID: Fighter must be Tank, Nimble or Bully." << endl;
+          cout << stringArgElements[0] << endl;
+          cout << "\""<< stringArgElements[0]<<"\""<< endl;
+          Gui::shouldShowCharacterValidationError = true;
+          return;
+        }
 
-        // check if character is valid
-        //GameData::currentCharacterObject = new Character(
-          //intArgElements[0],
-          //intArgElements[1],
-          //intArgElements[2],
-          //intArgElements[3],
-          //intArgElements[4],
-          //intArgElements[5]
-        //);
+        if (stringArgElements[1] != "Player" &&
+            stringArgElements[1] != "Aggressor" &&
+            stringArgElements[1] != "Friendly" ) {
+          cout << "INVALID: Fighter must be Player, Friendly, or Aggressor." << endl;
+          Gui::shouldShowCharacterValidationError = true;
+          return;
+        }
+
+        int parsedLvl;
+        try {
+          parsedLvl = stoi(stringArgElements[2]);
+        } catch (const std::invalid_argument& e) {
+          cout << "INVALID: Fighter level must be an integer." << endl;
+          Gui::shouldShowCharacterValidationError = true;
+          return;
+        }
+
+
+        CharacterGenerator selectHero;
+        CharacterBuilder* builder;
+        if (stringArgElements[1] == "Player") {
+          builder = new PlayerCharacterBuilder(stringArgElements[0], parsedLvl);
+        }
+        if (stringArgElements[1] == "Friendly") {
+          builder = new PlayerCharacterBuilder(stringArgElements[0], parsedLvl);
+        }
+        if (stringArgElements[1] == "Aggressor") {
+          builder = new PlayerCharacterBuilder(stringArgElements[0], parsedLvl);
+        }
+        selectHero.setCharacterBuilder(builder);
+        selectHero.createCharacter();
+        GameData::currentCharacterObject = selectHero.getCharacter();
+
+        if (!GameData::currentCharacterObject->validateNewCharacter()) {
+          cout << "INVALID: Character ability scores are either below 3 or above 18." << endl;
+          Gui::shouldShowCharacterValidationError = true;
+          return;
+        }
 
         //// Character is valid
-        //Gui::shouldShowCharacterValidationError = false;
-        //CharacterFileIO cfio;
-        //cfio.saveCharacter(fileNameOutput, *GameData::currentCharacterObject);
+        Gui::shouldShowCharacterValidationError = false;
+        CharacterFileIO cfio;
+        cfio.saveCharacter(fileNameOutput, GameData::currentCharacterObject);
         //GameData::currentCharacterObject->displayCharacter();
       }
     }

@@ -9,7 +9,7 @@ CharacterBuilder::CharacterBuilder(string fighterType, int level) {
 	this->fighterLevel = level;
 }
 
-Character* CharacterBuilder::getCharacter() {
+Fighter* CharacterBuilder::getCharacter() {
 	return this->c_character;
 };
 

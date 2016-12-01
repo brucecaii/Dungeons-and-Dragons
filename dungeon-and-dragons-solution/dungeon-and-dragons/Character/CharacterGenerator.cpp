@@ -4,7 +4,7 @@ void CharacterGenerator::setCharacterBuilder(CharacterBuilder* cb) {
 	this->c_characterBuilder = cb;
 };
 
-Character* CharacterGenerator::getCharacter() {
+Fighter* CharacterGenerator::getCharacter() {
 	return this->c_characterBuilder->getCharacter();
 }
 

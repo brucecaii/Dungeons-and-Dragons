@@ -9,7 +9,7 @@ class CharacterBuilder : public Subject{
 
 public:
 	CharacterBuilder(string fighterType, int level);
-	Character* getCharacter();
+	Fighter* getCharacter();
 	void createCharacter();
 	virtual void setPlayerType() = 0;
 	string getFighterType();
