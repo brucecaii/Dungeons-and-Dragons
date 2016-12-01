@@ -145,7 +145,6 @@ namespace Gui{
   bool isCreatingItem = false;
   bool isEditingCharacter = false;
   bool isEditingItem = false;
-  bool shouldBlockThread = false;
   bool shouldShowCampaignValidationError = false;
   bool shouldShowMapValidationError = false;
   bool shouldShowCharacterValidationError = false;
