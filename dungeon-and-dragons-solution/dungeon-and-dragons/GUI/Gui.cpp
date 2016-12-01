@@ -6,6 +6,7 @@
 #include "Fonts.h"
 #include "Events.h"
 #include "Ui.h"
+#include "../GameLogger.h"
 
 using namespace std::chrono;
 using std::string;
@@ -28,6 +29,8 @@ namespace Gui{
   const sf::Vector2f mapAbsolutePositioning(330,470);
   Fonts fontGenerator;
   Events *eventManager;
+  //Events Logger
+  GameLogger *eventLogger = new GameLogger(eventManager, true);
   Ui uiManager;
 
   sf::Font font;

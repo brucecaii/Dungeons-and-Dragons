@@ -7,6 +7,7 @@
 #include "Dice/Dice.h"
 #include "Character/CharacterBuilder.h"
 #include "Character/CharacterStrategy.h"
+#include "GUI/Events.h"
 
 class GameLogger : public Observer {
 
@@ -19,6 +20,7 @@ public:
 	GameLogger(Dice * dice, bool isLogging);
 	GameLogger(CharacterBuilder* cb, bool isLogging);
 	GameLogger(CharacterStrategy* cs, bool isLogging);
+	GameLogger(Events* e, bool isLogging);
 	~GameLogger();
 
 	void Update();
@@ -34,5 +36,7 @@ private:
 	Dice *_diceSubject;
 	CharacterBuilder *_charBuilder;
 	CharacterStrategy *_charStrategy;
+	Events *_events;
+
 	bool _isActive;
 };
