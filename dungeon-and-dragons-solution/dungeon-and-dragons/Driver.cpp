@@ -18,6 +18,26 @@ using namespace std::this_thread;
 //! Runs the main map creation program:
 int main(int argc, char* argv[]) {
 
+	/*
+	Create characters
+	*/
+	CharacterGenerator characterMaker; //coffee maker
+	AggressorCharacterBuilder* aggressorBuilder = new AggressorCharacterBuilder("Tank", 10); //black coffee
+	FriendlyCharacterBuilder* friendlyBuilder = new FriendlyCharacterBuilder("Bully", 10); //mocha
+	PlayerCharacterBuilder* playerBuilder = new PlayerCharacterBuilder("Nimble", 12); //espresso
+	//When you want to generate an aggressor (black coffee)
+	characterMaker.setCharacterBuilder(aggressorBuilder); //put black coffee into coffee maker
+	characterMaker.createCharacter(); //make coffee
+	Fighter *enermy = characterMaker.getCharacter(); //you get a cup of black coffee
+	//When you want to generate an friendly guy (mocha)
+	characterMaker.setCharacterBuilder(friendlyBuilder); //put mocha into coffee maker
+	characterMaker.createCharacter(); //make coffee
+	Fighter *myBoy = characterMaker.getCharacter(); //you get a cup of mocha
+	//When you want to generate a player (espresso)
+	characterMaker.setCharacterBuilder(playerBuilder); //put black coffee into coffee maker
+	characterMaker.createCharacter(); //make coffee
+	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
+
 	//Items for testing purpose
 	
 	//Creating all the types of enhancements
