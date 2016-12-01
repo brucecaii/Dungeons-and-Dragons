@@ -49,18 +49,18 @@ int main(int argc, char* argv[]) {
         if (evt.type == sf::Event::Closed) {
           window.close();
         }
-        Gui::eventManager.respondToRealTimeTypeFeedback(evt);
+        Gui::eventManager->respondToRealTimeTypeFeedback(evt);
       }
-      Gui::eventManager.respondToSelectionBoxClick(window);
-      Gui::eventManager.respondToHomeButtonClick(window);
-      Gui::eventManager.respondToSaveMapCampaign(window);
-      Gui::eventManager.respondToFileSelectionClick(window);
-      Gui::eventManager.respondToMapSizeClick(window);
-      Gui::eventManager.respondToMapCreateOkButton(window);
-      Gui::eventManager.respondToMapTileSelect(window);
-      Gui::eventManager.respondToCampaignAvailableMapsClick(window);
-      Gui::eventManager.respondToCampaignMapOrderClick(window);
-      Gui::eventManager.respondToPlayingGameEvents(window);
+      Gui::eventManager->respondToSelectionBoxClick(window);
+      Gui::eventManager->respondToHomeButtonClick(window);
+      Gui::eventManager->respondToSaveMapCampaign(window);
+      Gui::eventManager->respondToFileSelectionClick(window);
+      Gui::eventManager->respondToMapSizeClick(window);
+      Gui::eventManager->respondToMapCreateOkButton(window);
+      Gui::eventManager->respondToMapTileSelect(window);
+      Gui::eventManager->respondToCampaignAvailableMapsClick(window);
+      Gui::eventManager->respondToCampaignMapOrderClick(window);
+      Gui::eventManager->respondToPlayingGameEvents(window);
 
       /////////////////////
       // SCENE SELECTION //
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
       }
       if (Gui::isEditingMap || Gui::isCreatingMap) {
         Gui::uiManager.isCreatingOrEditingMap(window);
-        Gui::eventManager.respondToMapBoxClick(window);
+        Gui::eventManager->respondToMapBoxClick(window);
       }
       if (Gui::isCreatingCampaign || Gui::isEditingCampaign) {
         Gui::uiManager.isCreatingOrEditingCampaign(window);

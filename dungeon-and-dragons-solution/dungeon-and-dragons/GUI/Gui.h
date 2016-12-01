@@ -18,7 +18,7 @@ namespace Gui{
   extern const unsigned long BLOCK_THREAD_WAIT_TIME;
   extern const sf::Vector2f mapAbsolutePositioning;
   extern Fonts fontGenerator;
-  extern Events eventManager;
+  extern Events* eventManager;
   extern Ui uiManager;
 
   extern sf::Font font;
