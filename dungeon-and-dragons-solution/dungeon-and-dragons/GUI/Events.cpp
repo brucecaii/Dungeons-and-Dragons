@@ -26,50 +26,59 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt
     Utils util;
     if (Gui::isSelectingChoice) {
       if (Gui::createMapPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Map Creation.");
         Gui::current_maps = util.readCurrentDirectoryContents("map");
         Gui::isSelectingChoice = false;
         Gui::isChoosingMapToCreate = true;
       }
       if (Gui::editMapPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Map Editing.");
         Gui::current_maps = util.readCurrentDirectoryContents("map");
         Gui::isSelectingChoice = false;
         Gui::isChoosingMapToEdit = true;
       }
       if (Gui::createCampaignPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Campaign Creation.");
         Gui::current_campaigns = util.readCurrentDirectoryContents("campaign");
         Gui::isSelectingChoice = false;
         Gui::isChoosingCampaignToCreate = true;
         Gui::current_maps = util.readCurrentDirectoryContents("map");
       }
       if (Gui::editCampaignPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Campaign Editing.");
         Gui::current_campaigns = util.readCurrentDirectoryContents("campaign");
         Gui::isSelectingChoice = false;
         Gui::isChoosingCampaignToEdit = true;
         Gui::current_maps = util.readCurrentDirectoryContents("map");
       }
       if (Gui::createCharacterPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Character Creation.");
         Gui::current_characters = util.readCurrentDirectoryContents("character");
         Gui::isSelectingChoice = false;
         Gui::isChoosingCharacterToCreate = true;
       }
       if (Gui::editCharacterPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Character Editing.");
         Gui::current_characters = util.readCurrentDirectoryContents("character");
         Gui::isSelectingChoice = false;
         Gui::isChoosingCharacterToEdit = true;
 
       }
       if (Gui::createItemPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Item Creation.");
         Gui::current_items = util.readCurrentDirectoryContents("item");
         Gui::isSelectingChoice = false;
         Gui::isChoosingItemToCreate = true;
 
       }
       if (Gui::editItemPosition.contains(mousePosition)) {
+		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Item Editing.");
         Gui::current_items = util.readCurrentDirectoryContents("item");
         Gui::isSelectingChoice = false;
         Gui::isChoosingItemToEdit= true;
       }
       if (Gui::playPosition.contains(mousePosition)) {
+		  UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected PLAY GAME.");
         Gui::current_campaigns = util.readCurrentDirectoryContents("campaign");
         Gui::current_maps = util.readCurrentDirectoryContents("map");
         Gui::current_characters = util.readCurrentDirectoryContents("character");
