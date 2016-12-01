@@ -21,7 +21,6 @@ using std::endl;
 
 void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt) {
   if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
-    cout << "TEST" << endl;
     sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
     Utils util;
     if (Gui::isSelectingChoice) {

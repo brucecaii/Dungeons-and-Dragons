@@ -18,5 +18,6 @@ namespace GameData {
   //Logger
   extern GameLogger* diceLogger;
   extern GameLogger* eventLogger;
+  extern GameLogger* mapLogger;
 }
 

@@ -163,7 +163,22 @@ bool Map::validatePath() {
 //! @param y: an integer value of vertical index of the map's grid
 //! @param obj: a character value of object that fills the cell
 void Map::setCell(int x, int y, char obj) {
+	string objName;
+	//Human Character has reached the exit, need to be logged correctly
+	if (map[x][y] == 'E' && obj == 'S')
+	{
+		objName = getLetterType(obj);
+		UpdateLog("Map", "setCell", objName + " has moved or set to cell " + to_string(x) + "," + to_string(y));
+	}
+
+	//Set obj to x,y location
 	this->map[x][y] = obj;
+
+	//Only logging Character movements in the map
+	if (obj == 'S' || obj == 'O' || obj == 'C') {
+		objName = getLetterType(obj);
+		UpdateLog("Map", "setCell", objName + " has moved or set to cell " + to_string(x) + "," + to_string(y));
+	}
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
@@ -263,6 +278,19 @@ void Map::display() {
     cout << "#" << endl;
   }
   cout << string(mapWidth+2,'#') << endl;
+}
+
+string Map::getLetterType(char obj)
+{	
+	string objName;
+	if (obj == 'S')
+		objName = "Human Character";
+	if (obj == 'C')
+		objName = "Friendly Character";
+	if (obj == 'O')
+		objName = "Aggressor Character";
+
+	return objName;
 }
 
 void Map::clearCell(int x, int y){

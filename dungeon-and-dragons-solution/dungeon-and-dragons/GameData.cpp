@@ -16,7 +16,8 @@ namespace GameData {
   Events *eventManager = new Events();
 
   //Logging
-  GameLogger* diceLogger = new GameLogger(gameDice, true);
+  GameLogger *diceLogger = new GameLogger(gameDice, true);
   GameLogger *eventLogger = new GameLogger(eventManager, true);
+  GameLogger *mapLogger = new GameLogger(currentMapObject, true);
 
 }
