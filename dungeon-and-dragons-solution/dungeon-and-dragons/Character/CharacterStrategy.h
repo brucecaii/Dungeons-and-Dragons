@@ -16,7 +16,7 @@
 
 class Character; // This forward declaration is needed. _DONT_TOUCH_IT_! (Lance)
 
-class CharacterStrategy {
+class CharacterStrategy : public Subject {
   public:
     virtual void execute(Map& m, Character& character) = 0;
     void moveUp(Map& m, Character& character);

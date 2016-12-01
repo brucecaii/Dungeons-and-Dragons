@@ -1,5 +1,13 @@
 #include "Dice.h"
 
+Dice::Dice()
+{
+}
+
+Dice::~Dice()
+{
+}
+
 vector<int> Dice::roll(string dice) {
 	//! validate input and return -1 on invalid string input 
 	const regex diceStr("^([1-9]+[0-9]*d(4|6|8|100|10|12|20)){1}([+][1-9]+[0-9]*)*$");
@@ -31,6 +39,18 @@ vector<int> Dice::roll(string dice) {
 		result.push_back(random);
 	}
 	result.push_back(opt);
+
+	//Getting string of result
+	string resultString = "[";
+	for (int i = 0; i < result.size(); i++) {
+		if (i == result.size() - 1) {
+			resultString += to_string(result[i]) + "]";
+		} else {
+			resultString += to_string(result[i]) + ", ";
+		}
+	}
+
+	UpdateLog("Dice", "roll", "Dice was rolled with " + dice + ", results obtained are: " + resultString);
 	return result;
 }
 

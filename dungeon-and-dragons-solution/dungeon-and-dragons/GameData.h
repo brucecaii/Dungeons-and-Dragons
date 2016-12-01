@@ -2,6 +2,7 @@
 #include "Map/MapCampaign.h"
 #include "Character/Character.h"
 #include "Item/Item.h"
+#include "GameLogger.h"
 
 namespace GameData {
 
@@ -10,6 +11,9 @@ namespace GameData {
   extern Character* currentCharacterObject;
   extern Item* currentItemObject;
   extern vector<Character*> gameCharacters;
-
+  extern Dice* gameDice;
+  
+  //Logger
+  extern GameLogger* diceLogger;
 }
 
