@@ -3,6 +3,7 @@
 //!
 #include <iostream>
 #include <algorithm>
+#include <random>
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
@@ -19,6 +20,9 @@
 using std::stoi;
 using std::cout;
 using std::endl;
+
+std::random_device rd;     // only used once to initialise (seed) engine
+std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 
 void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt) {
   if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
@@ -149,7 +153,7 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           Gui::chosenCharacter = string(Gui::current_characters[i]) + string(ext);
           CharacterFileIO cfio;
           //GameData::currentCharacterObject = new Fighter();
-          GameData:: currentCharacterObject = cfio.readCharacter(Gui::chosenCharacter);
+          GameData::currentCharacterObject = cfio.readCharacter(Gui::chosenCharacter);
           Gui::shouldShowCharacterValidationError = false;
           Gui::isChoosingCharacterToEdit = false;
           Gui::isEditingCharacter = true;
@@ -270,13 +274,13 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
               //if (answer.find(delimeter) != string::npos) {
                 //vector<string> result = util.splitBySpace(answer));
                 //if ((int)result.size() == 2) {
-                  //CharacterBuilder* enermyBuilder = new EnermyCharacterBuilder("Nimble", 3);
-                  //selectHero.setCharacterBuilder(enermyBuilder);
+                  //CharacterBuilder* aggressorBuilder = new AggressorCharacterBuilder("Nimble", 3);
+                  //selectHero.setCharacterBuilder(aggressorBuilder);
                   //selectHero.createCharacter();
-                  //Character *enermy = selectHero.getCharacter();
+                  //Character *aggressor = selectHero.getCharacter();
                   //vector<int> currentPosition = {posX,posY};
-                  //enermy->setCurrentPosition(currentPosition);
-                  //GameData::gameCharacters.push_back(enermy);
+                  //aggressor->setCurrentPosition(currentPosition);
+                  //GameData::gameCharacters.push_back(aggressor);
                 //}
               //}
             //}
@@ -563,10 +567,10 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window, sf::Event& evt) 
           builder = new PlayerCharacterBuilder(stringArgElements[0], parsedLvl);
         }
         if (stringArgElements[1] == "Friendly") {
-          builder = new PlayerCharacterBuilder(stringArgElements[0], parsedLvl);
+          builder = new FriendlyCharacterBuilder(stringArgElements[0], parsedLvl);
         }
         if (stringArgElements[1] == "Aggressor") {
-          builder = new PlayerCharacterBuilder(stringArgElements[0], parsedLvl);
+          builder = new AggressorCharacterBuilder(stringArgElements[0], parsedLvl);
         }
         selectHero.setCharacterBuilder(builder);
         selectHero.createCharacter();
@@ -667,13 +671,79 @@ void Events::respondToMapBoxClick(sf::RenderWindow& window, sf::Event& evt) {
     if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
 
+
       int tempWidth = GameData::currentMapObject->getMapWidth();
       int tempLength = GameData::currentMapObject->getMapLength();
 
       for (int i = 0; i< tempWidth; i++) {
         for (int j =0; j < tempLength; j++) {
           if (Gui::currentMapTilePositions[i][j].contains(mousePosition)) {
+
+            // Need to check if a character or an item. If yes, need to select which one.
+            // First, load all available characters
+            if (Gui::currentMapTileSelectedChar == 'S' ||
+                Gui::currentMapTileSelectedChar == 'C' ||
+                Gui::currentMapTileSelectedChar == 'O') {
+              cout << "clicked in tile and is char" << endl;
+              Utils util;
+              CharacterFileIO cfio;
+              vector<string> availableCharactersFilenames = util.readCurrentDirectoryContents("character");
+              cout << "read all file names" << endl;
+
+              for (int i = 0; i < (int)availableCharactersFilenames.size(); i++) {
+                //GameData::availableCharacters.push_back(
+                    cfio.readCharacter(availableCharactersFilenames[i]);
+                //);
+              }
+              cout << "read all available chraracters from file" << endl;
+
+              // Sort available characters by player type
+              vector<Fighter*> availablePlayers;
+              vector<Fighter*> availableFriendlies;
+              vector<Fighter*> availableAggressors;
+
+              for (int i = 0; i < (int)GameData::availableCharacters.size(); i++) {
+                if (GameData::availableCharacters[i]->getTypeOnMap() == 'S') {
+                  availablePlayers.push_back(GameData::availableCharacters[i]);
+                }
+                if (GameData::availableCharacters[i]->getTypeOnMap() == 'C') {
+                  availableFriendlies.push_back(GameData::availableCharacters[i]);
+                }
+                if (GameData::availableCharacters[i]->getTypeOnMap() == 'O') {
+                  availableAggressors.push_back(GameData::availableCharacters[i]);
+                }
+              }
+              cout << "sorted all available characters" << endl;
+
+              // Check which type of character the user selected
+              // Randomly place an existing one of same type in that location
+              if (Gui::currentMapTileSelectedChar == 'S') {
+                std::uniform_int_distribution<int> uni(0,(int)availablePlayers.size()); // guaranteed unbiased
+                int random_int = uni(rng);
+                vector<int> currentPosition = {i,j};
+                availablePlayers[random_int]->setCurrentPosition(currentPosition);
+                GameData::gameCharacters.push_back(availablePlayers[random_int]);
+                cout << "placed a game character" << endl;
+              }
+              if (Gui::currentMapTileSelectedChar == 'C') {
+                std::uniform_int_distribution<int> uni(0,(int)availableFriendlies.size()); // guaranteed unbiased
+                int random_int = uni(rng);
+                vector<int> currentPosition = {i,j};
+                availableFriendlies[random_int]->setCurrentPosition(currentPosition);
+                GameData::gameCharacters.push_back(availableFriendlies[random_int]);
+                cout << "placed a game character" << endl;
+              }
+              if (Gui::currentMapTileSelectedChar == 'O') {
+                std::uniform_int_distribution<int> uni(0,(int)availableAggressors.size()); // guaranteed unbiased
+                int random_int = uni(rng);
+                vector<int> currentPosition = {i,j};
+                availableAggressors[random_int]->setCurrentPosition(currentPosition);
+                GameData::gameCharacters.push_back(availableAggressors[random_int]);
+                cout << "placed a game character" << endl;
+              }
+            }
             GameData::currentMapObject->setCell(i, j, Gui::currentMapTileSelectedChar);
+
           }
         }
       }

@@ -34,7 +34,7 @@ void CharacterBuilder::createCharacter() {
 		CharacterAttr *tankAttr = new CharacterAttr(ability[3], ability[5], ability[2], ability[1], ability[0], ability[4]);
 		this->c_character = new Tank(tankAttr);
 	}
-	for (int i = 0; i < this->fighterLevel; i++) {
+	for (int i = 0; i < this->fighterLevel-1; i++) {
 		this->c_character->levelUp();
 	}
 }
@@ -56,10 +56,10 @@ void PlayerCharacterBuilder::setPlayerType() {
         this->c_character->setStrategy(new HumanPlayerStrategy());
 }
 
-EnermyCharacterBuilder::EnermyCharacterBuilder(string fighterType, int level) : CharacterBuilder(fighterType, level) {};
+AggressorCharacterBuilder::AggressorCharacterBuilder(string fighterType, int level) : CharacterBuilder(fighterType, level) {};
 
-void EnermyCharacterBuilder::setPlayerType() {
-	this->c_character->setPlayerType("enermy");
+void AggressorCharacterBuilder::setPlayerType() {
+	this->c_character->setPlayerType("aggressor");
 	this->c_character->setTypeOnMap('O');
 	this->c_character->setStrategy(new AggressorStrategy());
 }

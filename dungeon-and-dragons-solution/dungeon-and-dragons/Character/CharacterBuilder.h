@@ -29,10 +29,10 @@ public:
 
 };
 
-class EnermyCharacterBuilder : public CharacterBuilder {
+class AggressorCharacterBuilder : public CharacterBuilder {
 
 public:
-	EnermyCharacterBuilder(string fighterType, int level);
+	AggressorCharacterBuilder(string fighterType, int level);
 	void setPlayerType();
 
 };

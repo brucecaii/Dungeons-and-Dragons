@@ -377,10 +377,30 @@ void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
       21, Gui::WHITE, Gui::W_WIDTH/2.0f, 100.0f);
 
   if (Gui::isCreatingCharacter)
-    this->drawText(window, Gui::createdCharacterArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 230.0f);
+    this->drawText(window, Gui::createdCharacterArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 210.0f);
   if (Gui::isEditingCharacter)
-    this->drawText(window, Gui::chosenCharacterArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 230.0f);
+    this->drawText(window, Gui::chosenCharacterArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 210.0f);
 
+    this->drawText(window, "Edit Character Items", 24, Gui::PINK, Gui::W_WIDTH/2.0f, 260.0f);
+    this->drawText(window, "Available Items", 20, Gui::PINK, Gui::W_WIDTH/4.0f, 300.0f);
+    this->drawText(window, "Equipped Items", 20, Gui::PINK, 3*Gui::W_WIDTH/4.0f, 300.0f);
+
+
+
+  if (Gui::isEditingCharacter) {
+    string temp = GameData::currentCharacterObject->getPlayerType();
+    this->drawText(window, "type:"+temp, 26, Gui::WHITE, Gui::W_WIDTH/6.0f, 740.0f);
+    this->drawText(window, "lvl:"+to_string(GameData::currentCharacterObject->getLevel()), 26,Gui::WHITE, 3*Gui::W_WIDTH/6.0f, 740.0f);
+    this->drawText(window, "HP:"+to_string(GameData::currentCharacterObject->getHitPoint()), 26, Gui::WHITE, 5*Gui::W_WIDTH/6.0f, 740.0f);
+    this->drawText(window, "AC:"+to_string(GameData::currentCharacterObject->getArmorClass()), 22, Gui::WHITE, 100.0f, 780.0f);
+    this->drawText(window, "Str:"+to_string(GameData::currentCharacterObject->characterAttr->getStrength()), 22, Gui::WHITE, 200.0f, 780.0f);
+    this->drawText(window, "Dex:"+to_string(GameData::currentCharacterObject->characterAttr->getDexterity()), 22, Gui::WHITE, 300.0f, 780.0f);
+    this->drawText(window, "Con:"+to_string(GameData::currentCharacterObject->characterAttr->getConstitution()), 22, Gui::WHITE, 400.0f, 780.0f);
+    this->drawText(window, "Int:"+to_string(GameData::currentCharacterObject->characterAttr->getIntelligence()), 22, Gui::WHITE, 500.0f, 780.0f);
+    this->drawText(window, "Wis:"+to_string(GameData::currentCharacterObject->characterAttr->getWisdom()), 22, Gui::WHITE, 600.0f, 780.0f);
+    this->drawText(window, "Cha:"+to_string(GameData::currentCharacterObject->characterAttr->getCharisma()), 22, Gui::WHITE, 700.0f, 780.0f);
+
+  }
   this->drawValidationErrorIfNeeded(window);
 }
 

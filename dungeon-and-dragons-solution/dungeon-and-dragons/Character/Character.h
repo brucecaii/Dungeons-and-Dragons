@@ -31,7 +31,7 @@ public:
 	void attack(Character *opponent);
 	void executeStrategy(Map& m);
 	void lootChest(ItemContainer* chest);
-	void lootEnermy(Character* enermy);
+	void lootCharacter(Character* character);
 	/*
 	setter and getter
 	*/
@@ -56,6 +56,7 @@ public:
 	vector<int> getCurrentPosition();
 	void setCurrentPosition(vector<int> currentPosition);
 	void setStrategy(CharacterStrategy* newStrategy);
+	CharacterAttr *characterAttr;
 
 private:
 	/*
@@ -68,7 +69,6 @@ private:
 	char typeOnMap;
 	vector<int> attackbonus;
 	vector<int> currentPosition;
-	CharacterAttr *characterAttr;
 	ItemContainer *characterEquipment;
 	ItemContainer *characterBackpack;
 	CharacterStrategy *strategy;

@@ -11,7 +11,8 @@ namespace GameData {
   MapCampaign* currentCampaignObject = new MapCampaign();
   Fighter* currentCharacterObject = new Fighter();
   Item* currentItemObject = new Item();
-  vector<Character*> gameCharacters;
+  vector<Fighter*> gameCharacters;
+  vector<Fighter*> availableCharacters;
   Dice* gameDice = new Dice();
   Events *eventManager = new Events();
 

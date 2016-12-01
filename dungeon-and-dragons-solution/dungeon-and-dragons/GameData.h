@@ -11,7 +11,8 @@ namespace GameData {
   extern MapCampaign* currentCampaignObject;
   extern Fighter* currentCharacterObject;
   extern Item* currentItemObject;
-  extern vector<Character*> gameCharacters;
+  extern vector<Fighter*> gameCharacters;
+  extern vector<Fighter*> availableCharacters;
   extern Dice* gameDice;
   extern Events* eventManager;
 
