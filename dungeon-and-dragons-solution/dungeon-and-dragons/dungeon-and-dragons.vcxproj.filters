@@ -114,9 +114,6 @@
     <ClInclude Include="GUI\Fonts.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\GameData.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\Gui.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>

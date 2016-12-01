@@ -36,7 +36,6 @@
     <ClInclude Include="GUI\dirent.h" />
     <ClInclude Include="GUI\Events.h" />
     <ClInclude Include="GUI\Fonts.h" />
-    <ClInclude Include="GUI\GameData.h" />
     <ClInclude Include="GUI\Gui.h" />
     <ClInclude Include="GUI\Ui.h" />
     <ClInclude Include="GUI\Utils.h" />

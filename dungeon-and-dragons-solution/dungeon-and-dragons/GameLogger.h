@@ -5,8 +5,8 @@
 #include "Character/CharacterFileIO.h"
 #include "Map/Map.h"
 #include "Dice/Dice.h"
-#include "Character\CharacterBuilder.h"
-#include "Character\CharacterStrategy.h"
+#include "Character/CharacterBuilder.h"
+#include "Character/CharacterStrategy.h"
 
 class GameLogger : public Observer {
 
