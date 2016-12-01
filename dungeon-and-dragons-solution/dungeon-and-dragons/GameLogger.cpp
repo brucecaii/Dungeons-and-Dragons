@@ -82,7 +82,12 @@ GameLogger::GameLogger(CharacterStrategy * cs, bool isLogging)
 	_charStrategy->Attach(this);
 	_isActive = isLogging;
 }
-;
+GameLogger::GameLogger(Events * e, bool isLogging)
+{
+	_events = e;
+	_events->Attach(this);
+	_isActive = isLogging;
+};
 
 //! Deconstructor of observer LiveMap 
 GameLogger::~GameLogger()

@@ -4,9 +4,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../Subject.h"
 
 //! Class implementing event-related static functions
-class Events {
+class Events : public Subject {
   public:
     void respondToSelectionBoxClick(sf::RenderWindow& window);
     void respondToFileSelectionClick(sf::RenderWindow& window);
