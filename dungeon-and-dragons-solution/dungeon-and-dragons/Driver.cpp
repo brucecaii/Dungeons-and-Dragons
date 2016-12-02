@@ -60,8 +60,11 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	enermy->display();
+	myBoy->display();
+	you->display();
+
 	//Items for testing purpose
-	
 	//Creating all the types of enhancements
 	Enhancement intelligence("Intelligence", 5);
 	Enhancement wisdom("Wisdom", 5);

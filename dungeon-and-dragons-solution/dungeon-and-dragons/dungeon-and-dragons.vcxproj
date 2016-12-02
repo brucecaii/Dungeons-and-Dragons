@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="Character\AggressorStrategy.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\CharacterAttr.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Subject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterObserver.cpp" />
     <ClCompile Include="Character\AggressorStrategy.cpp" />
     <ClCompile Include="Character\Character.cpp" />
     <ClCompile Include="Character\CharacterAttr.cpp" />

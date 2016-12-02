@@ -134,6 +134,8 @@
     </ClInclude>
     <ClInclude Include="Item\Enhancement.h">
       <Filter>Header Files\Item</Filter>
+    <ClInclude Include="CharacterObserver.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,8 +220,13 @@
     <ClCompile Include="GameLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Item\Enhancement.cpp">
       <Filter>Source Files\Item</Filter>
+=======
+    <ClCompile Include="CharacterObserver.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> master
     </ClCompile>
   </ItemGroup>
 </Project>
