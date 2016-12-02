@@ -26,5 +26,7 @@ void CharacterObserver::UpdateLog()
 
 void CharacterObserver::display()
 {
-	this->_subject->display();
+	this->_subject->displayCharacterInfo();
+	this->_subject->displayCharacterEquipment();
+	this->_subject->displayCharacterBackpack();
 }

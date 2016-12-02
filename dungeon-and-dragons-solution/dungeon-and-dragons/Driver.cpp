@@ -60,9 +60,15 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	enermy->display();
-	myBoy->display();
-	you->display();
+	enermy->displayCharacterInfo();
+	enermy->displayCharacterEquipment();
+	enermy->displayCharacterBackpack();
+	myBoy->displayCharacterInfo();
+	myBoy->displayCharacterEquipment();
+	myBoy->displayCharacterBackpack();
+	you->displayCharacterInfo();
+	you->displayCharacterEquipment();
+	you->displayCharacterBackpack();
 
 	//Items for testing purpose
 	//Creating all the types of enhancements
