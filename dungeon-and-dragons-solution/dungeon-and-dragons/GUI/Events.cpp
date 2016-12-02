@@ -161,6 +161,23 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
       }
     }
   }
+  if (Gui::isChoosingItemToEdit) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+
+      for (int i = 0; i < (int)Gui::current_item_positions.size(); i++) {
+        if (Gui::current_item_positions[i].contains(mousePosition)) {
+          string ext = ".item";
+          Gui::chosenItem = string(Gui::current_items[i]) + string(ext);
+          ItemFileIO cfio;
+          GameData::currentItemObject = cfio.readItem(Gui::chosenItem);
+          Gui::shouldShowItemValidationError = false;
+          Gui::isChoosingItemToEdit = false;
+          Gui::isEditingItem = true;
+        }
+      }
+    }
+  }
 
   if (Gui::isChoosingCampaignToPlay) {
     if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
@@ -347,6 +364,24 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::chosenCharacterArgs += evt.text.unicode;
           }
         }
+
+        if (Gui::isCreatingItem) {
+          if (evt.text.unicode == 8) { // BACKSPACE
+            if (Gui::createdItemArgs.length() != 0)
+              Gui::createdItemArgs.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              Gui::createdItemArgs += evt.text.unicode;
+          }
+        }
+
+        if (Gui::isEditingItem) {
+          if (evt.text.unicode == 8) { // BACKSPACE
+            if (Gui::chosenItemArgs.length() != 0)
+              Gui::chosenItemArgs.pop_back();
+          } else if (evt.text.unicode < 128) { // ASCII char
+              Gui::chosenItemArgs += evt.text.unicode;
+          }
+        }
     }
 }
 
@@ -432,6 +467,52 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window, sf::Event& evt) 
         } else {
           Gui::shouldShowCampaignValidationError = true;
         }
+      }
+
+      if (Gui::isCreatingItem || Gui::isEditingItem) {
+
+        string args;
+        string fileNameOutput;
+        if (Gui::isCreatingItem) {
+          string tempCreatedArgs(Gui::createdItemArgs);
+          args = string(tempCreatedArgs);
+          fileNameOutput = Gui::createdItem;
+        }
+        if (Gui::isEditingItem) {
+        string tempChosenArgs(Gui::chosenItemArgs);
+          args = string(tempChosenArgs);
+          fileNameOutput = Gui::chosenItem;
+        }
+
+        // check if csv is valid
+        Utils util;
+
+        vector<string> stringArgElements = util.splitBySpace(args);
+
+        cout << stringArgElements.size()  << endl;
+        if (stringArgElements.size() != 4) {
+          cout << "INVALID: Must provide 4 values to build item." << endl;
+          Gui::shouldShowItemValidationError = true;
+          return;
+        }
+
+        GameData::currentEnhancementObject = new Enhancement(stringArgElements[2], stoi(stringArgElements[3]));
+	if (!GameData::currentEnhancementObject->validateBonus()) {
+          cout << "ERROR: Enhancement bonus invalid";
+          Gui::shouldShowItemValidationError = true;
+          return;
+	}
+	else {
+          GameData::currentItemObject = new Item(stringArgElements[1], *GameData::currentEnhancementObject, stringArgElements[0]);
+          if (!GameData::currentItemObject->validateItemType(stringArgElements[1]) || !GameData::currentItemObject->validateByType(stringArgElements[1])) {
+            cout << "ERROR: Enhancement bonus invalid";
+            Gui::shouldShowItemValidationError = true;
+            return;
+          }
+          Gui::shouldShowItemValidationError = false;
+          ItemFileIO mfio;
+          mfio.saveItem(stringArgElements[0]+".item", *GameData::currentItemObject);
+	}
       }
 
       if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {

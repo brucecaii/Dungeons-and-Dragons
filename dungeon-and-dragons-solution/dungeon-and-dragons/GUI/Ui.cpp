@@ -373,6 +373,23 @@ void Ui::isCreatingOrEditingCampaign(sf::RenderWindow& window) {
   this->drawValidationErrorIfNeeded(window);
 }
 
+void Ui::isCreatingOrEditingItem(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  this->drawSaveButton(window);
+  this->drawText(window,
+      "Enter space-separated values of\nitemName,itemType,enhancementType,enhancementBonus\nExample\nJason'sMind,Helmet,wis,5",
+      21, Gui::WHITE, Gui::W_WIDTH/2.0f, 100.0f);
+
+  if (Gui::isCreatingItem)
+    this->drawText(window, Gui::createdItemArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 210.0f);
+  if (Gui::isEditingItem)
+    this->drawText(window, Gui::chosenItemArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 210.0f);
+
+  if (Gui::isEditingItem) {
+  }
+  this->drawValidationErrorIfNeeded(window);
+}
+
 void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
   this->drawHomeButton(window);
   this->drawSaveButton(window);

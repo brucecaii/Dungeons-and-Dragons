@@ -117,6 +117,8 @@ namespace Gui{
   string createdCharacter = "";
   string createdCharacterArgs = "";
   string chosenCharacterArgs = "";
+  string createdItemArgs = "";
+  string chosenItemArgs = "";
   string createdItem = "";
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;

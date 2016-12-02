@@ -18,28 +18,6 @@ using namespace std::this_thread;
 //! Runs the main map creation program:
 int main(int argc, char* argv[]) {
 
-	/*
-	Create Item
-	*/
-	string itemName = "Jason's Mind"; //prompt user input of this
-	string itemType = "Helmet"; //prompt user input of this
-	string itemEnhancement = "wis"; //prompt user input of this
-	int enhancementBonus = 5; //prompt user input of this
-
-	Enhancement *enhancement = new Enhancement(itemEnhancement, enhancementBonus);
-	if (!enhancement->validateBonus()) {
-		//ask user to re-create item
-	}
-	else {
-		Item *newItem = new Item(itemType, *enhancement, itemName);
-		if (!(newItem->validateItemType(itemType) && newItem->validateByType(itemType))) {
-			//ask user to re-create
-		}
-		else {
-			ItemFileIO mfio;
-			mfio.saveItem(itemName, *newItem);
-		}
-	}
 
 	/*
 	Load Item
@@ -53,7 +31,7 @@ int main(int argc, char* argv[]) {
 	//you should be able to edit this guy and save it as line 39
 	
 	/*
-	Create characters
+	Create characters:
 	*/
 	CharacterGenerator characterMaker; //coffee maker
 	AggressorCharacterBuilder* aggressorBuilder = new AggressorCharacterBuilder("Tank", 10); //black coffee
@@ -193,6 +171,12 @@ int main(int argc, char* argv[]) {
 
       if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
         Gui::uiManager.isCreatingOrEditingCharacter(window);
+      }
+      if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
+        Gui::uiManager.isCreatingOrEditingCharacter(window);
+      }
+      if (Gui::isCreatingItem || Gui::isEditingItem) {
+        Gui::uiManager.isCreatingOrEditingItem(window);
       }
       if (Gui::isPlayingGame) {
         for (int i = 0; i < (int)GameData::gameCharacters.size(); i++) {
