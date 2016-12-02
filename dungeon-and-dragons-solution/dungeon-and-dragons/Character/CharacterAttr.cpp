@@ -1,5 +1,7 @@
 #include "CharacterAttr.h"
 
+
+//! @method Default constructor 
 CharacterAttr::CharacterAttr() {
 	setIntelligence(0);
 	setWisdom(0);
@@ -9,6 +11,7 @@ CharacterAttr::CharacterAttr() {
 	setCharisma(0);
 }
 
+//! @method takes in paramters and sets them for CharacterAttr
 CharacterAttr::CharacterAttr(int intelligence, int wisdom, int strength, int dexterity, int constitution, int charisma) {
 	setIntelligence(intelligence);
 	setWisdom(wisdom);
@@ -18,6 +21,8 @@ CharacterAttr::CharacterAttr(int intelligence, int wisdom, int strength, int dex
 	setCharisma(charisma);
 }
 
+//! @ method validates the attributes 
+//! @return boolean denoted whether attributes are valid or not
 bool CharacterAttr::validateAttr() {
 	const int MIN = 3;
 	const int MAX = 18;
@@ -31,53 +36,54 @@ bool CharacterAttr::validateAttr() {
 		);
 }
 
+//! @method return intellegence
 int CharacterAttr::getIntelligence() const {
 	return intelligence;
 }
-
+//! @method sets intellgence
 void CharacterAttr::setIntelligence(int intelligence) {
 	CharacterAttr::intelligence = intelligence;
 }
-
+//! @method return wisdom
 int CharacterAttr::getWisdom() const {
 	return wisdom;
 }
-
+//! @method sets wisdom
 void CharacterAttr::setWisdom(int wisdom) {
 	CharacterAttr::wisdom = wisdom;
 }
-
+//! @method return strength
 int CharacterAttr::getStrength() const {
 	return strength;
 }
-
+//! @method sets strength
 void CharacterAttr::setStrength(int strength) {
 	CharacterAttr::strength = strength;
 }
-
+//! @method return dexterity
 int CharacterAttr::getDexterity() const {
 	return dexterity;
 }
-
+//! @method sets dexterity
 void CharacterAttr::setDexterity(int dexterity) {
 	CharacterAttr::dexterity = dexterity;
 }
-
+//! @method return constitution
 int CharacterAttr::getConstitution() const {
 	return constitution;
 }
-
+//! @method sets constitution
 void CharacterAttr::setConstitution(int constitution) {
 	CharacterAttr::constitution = constitution;
 }
-
+//! @method return Charisma
 int CharacterAttr::getCharisma() const {
 	return charisma;
 }
-
+//! @method sets Charisma
 void CharacterAttr::setCharisma(int charisma) {
 	CharacterAttr::charisma = charisma;
 }
-
+//! @method destructor
 CharacterAttr::~CharacterAttr() {}
 
