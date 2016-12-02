@@ -23,12 +23,13 @@
 //! @param Reference to the character that this strategy belongs to.
 void AggressorStrategy::execute(Map& m, Character& c) {
   if (c.getHitPoint() > 0) {
-    //////////////////////////////
-    // NEED BENNY'S LOGGER HERE //
-    //////////////////////////////
-    //c.displayCharacter()
+    c.displayCharacterInfo();
+    c.displayCharacterEquipment();
+    c.displayCharacterBackpack();
     this->moveCloserToHuman(m, c);
-    //this->canAttackOneAdjacentCharacter(m, c);
+    this->canAttackOneAdjacentCharacter(m, c);
+  } else {
+    c.setTypeOnMap(' ');
   }
 }
 
@@ -117,16 +118,9 @@ void AggressorStrategy::attackCharacterAtPosition(Character& c, int charPosX, in
         charBeingAttacked->setTypeOnMap('O');
         charBeingAttacked->setStrategy(new AggressorStrategy());
       }
-      // Now remove hitpoints.
-      // IMPORTANT TO IMPLEMENT FOR FINAL DELIVERABLE:
-      // - Proper multiple attack.
-      // - proper attack success based on dice roll and armor class.
-      // - proper hitpoints reduction if attack is successful.
-      //int tempHP = charBeingAttacked->getHitPoints();
-      //charBeingAttacked->setHitPoints(tempHP-1);
+      // Now attack.
+      c.attack(charBeingAttacked);
     }
   }
-
-
 }
 

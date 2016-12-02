@@ -33,12 +33,10 @@ using std::endl;
 void HumanPlayerStrategy::execute(Map& m, Character& c) {
   cout << "Executing strategy now" << endl;
   if (c.getHitPoint() > 0) {
-    m.display();
+    c.displayCharacterInfo();
+    c.displayCharacterEquipment();
+    c.displayCharacterBackpack();
     this->canAttackOneAdjacentCharacter(m, c);
-    /////////////////////////////
-    // NEED BENNYS LOGGER HERE //
-    /////////////////////////////
-    m.display();
     this->movePlayer(m,c);
   } else {
     cout << endl;
@@ -154,13 +152,8 @@ void HumanPlayerStrategy::attackCharacterAtPosition(Character& c, int charPosX, 
         charBeingAttacked->setStrategy(new AggressorStrategy());
       }
 
-      // Now remove hitpoints.
-      // TO IMPLEMENT FOR FINAL DELIVERABLE:
-      // - Proper multiple attack.
-      // - proper attack success based on dice roll and armor class.
-      // - proper hitpoints reduction if attack is successful.
-      //int tempHP = charBeingAttacked->getHitPoint();
-      //charBeingAttacked->setHitPoints(tempHP-1);
+      // Now attack.
+      c.attack(charBeingAttacked);
     }
   }
 

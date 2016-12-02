@@ -26,11 +26,12 @@ using std::endl;
 //! @param Reference to the character that this strategy belongs to.
 void FriendlyStrategy::execute(Map& m, Character& c) {
   if (c.getHitPoint() > 0) {
-    //////////////////////////////
-    // NEED BENNY'S LOGGER HERE //
-    //////////////////////////////
-    //c.displayCharacter();
+    c.displayCharacterInfo();
+    c.displayCharacterEquipment();
+    c.displayCharacterBackpack();
     this->moveCloserToHuman(m, c);
+  } else {
+    c.setTypeOnMap(' ');
   }
 }
 
