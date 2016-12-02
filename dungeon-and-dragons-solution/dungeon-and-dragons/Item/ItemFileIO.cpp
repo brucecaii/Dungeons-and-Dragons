@@ -31,16 +31,18 @@ void ItemFileIO::saveItem(string filePath, Item item)
 //! Method to deserialize item from json object
 //! @param filePath : file name of the serialized character
 //! @param &item : item to deserialize
-void ItemFileIO::readItem(string filePath, Item& item)
+Item* ItemFileIO::readItem(string filePath)
 {
 	ifstream readJsonFile(filePath, ifstream::in);
-
+	Item *loadedItem = new Item();
 	if (readJsonFile.is_open())
 	{
 		json jsonItem(readJsonFile);
 		Enhancement *enhancement = new Enhancement(jsonItem["enhancementType"], jsonItem["enhancementBonus"]);
-		item.setName(jsonItem["item_name"]);
-		item.setType(jsonItem["item_type"]);
-		item.setEnhancement(*enhancement);
+		loadedItem->setName(jsonItem["item_name"]);
+		loadedItem->setType(jsonItem["item_type"]);
+		loadedItem->setEnhancement(*enhancement);
 	}
+	readJsonFile.close();
+	return loadedItem;
 }

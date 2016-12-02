@@ -19,6 +19,40 @@ using namespace std::this_thread;
 int main(int argc, char* argv[]) {
 
 	/*
+	Create Item
+	*/
+	string itemName = "Jason's Mind"; //prompt user input of this
+	string itemType = "Helmet"; //prompt user input of this
+	string itemEnhancement = "wis"; //prompt user input of this
+	int enhancementBonus = 5; //prompt user input of this
+
+	Enhancement *enhancement = new Enhancement(itemEnhancement, enhancementBonus);
+	if (!enhancement->validateBonus()) {
+		//ask user to re-create item
+	}
+	else {
+		Item *newItem = new Item(itemType, *enhancement, itemName);
+		if (!(newItem->validateItemType(itemType) && newItem->validateByType(itemType))) {
+			//ask user to re-create
+		}
+		else {
+			ItemFileIO mfio;
+			mfio.saveItem(itemName, *newItem);
+		}
+	}
+
+	/*
+	Load Item
+	*/
+	string savedItemFilePath = "Jason's Mind"; //prompt user
+	ItemFileIO mfio;
+	Item *loadedItem = mfio.readItem(savedItemFilePath); //this is loaded item
+	cout << "loaded item test-> type: " << loadedItem->getType() << " name: " <<
+		loadedItem->getName() << " enhancement: " << loadedItem->getEnhancement().getType() << "+"
+		<< loadedItem->getEnhancement().getBonus() << endl;
+	//you should be able to edit this guy and save it as line 39
+	
+	/*
 	Create characters
 	*/
 	CharacterGenerator characterMaker; //coffee maker
@@ -37,28 +71,6 @@ int main(int argc, char* argv[]) {
 	characterMaker.setCharacterBuilder(playerBuilder); //put black coffee into coffee maker
 	characterMaker.createCharacter(); //make coffee
 	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
-
-	/*
-	Create Item
-	*/
-	string itemName = "Jason's Mind"; //prompt user input of this
-	string itemType = "Helmet"; //prompt user input of this
-	string itemEnhancement = "wis"; //prompt user input of this
-	int enhancementBonus = 5; //prompt user input of this
-
-	Enhancement *enhancement = new Enhancement(itemEnhancement, enhancementBonus);
-	if (!enhancement->validateBonus()) {
-		//ask user to re-create item
-	}
-	else {
-		Item *newItem = new Item(itemType, *enhancement, itemName);
-		if (!(newItem->validateItemType(itemType) && newItem->validateByType(itemType))) {
-			//ask user to re-create
-		}
-		else {
-			//successfully create, newItem is the new item!
-		}
-	}
 
 	enermy->displayCharacterInfo();
 	enermy->displayCharacterEquipment();
