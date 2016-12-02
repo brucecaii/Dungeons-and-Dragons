@@ -18,6 +18,7 @@ Character::Character() {
 	this->setCharacterBackpack(new Backpack());
 	this->setCharacterEquipment(new Backpack());
 	this->damageBonus = 0;
+	this->typeOnMap = 'C';
 }
 
 Character::Character(CharacterAttr *characterAttr) {
@@ -30,6 +31,7 @@ Character::Character(CharacterAttr *characterAttr) {
 	this->setCharacterBackpack(new Backpack());
 	this->setCharacterEquipment(new Backpack());
 	this->damageBonus = 0;
+	this->typeOnMap = 'C';
 }
 
 Character::~Character() {

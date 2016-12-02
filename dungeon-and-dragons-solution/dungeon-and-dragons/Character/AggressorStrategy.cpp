@@ -23,12 +23,13 @@
 //! @param Reference to the character that this strategy belongs to.
 void AggressorStrategy::execute(Map& m, Character& c) {
   if (c.getHitPoint() > 0) {
-    //////////////////////////////
-    // NEED BENNY'S LOGGER HERE //
-    //////////////////////////////
-    //c.displayCharacter()
+    c.displayCharacterInfo();
+    c.displayCharacterEquipment();
+    c.displayCharacterBackpack();
     this->moveCloserToHuman(m, c);
     this->canAttackOneAdjacentCharacter(m, c);
+  } else {
+    c.setTypeOnMap(' ');
   }
 }
 
@@ -43,21 +44,21 @@ void AggressorStrategy::moveCloserToHuman(Map& m, Character& c) {
   int originalDistance = this->shortestDistanceToHuman(charPosX, charPosY, humanPosX, humanPosY);
 
   if (originalDistance != 0) {
-    if (charPosX>0 &&
-        m.getCell(charPosX-1, charPosY) == ' ' &&
-        this->shortestDistanceToHuman(charPosX-1, charPosY, humanPosX, humanPosY) <= originalDistance) {
-      this->moveUp(m,c);
-    } else if (charPosY>0 &&
+    if (charPosY>0 &&
         m.getCell(charPosX, charPosY-1) == ' ' &&
         this->shortestDistanceToHuman(charPosX, charPosY-1, humanPosX, humanPosY) <= originalDistance) {
+      this->moveUp(m,c);
+    } else if (charPosX>0 &&
+        m.getCell(charPosX-1, charPosY) == ' ' &&
+        this->shortestDistanceToHuman(charPosX-1, charPosY, humanPosX, humanPosY) <= originalDistance) {
       this->moveLeft(m,c);
-    } else if (charPosX<m.getMapWidth()-1 &&
-        m.getCell(charPosX+1, charPosY) == ' ' &&
-        this->shortestDistanceToHuman(charPosX+1, charPosY, humanPosX, humanPosY) <= originalDistance) {
-      this->moveDown(m,c);
     } else if (charPosY<m.getMapLength()-1 &&
         m.getCell(charPosX, charPosY+1) == ' ' &&
         this->shortestDistanceToHuman(charPosX, charPosY+1, humanPosX, humanPosY) <= originalDistance) {
+      this->moveDown(m,c);
+    } else if (charPosX<m.getMapWidth()-1 &&
+        m.getCell(charPosX+1, charPosY) == ' ' &&
+        this->shortestDistanceToHuman(charPosX+1, charPosY, humanPosX, humanPosY) <= originalDistance) {
       this->moveRight(m,c);
     }
   }
@@ -117,16 +118,9 @@ void AggressorStrategy::attackCharacterAtPosition(Character& c, int charPosX, in
         charBeingAttacked->setTypeOnMap('O');
         charBeingAttacked->setStrategy(new AggressorStrategy());
       }
-      // Now remove hitpoints.
-      // IMPORTANT TO IMPLEMENT FOR FINAL DELIVERABLE:
-      // - Proper multiple attack.
-      // - proper attack success based on dice roll and armor class.
-      // - proper hitpoints reduction if attack is successful.
-      //int tempHP = charBeingAttacked->getHitPoints();
-      //charBeingAttacked->setHitPoints(tempHP-1);
+      // Now attack.
+      c.attack(charBeingAttacked);
     }
   }
-
-
 }
 

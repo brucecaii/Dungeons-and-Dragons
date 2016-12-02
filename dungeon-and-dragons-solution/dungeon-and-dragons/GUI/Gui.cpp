@@ -158,6 +158,7 @@ namespace Gui{
   int tempMapLength = 4;
 
   vector<Fighter*> tempGameCharacters;
+  Fighter* tempCharacter;
 };
 
 

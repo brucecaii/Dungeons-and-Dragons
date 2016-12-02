@@ -167,20 +167,20 @@ bool Map::validatePath() {
 void Map::setCell(int x, int y, char obj) {
 	string objName;
 	//Human Character has reached the exit, need to be logged correctly
-	if (map[x][y] == 'E' && obj == 'S')
-	{
-		objName = getLetterType(obj);
-		UpdateLog("Map", "setCell", objName + " has moved or set to cell " + to_string(x) + "," + to_string(y));
-	}
+        //if (map[x][y] == 'E' && obj == 'S')
+        //{
+                //objName = getLetterType(obj);
+                //UpdateLog("Map", "setCell", objName + " has moved or set to cell " + to_string(x) + "," + to_string(y));
+        //}
 
 	//Set obj to x,y location
 	this->map[x][y] = obj;
 
-	//Only logging Character movements in the map
-	if (obj == 'S' || obj == 'O' || obj == 'C') {
-		objName = getLetterType(obj);
-		UpdateLog("Map", "setCell", objName + " has moved or set to cell " + to_string(x) + "," + to_string(y));
-	}
+        //Only logging Character movements in the map
+        //if (obj == 'S' || obj == 'O' || obj == 'C') {
+                //objName = getLetterType(obj);
+                //UpdateLog("Map", "setCell", objName + " has moved or set to cell " + to_string(x) + "," + to_string(y));
+        //}
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
@@ -283,7 +283,7 @@ void Map::display() {
 }
 
 string Map::getLetterType(char obj)
-{	
+{
 	string objName;
 	if (obj == 'S')
 		objName = "Human Character";

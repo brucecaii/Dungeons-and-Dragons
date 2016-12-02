@@ -31,27 +31,19 @@ using std::endl;
 //! @param Reference to the map currently being played
 //! @param Reference to the character that this strategy belongs to.
 void HumanPlayerStrategy::execute(Map& m, Character& c) {
+  cout << "Executing strategy now" << endl;
   if (c.getHitPoint() > 0) {
-    /////////////////////////////
-    // NEED BENNYS LOGGER HERE //
-    /////////////////////////////
-    //c.displayCharacter();
-    m.display();
+    c.displayCharacterInfo();
+    c.displayCharacterEquipment();
+    c.displayCharacterBackpack();
     this->canAttackOneAdjacentCharacter(m, c);
-    /////////////////////////////
-    // NEED BENNYS LOGGER HERE //
-    /////////////////////////////
-    m.display();
     this->movePlayer(m,c);
   } else {
-    /////////////////////////////
-    // NEED BENNYS LOGGER HERE //
-    /////////////////////////////
-    //cout << endl;
-    //cout << "*****************************" << endl;
-    //cout << "* You have died! Game over! *" << endl;
-    //cout << "*****************************" << endl;
-    //cout << endl;
+    cout << endl;
+    cout << "*****************************" << endl;
+    cout << "* You have died! Game over! *" << endl;
+    cout << "*****************************" << endl;
+    cout << endl;
     exit(0);
   }
 }
@@ -70,20 +62,23 @@ void HumanPlayerStrategy::movePlayer(Map& m, Character& c) {
 
   if (temp.size()>0) {
     if (tolower(temp.at(0)) == 'w' &&
+        charPosY>0 &&
+        (m.getCell(charPosX, charPosY-1) == ' ' || m.getCell(charPosX-1, charPosY) == 'E')) {
+      this->moveUp(m,c);
+    } else
+      if (tolower(temp.at(0)) == 'a' &&
         charPosX>0 &&
         (m.getCell(charPosX-1, charPosY) == ' ' || m.getCell(charPosX-1, charPosY) == 'E')) {
-      this->moveUp(m,c);
-    } else if (tolower(temp.at(0)) == 'a' &&
-        charPosY>0 &&
-        (m.getCell(charPosX, charPosY-1) == ' ' || m.getCell(charPosX, charPosY-1) == 'E')) {
       this->moveLeft(m,c);
-    } else if (tolower(temp.at(0)) == 's' &&
+    }
+      else if (tolower(temp.at(0)) == 's' &&
+        charPosY<m.getMapLength()-1 &&
+        (m.getCell(charPosX, charPosY+1) == ' ' || m.getCell(charPosX+1, charPosY) == 'E')) {
+      this->moveDown(m,c);
+    } else
+    if (tolower(temp.at(0)) == 'd' &&
         charPosX<m.getMapWidth()-1 &&
         (m.getCell(charPosX+1, charPosY) == ' ' || m.getCell(charPosX+1, charPosY) == 'E')) {
-      this->moveDown(m,c);
-    } else if (tolower(temp.at(0)) == 'd' &&
-        charPosY<m.getMapLength()-1 &&
-        (m.getCell(charPosX, charPosY+1) == ' ' || m.getCell(charPosX, charPosY+1) == 'E')) {
       this->moveRight(m,c);
     }
   }
@@ -98,37 +93,44 @@ void HumanPlayerStrategy::canAttackOneAdjacentCharacter(Map& m, Character& c) {
       (m.getCell(charPosX-1, charPosY) == 'C' ||
        m.getCell(charPosX-1, charPosY) == 'O')) {
     string answer;
-    cout << "ATTACK: Do you want to attack the character above you? Enter [y] or [n]." << endl;
-    getline(cin, answer);
-    if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
-      this->attackCharacterAtPosition(c,charPosX-1, charPosY);
-    }
-  } else if (charPosY>0 &&
-      (m.getCell(charPosX, charPosY-1) == 'C' ||
-       m.getCell(charPosX, charPosY-1) == 'O')) {
-    string answer;
     cout << "ATTACK: Do you want to attack the character to your left? Enter [y] or [n]." << endl;
     getline(cin, answer);
     if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
-      this->attackCharacterAtPosition(c,charPosX, charPosY-1);
+      this->attackCharacterAtPosition(c,charPosX-1, charPosY);
+      return;
     }
-  } else if (charPosX<m.getMapWidth()-1 &&
-      (m.getCell(charPosX+1, charPosY) == 'C' ||
-       m.getCell(charPosX+1, charPosY) == 'O')) {
+  }
+  if (charPosY>0 &&
+      (m.getCell(charPosX, charPosY-1) == 'C' ||
+       m.getCell(charPosX, charPosY-1) == 'O')) {
     string answer;
-    cout << "ATTACK: Do you want to attack the character below you? Enter [y] or [n]." << endl;
+    cout << "ATTACK: Do you want to attack the character above you? Enter [y] or [n]." << endl;
     getline(cin, answer);
     if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
-      this->attackCharacterAtPosition(c,charPosX+1, charPosY);
+      this->attackCharacterAtPosition(c,charPosX, charPosY-1);
+      return;
     }
-  } else if (charPosY<m.getMapLength()-1 &&
-      (m.getCell(charPosX, charPosY+1) == 'C' ||
-       m.getCell(charPosX, charPosY+1) == 'O')) {
+  }
+  if (charPosX<m.getMapWidth()-1 &&
+      (m.getCell(charPosX+1, charPosY) == 'C' ||
+       m.getCell(charPosX+1, charPosY) == 'O')) {
     string answer;
     cout << "ATTACK: Do you want to attack the character to your right? Enter [y] or [n]." << endl;
     getline(cin, answer);
     if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
+      this->attackCharacterAtPosition(c,charPosX+1, charPosY);
+      return;
+    }
+  }
+  if (charPosY<m.getMapLength()-1 &&
+      (m.getCell(charPosX, charPosY+1) == 'C' ||
+       m.getCell(charPosX, charPosY+1) == 'O')) {
+    string answer;
+    cout << "ATTACK: Do you want to attack the character below you? Enter [y] or [n]." << endl;
+    getline(cin, answer);
+    if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
       this->attackCharacterAtPosition(c,charPosX, charPosY+1);
+      return;
     }
   }
 }
@@ -150,13 +152,8 @@ void HumanPlayerStrategy::attackCharacterAtPosition(Character& c, int charPosX, 
         charBeingAttacked->setStrategy(new AggressorStrategy());
       }
 
-      // Now remove hitpoints.
-      // TO IMPLEMENT FOR FINAL DELIVERABLE:
-      // - Proper multiple attack.
-      // - proper attack success based on dice roll and armor class.
-      // - proper hitpoints reduction if attack is successful.
-      //int tempHP = charBeingAttacked->getHitPoint();
-      //charBeingAttacked->setHitPoints(tempHP-1);
+      // Now attack.
+      c.attack(charBeingAttacked);
     }
   }
 
