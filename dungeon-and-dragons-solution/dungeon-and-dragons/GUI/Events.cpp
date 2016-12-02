@@ -689,9 +689,9 @@ void Events::respondToMapBoxClick(sf::RenderWindow& window, sf::Event& evt) {
               CharacterFileIO cfio;
               vector<string> availableCharactersFilenames = util.readCurrentDirectoryContents("character");
 
-              for (int i = 0; i < (int)availableCharactersFilenames.size(); i++) {
+              for (size_t k = 0; k < (int)availableCharactersFilenames.size(); k++) {
                 GameData::availableCharacters.push_back(
-                    cfio.readCharacter(availableCharactersFilenames[i]+".character")
+                    cfio.readCharacter(availableCharactersFilenames[k]+".character")
                 );
               }
 
@@ -702,40 +702,40 @@ void Events::respondToMapBoxClick(sf::RenderWindow& window, sf::Event& evt) {
               cout << GameData::availableFriendlies.size() << endl;
 
                //Sort available characters by player type
-              for (int i = 0; i < (int)GameData::availableCharacters.size(); i++) {
-                if (GameData::availableCharacters[i]->getTypeOnMap() == 'S') {
-                  GameData::availablePlayers.push_back(GameData::availableCharacters[i]);
+              for (int m = 0; m < (int)GameData::availableCharacters.size(); m++) {
+                if (GameData::availableCharacters[m]->getTypeOnMap() == 'S') {
+                  GameData::availablePlayers.push_back(GameData::availableCharacters[m]);
                 }
-                if (GameData::availableCharacters[i]->getTypeOnMap() == 'C') {
-                  GameData::availableFriendlies.push_back(GameData::availableCharacters[i]);
+                if (GameData::availableCharacters[m]->getTypeOnMap() == 'C') {
+                  GameData::availableFriendlies.push_back(GameData::availableCharacters[m]);
                 }
-                if (GameData::availableCharacters[i]->getTypeOnMap() == 'O') {
-                  GameData::availableAggressors.push_back(GameData::availableCharacters[i]);
+                if (GameData::availableCharacters[m]->getTypeOnMap() == 'O') {
+                  GameData::availableAggressors.push_back(GameData::availableCharacters[m]);
                 }
               }
               //// Check which type of character the user selected
               //// Randomly place an existing one of same type in that location
               if (Gui::currentMapTileSelectedChar == 'S') {
-                std::uniform_int_distribution<int> uni(0,(int)GameData::availablePlayers.size()-1); // guaranteed unbiased
-                int random_int = uni(rng);
-                vector<int> currentPosition = {i,j};
-                GameData::availablePlayers[random_int]->setCurrentPosition(currentPosition);
-                GameData::gameCharacters.push_back(GameData::availablePlayers[random_int]);
+				  std::uniform_int_distribution<int> uni(0, (int)GameData::availablePlayers.size() - 1); // guaranteed unbiased
+				  int random_int = uni(rng);
+				  vector<int> currentPosition = { i,j };
+				  GameData::availablePlayers[random_int]->setCurrentPosition(currentPosition);
+				  GameData::gameCharacters.push_back(GameData::availablePlayers[random_int]);
               }
               if (Gui::currentMapTileSelectedChar == 'C') {
-                std::uniform_int_distribution<int> uni(0,(int)GameData::availableFriendlies.size()-1); // guaranteed unbiased
-                int random_int = uni(rng);
-                vector<int> currentPosition = {i,j};
-                cout << random_int << endl;
-                GameData::availableFriendlies[random_int]->setCurrentPosition(currentPosition);
-                GameData::gameCharacters.push_back(GameData::availableFriendlies[random_int]);
+				  std::uniform_int_distribution<int> uni(0, (int)GameData::availableFriendlies.size() - 1); // guaranteed unbiased
+				  int random_int = uni(rng);
+				  vector<int> currentPosition = { i,j };
+				  cout << random_int << endl;
+				  GameData::availableFriendlies[random_int]->setCurrentPosition(currentPosition);
+				  GameData::gameCharacters.push_back(GameData::availableFriendlies[random_int]);
               }
               if (Gui::currentMapTileSelectedChar == 'O') {
-                std::uniform_int_distribution<int> uni(0,(int)GameData::availableAggressors.size()-1); // guaranteed unbiased
-                int random_int = uni(rng);
-                vector<int> currentPosition = {i,j};
-                GameData::availableAggressors[random_int]->setCurrentPosition(currentPosition);
-                GameData::gameCharacters.push_back(GameData::availableAggressors[random_int]);
+				  std::uniform_int_distribution<int> uni(0, (int)GameData::availableAggressors.size() - 1); // guaranteed unbiased
+				  int random_int = uni(rng);
+				  vector<int> currentPosition = { i,j };
+				  GameData::availableAggressors[random_int]->setCurrentPosition(currentPosition);
+				  GameData::gameCharacters.push_back(GameData::availableAggressors[random_int]);
               }
             }
             GameData::currentMapObject->setCell(i, j, Gui::currentMapTileSelectedChar);

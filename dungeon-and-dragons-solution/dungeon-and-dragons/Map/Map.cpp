@@ -137,7 +137,7 @@ bool Map::validatePath() {
   for (int k = 0; k < this->getMapWidth(); k++) {
 	  for (int l = 0; l < this->getMapLength(); l++) {
 		  if (this->getCell(k, l) == 87) {
-			  if (!isBeside(k, l, 87)) {
+			  if (!(isBeside(k, l, 87) || isBeside(k, l, 83) || isBeside(k, l, 69))) {
 				  cout << "INVALID: Ensure the wall is enclosed (diagonal is not valid)." << endl;
 				  return false;
 			  }
