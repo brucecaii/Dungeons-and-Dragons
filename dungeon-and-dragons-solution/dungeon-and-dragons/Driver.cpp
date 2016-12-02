@@ -8,6 +8,9 @@
 #include "Character/FriendlyStrategy.h"
 #include "Character/HumanPlayerStrategy.h"
 #include "GUI/Gui.h"
+#include "CharacterObserver.h"
+#include <thread>
+#include "ConsoleActions.h"
 
 #include <iostream>
 using namespace std;
@@ -221,6 +224,7 @@ int main(int argc, char* argv[]) {
         Gui::uiManager.isCreatingOrEditingCharacter(window);
       }
       if (Gui::isPlayingGame) {
+		thread consoleActions(ConsoleActions::consoleGameplayOptions);
         for (int i = 0; i < (int)GameData::gameCharacters.size(); i++) {
           GameData::gameCharacters[i]->executeStrategy(*GameData::currentMapObject);
         }
@@ -232,7 +236,6 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
 
 //int main() {
 

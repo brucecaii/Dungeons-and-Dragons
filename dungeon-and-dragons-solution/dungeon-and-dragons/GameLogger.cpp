@@ -141,3 +141,13 @@ void GameLogger::toggleLogger(bool trigger)
 {
 	this->_isActive = trigger;
 }
+
+void GameLogger::turnOn()
+{
+	this->toggleLogger(true);
+}
+
+void GameLogger::turnOff()
+{
+	this->toggleLogger(false);
+}

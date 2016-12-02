@@ -204,9 +204,10 @@ void Character::lootCharacter(Character* character) {
 	}
 }
 
-string Character::getTypeInString(char c)
+string Character::getTypeInString()
 {
 	string objName;
+	char c = this->getTypeOnMap();
 	if (c == 'S')
 		objName = "Human Character";
 	if (c == 'C')
@@ -222,7 +223,7 @@ void Character::displayCharacterInfo()
 	auto characterAttributes = this->getCharacterAttr();
 	auto attackBonus = this->getAttackBonus();
 
-	string currentCharType = getTypeInString(this->getTypeOnMap());
+	string currentCharType = getTypeInString();
 	string currentLevel = to_string(this->getLevel());
 	string currentHitPoint = to_string(this->getHitPoint());
 	string currentArmorClass= to_string(this->getArmorClass());
@@ -305,6 +306,7 @@ int Character::getHitPoint() const {
 
 void Character::setHitPoint(int hitPoint) {
 	this->hitPoint = hitPoint;
+	Notify();
 }
 
 int Character::getArmorClass() const {
