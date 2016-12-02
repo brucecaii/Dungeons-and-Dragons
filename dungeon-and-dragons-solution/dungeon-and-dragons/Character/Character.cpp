@@ -43,9 +43,22 @@ action methods
 */
 
 void Character::equipItem(Item item) {
-	if (characterEquipment->getItemByType(item.getType()).getType()=="") {
-		changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
-		characterEquipment->addItem(item);
+	if (this->characterEquipment->getItemByType(item.getType()).getType()=="") {
+		this->changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
+		this->characterEquipment->addItem(item);
+		this->characterBackpack->deleteItem(item.getName());
+	}
+	else if (this->characterEquipment->getItemByType(item.getType()).getType() == item.getType()) {
+		this->changeAttr(
+			this->characterEquipment->getItemByType(item.getType()).getEnhancement().getType(),
+			this->characterEquipment->getItemByType(item.getType()).getEnhancement().getBonus(),
+			"-"
+		);
+		this->characterBackpack->addItem(this->characterEquipment->getItemByType(item.getType()));
+		this->characterEquipment->deleteItemByType(item.getType());
+		this->changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
+		this->characterEquipment->addItem(item);
+		this->characterBackpack->deleteItem(item.getName());
 	}
 }
 
