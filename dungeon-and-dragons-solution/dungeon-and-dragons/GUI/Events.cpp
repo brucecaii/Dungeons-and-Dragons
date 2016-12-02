@@ -97,7 +97,7 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt
 
 
 
-        ConsoleActions::initializeCharacterViews();
+		  ConsoleActions::TogglingLogger();
 
 
 
@@ -835,6 +835,7 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt
 
 
         ConsoleActions::initializeCharacterViews();
+		ConsoleActions::consoleGameplayOptions();
 
 
 

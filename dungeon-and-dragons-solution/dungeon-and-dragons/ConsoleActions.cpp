@@ -60,7 +60,7 @@ void ConsoleActions::triggerInventoryView() {
 		auto items = GameData::currentCharacterObject->getCharacterBackpack()->getItems();
 
 		//Equipping character with respective inventory index
-		GameData::currentCharacterObject->equipItem(items[inventoryIndex]);
+		GameData::currentCharacterObject->equipItem(items[inventoryIndex-1]);
 
 		//Re-display after the action
 		GameData::currentCharacterObject->displayCharacterEquipment();
@@ -124,9 +124,6 @@ void ConsoleActions::triggerCharacterView() {
 	}
 
 	cout << "===============================" << endl;
-
-	//When done, call back main menu
-	consoleGameplayOptions();
 }
 
 void ConsoleActions::TogglingLogger(){
@@ -191,5 +188,4 @@ void ConsoleActions::TogglingLogger(){
 	}
 
 	cout << "===============================" << endl;
-	TogglingLogger();
 }
