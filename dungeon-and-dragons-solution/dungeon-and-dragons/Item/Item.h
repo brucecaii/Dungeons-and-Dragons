@@ -61,8 +61,6 @@ public:
 	bool validateBoots();
 	//method to validate a weapon
 	bool validateWeapon();
-	//method to validate item by type
-	bool validateByType(string type);
 	//method to set name
 	void setName( string name );
 	//method to set type

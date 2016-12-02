@@ -213,19 +213,6 @@ bool Item::validateWeapon()
 	return true;
 }
 
-//! method to validate by item type
-//! @return : boolean of validation
-bool Item::validateByType(string type) {
-	if (type == "Weapon") return this->validateWeapon();
-	if (type == "Boots") return this->validateBoots();
-	if (type == "Helmet") return this->validateHelmet();
-	if (type == "Ring") return this->validateRing();
-	if (type == "Belt") return this->validateBelt();
-	if (type == "Armor") return this->validateArmor();
-	if (type == "Shield") return this->validateShield();
-	return false;
-}
-
 //! method to get name of the item
 //! @return : name of the item
 string Item::getName(){
