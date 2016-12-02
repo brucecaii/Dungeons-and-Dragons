@@ -197,7 +197,7 @@ string Character::getTypeInString(char c)
 	return objName;
 }
 
-void Character::display()
+void Character::displayCharacterInfo()
 {
 	//Getting attributes of character
 	auto characterAttributes = this->getCharacterAttr();
@@ -239,6 +239,33 @@ void Character::display()
 	cout << "Wisdom: " + currentWisdom << endl;
 	cout << "Damage Bonus: " + currentDamageBonus << endl;
 	cout << "Attack Bonus: " + currentAttackBonus << endl;
+}
+
+void Character::displayCharacterEquipment() {
+	cout << "======================" << endl <<
+		"Character Gears" << endl <<
+		"======================" << endl;
+	for (size_t i = 0; i < this->getCharacterEquipment()->getItems().size(); i++) {
+		Item currentItem = this->getCharacterEquipment()->getItems()[i];
+		cout << "[" << currentItem.getType() << "] "
+			<< "Name: " << currentItem.getName() << " || "
+			<< currentItem.getEnhancement().getType() << " +"
+			<< currentItem.getEnhancement().getBonus() << endl;
+	}
+}
+
+void Character::displayCharacterBackpack() {
+	cout << "======================" << endl <<
+		"Character Inventory" << endl <<
+		"======================" << endl;
+	for (size_t i = 0; i < this->getCharacterBackpack()->getItems().size(); i++) {
+		Item currentItem = this->getCharacterBackpack()->getItems()[i];
+		cout << "[" << i+1 << "] "
+			<< "Type: " << currentItem.getType() << " || "
+			<< "Name: " << currentItem.getName() << " || "
+			<< currentItem.getEnhancement().getType() << " +"
+			<< currentItem.getEnhancement().getBonus() << endl;
+	}
 }
 
 /*
