@@ -98,11 +98,8 @@ void ItemContainer::display()
 		cout << "Item type: " << items[i].getType() << endl;
 
 		//Printing item enhancement
-		auto enhancements = items[i].getInfluences();
-		for (int j = 0; j < enhancements.size(); j++)
-		{
-			cout << enhancements[j].getType() << ": " << enhancements[j].getBonus() << endl;
-		}
+		auto enhancement = items[i].getEnhancement();
+		cout << enhancement.getType() << ": " << enhancement.getBonus() << endl;
 
 		//formatting output
 		cout << "=================================" << endl;

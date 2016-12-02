@@ -106,24 +106,11 @@ void CharacterFileIO::getItemContainerJson(ItemContainer* bp, json& bpJson)
 		//json wrapping the current item
 		json currentItem;
 
-		//Get influences
-		json influences;
-
-		auto currentInfluences = i->getInfluences();
-
-		for (auto j = currentInfluences.begin(); j != currentInfluences.end(); j++)
-		{
-			json currentInfluence;
-			currentInfluence["enhancement_type"] = j->getType();
-			currentInfluence["bonus"] = j->getBonus();
-
-			influences.push_back(currentInfluence);
-		}
-
 		//Get item name and type
 		currentItem["itemName"] = i->getName();
 		currentItem["itemType"] = i->getType();
-		currentItem["enhancements"] = influences;
+		currentItem["enhancementType"] = i->getEnhancement().getType();
+		currentItem["enhancementBonus"] = i->getEnhancement().getBonus();
 
 		//add to main
 		bpJson.push_back(currentItem);
@@ -138,20 +125,12 @@ void CharacterFileIO::loadBackpackItems(json jsonText, Character& ch)
 
 	for (size_t i = 0; i < backpack.size(); i++)
 	{
-		vector<Enhancement> enhancements;
-		auto temp = backpack.at(i);
-		auto enhancers = temp["enhancements"];
-
-		for(size_t j = 0; j < enhancers.size() ; j++)
-		{
-			//Creating an enhancement vector
-			auto currentEnhancement = enhancers.at(j);
-			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(), 
-				currentEnhancement["bonus"].get<int>()));
-		}
-
-		ch.addItemBackpack(Item(temp["itemType"], enhancements, temp["itemName"]));
-		enhancements.clear();
+		auto item = backpack.at(i);
+		string itemName = item["itemName"];
+		string itemType = item["itemType"];
+		Enhancement *enhancement = new Enhancement(item["enhancementType"], item["enhancementBonus"]);
+		Item *currentItem = new Item (item["itemType"], *enhancement, item["itemName"]);
+		ch.addItemBackpack(*currentItem);
 	}
 }
 
@@ -159,22 +138,15 @@ void CharacterFileIO::loadBackpackItems(json jsonText, Character& ch)
 void CharacterFileIO::loadEquipItems(json jsonText, Character& ch)
 {
 	//Retrieving enhancements
-	auto backpack = jsonText["equipment"];
+	auto equipments = jsonText["equipment"];
 
-	for (size_t i = 0; i < backpack.size(); i++)
+	for (size_t i = 0; i < equipments.size(); i++)
 	{
-		vector<Enhancement> enhancements;
-		auto temp = backpack.at(i);
-		auto enhancers = temp["enhancements"];
-
-		for (size_t j = 0; j < enhancers.size(); j++)
-		{
-			auto currentEnhancement = enhancers.at(j);
-			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(),
-				currentEnhancement["bonus"].get<int>()));
-		}
-
-		ch.equipItem(Item(temp["itemType"], enhancements, temp["itemName"]));
-		enhancements.clear();
+		auto item = equipments.at(i);
+		string itemName = item["itemName"];
+		string itemType = item["itemType"];
+		Enhancement *enhancement = new Enhancement(item["enhancementType"], item["enhancementBonus"]);
+		Item *currentItem = new Item(item["itemType"], *enhancement, item["itemName"]);
+		ch.addItemBackpack(*currentItem);
 	}
 }
