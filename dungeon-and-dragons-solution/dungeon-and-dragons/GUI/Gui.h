@@ -30,6 +30,7 @@ namespace Gui{
   extern sf::FloatRect saveButtonPosition;
 
   extern sf::FloatRect createMapPosition;
+  extern sf::FloatRect consoleButtonPosition;
   extern sf::FloatRect editMapPosition;
   extern sf::FloatRect createCampaignPosition;
   extern sf::FloatRect editCampaignPosition;

@@ -160,6 +160,7 @@ void Ui::isSelectingChoice(sf::RenderWindow& window) {
   Gui::createItemPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, Gui::W_WIDTH/4.0f, 500.0f);
   Gui::editItemPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, 3*Gui::W_WIDTH/4.0f, 500.0f);
   Gui::playPosition = this->drawBox(window, selectionBoxWidth+50.0f, selectionBoxHeight+50.0f, Gui::LIGHT_GRAY, Gui::W_WIDTH/2.0f, 650.0f);
+  Gui::consoleButtonPosition = this->drawBox(window, 40.0f, 40.0f, Gui::RED, Gui::W_WIDTH/8.0f, 750.0f);
 
   this->drawText(window, "Create Map", 24, Gui::WHITE,
       Gui::createMapPosition.left + Gui::createMapPosition.width/2.0f,
@@ -429,5 +430,6 @@ void Ui::isPlayingGame(sf::RenderWindow& window) {
   this->drawHomeButton(window);
   this->drawMap(window);
   this->drawValidationErrorIfNeeded(window);
+  Gui::consoleButtonPosition = this->drawBox(window, 40.0f, 40.0f, Gui::RED, Gui::W_WIDTH/8.0f, 780.0f);
 }
 
