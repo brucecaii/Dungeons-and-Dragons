@@ -280,7 +280,7 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
                 Gui::tempCharacter = selectHero.getCharacter();
                 vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
                 Gui::tempCharacter->setCurrentPosition(currentPosition);
-                Gui::tempCharacter->setTypeOnMap('0');
+                Gui::tempCharacter->setTypeOnMap('O');
                 Gui::tempGameCharacters.push_back(Gui::tempCharacter);
                 GameData::gameCharacters.push_back(Gui::tempCharacter);
               }
