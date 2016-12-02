@@ -81,6 +81,9 @@
     <ClInclude Include="Dice\Dice.h">
       <Filter>Header Files\Dice</Filter>
     </ClInclude>
+    <ClInclude Include="Item\Enhancement.h">
+      <Filter>Header Files\Item</Filter>
+    </ClInclude>
     <ClInclude Include="Item\Item.h">
       <Filter>Header Files\Item</Filter>
     </ClInclude>
@@ -132,8 +135,6 @@
     <ClInclude Include="GameLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Item\Enhancement.h">
-      <Filter>Header Files\Item</Filter>
     <ClInclude Include="CharacterObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -168,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="Dice\Dice.cpp">
       <Filter>Source Files\Dice</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Enhancement.cpp">
+      <Filter>Source Files\Item</Filter>
     </ClCompile>
     <ClCompile Include="Item\Item.cpp">
       <Filter>Source Files\Item</Filter>
@@ -220,8 +224,6 @@
     <ClCompile Include="GameLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Item\Enhancement.cpp">
-      <Filter>Source Files\Item</Filter>
     <ClCompile Include="CharacterObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
