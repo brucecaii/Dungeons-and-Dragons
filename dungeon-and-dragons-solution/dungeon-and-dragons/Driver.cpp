@@ -8,6 +8,9 @@
 #include "Character/FriendlyStrategy.h"
 #include "Character/HumanPlayerStrategy.h"
 #include "GUI/Gui.h"
+#include "CharacterObserver.h"
+#include <thread>
+#include "ConsoleActions.h"
 
 #include <iostream>
 using namespace std;
@@ -54,7 +57,7 @@ int main(int argc, char* argv[]) {
 	//you should be able to edit this guy and save it as line 39
 	
 	/*
-	Create characters
+	Create characters:
 	*/
 	CharacterGenerator characterMaker; //coffee maker
 	AggressorCharacterBuilder* aggressorBuilder = new AggressorCharacterBuilder("Tank", 10); //black coffee
@@ -73,15 +76,6 @@ int main(int argc, char* argv[]) {
 	characterMaker.createCharacter(); //make coffee
 	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
 
-	enermy->displayCharacterInfo();
-	enermy->displayCharacterEquipment();
-	enermy->displayCharacterBackpack();
-	myBoy->displayCharacterInfo();
-	myBoy->displayCharacterEquipment();
-	myBoy->displayCharacterBackpack();
-	you->displayCharacterInfo();
-	you->displayCharacterEquipment();
-	you->displayCharacterBackpack();
 
 	//equip from backpack 
 	cout << endl << endl << endl << endl << "equip test!!!!!!!!!!!!!" << endl;
@@ -188,6 +182,7 @@ int main(int argc, char* argv[]) {
       /////////////////////
       // SCENE SELECTION //
       /////////////////////
+
       if (Gui::isSelectingChoice)
         Gui::uiManager.isSelectingChoice(window);
 
@@ -220,7 +215,14 @@ int main(int argc, char* argv[]) {
       if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
         Gui::uiManager.isCreatingOrEditingCharacter(window);
       }
+      if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
+        Gui::uiManager.isCreatingOrEditingCharacter(window);
+      }
+      if (Gui::isCreatingItem || Gui::isEditingItem) {
+        Gui::uiManager.isCreatingOrEditingItem(window);
+      }
       if (Gui::isPlayingGame) {
+		//thread consoleActions(ConsoleActions::consoleGameplayOptions);
         for (int i = 0; i < (int)GameData::gameCharacters.size(); i++) {
           GameData::gameCharacters[i]->executeStrategy(*GameData::currentMapObject);
         }
@@ -232,7 +234,6 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
 
 //int main() {
 

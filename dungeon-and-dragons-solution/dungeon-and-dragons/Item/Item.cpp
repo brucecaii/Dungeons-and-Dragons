@@ -1,5 +1,5 @@
-//! @file 
-//! @brief Implementation file for the Item class  
+//! @file
+//! @brief Implementation file for the Item class
 //!
 
 #include <iostream>

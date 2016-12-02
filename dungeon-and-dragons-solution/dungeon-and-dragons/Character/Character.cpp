@@ -250,12 +250,17 @@ void Character::lootCharacter(Character* character) {
 	}
 }
 
+<<<<<<< HEAD
 //! @method determines type of character you are
 //! @param a char(single letter)
 //! @return string denoting type of character you are
 string Character::getTypeInString(char c)
+=======
+string Character::getTypeInString()
+>>>>>>> 74a2cbfdcc72c1c102ba42610bf83ef34907132d
 {
 	string objName;
+	char c = this->getTypeOnMap();
 	if (c == 'S')
 		objName = "Human Character";
 	if (c == 'C')
@@ -273,7 +278,7 @@ void Character::displayCharacterInfo()
 	auto characterAttributes = this->getCharacterAttr();
 	auto attackBonus = this->getAttackBonus();
 
-	string currentCharType = getTypeInString(this->getTypeOnMap());
+	string currentCharType = getTypeInString();
 	string currentLevel = to_string(this->getLevel());
 	string currentHitPoint = to_string(this->getHitPoint());
 	string currentArmorClass= to_string(this->getArmorClass());
@@ -367,6 +372,7 @@ int Character::getHitPoint() const {
 //! @param int hitpoint denoting the hp you will set your character to 
 void Character::setHitPoint(int hitPoint) {
 	this->hitPoint = hitPoint;
+	Notify();
 }
 
 //! @method returns your amour class value
