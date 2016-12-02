@@ -36,13 +36,13 @@ public:
 	// Default constructor
 	Item();
 	// Constructor
-	Item(string type,vector<Enhancement> influences , string name);
+	Item(string type,Enhancement enhancement , string name);
 	// method to get the type of the item
 	string getType();
 	// method to get name
 	string getName();
 	// method to get the influences of the item
-	vector<Enhancement> getInfluences();
+	Enhancement getEnhancement();
 	//method to validate an item
 	bool validateItem();
 	//method to validate item type
@@ -61,15 +61,17 @@ public:
 	bool validateBoots();
 	//method to validate a weapon
 	bool validateWeapon();
+	//method to validate item by type
+	bool validateByType(string type);
 	//method to set name
 	void setName( string name );
 	//method to set type
 	void setType( string type );
 	//method to set enhancements
-	void setEnhancements( vector<Enhancement> enhancements );
+	void setEnhancement(Enhancement enhancement);
 private:
 	string type;
-	vector<Enhancement> influence;
+	Enhancement enhancement;
 	string name;
 };
 #endif

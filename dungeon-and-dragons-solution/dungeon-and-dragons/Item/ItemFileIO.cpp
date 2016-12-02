@@ -18,13 +18,11 @@ void ItemFileIO::saveItem(string filePath, Item item)
 	std::cout << "Saving Item..." << endl;
 	ofstream writeJsonFile(filePath, ofstream::out);
 	json jsonItem;
-	json jsonInfluence;
-
-	getInfluencesJson(jsonInfluence, item);
 
 	jsonItem["item_type"] = item.getType();
 	jsonItem["item_name"] = item.getName();
-	jsonItem["enhancements"] = jsonInfluence;
+	jsonItem["enhancementType"] = item.getEnhancement().getType();
+	jsonItem["enhancementBonus"] = item.getEnhancement().getBonus();
 
 	writeJsonFile << jsonItem;
 	writeJsonFile.close();
@@ -33,41 +31,18 @@ void ItemFileIO::saveItem(string filePath, Item item)
 //! Method to deserialize item from json object
 //! @param filePath : file name of the serialized character
 //! @param &item : item to deserialize
-void ItemFileIO::readItem(string filePath, Item& item)
+Item* ItemFileIO::readItem(string filePath)
 {
 	ifstream readJsonFile(filePath, ifstream::in);
-
+	Item *loadedItem = new Item();
 	if (readJsonFile.is_open())
 	{
 		json jsonItem(readJsonFile);
-		vector<Enhancement> enhancements;
-		auto enhancers = jsonItem["enhancements"];
-		//retrieving enhancements 
-		for (size_t j = 0; j < enhancers.size(); j++)
-		{
-			//Creating an enhancement vector
-			auto currentEnhancement = enhancers.at(j);
-			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(),
-				currentEnhancement["bonus"].get<int>()));
-		}
-		item.setName(jsonItem["item_name"]);
-		item.setType(jsonItem["item_type"]);
-		item.setEnhancements(enhancements);
+		Enhancement *enhancement = new Enhancement(jsonItem["enhancementType"], jsonItem["enhancementBonus"]);
+		loadedItem->setName(jsonItem["item_name"]);
+		loadedItem->setType(jsonItem["item_type"]);
+		loadedItem->setEnhancement(*enhancement);
 	}
-}
-
-//! Method to get JSON format of influences from an item
-//! @param &influence : reference to json object
-//! @param item : item to extract influences from
-void ItemFileIO::getInfluencesJson(json& influence, Item item)
-{
-	auto enhancements = item.getInfluences();
-	for (auto j = enhancements.begin(); j != enhancements.end(); j++)
-	{
-		json currentInfluence;
-		currentInfluence["enhancement_type"] = j->getType();
-		currentInfluence["bonus"] = j->getBonus();
-
-		influence.push_back(currentInfluence);
-	}
+	readJsonFile.close();
+	return loadedItem;
 }

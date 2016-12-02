@@ -44,9 +44,7 @@ action methods
 
 void Character::equipItem(Item item) {
 	if (characterEquipment->getItemByType(item.getType()).getType()=="") {
-		for (size_t i = 0; i < item.getInfluences().size();  i++) {
-			changeAttr(item.getInfluences()[i].getType(), item.getInfluences()[i].getBonus(), "+");
-		}
+		changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
 		characterEquipment->addItem(item);
 	}
 }
@@ -54,9 +52,7 @@ void Character::equipItem(Item item) {
 void Character::deEquipItem(string typeofItem) {
 	if (characterEquipment->getItemByType(typeofItem).getType() == typeofItem) {
 		Item current = characterEquipment->getItemByType(typeofItem);
-		for (size_t i = 0; i < current.getInfluences().size(); i++) {
-			changeAttr(current.getInfluences()[i].getType(), current.getInfluences()[i].getBonus(), "-");
-		}
+		changeAttr(current.getEnhancement().getType(), current.getEnhancement().getBonus(), "-");
 		characterEquipment->deleteItemByType(typeofItem);
 	}
 }
@@ -203,7 +199,7 @@ string Character::getTypeInString(char c)
 	return objName;
 }
 
-void Character::display()
+void Character::displayCharacterInfo()
 {
 	//Getting attributes of character
 	auto characterAttributes = this->getCharacterAttr();
@@ -222,7 +218,7 @@ void Character::display()
 	string currentDamageBonus = to_string(this->getDamageBonus());
 	string currentAttackBonus = "[";
 
-	for (int i = 0; i < attackBonus.size(); i++)
+	for (size_t i = 0; i < attackBonus.size(); i++)
 	{
 		if (i == attackBonus.size() - 1)
 		{
@@ -245,6 +241,33 @@ void Character::display()
 	cout << "Wisdom: " + currentWisdom << endl;
 	cout << "Damage Bonus: " + currentDamageBonus << endl;
 	cout << "Attack Bonus: " + currentAttackBonus << endl;
+}
+
+void Character::displayCharacterEquipment() {
+	cout << "======================" << endl <<
+		"Character Gears" << endl <<
+		"======================" << endl;
+	for (size_t i = 0; i < this->getCharacterEquipment()->getItems().size(); i++) {
+		Item currentItem = this->getCharacterEquipment()->getItems()[i];
+		cout << "[" << currentItem.getType() << "] "
+			<< "Name: " << currentItem.getName() << " || "
+			<< currentItem.getEnhancement().getType() << " +"
+			<< currentItem.getEnhancement().getBonus() << endl;
+	}
+}
+
+void Character::displayCharacterBackpack() {
+	cout << "======================" << endl <<
+		"Character Inventory" << endl <<
+		"======================" << endl;
+	for (size_t i = 0; i < this->getCharacterBackpack()->getItems().size(); i++) {
+		Item currentItem = this->getCharacterBackpack()->getItems()[i];
+		cout << "[" << i+1 << "] "
+			<< "Type: " << currentItem.getType() << " || "
+			<< "Name: " << currentItem.getName() << " || "
+			<< currentItem.getEnhancement().getType() << " +"
+			<< currentItem.getEnhancement().getBonus() << endl;
+	}
 }
 
 /*

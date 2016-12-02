@@ -33,7 +33,9 @@ public:
 	void lootChest(ItemContainer* chest);
 	void lootCharacter(Character* character);
 	string getTypeInString(char c);
-	void display();
+	void displayCharacterInfo();
+	void displayCharacterEquipment();
+	void displayCharacterBackpack();
 	/*
 	setter and getter
 	*/
