@@ -32,8 +32,9 @@ int main(int argc, char* argv[]) {
 	}
 	else {
 		Item *newItem = new Item(itemType, *enhancement, itemName);
-		if (!(newItem->validateItemType(itemType) && newItem->validateByType(itemType))) {
+		if (!newItem->validateItemType(itemType) || !newItem->validateByType(itemType)) {
 			//ask user to re-create
+			cout << "nope you are wrong!" << endl;
 		}
 		else {
 			ItemFileIO mfio;
