@@ -7,6 +7,7 @@
 #include <vector>
 #include "../GameData.h"
 #include "Gui.h"
+#include "Utils.h"
 #include "Ui.h"
 #include "../Map/MapCampaignFileIO.h"
 
@@ -160,6 +161,7 @@ void Ui::isSelectingChoice(sf::RenderWindow& window) {
   Gui::createItemPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, Gui::W_WIDTH/4.0f, 500.0f);
   Gui::editItemPosition = this->drawBox(window, selectionBoxWidth, selectionBoxHeight, Gui::LIGHT_GRAY, 3*Gui::W_WIDTH/4.0f, 500.0f);
   Gui::playPosition = this->drawBox(window, selectionBoxWidth+50.0f, selectionBoxHeight+50.0f, Gui::LIGHT_GRAY, Gui::W_WIDTH/2.0f, 650.0f);
+  Gui::consoleButtonPosition = this->drawBox(window, 40.0f, 40.0f, Gui::RED, Gui::W_WIDTH/8.0f, 750.0f);
 
   this->drawText(window, "Create Map", 24, Gui::WHITE,
       Gui::createMapPosition.left + Gui::createMapPosition.width/2.0f,
@@ -373,6 +375,23 @@ void Ui::isCreatingOrEditingCampaign(sf::RenderWindow& window) {
   this->drawValidationErrorIfNeeded(window);
 }
 
+void Ui::isCreatingOrEditingItem(sf::RenderWindow& window) {
+  this->drawHomeButton(window);
+  this->drawSaveButton(window);
+  this->drawText(window,
+      "Enter space-separated values of\nitemName,itemType,enhancementType,enhancementBonus\nExample\nJason'sMind,Helmet,wis,5",
+      21, Gui::WHITE, Gui::W_WIDTH/2.0f, 100.0f);
+
+  if (Gui::isCreatingItem)
+    this->drawText(window, Gui::createdItemArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 210.0f);
+  if (Gui::isEditingItem)
+    this->drawText(window, Gui::chosenItemArgs, 26, Gui::WHITE, Gui::W_WIDTH/2.0f, 210.0f);
+
+  if (Gui::isEditingItem) {
+  }
+  this->drawValidationErrorIfNeeded(window);
+}
+
 void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
   this->drawHomeButton(window);
   this->drawSaveButton(window);
@@ -388,6 +407,14 @@ void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
     this->drawText(window, "Edit Character Items", 24, Gui::PINK, Gui::W_WIDTH/2.0f, 260.0f);
     this->drawText(window, "Available Items", 20, Gui::PINK, Gui::W_WIDTH/4.0f, 300.0f);
     this->drawText(window, "Equipped Items", 20, Gui::PINK, 3*Gui::W_WIDTH/4.0f, 300.0f);
+
+    float fileListIncrement = 20.0f;
+    for (int i = 0; i < (int)Gui::current_items.size(); i++) {
+      Gui::current_item_positions.push_back(this->drawText(window, Gui::current_items[i], 20, Gui::WHITE, Gui::W_WIDTH/4.0f, 350.0f+i*fileListIncrement));
+    }
+    for (int i = 0; i < (int)GameData::currentCharacterObject->getCharacterEquipment()->getItems().size(); i++) {
+      Gui::current_equipped_item_positions.push_back(this->drawText(window, GameData::currentCharacterObject->getCharacterEquipment()->getItems()[i].getType(), 20, Gui::WHITE, 3*Gui::W_WIDTH/4.0f, 350.0f+i*fileListIncrement));
+    }
 
 
 
@@ -412,5 +439,6 @@ void Ui::isPlayingGame(sf::RenderWindow& window) {
   this->drawHomeButton(window);
   this->drawMap(window);
   this->drawValidationErrorIfNeeded(window);
+  Gui::consoleButtonPosition = this->drawBox(window, 40.0f, 40.0f, Gui::RED, Gui::W_WIDTH/8.0f, 780.0f);
 }
 

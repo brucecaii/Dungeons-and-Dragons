@@ -20,6 +20,7 @@ namespace Gui{
   extern const sf::Vector2f mapAbsolutePositioning;
   extern Fonts fontGenerator;
   extern Ui uiManager;
+  extern vector<Item*> tempItems;
 
   extern sf::Font font;
   extern sf::Text text;
@@ -30,6 +31,7 @@ namespace Gui{
   extern sf::FloatRect saveButtonPosition;
 
   extern sf::FloatRect createMapPosition;
+  extern sf::FloatRect consoleButtonPosition;
   extern sf::FloatRect editMapPosition;
   extern sf::FloatRect createCampaignPosition;
   extern sf::FloatRect editCampaignPosition;
@@ -97,6 +99,7 @@ namespace Gui{
   extern vector<sf::FloatRect> current_campaign_map_order_positions;
   extern vector<sf::FloatRect> current_character_positions;
   extern vector<sf::FloatRect> current_item_positions;
+  extern vector<sf::FloatRect> current_equipped_item_positions;
   extern string playedCampaign;
   extern string playedCharacter;
   extern string playedMap;
@@ -109,6 +112,8 @@ namespace Gui{
   extern string createdCharacter;
   extern string createdCharacterArgs;
   extern string chosenCharacterArgs;
+  extern string createdItemArgs;
+  extern string chosenItemArgs;
   extern string createdItem;
   extern bool shouldShowPlayerTypeError;
   extern bool hasReachedEndOfMap;

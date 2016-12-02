@@ -32,6 +32,7 @@ class Ui {
     void isCreatingOrEditingMap(sf::RenderWindow& window);
     void isCreatingOrEditingCampaign(sf::RenderWindow& window);
     void isCreatingOrEditingCharacter(sf::RenderWindow& window);
+    void isCreatingOrEditingItem(sf::RenderWindow& window);
     void isPlayingGame(sf::RenderWindow& window);
 
 };

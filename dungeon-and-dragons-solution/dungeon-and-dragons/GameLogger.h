@@ -29,6 +29,10 @@ public:
 	void UpdateLog(string className, string methodName, string message);
 	void Display(string className, string methodName, string message);
 	void toggleLogger(bool trigger);
+	void turnOn();
+	void turnOff();
+
+	bool getToggleValue();
 
 private:
 	Map *_mapSubject;

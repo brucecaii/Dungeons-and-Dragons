@@ -11,6 +11,7 @@ namespace GameData {
   MapCampaign* currentCampaignObject = new MapCampaign();
   Fighter* currentCharacterObject = new Fighter();
   Item* currentItemObject = new Item();
+  Enhancement* currentEnhancementObject = new Enhancement();
   vector<Fighter*> gameCharacters;
   vector<Fighter*> availableCharacters;
   vector<Fighter*> availablePlayers;
@@ -25,5 +26,6 @@ namespace GameData {
   GameLogger *diceLogger = new GameLogger(gameDice, true);
   GameLogger *eventLogger = new GameLogger(eventManager, true);
   GameLogger *mapLogger = new GameLogger(currentMapObject, true);
+  GameLogger *characterLogger = new GameLogger(currentCharacterObject, true);
 
 }

@@ -1,0 +1,241 @@
+\hypertarget{class_item}{}\section{Item Class Reference}
+\label{class_item}\index{Item@{Item}}
+
+
+class for the implementation of items wearable by a character  
+
+
+
+
+{\ttfamily \#include $<$Item.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_item_a297720c02984eab37332ae795d22189d}{}\label{class_item_a297720c02984eab37332ae795d22189d} 
+\hyperlink{class_item_a297720c02984eab37332ae795d22189d}{Item} ()
+\begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
+\hyperlink{class_item_acbc343f7e61d21ae704ef4174c719604}{Item} (string type, \hyperlink{class_enhancement}{Enhancement} enhancement, string name)
+\item 
+string \hyperlink{class_item_a2aea1cc560205b01eaf5250c21f4fc71}{get\+Type} ()
+\item 
+string \hyperlink{class_item_a63d7f2148b699e539aae354b01559811}{get\+Name} ()
+\item 
+\hyperlink{class_enhancement}{Enhancement} \hyperlink{class_item_a267a70ef319464175269993003c6448d}{get\+Enhancement} ()
+\item 
+bool \hyperlink{class_item_a6603371b60aaded48f697975c81fc25b}{validate\+Item} ()
+\item 
+bool \hyperlink{class_item_ad4a931d5e2a5f05252948432bea57985}{validate\+Item\+Type} (string type)
+\item 
+bool \hyperlink{class_item_aa8ddc87ca9c68d3e5425c7de4fd731d6}{validate\+Helmet} ()
+\item 
+bool \hyperlink{class_item_a67c7da153ee5b7346c9ed2f85153f5cb}{validate\+Armor} ()
+\item 
+bool \hyperlink{class_item_ad5c772d7c46c965fc589cf571bb9c315}{validate\+Shield} ()
+\item 
+bool \hyperlink{class_item_a4a27008a17c7de44a94a84badc6010ca}{validate\+Ring} ()
+\item 
+bool \hyperlink{class_item_a324285b377b1f21ec77381f16d406517}{validate\+Belt} ()
+\item 
+bool \hyperlink{class_item_a0139f295ddb22a4d84d4a514fe944d5c}{validate\+Boots} ()
+\item 
+bool \hyperlink{class_item_affb352894ddbc04bc0bb1b1ca3ac2cf1}{validate\+Weapon} ()
+\item 
+bool \hyperlink{class_item_a441910e3bbac14b7a37fbc4aa47283a6}{validate\+By\+Type} (string type)
+\item 
+void \hyperlink{class_item_a5dcdff1db4c66ca22bd6a3f826c69644}{set\+Name} (string name)
+\item 
+void \hyperlink{class_item_a1712084c3f4a335526c027f0aa0f862a}{set\+Type} (string type)
+\item 
+void \hyperlink{class_item_a7f9dd7e7d5272a4c3bfa72798087ef37}{set\+Enhancement} (\hyperlink{class_enhancement}{Enhancement} enhancement)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_item_a5fddc3cf5f552ab8f5cceacaba430474}{}\label{class_item_a5fddc3cf5f552ab8f5cceacaba430474} 
+string {\bfseries type}
+\item 
+\hypertarget{class_item_a5b8cbbd75513de64c90f92cdabc79602}{}\label{class_item_a5b8cbbd75513de64c90f92cdabc79602} 
+\hyperlink{class_enhancement}{Enhancement} {\bfseries enhancement}
+\item 
+\hypertarget{class_item_a406cde7962a6b42a66b4a53c9a26db2c}{}\label{class_item_a406cde7962a6b42a66b4a53c9a26db2c} 
+string {\bfseries name}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+class for the implementation of items wearable by a character 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_item_acbc343f7e61d21ae704ef4174c719604}{}\label{class_item_acbc343f7e61d21ae704ef4174c719604} 
+\index{Item@{Item}!Item@{Item}}
+\index{Item@{Item}!Item@{Item}}
+\subsubsection{\texorpdfstring{Item()}{Item()}}
+{\footnotesize\ttfamily Item\+::\+Item (\begin{DoxyParamCaption}\item[{string}]{type\+\_\+name,  }\item[{\hyperlink{class_enhancement}{Enhancement}}]{enhancement,  }\item[{string}]{nameofitem }\end{DoxyParamCaption})}
+
+constructor that receives an item type as a string and a vector containing the enhancements that this item gives 
+\begin{DoxyParams}{Parameters}
+{\em type\+\_\+name} & \+: string representing the type of item \\
+\hline
+{\em influences} & \+: vector containing all the characteristics influenced by the item \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_item_a267a70ef319464175269993003c6448d}{}\label{class_item_a267a70ef319464175269993003c6448d} 
+\index{Item@{Item}!get\+Enhancement@{get\+Enhancement}}
+\index{get\+Enhancement@{get\+Enhancement}!Item@{Item}}
+\subsubsection{\texorpdfstring{get\+Enhancement()}{getEnhancement()}}
+{\footnotesize\ttfamily \hyperlink{class_enhancement}{Enhancement} Item\+::get\+Enhancement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to get the influences of the item \begin{DoxyReturn}{Returns}
+\+: vector containg the list of stats that the item enhances 
+\end{DoxyReturn}
+\hypertarget{class_item_a63d7f2148b699e539aae354b01559811}{}\label{class_item_a63d7f2148b699e539aae354b01559811} 
+\index{Item@{Item}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Item@{Item}}
+\subsubsection{\texorpdfstring{get\+Name()}{getName()}}
+{\footnotesize\ttfamily string Item\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to get name of the item \begin{DoxyReturn}{Returns}
+\+: name of the item 
+\end{DoxyReturn}
+\hypertarget{class_item_a2aea1cc560205b01eaf5250c21f4fc71}{}\label{class_item_a2aea1cc560205b01eaf5250c21f4fc71} 
+\index{Item@{Item}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Item@{Item}}
+\subsubsection{\texorpdfstring{get\+Type()}{getType()}}
+{\footnotesize\ttfamily string Item\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to get the type of the item \begin{DoxyReturn}{Returns}
+\+: type of the item 
+\end{DoxyReturn}
+\hypertarget{class_item_a7f9dd7e7d5272a4c3bfa72798087ef37}{}\label{class_item_a7f9dd7e7d5272a4c3bfa72798087ef37} 
+\index{Item@{Item}!set\+Enhancement@{set\+Enhancement}}
+\index{set\+Enhancement@{set\+Enhancement}!Item@{Item}}
+\subsubsection{\texorpdfstring{set\+Enhancement()}{setEnhancement()}}
+{\footnotesize\ttfamily void Item\+::set\+Enhancement (\begin{DoxyParamCaption}\item[{\hyperlink{class_enhancement}{Enhancement}}]{enhancements }\end{DoxyParamCaption})}
+
+method to set enhancements of an item 
+\begin{DoxyParams}{Parameters}
+{\em type\+\_\+name} & \+: vector representing the enhancements of the item \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_item_a5dcdff1db4c66ca22bd6a3f826c69644}{}\label{class_item_a5dcdff1db4c66ca22bd6a3f826c69644} 
+\index{Item@{Item}!set\+Name@{set\+Name}}
+\index{set\+Name@{set\+Name}!Item@{Item}}
+\subsubsection{\texorpdfstring{set\+Name()}{setName()}}
+{\footnotesize\ttfamily void Item\+::set\+Name (\begin{DoxyParamCaption}\item[{string}]{item\+\_\+name }\end{DoxyParamCaption})}
+
+method to set name of item 
+\begin{DoxyParams}{Parameters}
+{\em item\+\_\+name} & \+: string representing the name of item \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_item_a1712084c3f4a335526c027f0aa0f862a}{}\label{class_item_a1712084c3f4a335526c027f0aa0f862a} 
+\index{Item@{Item}!set\+Type@{set\+Type}}
+\index{set\+Type@{set\+Type}!Item@{Item}}
+\subsubsection{\texorpdfstring{set\+Type()}{setType()}}
+{\footnotesize\ttfamily void Item\+::set\+Type (\begin{DoxyParamCaption}\item[{string}]{type\+\_\+name }\end{DoxyParamCaption})}
+
+method to set type of item 
+\begin{DoxyParams}{Parameters}
+{\em type\+\_\+name} & \+: string representing the type of item \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_item_a67c7da153ee5b7346c9ed2f85153f5cb}{}\label{class_item_a67c7da153ee5b7346c9ed2f85153f5cb} 
+\index{Item@{Item}!validate\+Armor@{validate\+Armor}}
+\index{validate\+Armor@{validate\+Armor}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Armor()}{validateArmor()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Armor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a armor, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_a324285b377b1f21ec77381f16d406517}{}\label{class_item_a324285b377b1f21ec77381f16d406517} 
+\index{Item@{Item}!validate\+Belt@{validate\+Belt}}
+\index{validate\+Belt@{validate\+Belt}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Belt()}{validateBelt()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Belt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a belt, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_a0139f295ddb22a4d84d4a514fe944d5c}{}\label{class_item_a0139f295ddb22a4d84d4a514fe944d5c} 
+\index{Item@{Item}!validate\+Boots@{validate\+Boots}}
+\index{validate\+Boots@{validate\+Boots}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Boots()}{validateBoots()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Boots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a boots, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_a441910e3bbac14b7a37fbc4aa47283a6}{}\label{class_item_a441910e3bbac14b7a37fbc4aa47283a6} 
+\index{Item@{Item}!validate\+By\+Type@{validate\+By\+Type}}
+\index{validate\+By\+Type@{validate\+By\+Type}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+By\+Type()}{validateByType()}}
+{\footnotesize\ttfamily bool Item\+::validate\+By\+Type (\begin{DoxyParamCaption}\item[{string}]{type }\end{DoxyParamCaption})}
+
+method to validate by item type \begin{DoxyReturn}{Returns}
+\+: boolean of validation 
+\end{DoxyReturn}
+\hypertarget{class_item_aa8ddc87ca9c68d3e5425c7de4fd731d6}{}\label{class_item_aa8ddc87ca9c68d3e5425c7de4fd731d6} 
+\index{Item@{Item}!validate\+Helmet@{validate\+Helmet}}
+\index{validate\+Helmet@{validate\+Helmet}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Helmet()}{validateHelmet()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Helmet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a helmet, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_a6603371b60aaded48f697975c81fc25b}{}\label{class_item_a6603371b60aaded48f697975c81fc25b} 
+\index{Item@{Item}!validate\+Item@{validate\+Item}}
+\index{validate\+Item@{validate\+Item}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Item()}{validateItem()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate an item, e.\+g. verify that an new item of a certain type only enhances a character statistic valid for this item type \begin{DoxyReturn}{Returns}
+\+: true if the enhancement list is valid according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_ad4a931d5e2a5f05252948432bea57985}{}\label{class_item_ad4a931d5e2a5f05252948432bea57985} 
+\index{Item@{Item}!validate\+Item\+Type@{validate\+Item\+Type}}
+\index{validate\+Item\+Type@{validate\+Item\+Type}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Item\+Type()}{validateItemType()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Item\+Type (\begin{DoxyParamCaption}\item[{string}]{type }\end{DoxyParamCaption})}
+
+method to validate an item type, e.\+g. verify that the type is legal (helmet, armor, shield...etc.) \begin{DoxyReturn}{Returns}
+\+: true if the item type is valid according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_a4a27008a17c7de44a94a84badc6010ca}{}\label{class_item_a4a27008a17c7de44a94a84badc6010ca} 
+\index{Item@{Item}!validate\+Ring@{validate\+Ring}}
+\index{validate\+Ring@{validate\+Ring}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Ring()}{validateRing()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Ring (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a ring, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_ad5c772d7c46c965fc589cf571bb9c315}{}\label{class_item_ad5c772d7c46c965fc589cf571bb9c315} 
+\index{Item@{Item}!validate\+Shield@{validate\+Shield}}
+\index{validate\+Shield@{validate\+Shield}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Shield()}{validateShield()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Shield (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a shield, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+\hypertarget{class_item_affb352894ddbc04bc0bb1b1ca3ac2cf1}{}\label{class_item_affb352894ddbc04bc0bb1b1ca3ac2cf1} 
+\index{Item@{Item}!validate\+Weapon@{validate\+Weapon}}
+\index{validate\+Weapon@{validate\+Weapon}!Item@{Item}}
+\subsubsection{\texorpdfstring{validate\+Weapon()}{validateWeapon()}}
+{\footnotesize\ttfamily bool Item\+::validate\+Weapon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to validate a weapon, e.\+g verify that it contains only the allowed enhancements \begin{DoxyReturn}{Returns}
+\+: true if the item type contains only the enhancements allowed for its type according to the rules, false if not 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\hyperlink{_item_8h}{Item.\+h}\item 
+Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\hyperlink{_item_8cpp}{Item.\+cpp}\end{DoxyCompactItemize}

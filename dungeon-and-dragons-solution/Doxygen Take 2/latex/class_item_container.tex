@@ -1,0 +1,161 @@
+\hypertarget{class_item_container}{}\section{Item\+Container Class Reference}
+\label{class_item_container}\index{Item\+Container@{Item\+Container}}
+
+
+Class that implements an item container.  
+
+
+
+
+{\ttfamily \#include $<$Item\+Container.\+h$>$}
+
+Inheritance diagram for Item\+Container\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_item_container}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_item_container_a3ce79c8b4501fafc5ea369ef3b3c1bce}{}\label{class_item_container_a3ce79c8b4501fafc5ea369ef3b3c1bce} 
+\hyperlink{class_item_container_a3ce79c8b4501fafc5ea369ef3b3c1bce}{Item\+Container} ()
+\begin{DoxyCompactList}\small\item\em default constructor \end{DoxyCompactList}\item 
+\hyperlink{class_item_container_ab217646cacad74f4c9af8b5c4a0c26a3}{Item\+Container} (vector$<$ \hyperlink{class_item}{Item} $>$ items)
+\item 
+vector$<$ \hyperlink{class_item}{Item} $>$ \hyperlink{class_item_container_af941b43394daa4ca6720f5b4acd578e0}{get\+Items} ()
+\item 
+void \hyperlink{class_item_container_ab693023fa4d471748385cb0ae8a49413}{add\+Item} (\hyperlink{class_item}{Item} anitem)
+\item 
+\hyperlink{class_item}{Item} \hyperlink{class_item_container_a1a716afac56641809fd09d314ee1da3e}{get\+Item\+By\+Name} (string item\+Name)
+\item 
+\hyperlink{class_item}{Item} \hyperlink{class_item_container_a891f1db61620ef64a8907bc5554cbb42}{get\+Item\+By\+Type} (string item\+Type)
+\item 
+void \hyperlink{class_item_container_ac5d279c415c4ef60282c7b87a73a99b5}{delete\+Item} (string name)
+\begin{DoxyCompactList}\small\item\em method to delete an item \end{DoxyCompactList}\item 
+void \hyperlink{class_item_container_aeb9b5f9389de01eb93e44993251c2170}{delete\+Item\+By\+Type} (string type)
+\begin{DoxyCompactList}\small\item\em take name of item to delete \end{DoxyCompactList}\item 
+int \hyperlink{class_item_container_a5969e0b433f10e7d2683a85f310b9c1c}{get\+Size} ()
+\begin{DoxyCompactList}\small\item\em method to get size of container \end{DoxyCompactList}\item 
+void \hyperlink{class_item_container_abddcd9bd39e7a9df526a90a989e54c76}{display} ()
+\begin{DoxyCompactList}\small\item\em method to display items in container \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_item_container_ade39a5da094a28cf8ccfa75b67f0827b}{}\label{class_item_container_ade39a5da094a28cf8ccfa75b67f0827b} 
+vector$<$ \hyperlink{class_item}{Item} $>$ {\bfseries Items}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that implements an item container. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_item_container_ab217646cacad74f4c9af8b5c4a0c26a3}{}\label{class_item_container_ab217646cacad74f4c9af8b5c4a0c26a3} 
+\index{Item\+Container@{Item\+Container}!Item\+Container@{Item\+Container}}
+\index{Item\+Container@{Item\+Container}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{Item\+Container()}{ItemContainer()}}
+{\footnotesize\ttfamily Item\+Container\+::\+Item\+Container (\begin{DoxyParamCaption}\item[{vector$<$ \hyperlink{class_item}{Item} $>$}]{containeritems }\end{DoxyParamCaption})}
+
+constructor that takes a vector of items as input to create an \hyperlink{class_item_container}{Item\+Container} 
+\begin{DoxyParams}{Parameters}
+{\em containeritems} & vector of items to put in the new container \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_item_container_ab693023fa4d471748385cb0ae8a49413}{}\label{class_item_container_ab693023fa4d471748385cb0ae8a49413} 
+\index{Item\+Container@{Item\+Container}!add\+Item@{add\+Item}}
+\index{add\+Item@{add\+Item}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{add\+Item()}{addItem()}}
+{\footnotesize\ttfamily void Item\+Container\+::add\+Item (\begin{DoxyParamCaption}\item[{\hyperlink{class_item}{Item}}]{anitem }\end{DoxyParamCaption})}
+
+method to add an item to the item container 
+\begin{DoxyParams}{Parameters}
+{\em anitem} & \+: new item to put in the \hyperlink{class_item_container}{Item\+Container} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_item_container_ac5d279c415c4ef60282c7b87a73a99b5}{}\label{class_item_container_ac5d279c415c4ef60282c7b87a73a99b5} 
+\index{Item\+Container@{Item\+Container}!delete\+Item@{delete\+Item}}
+\index{delete\+Item@{delete\+Item}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{delete\+Item()}{deleteItem()}}
+{\footnotesize\ttfamily void Item\+Container\+::delete\+Item (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+
+
+method to delete an item 
+
+deleting item by item name \hypertarget{class_item_container_aeb9b5f9389de01eb93e44993251c2170}{}\label{class_item_container_aeb9b5f9389de01eb93e44993251c2170} 
+\index{Item\+Container@{Item\+Container}!delete\+Item\+By\+Type@{delete\+Item\+By\+Type}}
+\index{delete\+Item\+By\+Type@{delete\+Item\+By\+Type}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{delete\+Item\+By\+Type()}{deleteItemByType()}}
+{\footnotesize\ttfamily void Item\+Container\+::delete\+Item\+By\+Type (\begin{DoxyParamCaption}\item[{string}]{type }\end{DoxyParamCaption})}
+
+
+
+take name of item to delete 
+
+deleting item by type \hypertarget{class_item_container_abddcd9bd39e7a9df526a90a989e54c76}{}\label{class_item_container_abddcd9bd39e7a9df526a90a989e54c76} 
+\index{Item\+Container@{Item\+Container}!display@{display}}
+\index{display@{display}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Item\+Container\+::display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+method to display items in container 
+
+method to display items inside a container to console \hypertarget{class_item_container_a1a716afac56641809fd09d314ee1da3e}{}\label{class_item_container_a1a716afac56641809fd09d314ee1da3e} 
+\index{Item\+Container@{Item\+Container}!get\+Item\+By\+Name@{get\+Item\+By\+Name}}
+\index{get\+Item\+By\+Name@{get\+Item\+By\+Name}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{get\+Item\+By\+Name()}{getItemByName()}}
+{\footnotesize\ttfamily \hyperlink{class_item}{Item} Item\+Container\+::get\+Item\+By\+Name (\begin{DoxyParamCaption}\item[{string}]{item\+Name }\end{DoxyParamCaption})}
+
+method to return an item with a specific name contained in the \hyperlink{class_item_container}{Item\+Container} 
+\begin{DoxyParams}{Parameters}
+{\em item\+Type} & \+: type of item to extract from the container \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: item of the specified kind provided in input 
+\end{DoxyReturn}
+\hypertarget{class_item_container_a891f1db61620ef64a8907bc5554cbb42}{}\label{class_item_container_a891f1db61620ef64a8907bc5554cbb42} 
+\index{Item\+Container@{Item\+Container}!get\+Item\+By\+Type@{get\+Item\+By\+Type}}
+\index{get\+Item\+By\+Type@{get\+Item\+By\+Type}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{get\+Item\+By\+Type()}{getItemByType()}}
+{\footnotesize\ttfamily \hyperlink{class_item}{Item} Item\+Container\+::get\+Item\+By\+Type (\begin{DoxyParamCaption}\item[{string}]{item\+Type }\end{DoxyParamCaption})}
+
+method to return the item of a certain type contained in the \hyperlink{class_item_container}{Item\+Container} assumption\+: the container can only contain one element of each type 
+\begin{DoxyParams}{Parameters}
+{\em item\+Type} & \+: type of item to extract from the container \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: item of the specified kind provided in input 
+\end{DoxyReturn}
+\hypertarget{class_item_container_af941b43394daa4ca6720f5b4acd578e0}{}\label{class_item_container_af941b43394daa4ca6720f5b4acd578e0} 
+\index{Item\+Container@{Item\+Container}!get\+Items@{get\+Items}}
+\index{get\+Items@{get\+Items}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{get\+Items()}{getItems()}}
+{\footnotesize\ttfamily vector$<$ \hyperlink{class_item}{Item} $>$ Item\+Container\+::get\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+method to get the items of the container \begin{DoxyReturn}{Returns}
+\+: return the vector of items contained in the \hyperlink{class_item_container}{Item\+Container} 
+\end{DoxyReturn}
+\hypertarget{class_item_container_a5969e0b433f10e7d2683a85f310b9c1c}{}\label{class_item_container_a5969e0b433f10e7d2683a85f310b9c1c} 
+\index{Item\+Container@{Item\+Container}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!Item\+Container@{Item\+Container}}
+\subsubsection{\texorpdfstring{get\+Size()}{getSize()}}
+{\footnotesize\ttfamily int Item\+Container\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+method to get size of container 
+
+method returning size of item container 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\hyperlink{_item_container_8h}{Item\+Container.\+h}\item 
+Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\hyperlink{_item_container_8cpp}{Item\+Container.\+cpp}\end{DoxyCompactItemize}

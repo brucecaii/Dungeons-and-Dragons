@@ -32,7 +32,7 @@ public:
 	void executeStrategy(Map& m);
 	void lootChest(ItemContainer* chest);
 	void lootCharacter(Character* character);
-	string getTypeInString(char c);
+	string getTypeInString();
 	void displayCharacterInfo();
 	void displayCharacterEquipment();
 	void displayCharacterBackpack();

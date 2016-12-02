@@ -35,11 +35,13 @@ namespace Gui{
   sf::RectangleShape box;
   sf::Sprite sprite;
 
+  vector<Item*> tempItems;
   // General button positions
   sf::FloatRect homeButtonPosition;
   sf::FloatRect saveButtonPosition;
 
   sf::FloatRect createMapPosition;
+  sf::FloatRect consoleButtonPosition;
   sf::FloatRect editMapPosition;
   sf::FloatRect createCampaignPosition;
   sf::FloatRect editCampaignPosition;
@@ -105,6 +107,7 @@ namespace Gui{
   vector<sf::FloatRect> current_campaign_map_order_positions;
   vector<sf::FloatRect> current_character_positions;
   vector<sf::FloatRect> current_item_positions;
+  vector<sf::FloatRect> current_equipped_item_positions;
   string playedCampaign;
   string playedCharacter;
   string playedMap;
@@ -117,6 +120,8 @@ namespace Gui{
   string createdCharacter = "";
   string createdCharacterArgs = "";
   string chosenCharacterArgs = "";
+  string createdItemArgs = "";
+  string chosenItemArgs = "";
   string createdItem = "";
   float greetingsTransparency = 0.0f;
   float callToActionTransparency = 0.0f;

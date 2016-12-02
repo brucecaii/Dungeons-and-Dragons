@@ -1,0 +1,31 @@
+\hypertarget{_item_container_8h}{}\section{Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\+Item\+Container.h File Reference}
+\label{_item_container_8h}\index{Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\+Item\+Container.\+h@{Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Item/\+Item\+Container.\+h}}
+
+
+Header file for the \hyperlink{class_item_container}{Item\+Container} class.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}Item.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_item_container}{Item\+Container}
+\begin{DoxyCompactList}\small\item\em Class that implements an item container. \end{DoxyCompactList}\item 
+class \hyperlink{class_backpack}{Backpack}
+\begin{DoxyCompactList}\small\item\em Default constructor for backpack. \end{DoxyCompactList}\item 
+class \hyperlink{class_chest}{Chest}
+\begin{DoxyCompactList}\small\item\em Default constructor for chest. \end{DoxyCompactList}\item 
+class \hyperlink{class_equiped_items}{Equiped\+Items}
+\begin{DoxyCompactList}\small\item\em Default constructor for \hyperlink{class_equiped_items}{Equiped\+Items}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file for the \hyperlink{class_item_container}{Item\+Container} class. 
+
+(1) In Dungeons and Dragons, the rules for Items and \hyperlink{class_item}{Item} container are as follow First of all, there are seven (7) item types (Helmet, Armor, Shield, Ring, Belt, Boots, Weapon). Each of these item types have their O\+WN respective and allowed enhancements. For example, a helmet can O\+N\+LY have enhancements (Intelligence, Wisdom and Armor class) There are nine (9) types of enhancements (Intelligence, Wisdom, Armor class, Strength, Constitution, Charisma, Dexterity, Attack bonus and Damage bonus) Moreover, to be a valid enhancement, bonuses must be between +1 and +5. Finally, we have the item container. The item container contains items. As the iteration of this project grows, there will eventually have a character backpack, character worn items and chests.
+
+(2) For the items and item container part of the project, three (3) main classes are necessary\+: \hyperlink{class_enhancement}{Enhancement}, \hyperlink{class_item}{Item} and \hyperlink{class_item_container}{Item\+Container}. \hyperlink{class_item}{Item} container is a class containing a vector of type items. \hyperlink{class_item}{Item} container contains three (3) methods\+: get\+Items() to get all items, get\+Item(item\+Type) to get a specific item and add\+Item(item) to add an item. \hyperlink{class_item}{Item} is a class containing attribute influence (a vector of enhancements) and item\+\_\+type (a string named after the item type). In \hyperlink{class_item}{Item}, there is get\+Type() to get the item type, get\+Influences() to get the vector of enhancement, validate\+Item() to validate whether the item is legal according to game rules. validate\+Item\+Type(string type) to validate whether the item being created is legal according to game rules or not (ex\+: we cannot create a bow or spear). This method is used on the constructor as a check. Exit(1) if illegal item is made. validate\+Helmet(), validate\+Armor(), validate\+Shield(), validate\+Ring(), validate\+Belt(), validate\+Boots(), validate\+Weapon() to validate that the respective item only contains allowed enhancements to their respective type according to game rules (ex\+: helmet can only have intelligence, armor and wisdom). This is used by method validate\+Item() and calls the right item method based on the item type. Finally, \hyperlink{class_enhancement}{Enhancement} is a class containing type (string) and bonus (int) attributes. Methods include\+: get\+Type() to get the type of enhancement it is, get\+Bonus() to get the bonus for that enhancement and validate\+Bonus() to make sure that the given enhancement respect the game rules (1-\/5, nothing less, nothing more).
+
+(3) No libraries have been used for this project, yet. 

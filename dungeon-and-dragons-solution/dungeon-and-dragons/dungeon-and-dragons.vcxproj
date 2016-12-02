@@ -40,6 +40,7 @@
     <ClInclude Include="GUI\Gui.h" />
     <ClInclude Include="GUI\Ui.h" />
     <ClInclude Include="GUI\Utils.h" />
+    <ClInclude Include="ConsoleActions.h" />
     <ClInclude Include="Item\Enhancement.h" />
     <ClInclude Include="Item\Item.h" />
     <ClInclude Include="Item\ItemContainer.h" />
@@ -62,6 +63,7 @@
     <ClCompile Include="Character\Fighter.cpp" />
     <ClCompile Include="Character\FriendlyStrategy.cpp" />
     <ClCompile Include="Character\HumanPlayerStrategy.cpp" />
+    <ClCompile Include="ConsoleActions.cpp" />
     <ClCompile Include="Dice\Dice.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="GameData.cpp" />
@@ -187,7 +189,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>..\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
