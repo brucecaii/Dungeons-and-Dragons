@@ -28,6 +28,10 @@ class Map : public Subject{
     string getMapData();
     void setMapData(string);
     bool isBeside(int x, int y, char type);
+	bool checkLeft(int x, int y, char type);
+	bool checkRight(int x, int y, char type);
+	bool checkUp(int x, int y, char type);
+	bool checkDown(int x, int y, char type);
     void clearCell(int x, int y);
     vector<tuple<char,int,int>> getAllCharacterPositions();
     vector<int> getHumanPosition();
