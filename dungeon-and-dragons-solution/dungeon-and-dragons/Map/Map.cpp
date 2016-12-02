@@ -41,30 +41,62 @@ Map::Map(int width, int length, string placement) {
 //! @param y: an integer value of vertical index of the map's grid
 //! @return bool value, true if there is a the cell type adjacent to the specific cell chosen
 bool Map::isBeside(int x, int y, char type) {
-  bool bIsBeside= false;
-  if (x > 0) {
-    if (map[x-1][y] == type) {
-      bIsBeside= true;
-    }
-  }
-  if (x < mapWidth-1) {
-    if (map[x+1][y] == type) {
-      bIsBeside= true;
-    }
-  }
-  if (y > 0) {
-    if (map[x][y-1] == type) {
-      bIsBeside= true;
-    }
-  }
-  if (y< mapLength-1) {
-    if (map[x][y+1] == type) {
-      bIsBeside= true;
-    }
-  }
-
-  return bIsBeside;
+	
+	//check top left cell
+	if (x == 0 && y == 0) {
+		return this->checkRight(x, y, type) || this->checkDown(x, y, type);
+	}
+	//check top right cell
+	else if (x == 0 && y == this->getMapLength()-1) {
+		return this->checkLeft(x, y, type) || this->checkDown(x, y, type);
+	}
+	//check bottom left cell
+	else if (x == this->getMapWidth()-1 && y == 0) {
+		return this->checkUp(x, y, type) || this->checkRight(x, y, type);
+	}
+	//check bottom right cell
+	else if (x == this->getMapWidth() - 1 && y == this->getMapLength() - 1) {
+		return this->checkLeft(x, y, type) || this->checkUp(x, y, type);
+	}
+	//check left edge
+	else if (y == 0) {
+		return this->checkUp(x, y, type) || this->checkRight(x, y, type) || this->checkDown(x, y, type);
+	}
+	//check right edge
+	else if (y == this->getMapLength()-1) {
+		return this->checkUp(x, y, type) || this->checkLeft(x, y, type) || this->checkDown(x, y, type);
+	}
+	//check upper edge
+	else if (x == 0) {
+		return this->checkRight(x, y, type) || this->checkLeft(x, y, type) || this->checkDown(x, y, type);
+	}
+	//check bottom edge
+	else if (x == this->getMapWidth()-1) {
+		return this->checkRight(x, y, type) || this->checkLeft(x, y, type) || this->checkUp(x, y, type);
+	}
+	//middle cells
+	else {
+		return this->checkRight(x, y, type) || this->checkLeft(x, y, type) || this->checkUp(x, y, type) || this->checkDown(x, y, type);
+	}
 }
+
+bool Map::checkUp(int x, int y, char type) {
+	if (x == 0) return false;
+	return this->getCell(x - 1, y) == type;
+}
+bool Map::checkDown(int x, int y, char type) {
+	if (x == this->getMapWidth() - 1) return false;
+	return this->getCell(x + 1, y) == type;
+}
+bool Map::checkLeft(int x, int y, char type) {
+	if (y == 0) return false;
+	return this->getCell(x, y - 1) == type;
+}
+bool Map::checkRight(int x, int y, char type) {
+	if (y == this->getMapLength() - 1) return false;
+	return this->getCell(x, y + 1) == type;
+}
+
 
 //! Implementation of the map verification
 //! @return bool value, true of the map is valid (there is at least one clear path between the mandatory begin and end cell).
@@ -89,73 +121,43 @@ bool Map::validatePath() {
     }
   }
 
+  //check if start and exist 
   if (startCells.size() == 0 || endCells.size() == 0) {
-    cout << "INVALID: Ensure you have at least an 'S' cell and a 'E' cell." << endl;
+    cout << "INVALID: Ensure you have one 'Start' cell and at least one 'Exit' cell." << endl;
     return false;
   }
 
-  // All start cells must be next to walls
-  bool bStartBesideWall = false;
-  bool bEndBesideWall = false;
-  for (int i = 0; i < (int)startCells.size(); i++) {
-    bStartBesideWall = isBeside(startCells[i].first, startCells[i].second, 'W');
+  //check if multiple starts
+  if (startCells.size() > 1) {
+	  cout << "INVALID: Ensure you only have one 'Start' cell." << endl;
+	  return false;
   }
-  for (int i = 0; i < (int)startCells.size(); i++) {
+
+  //check if the wall is enclosed.
+  for (int k = 0; k < this->getMapWidth(); k++) {
+	  for (int l = 0; l < this->getMapLength(); l++) {
+		  if (this->getCell(k, l) == 87) {
+			  if (!isBeside(k, l, 87)) {
+				  cout << "INVALID: Ensure the wall is enclosed (diagonal is not valid)." << endl;
+				  return false;
+			  }
+		  }
+	  }
+  }
+
+  // Start cell must be next to walls
+  bool bStartBesideWall = false;
+  bStartBesideWall = isBeside(startCells[0].first, startCells[0].second, 'W');
+  bool bEndBesideWall = false;
+  for (size_t i = 0; i < startCells.size(); i++) {
     bEndBesideWall = isBeside(endCells[i].first, endCells[i].second, 'W');
   }
-
   if (!bStartBesideWall || !bEndBesideWall) {
-    cout << "INVALID: Ensure that all start and end cells are next to walls." << endl;
-    return false;
+	  cout << "INVALID: Ensure that all start and end cells are next to walls." << endl;
+	  return false;
   }
 
-  // The wall must be a closed cycle
-  // This is an additional feature.
-  // Currently not implemented, but to be done in next assignment / in the project.
-
-  // Check if path is clear
-  // Seed explored cells with Start cells
-  //vector<pair<int,int>> exploredEmptyCells;
-  //for (int i = 0; i < (int)startCells.size(); i++) {
-    //exploredEmptyCells.push_back(startCells[i]);
-  //}
-
-  // Adds all explorable cells to exploredEmptyCells (unique)
-  //for (int i = 0; i < (int)exploredEmptyCells.size(); i++) {
-    //int x = exploredEmptyCells[i].first;
-    //int y = exploredEmptyCells[i].second;
-    //char type = ' ';
-    //if (x > 0) {
-      //if (map[x-1][y] == type &&
-          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x-1,y)) != exploredEmptyCells.end()) {
-        //exploredEmptyCells.push_back(make_pair(x-1,y));
-      //}
-    //}
-    //if (x < mapWidth-1) {
-      //if (map[x+1][y] == type &&
-          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x+1,y)) != exploredEmptyCells.end()) {
-        //exploredEmptyCells.push_back(make_pair(x+1,y));
-      //}
-    //}
-    //if (y > 0) {
-      //if (map[x][y-1] == type &&
-          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x,y-1)) != exploredEmptyCells.end()) {
-        //exploredEmptyCells.push_back(make_pair(x,y-1));
-      //}
-    //}
-    //if (y< mapLength-1) {
-      //if (map[x][y+1] == type &&
-          //find(exploredEmptyCells.begin(), exploredEmptyCells.end(), make_pair(x,y+1)) != exploredEmptyCells.end()) {
-        //exploredEmptyCells.push_back(make_pair(x,y+1));
-      //}
-    //}
-  //}
-
-  // Check if there are any exits next to the explorable cells.
-
-  // Exit is not reachable from explorable path. Invalid.
-    //cout << "INVALID: Ensure that explorable path is next to an exit." << endl;
-    return true;
+  return true;
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
