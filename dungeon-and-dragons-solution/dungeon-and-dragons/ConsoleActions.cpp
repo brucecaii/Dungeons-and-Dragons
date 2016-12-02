@@ -44,7 +44,6 @@ void ConsoleActions::triggerInventoryView() {
 	if (choice < 3)
 	{
 		cout << "Not a valid option!" << endl;
-		consoleGameplayOptions(); // go back to menu
 	}
 
 	if (choice == 1) {
@@ -68,8 +67,6 @@ void ConsoleActions::triggerInventoryView() {
 		GameData::currentCharacterObject->displayCharacterBackpack();
 
 		cout << "===============================" << endl;
-		consoleGameplayOptions();
-
 	}
 	else if (choice == 2) {
 		cout << "Please enter the item type you want to unequip from your character: " << endl;
@@ -84,8 +81,6 @@ void ConsoleActions::triggerInventoryView() {
 
 		cout << "===============================" << endl;
 		//When done, go back to main menu
-		consoleGameplayOptions();
-
 	}
 	else if (choice == 3) {
 		//Go back to main menu
@@ -132,4 +127,69 @@ void ConsoleActions::triggerCharacterView() {
 
 	//When done, call back main menu
 	consoleGameplayOptions();
+}
+
+void ConsoleActions::TogglingLogger(){
+	
+	int choice;
+	cout << "===============================" << endl;
+	cout << "Toggle Game Loggers" << endl;
+	cout << "===============================" << endl;
+	cout << "[1] Event Controller Logger [" + to_string(GameData::eventLogger->getToggleValue()) + "]" << endl;
+	cout << "[2] Map Controller Logger [" + to_string(GameData::mapLogger->getToggleValue()) + "]" << endl;
+	cout << "[3] Character Controller Logger [" + to_string(GameData::characterLogger->getToggleValue()) + "]" << endl;
+	cout << "[4] Dice Controller Logger [" + to_string(GameData::diceLogger->getToggleValue()) + "]" << endl;
+	cout << "Please pick which logger you want to turn on/off: ";
+	cin >> choice;
+	
+	if (choice == 1)
+	{
+		if (GameData::eventLogger->getToggleValue() == true){
+			GameData::eventLogger->turnOff();
+			cout << "Event Controller Logger has been turned off." << endl;
+		}
+		else {
+			GameData::eventLogger->turnOn();
+			cout << "Event Controller Logger has been turned on." << endl;
+		}
+	}
+
+	if (choice == 2)
+	{
+		if (GameData::mapLogger->getToggleValue() == true) {
+			GameData::mapLogger->turnOff();
+			cout << "Map Logger has been turned off." << endl;
+		}
+		else {
+			GameData::mapLogger->turnOn();
+			cout << "Map Logger has been turned on." << endl;
+		}
+	}
+
+	if (choice == 3)
+	{
+		if (GameData::characterLogger->getToggleValue() == true) {
+			GameData::characterLogger->turnOff();
+			cout << "Character Logger has been turned off." << endl;
+		}
+		else {
+			GameData::characterLogger->turnOn();
+			cout << "Character Logger has been turned on." << endl;
+		}
+	}
+
+	if (choice == 4)
+	{
+		if (GameData::diceLogger->getToggleValue() == true) {
+			GameData::diceLogger->turnOff();
+			cout << "Dice Logger has been turned off." << endl;
+		}
+		else {
+			GameData::diceLogger->turnOn();
+			cout << "Dice Logger has been turned on." << endl;
+		}
+	}
+
+	cout << "===============================" << endl;
+	TogglingLogger();
 }

@@ -14,4 +14,5 @@ public:
 	static void consoleGameplayOptions();
 	static void triggerInventoryView();
 	static void triggerCharacterView();
+	static void TogglingLogger();
 };

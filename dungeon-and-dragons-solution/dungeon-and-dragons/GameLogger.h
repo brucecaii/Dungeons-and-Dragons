@@ -32,6 +32,8 @@ public:
 	void turnOn();
 	void turnOff();
 
+	bool getToggleValue();
+
 private:
 	Map *_mapSubject;
 	Character *_characterSubject;

@@ -76,15 +76,6 @@ int main(int argc, char* argv[]) {
 	characterMaker.createCharacter(); //make coffee
 	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
 
-	enermy->displayCharacterInfo();
-	enermy->displayCharacterEquipment();
-	enermy->displayCharacterBackpack();
-	myBoy->displayCharacterInfo();
-	myBoy->displayCharacterEquipment();
-	myBoy->displayCharacterBackpack();
-	you->displayCharacterInfo();
-	you->displayCharacterEquipment();
-	you->displayCharacterBackpack();
 
 	//equip from backpack 
 	cout << endl << endl << endl << endl << "equip test!!!!!!!!!!!!!" << endl;
@@ -191,6 +182,7 @@ int main(int argc, char* argv[]) {
       /////////////////////
       // SCENE SELECTION //
       /////////////////////
+
       if (Gui::isSelectingChoice)
         Gui::uiManager.isSelectingChoice(window);
 
@@ -224,7 +216,7 @@ int main(int argc, char* argv[]) {
         Gui::uiManager.isCreatingOrEditingCharacter(window);
       }
       if (Gui::isPlayingGame) {
-		thread consoleActions(ConsoleActions::consoleGameplayOptions);
+		//thread consoleActions(ConsoleActions::consoleGameplayOptions);
         for (int i = 0; i < (int)GameData::gameCharacters.size(); i++) {
           GameData::gameCharacters[i]->executeStrategy(*GameData::currentMapObject);
         }

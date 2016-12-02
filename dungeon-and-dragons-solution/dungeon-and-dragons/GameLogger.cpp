@@ -151,3 +151,8 @@ void GameLogger::turnOff()
 {
 	this->toggleLogger(false);
 }
+
+bool GameLogger::getToggleValue()
+{
+	return this->_isActive;
+}
