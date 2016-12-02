@@ -7,6 +7,7 @@
 #include <vector>
 #include "../GameData.h"
 #include "Gui.h"
+#include "Utils.h"
 #include "Ui.h"
 #include "../Map/MapCampaignFileIO.h"
 
@@ -406,6 +407,14 @@ void Ui::isCreatingOrEditingCharacter(sf::RenderWindow& window) {
     this->drawText(window, "Edit Character Items", 24, Gui::PINK, Gui::W_WIDTH/2.0f, 260.0f);
     this->drawText(window, "Available Items", 20, Gui::PINK, Gui::W_WIDTH/4.0f, 300.0f);
     this->drawText(window, "Equipped Items", 20, Gui::PINK, 3*Gui::W_WIDTH/4.0f, 300.0f);
+
+    float fileListIncrement = 20.0f;
+    for (int i = 0; i < (int)Gui::current_items.size(); i++) {
+      Gui::current_item_positions.push_back(this->drawText(window, Gui::current_items[i], 20, Gui::WHITE, Gui::W_WIDTH/4.0f, 350.0f+i*fileListIncrement));
+    }
+    for (int i = 0; i < (int)GameData::currentCharacterObject->getCharacterEquipment()->getItems().size(); i++) {
+      Gui::current_equipped_item_positions.push_back(this->drawText(window, GameData::currentCharacterObject->getCharacterEquipment()->getItems()[i].getType(), 20, Gui::WHITE, 3*Gui::W_WIDTH/4.0f, 350.0f+i*fileListIncrement));
+    }
 
 
 

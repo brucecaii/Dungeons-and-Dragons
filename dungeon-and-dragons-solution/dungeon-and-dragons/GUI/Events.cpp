@@ -60,15 +60,16 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt
       if (Gui::createCharacterPosition.contains(mousePosition)) {
 		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Character Creation.");
         Gui::current_characters = util.readCurrentDirectoryContents("character");
+        Gui::current_items = util.readCurrentDirectoryContents("items");
         Gui::isSelectingChoice = false;
         Gui::isChoosingCharacterToCreate = true;
       }
       if (Gui::editCharacterPosition.contains(mousePosition)) {
 		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Character Editing.");
         Gui::current_characters = util.readCurrentDirectoryContents("character");
+        Gui::current_items = util.readCurrentDirectoryContents("items");
         Gui::isSelectingChoice = false;
         Gui::isChoosingCharacterToEdit = true;
-
       }
       if (Gui::createItemPosition.contains(mousePosition)) {
 		UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected Item Creation.");
@@ -135,6 +136,23 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
     }
   }
 
+  if (Gui::isCreatingCharacter || Gui::isEditingCharacter) {
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+
+      for (int i = 0; i < (int)Gui::current_item_positions.size(); i++) {
+        if (Gui::current_item_positions[i].contains(mousePosition)) {
+          string ext = ".item";
+          Gui::chosenItem = string(Gui::current_items[i]) + string(ext);
+          ItemFileIO ifio;
+          cout << "before" << endl;
+          Gui::tempItems.push_back(ifio.readItem(Gui::chosenItem));
+          GameData::currentCharacterObject->equipItem(*ifio.readItem(Gui::chosenItem));
+          cout << "after" << endl;
+        }
+      }
+    }
+  }
   if (Gui::isChoosingCampaignToEdit) {
     if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
       sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
@@ -173,6 +191,8 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           Gui::shouldShowCharacterValidationError = false;
           Gui::isChoosingCharacterToEdit = false;
           Gui::isEditingCharacter = true;
+          Utils util;
+        Gui::current_items = util.readCurrentDirectoryContents("item");
         }
       }
     }
@@ -328,6 +348,8 @@ void Events::respondToRealTimeTypeFeedback(sf::Event& evt) {
               Gui::createdCharacter = Gui::createdCharacter + ".character";
               Gui::isChoosingCharacterToCreate = false;
               Gui::isCreatingCharacter = true;
+          Utils util;
+        Gui::current_items = util.readCurrentDirectoryContents("item");
   
             }
           } else if (evt.text.unicode == 8) { // BACKSPACE

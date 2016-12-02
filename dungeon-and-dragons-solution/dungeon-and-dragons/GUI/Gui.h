@@ -20,6 +20,7 @@ namespace Gui{
   extern const sf::Vector2f mapAbsolutePositioning;
   extern Fonts fontGenerator;
   extern Ui uiManager;
+  extern vector<Item*> tempItems;
 
   extern sf::Font font;
   extern sf::Text text;
@@ -98,6 +99,7 @@ namespace Gui{
   extern vector<sf::FloatRect> current_campaign_map_order_positions;
   extern vector<sf::FloatRect> current_character_positions;
   extern vector<sf::FloatRect> current_item_positions;
+  extern vector<sf::FloatRect> current_equipped_item_positions;
   extern string playedCampaign;
   extern string playedCharacter;
   extern string playedMap;

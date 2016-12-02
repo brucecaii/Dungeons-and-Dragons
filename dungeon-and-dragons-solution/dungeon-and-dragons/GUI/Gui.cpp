@@ -35,6 +35,7 @@ namespace Gui{
   sf::RectangleShape box;
   sf::Sprite sprite;
 
+  vector<Item*> tempItems;
   // General button positions
   sf::FloatRect homeButtonPosition;
   sf::FloatRect saveButtonPosition;
@@ -106,6 +107,7 @@ namespace Gui{
   vector<sf::FloatRect> current_campaign_map_order_positions;
   vector<sf::FloatRect> current_character_positions;
   vector<sf::FloatRect> current_item_positions;
+  vector<sf::FloatRect> current_equipped_item_positions;
   string playedCampaign;
   string playedCharacter;
   string playedMap;
