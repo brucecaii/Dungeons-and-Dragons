@@ -1,0 +1,86 @@
+\hypertarget{class_human_player_strategy}{}\section{Human\+Player\+Strategy Class Reference}
+\label{class_human_player_strategy}\index{Human\+Player\+Strategy@{Human\+Player\+Strategy}}
+Inheritance diagram for Human\+Player\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_human_player_strategy}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_human_player_strategy_a6bd8ba3a590ee457282f57074d66809d}{execute} (\hyperlink{class_map}{Map} \&m, \hyperlink{class_character}{Character} \&c)
+\item 
+void \hyperlink{class_human_player_strategy_a2697fde934ee29e34a03191b7002726b}{move\+Player} (\hyperlink{class_map}{Map} \&m, \hyperlink{class_character}{Character} \&c)
+\item 
+void \hyperlink{class_human_player_strategy_ae2f29f9c391c7d8531f9df1c57c8dacf}{can\+Attack\+One\+Adjacent\+Character} (\hyperlink{class_map}{Map} \&m, \hyperlink{class_character}{Character} \&c)
+\item 
+void \hyperlink{class_human_player_strategy_ab3050fd752d889f2b99ebe25e629e6eb}{attack\+Character\+At\+Position} (\hyperlink{class_character}{Character} \&c, int char\+PosX, int char\+PosY)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_human_player_strategy_ab3050fd752d889f2b99ebe25e629e6eb}{}\label{class_human_player_strategy_ab3050fd752d889f2b99ebe25e629e6eb} 
+\index{Human\+Player\+Strategy@{Human\+Player\+Strategy}!attack\+Character\+At\+Position@{attack\+Character\+At\+Position}}
+\index{attack\+Character\+At\+Position@{attack\+Character\+At\+Position}!Human\+Player\+Strategy@{Human\+Player\+Strategy}}
+\subsubsection{\texorpdfstring{attack\+Character\+At\+Position()}{attackCharacterAtPosition()}}
+{\footnotesize\ttfamily void Human\+Player\+Strategy\+::attack\+Character\+At\+Position (\begin{DoxyParamCaption}\item[{\hyperlink{class_character}{Character} \&}]{c,  }\item[{int}]{char\+PosX,  }\item[{int}]{char\+PosY }\end{DoxyParamCaption})}
+
+Implementation of the attack\+Character\+At\+Positionmethod. This checks a specific cell occupied by a character. If a character is found, that character is attacked. 
+\begin{DoxyParams}{Parameters}
+{\em Reference} & to the character that this strategy belongs to. \\
+\hline
+{\em int} & for current character\textquotesingle{}s x-\/coordinate \\
+\hline
+{\em int} & for current character\textquotesingle{}s y-\/coordinate \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_human_player_strategy_ae2f29f9c391c7d8531f9df1c57c8dacf}{}\label{class_human_player_strategy_ae2f29f9c391c7d8531f9df1c57c8dacf} 
+\index{Human\+Player\+Strategy@{Human\+Player\+Strategy}!can\+Attack\+One\+Adjacent\+Character@{can\+Attack\+One\+Adjacent\+Character}}
+\index{can\+Attack\+One\+Adjacent\+Character@{can\+Attack\+One\+Adjacent\+Character}!Human\+Player\+Strategy@{Human\+Player\+Strategy}}
+\subsubsection{\texorpdfstring{can\+Attack\+One\+Adjacent\+Character()}{canAttackOneAdjacentCharacter()}}
+{\footnotesize\ttfamily void Human\+Player\+Strategy\+::can\+Attack\+One\+Adjacent\+Character (\begin{DoxyParamCaption}\item[{\hyperlink{class_map}{Map} \&}]{m,  }\item[{\hyperlink{class_character}{Character} \&}]{c }\end{DoxyParamCaption})}
+
+Implementation of the can\+Attack\+One\+Adjacent\+Character method. This checks all directions for adjacent cells occupied by a character. If a character is found, that character is attacked in response to the user\textquotesingle{}s input. 
+\begin{DoxyParams}{Parameters}
+{\em Reference} & to the map currently being played \\
+\hline
+{\em Reference} & to the character that this strategy belongs to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_human_player_strategy_a6bd8ba3a590ee457282f57074d66809d}{}\label{class_human_player_strategy_a6bd8ba3a590ee457282f57074d66809d} 
+\index{Human\+Player\+Strategy@{Human\+Player\+Strategy}!execute@{execute}}
+\index{execute@{execute}!Human\+Player\+Strategy@{Human\+Player\+Strategy}}
+\subsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily void Human\+Player\+Strategy\+::execute (\begin{DoxyParamCaption}\item[{\hyperlink{class_map}{Map} \&}]{m,  }\item[{\hyperlink{class_character}{Character} \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Implementation of the Strategy pattern execute method. In this case, if the character is alive, the map and character information is displayed. The player is moved based on user feedback, and if there is an adjacent character available to attack, the user can chose to decide to attack or not. If the user is dead/unconscious, the game ends. 
+\begin{DoxyParams}{Parameters}
+{\em Reference} & to the map currently being played \\
+\hline
+{\em Reference} & to the character that this strategy belongs to. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_character_strategy}{Character\+Strategy}.
+
+\hypertarget{class_human_player_strategy_a2697fde934ee29e34a03191b7002726b}{}\label{class_human_player_strategy_a2697fde934ee29e34a03191b7002726b} 
+\index{Human\+Player\+Strategy@{Human\+Player\+Strategy}!move\+Player@{move\+Player}}
+\index{move\+Player@{move\+Player}!Human\+Player\+Strategy@{Human\+Player\+Strategy}}
+\subsubsection{\texorpdfstring{move\+Player()}{movePlayer()}}
+{\footnotesize\ttfamily void Human\+Player\+Strategy\+::move\+Player (\begin{DoxyParamCaption}\item[{\hyperlink{class_map}{Map} \&}]{m,  }\item[{\hyperlink{class_character}{Character} \&}]{c }\end{DoxyParamCaption})}
+
+Implementation of the move\+Player character. In response to user feedback, the character is moved to an empty map cell adjacent to the human player character. 
+\begin{DoxyParams}{Parameters}
+{\em Reference} & to the map currently being played \\
+\hline
+{\em Reference} & to the character that this strategy belongs to. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Character/Human\+Player\+Strategy.\+h\item 
+Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Character/\hyperlink{_human_player_strategy_8cpp}{Human\+Player\+Strategy.\+cpp}\end{DoxyCompactItemize}

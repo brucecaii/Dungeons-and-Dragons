@@ -1,0 +1,28 @@
+\hypertarget{_friendly_strategy_8h}{}\section{Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Character/\+Friendly\+Strategy.h File Reference}
+\label{_friendly_strategy_8h}\index{Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Character/\+Friendly\+Strategy.\+h@{Bruce Character/\+Dungeons-\/and-\/\+Jason/dungeon-\/and-\/dragons-\/solution/dungeon-\/and-\/dragons/\+Character/\+Friendly\+Strategy.\+h}}
+
+
+Header file for the \hyperlink{class_friendly_strategy}{Friendly\+Strategy} class.  
+
+
+{\ttfamily \#include \char`\"{}Character.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Character\+Strategy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Map/\+Map.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_friendly_strategy}{Friendly\+Strategy}
+\begin{DoxyCompactList}\small\item\em Class representing the Friendly strategy for a particular \hyperlink{class_character}{Character} Object. It inherits from the Strategy abstract class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file for the \hyperlink{class_friendly_strategy}{Friendly\+Strategy} class. 
+
+Implement character (friendly or unfriendly) actions as strategy pattern Each turn, a character can proceed with\+:
+\begin{DoxyItemize}
+\item move
+\item attack
+\item free action
+\end{DoxyItemize}
+
+Must implement these Concrete\+Strategies\+: 1) a \hyperlink{class_human_player_strategy}{Human\+Player\+Strategy} that lets the user decide where to move, who to attack, and what free actions to take; 2) an \hyperlink{class_aggressor_strategy}{Aggressor\+Strategy} that make the character automatically move towards and attack the player character; 3) a \hyperlink{class_friendly_strategy}{Friendly\+Strategy} that makes the character automatically move towards the character, but not attack unless attacked, in which case it adopts the Aggressor\+Strategy.\+klA 
