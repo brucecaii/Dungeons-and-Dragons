@@ -250,14 +250,10 @@ void Character::lootCharacter(Character* character) {
 	}
 }
 
-<<<<<<< HEAD
 //! @method determines type of character you are
 //! @param a char(single letter)
 //! @return string denoting type of character you are
-string Character::getTypeInString(char c)
-=======
 string Character::getTypeInString()
->>>>>>> 74a2cbfdcc72c1c102ba42610bf83ef34907132d
 {
 	string objName;
 	char c = this->getTypeOnMap();
