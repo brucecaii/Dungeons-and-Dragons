@@ -10,15 +10,6 @@ using std::cout;
 // constant representing number of item types
 static const int NUMBER_ITEM_TYPES = 7;
 
-// constants for maximum number of allowed enhancements for each item type
-static const int MAX_HELMET_ENHANCEMENTS = 3;
-static const int MAX_ARMOR_ENHANCEMENTS = 1;
-static const int MAX_SHIELD_ENHANCEMENTS = 1;
-static const int MAX_RING_ENHANCEMENTS = 5;
-static const int MAX_BELT_ENHANCEMENTS = 2;
-static const int MAX_BOOTS_ENHANCEMENTS = 2;
-static const int MAX_WEAPON_ENHANCEMENTS = 2;
-
 //! default constructor
 Item::Item()
 {
@@ -28,7 +19,7 @@ Item::Item()
 //! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
 //! @param type_name : string representing the type of item
 //! @param influences : vector containing all the characteristics influenced by the item
-Item::Item(string type_name, vector<Enhancement> influences, string nameofitem)
+Item::Item(string type_name, Enhancement enhancement, string nameofitem)
 {
 	name = nameofitem;
 	
@@ -42,7 +33,7 @@ Item::Item(string type_name, vector<Enhancement> influences, string nameofitem)
 
 	// enhances a character statistic valid for this item type
 	type = type_name;
-	influence = influences;
+	this->enhancement = enhancement;
 }
 
 //! method to get the type of the item
@@ -54,9 +45,9 @@ string Item::getType()
 
 //! method to get the influences of the item
 //! @return : vector containg the list of stats that the item enhances
-vector<Enhancement> Item::getInfluences()
+Enhancement Item::getEnhancement()
 {
-	return influence;
+	return this->enhancement;
 }
 
 //! method to validate an item, e.g. verify that an new item of a certain type only enhances a character statistic valid for this item type
@@ -118,31 +109,16 @@ bool Item::validateItemType(string type)
 bool Item::validateHelmet()
 {
 	// array containing the allowed types of enhancements for helmet
-	string helmetEnhancements[MAX_HELMET_ENHANCEMENTS] = { "Intelligence", "Wisdom", "Armor Class" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string helmetEnhancements[3] = { "Intelligence", "Wisdom", "Armor Class" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
-	// if the given number of enhancements is greater than the maximum allowed number of enhancements for helmet, return false
-	if (givenEnhancements.size() > MAX_HELMET_ENHANCEMENTS )
-	{
-		return false;
+	// compare the current iteration with each allowed enchancement type for helmet
+	if (givenEnhancements.getType().compare(helmetEnhancements[0]) || 
+		givenEnhancements.getType().compare(helmetEnhancements[1]) || 
+		givenEnhancements.getType().compare(helmetEnhancements[2])) {
+				return true;
 	}
-	else
-	{
-		// iterate to verify each enhancement given to helmet
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++) 
-		{
-			// compare the current iteration with each allowed enchancement type for helmet
-			if (i->getType().compare(helmetEnhancements[0]) || i->getType().compare(helmetEnhancements[1]) || i->getType().compare(helmetEnhancements[2]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+	return true;
 }
 
 //! method to validate a armor, e.g verify that it contains only the allowed enhancements
@@ -150,31 +126,13 @@ bool Item::validateHelmet()
 bool Item::validateArmor()
 {
 	// array containing the allowed types of enhancements for armor
-	string armorEnhancements[MAX_HELMET_ENHANCEMENTS] = { "Armor Class" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string armorEnhancements[1] = { "Armor Class" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
-	// if the given number of enhancements is greater than the maximum allowed number of enhancements for armor, return false
-	if (givenEnhancements.size() > MAX_ARMOR_ENHANCEMENTS)
-	{
-		return false;
-	}
-	else
-	{
-		// iterate to verify each enhancement given to armor
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++)
-		{
-			// compare the current iteration with each allowed enchancement type for armor
-			if (i->getType().compare(armorEnhancements[0]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	if (givenEnhancements.getType().compare(armorEnhancements[0])) {
 		return true;
 	}
+	return true;
 }
 
 //! method to validate a shield, e.g verify that it contains only the allowed enhancements
@@ -182,31 +140,13 @@ bool Item::validateArmor()
 bool Item::validateShield()
 {
 	// array containing the allowed types of enhancements for shield
-	string shieldEnhancements[MAX_SHIELD_ENHANCEMENTS] = { "Armor Class" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string shieldEnhancements[1] = { "Armor Class" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
-	// if the given number of enhancements is greater than the maximum allowed number of enhancements for shield, return false
-	if (givenEnhancements.size() > MAX_SHIELD_ENHANCEMENTS)
-	{
-		return false;
-	}
-	else
-	{
-		// iterate to verify each enhancement given to shield
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++)
-		{
-			// compare the current iteration with each allowed enchancement type for shield
-			if (i->getType().compare(shieldEnhancements[0]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	if (givenEnhancements.getType().compare(shieldEnhancements[0])) {
 		return true;
 	}
+	return true;
 }
 
 //! method to validate a ring, e.g verify that it contains only the allowed enhancements
@@ -214,32 +154,18 @@ bool Item::validateShield()
 bool Item::validateRing()
 {
 	// array containing the allowed types of enhancements for ring
-	string ringEnhancements[MAX_RING_ENHANCEMENTS] = { "Armor Class", "Strength", "Constitution", "Wisdom", "Charisma" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string ringEnhancements[5] = { "Armor Class", "Strength", "Constitution", "Wisdom", "Charisma" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
 	// if the given number of enhancements is greater than the maximum allowed number of enhancements for ring, return false
-	if (givenEnhancements.size() > MAX_RING_ENHANCEMENTS)
-	{
-		return false;
-	}
-	else
-	{
-		// iterate to verify each enhancement given to ring
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++)
-		{
-			// compare the current iteration with each allowed enchancement type for ring
-			if (i->getType().compare(ringEnhancements[0]) || i->getType().compare(ringEnhancements[1]) || i->getType().compare(ringEnhancements[2])
-				|| i->getType().compare(ringEnhancements[3]) || i->getType().compare(ringEnhancements[4]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	if (givenEnhancements.getType().compare(ringEnhancements[0]) ||
+		givenEnhancements.getType().compare(ringEnhancements[1]) ||
+		givenEnhancements.getType().compare(ringEnhancements[2]) ||
+		givenEnhancements.getType().compare(ringEnhancements[3]) || 
+		givenEnhancements.getType().compare(ringEnhancements[4])) {
 		return true;
 	}
+	return true;
 }
 
 //! method to validate a belt, e.g verify that it contains only the allowed enhancements
@@ -247,31 +173,14 @@ bool Item::validateRing()
 bool Item::validateBelt()
 {
 	// array containing the allowed types of enhancements for belt
-	string beltEnhancements[MAX_BELT_ENHANCEMENTS] = { "Constitution", "Strength" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string beltEnhancements[2] = { "Constitution", "Strength" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
-	// if the given number of enhancements is greater than the maximum allowed number of enhancements for belt, return false
-	if (givenEnhancements.size() > MAX_BELT_ENHANCEMENTS)
-	{
-		return false;
-	}
-	else
-	{
-		// iterate to verify each enhancement given to belt
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++)
-		{
-			// compare the current iteration with each allowed enchancement type for belt
-			if (i->getType().compare(beltEnhancements[0]) || i->getType().compare(beltEnhancements[1]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	if (givenEnhancements.getType().compare(beltEnhancements[0]) ||
+		givenEnhancements.getType().compare(beltEnhancements[1])) {
 		return true;
 	}
+	return true;
 }
 
 //! method to validate a boots, e.g verify that it contains only the allowed enhancements
@@ -279,31 +188,14 @@ bool Item::validateBelt()
 bool Item::validateBoots()
 {
 	// array containing the allowed types of enhancements for boots
-	string bootsEnhancements[MAX_BOOTS_ENHANCEMENTS] = { "Armor class", "Dexterity" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string bootsEnhancements[2] = { "Armor class", "Dexterity" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
-	// if the given number of enhancements is greater than the maximum allowed number of enhancements for boots, return false
-	if (givenEnhancements.size() > MAX_BOOTS_ENHANCEMENTS)
-	{
-		return false;
-	}
-	else
-	{
-		// iterate to verify each enhancement given to boots
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++)
-		{
-			// compare the current iteration with each allowed enchancement type for boots
-			if (i->getType().compare(bootsEnhancements[0]) || i->getType().compare(bootsEnhancements[1]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	if (givenEnhancements.getType().compare(bootsEnhancements[0]) ||
+		givenEnhancements.getType().compare(bootsEnhancements[1])) {
 		return true;
 	}
+	return true;
 }
 
 //! method to validate a weapon, e.g verify that it contains only the allowed enhancements
@@ -311,31 +203,27 @@ bool Item::validateBoots()
 bool Item::validateWeapon()
 {
 	// array containing the allowed types of enhancements for weapon
-	string weaponEnhancements[MAX_WEAPON_ENHANCEMENTS] = { "Attack bonus", "Damange bonus" };
-	vector<Enhancement> givenEnhancements = this->getInfluences();
+	string weaponEnhancements[2] = { "Attack bonus", "Damange bonus" };
+	Enhancement givenEnhancements = this->getEnhancement();
 
-	// if the given number of enhancements is greater than the maximum allowed number of enhancements for weapon, return false
-	if (givenEnhancements.size() > MAX_WEAPON_ENHANCEMENTS)
-	{
-		return false;
-	}
-	else
-	{
-		// iterate to verify each enhancement given to weapon
-		for (auto i = givenEnhancements.begin(); i != givenEnhancements.end(); i++)
-		{
-			// compare the current iteration with each allowed enchancement type for weapon
-			if (i->getType().compare(weaponEnhancements[0]) || i->getType().compare(weaponEnhancements[1]))
-			{
-				continue;
-			}
-			else
-			{
-				return false;
-			}
-		}
+	if (givenEnhancements.getType().compare(weaponEnhancements[0]) ||
+		givenEnhancements.getType().compare(weaponEnhancements[1])) {
 		return true;
 	}
+	return true;
+}
+
+//! method to validate by item type
+//! @return : boolean of validation
+bool Item::validateByType(string type) {
+	if (type == "Weapon") return this->validateWeapon();
+	if (type == "Boots") return this->validateBoots();
+	if (type == "Helmet") return this->validateHelmet();
+	if (type == "Ring") return this->validateRing();
+	if (type == "Belt") return this->validateBelt();
+	if (type == "Armor") return this->validateArmor();
+	if (type == "Shield") return this->validateShield();
+	return false;
 }
 
 //! method to get name of the item
@@ -360,7 +248,7 @@ void Item::setType(string type_name)
 
 //! method to set enhancements of an item
 //! @param type_name : vector representing the enhancements of the item
-void Item::setEnhancements(vector<Enhancement> enhancements)
+void Item::setEnhancement(Enhancement enhancements)
 {
-	this->influence = std::move(enhancements);
+	this->enhancement = enhancements;
 }

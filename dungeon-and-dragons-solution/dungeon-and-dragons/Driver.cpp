@@ -38,6 +38,28 @@ int main(int argc, char* argv[]) {
 	characterMaker.createCharacter(); //make coffee
 	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
 
+	/*
+	Create Item
+	*/
+	string itemName = "Jason's Mind"; //prompt user input of this
+	string itemType = "Helmet"; //prompt user input of this
+	string itemEnhancement = "wis"; //prompt user input of this
+	int enhancementBonus = 5; //prompt user input of this
+
+	Enhancement *enhancement = new Enhancement(itemEnhancement, enhancementBonus);
+	if (!enhancement->validateBonus()) {
+		//ask user to re-create item
+	}
+	else {
+		Item *newItem = new Item(itemType, *enhancement, itemName);
+		if (!(newItem->validateItemType(itemType) && newItem->validateByType(itemType))) {
+			//ask user to re-create
+		}
+		else {
+			//successfully create, newItem is the new item!
+		}
+	}
+
 	enermy->display();
 	myBoy->display();
 	you->display();
@@ -55,63 +77,26 @@ int main(int argc, char* argv[]) {
 	Enhancement damage("Damage bonus", 5);
 	Enhancement fake("Fake Enhancement", 5);
 
-	//Adding helmet allowed enhancements to vector
-	vector<Enhancement> helmet_enhan;
-	helmet_enhan.push_back(intelligence);
-	helmet_enhan.push_back(wisdom);
-	helmet_enhan.push_back(armor);
-
-	//Adding armor allowed enhancements to vector
-	vector<Enhancement> armor_enhan;
-	armor_enhan.push_back(armor);
-
-	//Adding shield allowed enhancements to vector
-	vector<Enhancement> shield_enhan;
-	shield_enhan.push_back(armor);
-
-	//Adding ring allowed enhancements to vector
-	vector<Enhancement> ring_enhan;
-	ring_enhan.push_back(armor);
-	ring_enhan.push_back(strength);
-	ring_enhan.push_back(constitution);
-	ring_enhan.push_back(wisdom);
-	ring_enhan.push_back(armor);
-
-	//Adding belt allowed enhancements to vector
-	vector<Enhancement> belt_enhan;
-	belt_enhan.push_back(constitution);
-	belt_enhan.push_back(strength);
-
-	//Adding boots allowed enhancements to vector
-	vector<Enhancement> boots_enhan;
-	boots_enhan.push_back(armor);
-	boots_enhan.push_back(dexterity);
-
-	//Adding weapon allowed enhancements to vector
-	vector<Enhancement> weapon_enhan;
-	weapon_enhan.push_back(attack);
-	weapon_enhan.push_back(damage);
-
 	//Creating a helmet object and assigning valid enhancements
-	Item helmet_item("Helmet", helmet_enhan, "Beautiful Hat");
+	Item helmet_item("Helmet", intelligence, "Beautiful Hat");
 
 	//Creating a armor object and assigning valid enhancements
-	Item armor_item("Armor", armor_enhan, "Beautiful Armor");
+	Item armor_item("Armor", armor, "Beautiful Armor");
 
 	//Creating a shield object and assigning valid enhancements
-	Item shield_item("Shield", shield_enhan, "Beautiful Shield");
+	Item shield_item("Shield", armor, "Beautiful Shield");
 
 	//Creating a ring object and assigning valid enhancements
-	Item ring_item("Ring", ring_enhan, "Beautiful Ring");
+	Item ring_item("Ring", constitution, "Beautiful Ring");
 
 	//Creating a belt object and assigning valid enhancements
-	Item belt_item("Belt", belt_enhan, "Beautiful Belt");
+	Item belt_item("Belt", strength, "Beautiful Belt");
 
 	//Creating a boots object and assigning valid enhancements
-	Item boots_item("Boots", boots_enhan, "Beautiful Boots");
+	Item boots_item("Boots", dexterity, "Beautiful Boots");
 
 	//Creating a helmet object and assigning valid enhancements
-	Item weapon_item("Weapon", weapon_enhan, "Beautiful Weapon");
+	Item weapon_item("Weapon", damage, "Beautiful Weapon");
 
     ///////////////////////////
     // INITIALIZING GUI DATA //

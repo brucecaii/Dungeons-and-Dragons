@@ -18,13 +18,11 @@ void ItemFileIO::saveItem(string filePath, Item item)
 	std::cout << "Saving Item..." << endl;
 	ofstream writeJsonFile(filePath, ofstream::out);
 	json jsonItem;
-	json jsonInfluence;
-
-	getInfluencesJson(jsonInfluence, item);
 
 	jsonItem["item_type"] = item.getType();
 	jsonItem["item_name"] = item.getName();
-	jsonItem["enhancements"] = jsonInfluence;
+	jsonItem["enhancementType"] = item.getEnhancement().getType();
+	jsonItem["enhancementBonus"] = item.getEnhancement().getBonus();
 
 	writeJsonFile << jsonItem;
 	writeJsonFile.close();
@@ -40,34 +38,9 @@ void ItemFileIO::readItem(string filePath, Item& item)
 	if (readJsonFile.is_open())
 	{
 		json jsonItem(readJsonFile);
-		vector<Enhancement> enhancements;
-		auto enhancers = jsonItem["enhancements"];
-		//retrieving enhancements 
-		for (size_t j = 0; j < enhancers.size(); j++)
-		{
-			//Creating an enhancement vector
-			auto currentEnhancement = enhancers.at(j);
-			enhancements.push_back(Enhancement(currentEnhancement["enhancement_type"].get<string>(),
-				currentEnhancement["bonus"].get<int>()));
-		}
+		Enhancement *enhancement = new Enhancement(jsonItem["enhancementType"], jsonItem["enhancementBonus"]);
 		item.setName(jsonItem["item_name"]);
 		item.setType(jsonItem["item_type"]);
-		item.setEnhancements(enhancements);
-	}
-}
-
-//! Method to get JSON format of influences from an item
-//! @param &influence : reference to json object
-//! @param item : item to extract influences from
-void ItemFileIO::getInfluencesJson(json& influence, Item item)
-{
-	auto enhancements = item.getInfluences();
-	for (auto j = enhancements.begin(); j != enhancements.end(); j++)
-	{
-		json currentInfluence;
-		currentInfluence["enhancement_type"] = j->getType();
-		currentInfluence["bonus"] = j->getBonus();
-
-		influence.push_back(currentInfluence);
+		item.setEnhancement(*enhancement);
 	}
 }
