@@ -31,11 +31,8 @@ using std::endl;
 //! @param Reference to the map currently being played
 //! @param Reference to the character that this strategy belongs to.
 void HumanPlayerStrategy::execute(Map& m, Character& c) {
+  cout << "Executing strategy now" << endl;
   if (c.getHitPoint() > 0) {
-    /////////////////////////////
-    // NEED BENNYS LOGGER HERE //
-    /////////////////////////////
-    //c.displayCharacter();
     m.display();
     this->canAttackOneAdjacentCharacter(m, c);
     /////////////////////////////
@@ -44,14 +41,11 @@ void HumanPlayerStrategy::execute(Map& m, Character& c) {
     m.display();
     this->movePlayer(m,c);
   } else {
-    /////////////////////////////
-    // NEED BENNYS LOGGER HERE //
-    /////////////////////////////
-    //cout << endl;
-    //cout << "*****************************" << endl;
-    //cout << "* You have died! Game over! *" << endl;
-    //cout << "*****************************" << endl;
-    //cout << endl;
+    cout << endl;
+    cout << "*****************************" << endl;
+    cout << "* You have died! Game over! *" << endl;
+    cout << "*****************************" << endl;
+    cout << endl;
     exit(0);
   }
 }
@@ -70,20 +64,23 @@ void HumanPlayerStrategy::movePlayer(Map& m, Character& c) {
 
   if (temp.size()>0) {
     if (tolower(temp.at(0)) == 'w' &&
+        charPosY>0 &&
+        (m.getCell(charPosX, charPosY-1) == ' ' || m.getCell(charPosX-1, charPosY) == 'E')) {
+      this->moveUp(m,c);
+    } else
+      if (tolower(temp.at(0)) == 'a' &&
         charPosX>0 &&
         (m.getCell(charPosX-1, charPosY) == ' ' || m.getCell(charPosX-1, charPosY) == 'E')) {
-      this->moveUp(m,c);
-    } else if (tolower(temp.at(0)) == 'a' &&
-        charPosY>0 &&
-        (m.getCell(charPosX, charPosY-1) == ' ' || m.getCell(charPosX, charPosY-1) == 'E')) {
       this->moveLeft(m,c);
-    } else if (tolower(temp.at(0)) == 's' &&
+    }
+      else if (tolower(temp.at(0)) == 's' &&
+        charPosY<m.getMapLength()-1 &&
+        (m.getCell(charPosX, charPosY+1) == ' ' || m.getCell(charPosX+1, charPosY) == 'E')) {
+      this->moveDown(m,c);
+    } else
+    if (tolower(temp.at(0)) == 'd' &&
         charPosX<m.getMapWidth()-1 &&
         (m.getCell(charPosX+1, charPosY) == ' ' || m.getCell(charPosX+1, charPosY) == 'E')) {
-      this->moveDown(m,c);
-    } else if (tolower(temp.at(0)) == 'd' &&
-        charPosY<m.getMapLength()-1 &&
-        (m.getCell(charPosX, charPosY+1) == ' ' || m.getCell(charPosX, charPosY+1) == 'E')) {
       this->moveRight(m,c);
     }
   }

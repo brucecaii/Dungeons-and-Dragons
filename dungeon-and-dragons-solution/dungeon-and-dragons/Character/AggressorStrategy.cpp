@@ -28,7 +28,7 @@ void AggressorStrategy::execute(Map& m, Character& c) {
     //////////////////////////////
     //c.displayCharacter()
     this->moveCloserToHuman(m, c);
-    this->canAttackOneAdjacentCharacter(m, c);
+    //this->canAttackOneAdjacentCharacter(m, c);
   }
 }
 
@@ -43,21 +43,21 @@ void AggressorStrategy::moveCloserToHuman(Map& m, Character& c) {
   int originalDistance = this->shortestDistanceToHuman(charPosX, charPosY, humanPosX, humanPosY);
 
   if (originalDistance != 0) {
-    if (charPosX>0 &&
-        m.getCell(charPosX-1, charPosY) == ' ' &&
-        this->shortestDistanceToHuman(charPosX-1, charPosY, humanPosX, humanPosY) <= originalDistance) {
-      this->moveUp(m,c);
-    } else if (charPosY>0 &&
+    if (charPosY>0 &&
         m.getCell(charPosX, charPosY-1) == ' ' &&
         this->shortestDistanceToHuman(charPosX, charPosY-1, humanPosX, humanPosY) <= originalDistance) {
+      this->moveUp(m,c);
+    } else if (charPosX>0 &&
+        m.getCell(charPosX-1, charPosY) == ' ' &&
+        this->shortestDistanceToHuman(charPosX-1, charPosY, humanPosX, humanPosY) <= originalDistance) {
       this->moveLeft(m,c);
-    } else if (charPosX<m.getMapWidth()-1 &&
-        m.getCell(charPosX+1, charPosY) == ' ' &&
-        this->shortestDistanceToHuman(charPosX+1, charPosY, humanPosX, humanPosY) <= originalDistance) {
-      this->moveDown(m,c);
     } else if (charPosY<m.getMapLength()-1 &&
         m.getCell(charPosX, charPosY+1) == ' ' &&
         this->shortestDistanceToHuman(charPosX, charPosY+1, humanPosX, humanPosY) <= originalDistance) {
+      this->moveDown(m,c);
+    } else if (charPosX<m.getMapWidth()-1 &&
+        m.getCell(charPosX+1, charPosY) == ' ' &&
+        this->shortestDistanceToHuman(charPosX+1, charPosY, humanPosX, humanPosY) <= originalDistance) {
       this->moveRight(m,c);
     }
   }

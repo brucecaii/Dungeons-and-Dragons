@@ -153,7 +153,6 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           string ext = ".character";
           Gui::chosenCharacter = string(Gui::current_characters[i]) + string(ext);
           CharacterFileIO cfio;
-          //GameData::currentCharacterObject = new Fighter();
           GameData::currentCharacterObject = cfio.readCharacter(Gui::chosenCharacter);
           Gui::shouldShowCharacterValidationError = false;
           Gui::isChoosingCharacterToEdit = false;
@@ -201,6 +200,8 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
             Gui::shouldShowPlayerTypeError = true;
             return;
           }
+          GameData::currentCharacterObject->setTypeOnMap('S');
+          GameData::gameCharacters.push_back(GameData::currentCharacterObject);
 
           // Setup for remainder of game.
 
@@ -214,33 +215,35 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           vector<tuple<char,int,int>> characterPositions = GameData::currentMapObject->getAllCharacterPositions();
           Gui::tempGameCharacters.clear();
 
+          cout << "Going to check for existing chars in gameCharacters. its size: " << GameData::gameCharacters.size() << endl;
+
           for (int i = 0; i < (int)characterPositions.size(); i++) {
-            Fighter* isFound = nullptr;
             for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
-              if (GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
-                  GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
-                  GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i]) &&
-                  std::get<0>(characterPositions[i]) != 'S') {
-                // game character matches to one on map!!
-                isFound = GameData::gameCharacters[i];
-              }
               if (std::get<0>(characterPositions[i]) == 'S') {
                 vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
                 GameData::currentCharacterObject->setCurrentPosition(currentPosition);
-                isFound = GameData::currentCharacterObject;
+                GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
+                Gui::tempGameCharacters.push_back(GameData::currentCharacterObject);
+                cout << "pushed back main character!" << endl;
+              } else if (GameData::gameCharacters.size()>0 &&
+                  GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
+                  GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
+                  GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
+                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                GameData::gameCharacters[i]->setCurrentPosition(currentPosition);
+                Gui::tempGameCharacters.push_back(GameData::gameCharacters[i]);
+                cout << "pushed back existing character" << endl;
               }
             }
-            if (isFound != nullptr) {
-                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                isFound->setCurrentPosition(currentPosition);
-              Gui::tempGameCharacters.push_back(isFound);
-            }
           }
+
 
           // Removed all gameCharacters that were not on the Map.
           GameData::gameCharacters = Gui::tempGameCharacters;
 
-
+          cout << "size of gameCharacters" << GameData::gameCharacters.size() << endl;
+          cout << GameData::gameCharacters[0]->getPlayerType() << endl;
+          cout << GameData::gameCharacters[0]->getTypeOnMap() << endl;
           // Also need to scale each to the campaign level
           // Also need to make sure that the 'S' Character is always consistent across maps in campaign
 
@@ -250,33 +253,41 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           for (int i = 0; i < (int)characterPositions.size(); i++) {
             bool shouldMakeDefaultChar = true;
             for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
-              if (GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
-                  GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
-                  GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
+              cout << "About to test getTypeOnMap" << GameData::gameCharacters.size() << endl;
+              if (GameData::gameCharacters[j]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
+                  GameData::gameCharacters[j]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
+                  GameData::gameCharacters[j]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
                 shouldMakeDefaultChar  = false;
               }
             }
             if (shouldMakeDefaultChar) {
+              cout << "making default character" << GameData::gameCharacters.size() << endl;
               if (std::get<0>(characterPositions[i]) == 'C') {
                 builder = new FriendlyCharacterBuilder("Nimble", 1); // Default is set to Nimble type and lvl1
                 selectHero.setCharacterBuilder(builder);
-                //selectHero.createCharacter();
-                //Fighter* temp = selectHero.getCharacter();
-                //vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                //temp->setCurrentPosition(currentPosition);
-                //GameData::gameCharacters.push_back(temp);
+                selectHero.createCharacter();
+                Gui::tempCharacter = selectHero.getCharacter();
+                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                Gui::tempCharacter->setCurrentPosition(currentPosition);
+                Gui::tempCharacter->setTypeOnMap('C');
+                Gui::tempGameCharacters.push_back(Gui::tempCharacter);
+                GameData::gameCharacters.push_back(Gui::tempCharacter);
               }
               if (std::get<0>(characterPositions[i]) == 'O') {
                 builder = new AggressorCharacterBuilder("Nimble", 1);
                 selectHero.setCharacterBuilder(builder);
-                //selectHero.createCharacter();
-                //Fighter* temp = selectHero.getCharacter();
-                //vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                //temp->setCurrentPosition(currentPosition);
-                //GameData::gameCharacters.push_back(temp);
+                selectHero.createCharacter();
+                Gui::tempCharacter = selectHero.getCharacter();
+                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+                Gui::tempCharacter->setCurrentPosition(currentPosition);
+                Gui::tempCharacter->setTypeOnMap('0');
+                Gui::tempGameCharacters.push_back(Gui::tempCharacter);
+                GameData::gameCharacters.push_back(Gui::tempCharacter);
               }
             }
           }
+
+          cout << "Number of GameCharacters" << GameData::gameCharacters.size() << endl;
 
 
             //// ALSO CHECK FOR CHEST CONTENTS HERE
@@ -773,7 +784,6 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt
       Gui::GamePlayCurrentMap++;
       if (Gui::GamePlayCurrentMap != (int)GameData::currentCampaignObject->getCampaignMapOrder().size()) {
         GameData::currentCharacterObject->levelUp();
-        //GameData::currentCharacterObject->displayCharacter();
         Gui::playedMap = GameData::currentCampaignObject->getCampaignMapOrder()[Gui::GamePlayCurrentMap];
         MapCampaignFileIO mfio;
         mfio.readMapJSON(Gui::playedMap+".map");
