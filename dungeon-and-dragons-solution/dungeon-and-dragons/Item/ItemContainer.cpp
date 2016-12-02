@@ -40,7 +40,7 @@ void ItemContainer::addItem(Item anitem)
 //! @return : item of the specified kind provided in input
 Item ItemContainer::getItemByType(string itemType)
 {
-	for (int i = 0; i < Items.size(); i++) {
+	for (size_t i = 0; i < Items.size(); i++) {
 		if (Items[i].getType() == itemType) 
 			return Items[i];
 	}
@@ -53,7 +53,7 @@ Item ItemContainer::getItemByType(string itemType)
 //! @return : item of the specified kind provided in input
 Item ItemContainer::getItemByName(string itemName)
 {
-	for (int i = 0; i < Items.size(); i++) {
+	for (size_t i = 0; i < Items.size(); i++) {
 		if (Items[i].getName() == itemName) 
 			return Items[i];
 	}
@@ -64,7 +64,7 @@ Item ItemContainer::getItemByName(string itemName)
 //!  deleting item by item name
 void ItemContainer::deleteItem(string s) {
 	
-	for (int i = 0; i < Items.size(); i++){
+	for (size_t i = 0; i < Items.size(); i++){
 		if (Items[i].getName() == s) {
 			Items.erase(Items.begin()+i);
 		}
@@ -73,7 +73,7 @@ void ItemContainer::deleteItem(string s) {
 
 //! deleting item by type
 void ItemContainer::deleteItemByType(string type) {
-	for (int i = 0; i < Items.size(); i++){
+	for (size_t i = 0; i < Items.size(); i++){
 		if (Items[i].getType() == type) {
 			Items.erase(Items.begin()+i);
 			}
@@ -90,7 +90,7 @@ void ItemContainer::display()
 {
 	//Getting items from the container and printing it
 	auto items = this->getItems();
-	for (int i = 0; i < items.size(); i++)
+	for (size_t i = 0; i < items.size(); i++)
 	{
 		//Printing item information
 		cout << "=================================" << endl;

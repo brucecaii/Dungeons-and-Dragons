@@ -216,7 +216,7 @@ void Character::display()
 	string currentDamageBonus = to_string(this->getDamageBonus());
 	string currentAttackBonus = "[";
 
-	for (int i = 0; i < attackBonus.size(); i++)
+	for (size_t i = 0; i < attackBonus.size(); i++)
 	{
 		if (i == attackBonus.size() - 1)
 		{
