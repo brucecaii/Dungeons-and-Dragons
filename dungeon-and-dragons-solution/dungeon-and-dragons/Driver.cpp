@@ -82,6 +82,30 @@ int main(int argc, char* argv[]) {
 	you->displayCharacterEquipment();
 	you->displayCharacterBackpack();
 
+	//equip from backpack 
+	cout << endl << endl << endl << endl << "equip test!!!!!!!!!!!!!" << endl;
+	Enhancement *randomBuff = new Enhancement("con", 4);
+	Item *helmet1 = new Item("Helmet", *randomBuff, "super mario hat");
+	Item *helmet2 = new Item("Helmet", *randomBuff, "super benny hat");
+	you->addItemBackpack(*helmet1);
+	you->addItemBackpack(*helmet2);
+	you->displayCharacterEquipment();
+	you->displayCharacterBackpack();
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~" << endl<< "ok lets try equip from backpack" << endl << "~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	you->equipItem(you->getCharacterBackpack()->getItemByName("super mario hat"));
+	you->removeItemfromBackpack("super mario hat");
+	you->displayCharacterEquipment();
+	you->displayCharacterBackpack();
+	//equip from backpack and replace existing
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~" << endl << "ok lets try equip from backpack and replace the existing one" << endl << "~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	you->addItemBackpack(you->getCharacterEquipment()->getItemByName("super mario hat"));
+	you->deEquipItem(you->getCharacterEquipment()->getItemByName("super mario hat").getType());
+	you->equipItem(you->getCharacterBackpack()->getItemByName("super benny hat"));
+	you->removeItemfromBackpack("super benny hat");
+	you->displayCharacterEquipment();
+	you->displayCharacterBackpack();
+
+
 	//Items for testing purpose
 	//Creating all the types of enhancements
 	Enhancement intelligence("Intelligence", 5);
