@@ -118,7 +118,7 @@ bool Item::validateHelmet()
 		givenEnhancements.getType().compare(helmetEnhancements[2])) {
 				return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to validate a armor, e.g verify that it contains only the allowed enhancements
@@ -132,7 +132,7 @@ bool Item::validateArmor()
 	if (givenEnhancements.getType().compare(armorEnhancements[0])) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to validate a shield, e.g verify that it contains only the allowed enhancements
@@ -146,7 +146,7 @@ bool Item::validateShield()
 	if (givenEnhancements.getType().compare(shieldEnhancements[0])) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to validate a ring, e.g verify that it contains only the allowed enhancements
@@ -165,7 +165,7 @@ bool Item::validateRing()
 		givenEnhancements.getType().compare(ringEnhancements[4])) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to validate a belt, e.g verify that it contains only the allowed enhancements
@@ -180,7 +180,7 @@ bool Item::validateBelt()
 		givenEnhancements.getType().compare(beltEnhancements[1])) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to validate a boots, e.g verify that it contains only the allowed enhancements
@@ -195,7 +195,7 @@ bool Item::validateBoots()
 		givenEnhancements.getType().compare(bootsEnhancements[1])) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to validate a weapon, e.g verify that it contains only the allowed enhancements
@@ -210,7 +210,7 @@ bool Item::validateWeapon()
 		givenEnhancements.getType().compare(weaponEnhancements[1])) {
 		return true;
 	}
-	return true;
+	return false;
 }
 
 //! method to get name of the item

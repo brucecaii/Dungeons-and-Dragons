@@ -542,7 +542,7 @@ void Events::respondToSaveMapCampaign(sf::RenderWindow& window, sf::Event& evt) 
 	}
 	else {
           GameData::currentItemObject = new Item(stringArgElements[1], *GameData::currentEnhancementObject, stringArgElements[0]);
-          if (!GameData::currentItemObject->validateItemType(stringArgElements[1]) || !GameData::currentItemObject->validateByType(stringArgElements[1])) {
+          if (!GameData::currentItemObject->validateItemType(stringArgElements[1]) || !GameData::currentItemObject->validateItem()) {
             cout << "ERROR: Enhancement bonus invalid";
             Gui::shouldShowItemValidationError = true;
             return;

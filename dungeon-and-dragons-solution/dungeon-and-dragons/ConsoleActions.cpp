@@ -1,7 +1,7 @@
 #include "ConsoleActions.h"
 
 void ConsoleActions::initializeCharacterViews() {
-	for (int i = 0; i < GameData::availableCharacters.size(); i++)
+	for (size_t i = 0; i < GameData::availableCharacters.size(); i++)
 	{
 		CharacterObserver* tempObs = new CharacterObserver(GameData::availableCharacters[i]);
 	}
@@ -51,7 +51,7 @@ void ConsoleActions::triggerInventoryView() {
 		cin >> inventoryIndex;
 
 		//If index is out of bound
-		if (inventoryIndex > GameData::currentCharacterObject->getCharacterBackpack()->getItems().size())
+		if ((size_t)inventoryIndex > GameData::currentCharacterObject->getCharacterBackpack()->getItems().size())
 		{
 			cout << "Not a valid entry." << endl;
 			return;
@@ -97,7 +97,7 @@ void ConsoleActions::triggerCharacterView() {
 	cout << "Triggering Character Views" << endl;
 	cout << "===============================" << endl;
 
-	for (int i = 0; i < GameData::availableCharacters.size(); i++)
+	for (size_t i = 0; i < GameData::availableCharacters.size(); i++)
 	{
 		cout << "[" + to_string(i) + "] " + GameData::availableCharacters[i]->getTypeInString()
 			+ " [" + to_string(GameData::availableCharacters[i]->getTrigger()) + "]" << endl;
