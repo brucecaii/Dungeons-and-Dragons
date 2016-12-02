@@ -43,10 +43,25 @@ action methods
 */
 
 void Character::equipItem(Item item) {
-	if (characterEquipment->getItemByType(item.getType()).getType()=="") {
-		changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
-		characterEquipment->addItem(item);
+	if (this->characterEquipment->getItemByType(item.getType()).getType()=="") {
+		this->changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
+		this->characterEquipment->addItem(item);
+		this->characterBackpack->deleteItem(item.getName());
 	}
+	else if (this->characterEquipment->getItemByType(item.getType()).getType() == item.getType()) {
+		this->changeAttr(
+			this->characterEquipment->getItemByType(item.getType()).getEnhancement().getType(),
+			this->characterEquipment->getItemByType(item.getType()).getEnhancement().getBonus(),
+			"-"
+		);
+		this->characterBackpack->addItem(this->characterEquipment->getItemByType(item.getType()));
+		this->characterEquipment->deleteItemByType(item.getType());
+		this->changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
+		this->characterEquipment->addItem(item);
+		this->characterBackpack->deleteItem(item.getName());
+	}
+
+	Notify();
 }
 
 void Character::deEquipItem(string typeofItem) {
@@ -54,6 +69,7 @@ void Character::deEquipItem(string typeofItem) {
 		Item current = characterEquipment->getItemByType(typeofItem);
 		changeAttr(current.getEnhancement().getType(), current.getEnhancement().getBonus(), "-");
 		characterEquipment->deleteItemByType(typeofItem);
+		Notify();
 	}
 }
 
@@ -140,6 +156,7 @@ void Character::levelUp() {
 		}
 		this->setAttackBonus(attackBonus);
 	}
+	Notify();
 }
 
 bool Character::validateNewCharacter() {
@@ -187,9 +204,10 @@ void Character::lootCharacter(Character* character) {
 	}
 }
 
-string Character::getTypeInString(char c)
+string Character::getTypeInString()
 {
 	string objName;
+	char c = this->getTypeOnMap();
 	if (c == 'S')
 		objName = "Human Character";
 	if (c == 'C')
@@ -205,7 +223,7 @@ void Character::displayCharacterInfo()
 	auto characterAttributes = this->getCharacterAttr();
 	auto attackBonus = this->getAttackBonus();
 
-	string currentCharType = getTypeInString(this->getTypeOnMap());
+	string currentCharType = getTypeInString();
 	string currentLevel = to_string(this->getLevel());
 	string currentHitPoint = to_string(this->getHitPoint());
 	string currentArmorClass= to_string(this->getArmorClass());
@@ -288,6 +306,7 @@ int Character::getHitPoint() const {
 
 void Character::setHitPoint(int hitPoint) {
 	this->hitPoint = hitPoint;
+	Notify();
 }
 
 int Character::getArmorClass() const {

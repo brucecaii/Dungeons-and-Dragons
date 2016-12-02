@@ -8,6 +8,9 @@
 #include "Character/FriendlyStrategy.h"
 #include "Character/HumanPlayerStrategy.h"
 #include "GUI/Gui.h"
+#include "CharacterObserver.h"
+#include <thread>
+#include "ConsoleActions.h"
 
 #include <iostream>
 using namespace std;
@@ -18,6 +21,29 @@ using namespace std::this_thread;
 //! Runs the main map creation program:
 int main(int argc, char* argv[]) {
 
+	/*
+	Create Item
+	*/
+	string itemName = "Jason's Mind"; //prompt user input of this
+	string itemType = "Helmet"; //prompt user input of this
+	string itemEnhancement = "wis"; //prompt user input of this
+	int enhancementBonus = 5; //prompt user input of this
+
+	Enhancement *enhancement = new Enhancement(itemEnhancement, enhancementBonus);
+	if (!enhancement->validateBonus()) {
+		//ask user to re-create item
+	}
+	else {
+		Item *newItem = new Item(itemType, *enhancement, itemName);
+		if (!newItem->validateItemType(itemType) || !newItem->validateByType(itemType)) {
+			//ask user to re-create
+			cout << "nope you are wrong!" << endl;
+		}
+		else {
+			ItemFileIO mfio;
+			mfio.saveItem(itemName, *newItem);
+		}
+	}
 
 	/*
 	Load Item
@@ -50,15 +76,31 @@ int main(int argc, char* argv[]) {
 	characterMaker.createCharacter(); //make coffee
 	Fighter *you = characterMaker.getCharacter(); //you get a cup of espresso
 
-	enermy->displayCharacterInfo();
-	enermy->displayCharacterEquipment();
-	enermy->displayCharacterBackpack();
-	myBoy->displayCharacterInfo();
-	myBoy->displayCharacterEquipment();
-	myBoy->displayCharacterBackpack();
+
+	//equip from backpack 
+	cout << endl << endl << endl << endl << "equip test!!!!!!!!!!!!!" << endl;
+	Enhancement *randomBuff1 = new Enhancement("con", 4);
+	Enhancement *randomBuff2 = new Enhancement("int", 5);
+	Item *helmet1 = new Item("Helmet", *randomBuff1, "super mario hat");
+	Item *helmet2 = new Item("Helmet", *randomBuff2, "super benny hat");
+	you->addItemBackpack(*helmet1);
+	you->addItemBackpack(*helmet2);
 	you->displayCharacterInfo();
 	you->displayCharacterEquipment();
 	you->displayCharacterBackpack();
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~" << endl<< "ok lets try equip from backpack" << endl << "~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	you->equipItem(you->getCharacterBackpack()->getItemByName("super mario hat"));
+	you->displayCharacterInfo();
+	you->displayCharacterEquipment();
+	you->displayCharacterBackpack();
+	//equip from backpack and replace existing
+	cout << "~~~~~~~~~~~~~~~~~~~~~~~" << endl << "ok lets try equip from backpack and replace the existing one" << endl << "~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	you->equipItem(you->getCharacterBackpack()->getItemByName("super benny hat"));
+	you->displayCharacterInfo();
+	you->displayCharacterEquipment();
+	you->displayCharacterBackpack();
+
+
 
 	//Items for testing purpose
 	//Creating all the types of enhancements
@@ -140,6 +182,7 @@ int main(int argc, char* argv[]) {
       /////////////////////
       // SCENE SELECTION //
       /////////////////////
+
       if (Gui::isSelectingChoice)
         Gui::uiManager.isSelectingChoice(window);
 
@@ -179,6 +222,7 @@ int main(int argc, char* argv[]) {
         Gui::uiManager.isCreatingOrEditingItem(window);
       }
       if (Gui::isPlayingGame) {
+		//thread consoleActions(ConsoleActions::consoleGameplayOptions);
         for (int i = 0; i < (int)GameData::gameCharacters.size(); i++) {
           GameData::gameCharacters[i]->executeStrategy(*GameData::currentMapObject);
         }
@@ -190,7 +234,6 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
 
 //int main() {
 

@@ -24,5 +24,6 @@ namespace GameData {
   extern GameLogger* diceLogger;
   extern GameLogger* eventLogger;
   extern GameLogger* mapLogger;
+  extern GameLogger* characterLogger;
 }
 
