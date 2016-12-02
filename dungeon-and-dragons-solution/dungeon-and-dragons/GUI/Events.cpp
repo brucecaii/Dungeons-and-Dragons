@@ -2,6 +2,7 @@
 //! @brief Implementation file for the Events class
 //!
 #include <iostream>
+#include "../ConsoleActions.h"
 #include <algorithm>
 #include <random>
 #include <chrono>
@@ -84,6 +85,21 @@ void Events::respondToSelectionBoxClick(sf::RenderWindow& window, sf::Event& evt
       }
       if (Gui::playPosition.contains(mousePosition)) {
 		  UpdateLog("Events", "respondToSelectionBoxClick", "Player has selected PLAY GAME.");
+        Gui::current_campaigns = util.readCurrentDirectoryContents("campaign");
+        Gui::current_maps = util.readCurrentDirectoryContents("map");
+        Gui::current_characters = util.readCurrentDirectoryContents("character");
+        Gui::isSelectingChoice = false;
+        Gui::isChoosingCampaignToPlay = true;
+      }
+      if (Gui::consoleButtonPosition.contains(mousePosition)) {
+		  UpdateLog("Events", "respondToSelectionBoxClick", "Play activated Console");
+
+
+
+        ConsoleActions::initializeCharacterViews();
+
+
+
         Gui::current_campaigns = util.readCurrentDirectoryContents("campaign");
         Gui::current_maps = util.readCurrentDirectoryContents("map");
         Gui::current_characters = util.readCurrentDirectoryContents("character");
@@ -783,6 +799,30 @@ void Events::respondToCampaignMapOrderClick(sf::RenderWindow& window, sf::Event&
 
 void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt) {
   if (Gui::isPlayingGame) {
+    
+    if (evt.type == sf::Event::MouseButtonReleased && evt.mouseButton.button == sf::Mouse::Left) {
+      sf::Vector2f mousePosition(sf::Mouse::getPosition(window));
+      Utils util;
+      if (Gui::consoleButtonPosition.contains(mousePosition)) {
+
+
+
+
+		  UpdateLog("Events", "respondToSelectionBoxClick", "Play activated Console");
+
+
+
+        ConsoleActions::initializeCharacterViews();
+
+
+
+        Gui::current_campaigns = util.readCurrentDirectoryContents("campaign");
+        Gui::current_maps = util.readCurrentDirectoryContents("map");
+        Gui::current_characters = util.readCurrentDirectoryContents("character");
+      }
+    }
+    
+
 
     if (Gui::hasReachedEndOfMap) {
       cout << "reached end of map" << endl;

@@ -40,6 +40,7 @@ namespace Gui{
   sf::FloatRect saveButtonPosition;
 
   sf::FloatRect createMapPosition;
+  sf::FloatRect consoleButtonPosition;
   sf::FloatRect editMapPosition;
   sf::FloatRect createCampaignPosition;
   sf::FloatRect editCampaignPosition;
