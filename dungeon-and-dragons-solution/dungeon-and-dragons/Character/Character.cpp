@@ -60,6 +60,8 @@ void Character::equipItem(Item item) {
 		this->characterEquipment->addItem(item);
 		this->characterBackpack->deleteItem(item.getName());
 	}
+
+	Notify();
 }
 
 void Character::deEquipItem(string typeofItem) {
@@ -67,6 +69,7 @@ void Character::deEquipItem(string typeofItem) {
 		Item current = characterEquipment->getItemByType(typeofItem);
 		changeAttr(current.getEnhancement().getType(), current.getEnhancement().getBonus(), "-");
 		characterEquipment->deleteItemByType(typeofItem);
+		Notify();
 	}
 }
 
@@ -153,6 +156,7 @@ void Character::levelUp() {
 		}
 		this->setAttackBonus(attackBonus);
 	}
+	Notify();
 }
 
 bool Character::validateNewCharacter() {
