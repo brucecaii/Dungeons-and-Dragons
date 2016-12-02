@@ -21,6 +21,7 @@ class Events : public Subject {
     void respondToCampaignAvailableMapsClick(sf::RenderWindow& window, sf::Event& evt);
     void respondToCampaignMapOrderClick(sf::RenderWindow& window, sf::Event& evt);
     void respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt);
+    void loadCharactersOnNewMap();
 };
 
 

@@ -212,85 +212,9 @@ void Events::respondToFileSelectionClick(sf::RenderWindow& window, sf::Event& ev
           MapCampaignFileIO mfio;
           mfio.readMapJSON(Gui::playedMap+".map");
 
-          vector<tuple<char,int,int>> characterPositions = GameData::currentMapObject->getAllCharacterPositions();
-          Gui::tempGameCharacters.clear();
 
-          cout << "Going to check for existing chars in gameCharacters. its size: " << GameData::gameCharacters.size() << endl;
+          this->loadCharactersOnNewMap();
 
-          for (int i = 0; i < (int)characterPositions.size(); i++) {
-            for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
-              if (std::get<0>(characterPositions[i]) == 'S') {
-                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                GameData::currentCharacterObject->setCurrentPosition(currentPosition);
-                GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
-                Gui::tempGameCharacters.push_back(GameData::currentCharacterObject);
-                cout << "pushed back main character!" << endl;
-              } else if (GameData::gameCharacters.size()>0 &&
-                  GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
-                  GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
-                  GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
-                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                GameData::gameCharacters[i]->setCurrentPosition(currentPosition);
-                Gui::tempGameCharacters.push_back(GameData::gameCharacters[i]);
-                cout << "pushed back existing character" << endl;
-              }
-            }
-          }
-
-
-          // Removed all gameCharacters that were not on the Map.
-          GameData::gameCharacters = Gui::tempGameCharacters;
-
-          cout << "size of gameCharacters" << GameData::gameCharacters.size() << endl;
-          cout << GameData::gameCharacters[0]->getPlayerType() << endl;
-          cout << GameData::gameCharacters[0]->getTypeOnMap() << endl;
-          // Also need to scale each to the campaign level
-          // Also need to make sure that the 'S' Character is always consistent across maps in campaign
-
-          // Now add defaults for all that were not specified
-          CharacterGenerator selectHero;
-          CharacterBuilder* builder;
-          for (int i = 0; i < (int)characterPositions.size(); i++) {
-            bool shouldMakeDefaultChar = true;
-            for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
-              cout << "About to test getTypeOnMap" << GameData::gameCharacters.size() << endl;
-              if (GameData::gameCharacters[j]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
-                  GameData::gameCharacters[j]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
-                  GameData::gameCharacters[j]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
-                shouldMakeDefaultChar  = false;
-              }
-            }
-            if (shouldMakeDefaultChar) {
-              cout << "making default character" << GameData::gameCharacters.size() << endl;
-              if (std::get<0>(characterPositions[i]) == 'C') {
-                builder = new FriendlyCharacterBuilder("Nimble", 1); // Default is set to Nimble type and lvl1
-                selectHero.setCharacterBuilder(builder);
-                selectHero.createCharacter();
-                Gui::tempCharacter = selectHero.getCharacter();
-                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                Gui::tempCharacter->setCurrentPosition(currentPosition);
-                Gui::tempCharacter->setTypeOnMap('C');
-                Gui::tempGameCharacters.push_back(Gui::tempCharacter);
-                GameData::gameCharacters.push_back(Gui::tempCharacter);
-              }
-              if (std::get<0>(characterPositions[i]) == 'O') {
-                builder = new AggressorCharacterBuilder("Nimble", 1);
-                selectHero.setCharacterBuilder(builder);
-                selectHero.createCharacter();
-                Gui::tempCharacter = selectHero.getCharacter();
-                vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
-                Gui::tempCharacter->setCurrentPosition(currentPosition);
-                Gui::tempCharacter->setTypeOnMap('O');
-                Gui::tempGameCharacters.push_back(Gui::tempCharacter);
-                GameData::gameCharacters.push_back(Gui::tempCharacter);
-              }
-            }
-          }
-
-          cout << "Number of GameCharacters" << GameData::gameCharacters.size() << endl;
-
-
-            //// ALSO CHECK FOR CHEST CONTENTS HERE
         }
       }
     }
@@ -780,13 +704,20 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt
   if (Gui::isPlayingGame) {
 
     if (Gui::hasReachedEndOfMap) {
+      cout << "reached end of map" << endl;
       Gui::hasReachedEndOfMap = false;
       Gui::GamePlayCurrentMap++;
       if (Gui::GamePlayCurrentMap != (int)GameData::currentCampaignObject->getCampaignMapOrder().size()) {
-        GameData::currentCharacterObject->levelUp();
+
         Gui::playedMap = GameData::currentCampaignObject->getCampaignMapOrder()[Gui::GamePlayCurrentMap];
         MapCampaignFileIO mfio;
         mfio.readMapJSON(Gui::playedMap+".map");
+
+        // Load all characters on new map;
+        this->loadCharactersOnNewMap();
+
+        // Level up every character in gameCharacters, by the number of GamePlayCurrentMap
+        //
         //GameData::currentMapObject->setCurrentPosition();
       }
       else {
@@ -794,26 +725,90 @@ void Events::respondToPlayingGameEvents(sf::RenderWindow& window, sf::Event& evt
         exit(0);
       }
     }
-
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
-      ////GameData::currentMapObject->openChest();
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
-      ////GameData::currentCharacterObject->displayCharacter();
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-      ////GameData::currentMapObject->moveLeft();
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-      ////GameData::currentMapObject->moveRight();
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-      ////GameData::currentMapObject->moveUp();
-    //}
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-      ////GameData::currentMapObject->moveDown();
-    //}
   }
+}
+
+void Events::loadCharactersOnNewMap() {
+  vector<tuple<char,int,int>> characterPositions = GameData::currentMapObject->getAllCharacterPositions();
+  Gui::tempGameCharacters.clear();
+
+  cout << "Going to check for existing chars in gameCharacters. its size: " << GameData::gameCharacters.size() << endl;
+
+  for (int i = 0; i < (int)characterPositions.size(); i++) {
+    for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
+      if (std::get<0>(characterPositions[i]) == 'S') {
+        vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+        GameData::currentCharacterObject->setCurrentPosition(currentPosition);
+        GameData::currentCharacterObject->setStrategy(new HumanPlayerStrategy());
+        Gui::tempGameCharacters.push_back(GameData::currentCharacterObject);
+        cout << "pushed back main character!" << endl;
+      } else if (GameData::gameCharacters.size()>0 &&
+          GameData::gameCharacters[i]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
+          GameData::gameCharacters[i]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
+          GameData::gameCharacters[i]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
+        vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+        GameData::gameCharacters[i]->setCurrentPosition(currentPosition);
+        Gui::tempGameCharacters.push_back(GameData::gameCharacters[i]);
+        cout << "pushed back existing character" << endl;
+      }
+    }
+  }
+
+
+  // Removed all gameCharacters that were not on the Map.
+  GameData::gameCharacters = Gui::tempGameCharacters;
+
+  cout << "size of gameCharacters" << GameData::gameCharacters.size() << endl;
+  cout << GameData::gameCharacters[0]->getPlayerType() << endl;
+  cout << GameData::gameCharacters[0]->getTypeOnMap() << endl;
+  // Also need to scale each to the campaign level
+  // Also need to make sure that the 'S' Character is always consistent across maps in campaign
+
+  // Now add defaults for all that were not specified
+  CharacterGenerator selectHero;
+  CharacterBuilder* builder;
+  for (int i = 0; i < (int)characterPositions.size(); i++) {
+    bool shouldMakeDefaultChar = true;
+    for (int j = 0; j < (int)GameData::gameCharacters.size(); j++) {
+      cout << "About to test getTypeOnMap" << GameData::gameCharacters.size() << endl;
+      if (GameData::gameCharacters[j]->getTypeOnMap() == std::get<0>(characterPositions[i]) &&
+          GameData::gameCharacters[j]->getCurrentPosition()[0] == std::get<1>(characterPositions[i]) &&
+          GameData::gameCharacters[j]->getCurrentPosition()[1] == std::get<2>(characterPositions[i])) {
+        shouldMakeDefaultChar  = false;
+      }
+    }
+    if (shouldMakeDefaultChar) {
+      cout << "making default character" << GameData::gameCharacters.size() << endl;
+      if (std::get<0>(characterPositions[i]) == 'C') {
+        builder = new FriendlyCharacterBuilder("Nimble", 1); // Default is set to Nimble type and lvl1
+        selectHero.setCharacterBuilder(builder);
+        selectHero.createCharacter();
+        Gui::tempCharacter = selectHero.getCharacter();
+        vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+        Gui::tempCharacter->setCurrentPosition(currentPosition);
+        Gui::tempCharacter->setTypeOnMap('C');
+        Gui::tempGameCharacters.push_back(Gui::tempCharacter);
+        GameData::gameCharacters.push_back(Gui::tempCharacter);
+      }
+      if (std::get<0>(characterPositions[i]) == 'O') {
+        builder = new AggressorCharacterBuilder("Nimble", 1);
+        selectHero.setCharacterBuilder(builder);
+        selectHero.createCharacter();
+        Gui::tempCharacter = selectHero.getCharacter();
+        vector<int> currentPosition = {std::get<1>(characterPositions[i]), std::get<2>(characterPositions[i])};
+        Gui::tempCharacter->setCurrentPosition(currentPosition);
+        Gui::tempCharacter->setTypeOnMap('O');
+        Gui::tempGameCharacters.push_back(Gui::tempCharacter);
+        GameData::gameCharacters.push_back(Gui::tempCharacter);
+      }
+    }
+  }
+
+  cout << "Number of GameCharacters" << GameData::gameCharacters.size() << endl;
+
+
+    //// ALSO CHECK FOR CHEST CONTENTS HERE
+
 }
 
 
