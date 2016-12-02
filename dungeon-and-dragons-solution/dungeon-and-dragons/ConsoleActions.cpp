@@ -12,7 +12,7 @@ void ConsoleActions::consoleGameplayOptions() {
 	cout << "===============================" << endl;
 	cout << "Character Menu" << endl;
 	cout << "===============================" << endl;
-	cout << "(1) Inventory View      (2) Toggle Character View" << endl;
+	cout << "(1) Inventory View      (2) Toggle Character View      (3) View Yourself"<< endl;
 	cout << "Please enter your choice: " << endl;
 	cin >> option;
 
@@ -21,6 +21,9 @@ void ConsoleActions::consoleGameplayOptions() {
 	}
 	else if (option == 2) {
 		triggerCharacterView();
+	}
+	else if (option == 3) {
+		GameData::currentCharacterObject->displayCharacterInfo();
 	}
 }
 
@@ -97,10 +100,14 @@ void ConsoleActions::triggerCharacterView() {
 	cout << "Triggering Character Views" << endl;
 	cout << "===============================" << endl;
 
+<<<<<<< HEAD
 	for (size_t i = 0; i < GameData::availableCharacters.size(); i++)
+=======
+	for (int i = 0; i < GameData::gameCharacters.size(); i++)
+>>>>>>> f1bec120a407390bde7e24f9dcf60842dd212a26
 	{
-		cout << "[" + to_string(i) + "] " + GameData::availableCharacters[i]->getTypeInString()
-			+ " [" + to_string(GameData::availableCharacters[i]->getTrigger()) + "]" << endl;
+		cout << "[" + to_string(i) + "] " + GameData::gameCharacters[i]->getTypeInString()
+			+ " [" + to_string(GameData::gameCharacters[i]->getTrigger()) + "]" << endl;
 	}
 
 	//Get input from user
@@ -110,16 +117,16 @@ void ConsoleActions::triggerCharacterView() {
 
 	if (choice != 999) {
 		//Triggering on/off
-		bool currentTrigger = (GameData::availableCharacters[choice]->getTrigger());
+		bool currentTrigger = (GameData::gameCharacters[choice]->getTrigger());
 
 		if (currentTrigger == false) {
-			GameData::availableCharacters[choice]->turnOnView();
-			GameData::availableCharacters[choice]->displayCharacterInfo();
-			cout << GameData::availableCharacters[choice]->getTypeInString() + " view turned on." << endl;
+			GameData::gameCharacters[choice]->turnOnView();
+			GameData::gameCharacters[choice]->displayCharacterInfo();
+			cout << GameData::gameCharacters[choice]->getTypeInString() + " view turned on." << endl;
 		}
 		else {
-			GameData::availableCharacters[choice]->turnOffView();
-			cout << GameData::availableCharacters[choice]->getTypeInString() + " view turned off." << endl;
+			GameData::gameCharacters[choice]->turnOffView();
+			cout << GameData::gameCharacters[choice]->getTypeInString() + " view turned off." << endl;
 		}
 	}
 

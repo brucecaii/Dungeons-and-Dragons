@@ -56,7 +56,9 @@ void Character::equipItem(Item item) {
 	if (this->characterEquipment->getItemByType(item.getType()).getType()=="") {
 		this->changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
 		this->characterEquipment->addItem(item);
-		this->characterBackpack->deleteItem(item.getName());
+		if (this->characterBackpack->getItemByName(item.getName()).getName() == item.getName()) {
+			this->characterBackpack->deleteItem(item.getName());
+		}
 	}
 	else if (this->characterEquipment->getItemByType(item.getType()).getType() == item.getType()) {
 		this->changeAttr(
@@ -68,7 +70,9 @@ void Character::equipItem(Item item) {
 		this->characterEquipment->deleteItemByType(item.getType());
 		this->changeAttr(item.getEnhancement().getType(), item.getEnhancement().getBonus(), "+");
 		this->characterEquipment->addItem(item);
-		this->characterBackpack->deleteItem(item.getName());
+		if (this->characterBackpack->getItemByName(item.getName()).getName() == item.getName()) {
+			this->characterBackpack->deleteItem(item.getName());
+		}
 	}
 
 	Notify();
@@ -83,6 +87,7 @@ void Character::deEquipItem(string typeofItem) {
 		Item current = characterEquipment->getItemByType(typeofItem);
 		changeAttr(current.getEnhancement().getType(), current.getEnhancement().getBonus(), "-");
 		characterEquipment->deleteItemByType(typeofItem);
+		this->characterBackpack->addItem(current);
 		Notify();
 	}
 }
