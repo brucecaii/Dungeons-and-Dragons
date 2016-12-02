@@ -95,37 +95,44 @@ void HumanPlayerStrategy::canAttackOneAdjacentCharacter(Map& m, Character& c) {
       (m.getCell(charPosX-1, charPosY) == 'C' ||
        m.getCell(charPosX-1, charPosY) == 'O')) {
     string answer;
-    cout << "ATTACK: Do you want to attack the character above you? Enter [y] or [n]." << endl;
-    getline(cin, answer);
-    if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
-      this->attackCharacterAtPosition(c,charPosX-1, charPosY);
-    }
-  } else if (charPosY>0 &&
-      (m.getCell(charPosX, charPosY-1) == 'C' ||
-       m.getCell(charPosX, charPosY-1) == 'O')) {
-    string answer;
     cout << "ATTACK: Do you want to attack the character to your left? Enter [y] or [n]." << endl;
     getline(cin, answer);
     if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
-      this->attackCharacterAtPosition(c,charPosX, charPosY-1);
+      this->attackCharacterAtPosition(c,charPosX-1, charPosY);
+      return;
     }
-  } else if (charPosX<m.getMapWidth()-1 &&
-      (m.getCell(charPosX+1, charPosY) == 'C' ||
-       m.getCell(charPosX+1, charPosY) == 'O')) {
+  }
+  if (charPosY>0 &&
+      (m.getCell(charPosX, charPosY-1) == 'C' ||
+       m.getCell(charPosX, charPosY-1) == 'O')) {
     string answer;
-    cout << "ATTACK: Do you want to attack the character below you? Enter [y] or [n]." << endl;
+    cout << "ATTACK: Do you want to attack the character above you? Enter [y] or [n]." << endl;
     getline(cin, answer);
     if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
-      this->attackCharacterAtPosition(c,charPosX+1, charPosY);
+      this->attackCharacterAtPosition(c,charPosX, charPosY-1);
+      return;
     }
-  } else if (charPosY<m.getMapLength()-1 &&
-      (m.getCell(charPosX, charPosY+1) == 'C' ||
-       m.getCell(charPosX, charPosY+1) == 'O')) {
+  }
+  if (charPosX<m.getMapWidth()-1 &&
+      (m.getCell(charPosX+1, charPosY) == 'C' ||
+       m.getCell(charPosX+1, charPosY) == 'O')) {
     string answer;
     cout << "ATTACK: Do you want to attack the character to your right? Enter [y] or [n]." << endl;
     getline(cin, answer);
     if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
+      this->attackCharacterAtPosition(c,charPosX+1, charPosY);
+      return;
+    }
+  }
+  if (charPosY<m.getMapLength()-1 &&
+      (m.getCell(charPosX, charPosY+1) == 'C' ||
+       m.getCell(charPosX, charPosY+1) == 'O')) {
+    string answer;
+    cout << "ATTACK: Do you want to attack the character below you? Enter [y] or [n]." << endl;
+    getline(cin, answer);
+    if (answer.size()>0 && tolower(answer.at(0)) == 'y') {
       this->attackCharacterAtPosition(c,charPosX, charPosY+1);
+      return;
     }
   }
 }
