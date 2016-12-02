@@ -23,16 +23,16 @@ int main(int argc, char* argv[]) {
 	*/
 	string itemName = "Jason's Mind"; //prompt user input of this
 	string itemType = "Helmet"; //prompt user input of this
-	string itemEnhancement = "wis"; //prompt user input of this
+	string enhancementType = "wis"; //prompt user input of this
 	int enhancementBonus = 5; //prompt user input of this
 
-	Enhancement *enhancement = new Enhancement(itemEnhancement, enhancementBonus);
+	Enhancement *enhancement = new Enhancement(enhancementType, enhancementBonus);
 	if (!enhancement->validateBonus()) {
 		//ask user to re-create item
 	}
 	else {
 		Item *newItem = new Item(itemType, *enhancement, itemName);
-		if (!newItem->validateItemType(itemType) || !newItem->validateByType(itemType)) {
+		if (!newItem->validateItemType(itemType) || !newItem->validateItem()) {
 			//ask user to re-create
 			cout << "nope you are wrong!" << endl;
 		}
