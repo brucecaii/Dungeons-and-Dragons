@@ -1,0 +1,15 @@
+﻿  Driver.cpp
+  ConsoleActions.cpp
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(103): error C2059: syntax error: '<<'
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(104): error C2065: 'i': undeclared identifier
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(104): error C2059: syntax error: ')'
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(105): error C2059: syntax error: '=='
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(106): error C2065: 'i': undeclared identifier
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(106): error C2059: syntax error: ')'
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(107): error C2059: syntax error: '>>'
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(108): error C2143: syntax error: missing ';' before '{'
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(109): error C2065: 'i': undeclared identifier
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(109): error C2227: left of '->getTypeInString' must point to class/struct/union/generic type
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(110): error C2065: 'i': undeclared identifier
+g:\onedrive\private resource\projects\dungeons-and-jason\dungeon-and-dragons-solution\dungeon-and-dragons\consoleactions.cpp(110): error C2227: left of '->getTrigger' must point to class/struct/union/generic type
+  Generating Code...
